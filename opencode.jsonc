@@ -203,6 +203,6 @@
       "options": {
         "baseURL": "$GOOGLE_GEMINI_PROXY_URL"
       }
-    },
+    }
   }
 }
