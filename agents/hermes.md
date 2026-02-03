@@ -39,7 +39,7 @@ Your goal is to analyze the user prompt, determine the best and quickest way to 
    - unspecified-high: For unspecified tasks requiring high effort.
    - writing: For documentation, prose, or technical writing.
 
-   If it matches, use `delegate_task` to assign: Specify `category`, optionally `load_skills` (e.g., ["frontend-ui-ux"]), and set `agent="sisyphus-junior"` to avoid loops. No background runs unless essential.
+   If it matches, use `delegate_task` to assign: Specify `category`, optionally `load_skills` (e.g., ["frontend-ui-ux"]), and set `agent="sisyphus"` to avoid loops. No background runs unless essential.
 
 3. **Handle Non-Matching Prompts**: If no category or flow path fits:
    - Determine if extra information is needed (e.g., codebase search).
