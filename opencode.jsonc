@@ -1,0 +1,208 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "figma-desktop": {
+      "enabled": true,
+      "type": "remote",
+      "url": "http://127.0.0.1:3845/mcp"
+    },
+    "github": {
+      "enabled": true,
+      "headers": {
+        "Authorization": "Bearer $GITHUB_PAT_TOKEN"
+      },
+      "type": "remote",
+      "url": "https://api.githubcopilot.com/mcp"
+    },
+    "jira": {
+      "command": [
+        "uvx",
+        "mcp-atlassian"
+      ],
+      "enabled": true,
+      "environment": {
+        "CONFLUENCE_API_TOKEN": "$CONFLUENCE_API_TOKEN",
+        "CONFLUENCE_URL": "$CONFLUENCE_URL",
+        "CONFLUENCE_USERNAME": "$CONFLUENCE_USERNAME",
+        "JIRA_API_TOKEN": "$JIRA_API_TOKEN",
+        "JIRA_URL": "$JIRA_URL",
+        "JIRA_USERNAME": "$JIRA_USERNAME"
+      },
+      "type": "local"
+    },
+    "serena": {
+      "command": [
+        "uvx",
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--context",
+        "ide-assistant",
+        "--open-web-dashboard",
+        "False"
+      ],
+      "enabled": true,
+      "type": "local"
+    }
+  },
+  "permission": {
+    "skill": "allow",
+    "todoread": "allow",
+    "todowrite": "allow"
+  },
+  "plugin": [
+    "oh-my-opencode@latest",
+    "opencode-antigravity-auth@latest",
+    "@nick-vi/opencode-type-inject@latest",
+    "opencode-supermemory@latest"
+  ],
+  "enabled_providers": [
+    "google",
+    "opencode",
+    "ollama-cloud",
+    "zai-coding-plan",
+    "xai"
+  ],
+  "provider": {
+    "google": {
+      "models": {
+        "antigravity-claude-opus-4-5-thinking": {
+          "limit": {
+            "context": 200000,
+            "output": 64000
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Claude Opus 4.5 Thinking (Antigravity)",
+          "variants": {
+            "low": {
+              "thinkingConfig": {
+                "thinkingBudget": 8192
+              }
+            },
+            "max": {
+              "thinkingConfig": {
+                "thinkingBudget": 32768
+              }
+            }
+          }
+        },
+        "antigravity-claude-sonnet-4-5": {
+          "limit": {
+            "context": 200000,
+            "output": 64000
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Claude Sonnet 4.5 (Antigravity)"
+        },
+        "antigravity-claude-sonnet-4-5-thinking": {
+          "limit": {
+            "context": 200000,
+            "output": 64000
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Claude Sonnet 4.5 Thinking (Antigravity)",
+          "variants": {
+            "low": {
+              "thinkingConfig": {
+                "thinkingBudget": 8192
+              }
+            },
+            "max": {
+              "thinkingConfig": {
+                "thinkingBudget": 32768
+              }
+            }
+          }
+        },
+        "antigravity-gemini-3-flash": {
+          "limit": {
+            "context": 1048576,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Gemini 3 Flash (Antigravity)",
+          "variants": {
+            "high": {
+              "thinkingLevel": "high"
+            },
+            "low": {
+              "thinkingLevel": "low"
+            },
+            "medium": {
+              "thinkingLevel": "medium"
+            },
+            "minimal": {
+              "thinkingLevel": "minimal"
+            }
+          }
+        },
+        "antigravity-gemini-3-pro": {
+          "limit": {
+            "context": 1048576,
+            "output": 65535
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Gemini 3 Pro (Antigravity)",
+          "variants": {
+            "high": {
+              "thinkingLevel": "high"
+            },
+            "low": {
+              "thinkingLevel": "low"
+            }
+          }
+        }
+      },
+      "name": "Google",
+      "options": {
+        "baseURL": "$GOOGLE_GEMINI_PROXY_URL"
+      }
+    },
+  }
+}
