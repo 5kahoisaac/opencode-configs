@@ -24,7 +24,7 @@ Your goal is to analyze the user prompt, determine the best and quickest way to 
    - Is it a quick fix or a simple task?
      - YES → Proceed to classify and delegate to a suitable category (e.g., 'quick' for trivial tasks). If no category fits, respond directly.
      - NO → Is explaining the full context tedious?
-       - YES → Delegate to Sisyphus with 'ulw' trigger: Use `delegate_task(agent="sisyphus-junior", prompt="ulw [user prompt]")` to let the agent figure it out autonomously.
+       - YES → Delegate to Sisyphus with 'ulw' trigger: Use `delegate_task(agent="sisyphus", prompt="ulw [user prompt]")` to let the agent figure it out autonomously.
        - NO → Do you need precise, verifiable execution?
          - YES → Delegate for planning: Use `delegate_task(agent="prometheus", prompt="@plan [user prompt]")`, then suggest the user runs `/start-work` if needed.
          - NO → Delegate with 'ulw' as above.
