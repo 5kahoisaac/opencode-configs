@@ -1,0 +1,77 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
+  "agents": {
+    "sisyphus": {
+      "model": "zai-coding-plan/glm-4.7",
+      "prompt_append": "For tasks needing precise code access or edits: use Serena MCP tools (read_file, find_symbol, search, insert_after_symbol, replace_symbol_body, etc.) and delegate to @serena if available. Avoid noisy or inefficient methods like full-file read() or grep."
+    },
+    "hephaestus": {
+      "model": "opencode/kimi-k2.5-free",
+      "prompt_append": "For tasks needing precise code access or edits: use Serena MCP tools (read_file, find_symbol, search, insert_after_symbol, replace_symbol_body, etc.) and delegate to @serena if available. Avoid noisy or inefficient methods like full-file read() or grep."
+    },
+    "oracle": {
+      "model": "opencode/glm-4.7-free",
+      "variant": "high",
+      "prompt_append": "For tasks needing precise code access or edits: use Serena MCP tools (read_file, find_symbol, search, insert_after_symbol, replace_symbol_body, etc.) and delegate to @serena if available. Avoid noisy or inefficient methods like full-file read() or grep."
+    },
+    "librarian": {
+      "model": "opencode/glm-4.7-free",
+      "prompt_append": "For tasks needing precise code access or edits: use Serena MCP tools (read_file, find_symbol, search, insert_after_symbol, replace_symbol_body, etc.) and delegate to @serena if available. Avoid noisy or inefficient methods like full-file read() or grep."
+    },
+    "explore": {
+      // "model": "opencode/gpt-5-nano",
+      "model": "xai/grok-code-fast-1",
+      "prompt_append": "For tasks needing precise code access or edits: use Serena MCP tools (read_file, find_symbol, search, insert_after_symbol, replace_symbol_body, etc.) and delegate to @serena if available. Avoid noisy or inefficient methods like full-file read() or grep."
+    },
+    "multimodal-looker": {
+      "model": "zai-coding-plan/glm-4.6-v"
+    },
+    "prometheus": {
+      "model": "zai-coding-plan/glm-4.7",
+      "variant": "max"
+    },
+    "metis": {
+      "model": "zai-coding-plan/glm-4.6-v",
+      "variant": "max"
+    },
+    "momus": {
+      "model": "zai-coding-plan/glm-4.6-v",
+      "variant": "medium"
+    },
+    "atlas": {
+      "model": "zai-coding-plan/glm-4.7-flash"
+    }
+  },
+  "categories": {
+    "visual-engineering": {
+      // "model": "zai-coding-plan/glm-4.7"
+      "model": "grok-4-1-fast-reasoning"
+    },
+    "ultrabrain": {
+      // "model": "zai-coding-plan/glm-4.7",
+      "model": "opencode/kimi-k2.5-free",
+      "variant": "xhigh"
+    },
+    "artistry": {
+      "model": "zai-coding-plan/glm-4.7",
+      "variant": "max"
+    },
+    "quick": {
+      "model": "zai-coding-plan/glm-4.5-flash"
+    },
+    "unspecified-low": {
+      "model": "zai-coding-plan/glm-4.6"
+    },
+    "unspecified-high": {
+      "model": "zai-coding-plan/glm-4.7",
+      "variant": "max"
+    },
+    "writing": {
+      // "model": "opencode/big-pickle"
+      "model": "ollama-cloud/gemini-3-flash-preview:latest"
+    }
+  },
+  "disabled_hooks": [
+    "anthropic-context-window-limit-recovery"
+  ]
+}
