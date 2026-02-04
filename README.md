@@ -41,7 +41,7 @@ The Makefile provides a set of commands to build, clean, and manage the OpenCode
 The build command is the default target that processes all configuration files and prepares them for deployment. When executed, it performs the following operations:
 
 1. Creates and cleans the `./dist` directory to ensure a fresh build environment
-2. Loads environment variables from the `.env` file using the `set -a` directive
+2. Loads environment variables from the `.env` file
 3. Processes each JSONC file by substituting environment variables using a custom substitution script that only replaces `$VAR` patterns when the corresponding key exists in `.env`
 4. Copies the `agents`, `commands`, and `skills` directories to the output location
 5. Displays a summary of all generated files in the `./dist` directory
