@@ -40,10 +40,10 @@ You must analyze the project structure to identify what needs synchronization:
 Use the **Task tool** to orchestrate parallel scanning and analysis:
 
 1. Launch parallel exploration tasks to analyze configuration structure:
-   - Task: Scan `opencode.jsonc` plugins section and detect changes
-   - Task: Scan `opencode.jsonc` MCPs section and detect changes
-   - Task: Scan `opencode.jsonc` providers section and detect changes
-   - Task: Scan `oh-my-opencode.jsonc` for model configuration changes
+   - Task: Scan `opencode.jsonc` "plugins" section and detect changes
+   - Task: Scan `opencode.jsonc` "mcp" section and detect changes
+   - Task: Scan `opencode.jsonc` "enabled_providers" section and detect changes
+   - Task: Scan `oh-my-opencode.jsonc` for model configuration changes of agents
 
 2. Wait for all exploration tasks to complete and collect their findings
 
@@ -58,23 +58,23 @@ Use the **Task tool** to orchestrate parallel scanning and analysis:
 
 Based on detected changes, update the appropriate sections:
 
-**For `opencode.jsonc` Plugin Changes:**
+**For `./opencode.jsonc` Plugin Changes:**
 - Navigate to **Plugins** section in README.md
 - Parse current plugin configurations from `opencode.jsonc`
 - Update plugin documentation with current configurations
-- Extract documentation URLs from plugin names/versions
+- Find documentation URLs from plugin names/versions
 - Add or update corresponding links in **Reference Links** section
 - Validate that all documentation links are accessible
 
-**For `opencode.jsonc` MCP Changes:**
+**For `./opencode.jsonc` MCP Changes:**
 - Navigate to **Manually Configured MCPs** subsection
 - Parse current MCP configurations from `opencode.jsonc`
 - Update MCP documentation to match current configurations
-- Extract MCP documentation URLs or repository links
+- Find MCP documentation URLs or repository links
 - Add or update corresponding links in **Reference Links** section
 - Validate link accessibility
 
-**For `opencode.jsonc` Provider Changes:**
+**For `./opencode.jsonc` Provider Changes:**
 - Navigate to **Provider List** subsection within **Providers** section
 - Parse current provider configurations from `opencode.jsonc`
 - Update provider list to reflect currently enabled providers
@@ -83,24 +83,24 @@ Based on detected changes, update the appropriate sections:
 **For Directory Synchronization:**
 
 Skills Documentation:
-- Compare skills found in `skills/` directory with Skills section in README.md
+- Compare skills found in `./skills/` directory with Skills section in README.md
 - Identify missing skills (installed but not documented)
 - Identify outdated skills (documented but missing or with wrong descriptions)
 - Update Skills section to reflect complete, current state
 
 Custom Agents Documentation:
-- Compare agents found in `agents/` directory with Custom Agents section
+- Compare agents found in `./agents/` directory with Custom Agents section
 - Identify missing agents (installed but not documented)
-- Update Custom Agents documentation with current configurations
+- Update **Custom Agents** subsection with current agent configuration (e.g. model, temperature or etc.)
 - Ensure accurate model assignments and descriptions
 
 Custom Commands Documentation:
-- Compare commands found in `commands/` directory with Commands section
+- Compare commands found in `./commands/` directory with Commands section
 - Verify all custom commands are documented
 - Update documentation as needed
 
 **Models Configuration:**
-- Scan `oh-my-opencode.jsonc` and compare against Models Configuration section
+- Scan `./oh-my-opencode.jsonc` and compare against Models Configuration section
 - Verify all agent-specific model assignments match
 - Verify all task category model configurations match
 - Check model variant specifications are accurate
