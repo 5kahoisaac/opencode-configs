@@ -85,9 +85,6 @@ Zen (accessible via `zai-coding-plan/` prefix) provides access to advanced GLM m
 
 xAI provides the Grok family of models, specifically `xai/grok-code-fast-1` for exploration tasks and `grok-4-1-fast-reasoning` for visual engineering. These models excel at code understanding and fast reasoning, making them ideal for tasks requiring quick analysis and pattern recognition.
 
-**Google Gemini**
-
-Google Gemini models are accessed via the `GOOGLE_GEMINI_PROXY_URL` environment variable configuration. While primarily routed through the proxy for enhanced reliability, these models provide strong multimodal capabilities and are used for various reasoning tasks throughout the configuration.
 
 #### Models Configuration
 
@@ -156,10 +153,6 @@ The OpenCode configuration utilizes several plugins to extend its core functiona
 **oh-my-opencode@latest**
 
 The oh-my-opencode plugin serves as the foundational extension for OpenCode, providing essential agent capabilities and workflow enhancements. This plugin introduces a comprehensive set of specialized agents designed to handle various development tasks autonomously. The plugin enables advanced orchestration features, allowing OpenCode to delegate complex tasks to appropriate agents based on the nature of the request. It includes agents for codebase exploration, documentation lookup, planning, and handling both conventional and non-conventional development challenges.
-
-**opencode-antigravity-auth@latest**
-
-The antigravity authentication plugin provides enhanced authentication capabilities for OpenCode. This plugin enables secure access to various AI models and services, particularly supporting the Google provider with its antigravity variants including Claude Opus 4.5, Claude Sonnet 4.5, Gemini 3 Flash, and Gemini 3 Pro models. The plugin ensures that authentication tokens and credentials are properly managed and securely injected into the configuration.
 
 **@nick-vi/opencode-type-inject@latest**
 
@@ -242,6 +235,8 @@ The following skills are available in this configuration:
 
 - **xlsx** - Comprehensive spreadsheet creation, editing, and analysis with support for formulas, formatting, data analysis, and visualization.
 
+- **next-best-practices** - Next.js best practices - file conventions, RSC boundaries, data patterns, async APIs, metadata, error handling, route handlers, image/font optimization, bundling.
+
 ---
 
 
@@ -288,9 +283,10 @@ Serena is a specialized MCP (Model Context Protocol) subagent designed for preci
 The following resources provide additional information about skills, plugins, and the Vercel skills.sh system referenced in this configuration:
 
 - **Vercel Skills.sh**: https://skills.sh - The official skills installation and management system for OpenCode, providing community-maintained skills for various development tasks and domains.
-
 - **OpenCode Documentation**: https://docs.opencode.ai - Official documentation for OpenCode configuration, plugin development, and usage guides.
-
 - **Oh-My-OpenCode Plugin**: https://github.com/code-yeongyu/oh-my-opencode - The foundational plugin providing comprehensive agent capabilities, available through the OpenCode plugin registry.
-
-- **OpenSupermemory Plugin**: https://github.com/entechouse/opencode-supermemory - The opencode-supermemory plugin repository providing persistent memory capabilities for OpenCode.
+- **OpenSupermemory Plugin**: https://github.com/supermemoryai/opencode-supermemory - The opencode-supermemory plugin repository providing persistent memory capabilities for OpenCode.
+- **Figma Desktop MCP**: https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server - Official MCP server for Figma integration, enabling design context retrieval and UI code generation.
+- **GitHub MCP**: https://github.com/github/github-mcp-server - Official MCP server for GitHub API integration, enabling repository operations and issue management.
+- **Jira MCP**: https://github.com/sooperset/mcp-atlassian - Official MCP server for Atlassian Jira and Confluence integration, enabling project management workflows.
+- **Serena MCP**: https://github.com/oraios/serena - Advanced code intelligence MCP providing precise symbol navigation and AST-aware operations.

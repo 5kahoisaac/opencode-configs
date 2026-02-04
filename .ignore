@@ -1,0 +1,15 @@
+# env files
+.env*
+!.env.example
+
+# misc
+.DS_Store
+*.pem
+
+# build
+/dist
+
+# tools
+.idea/
+.serena/
+.opencode/
