@@ -269,11 +269,13 @@ This configuration includes custom agents designed to enhance OpenCode's orchest
 
 **Hermes - Orchestration Router Agent**
 
-Hermes serves as the router agent for intelligent task orchestration. It analyzes user prompts and determines the most efficient handling strategy using a structured decision flow. Hermes excels at classifying tasks and delegating them to appropriate specialized agents without unnecessary overhead. The agent follows a minimalist approach, avoiding aggressive parallel execution and prioritizing direct responses when possible. Hermes uses the opencode/minimax-m2.1-free model with optimized temperature settings for consistent routing decisions. This agent is particularly valuable for maintaining clean task delegation patterns and preventing unnecessary agent spawns.
+Hermes serves as the router agent for intelligent task orchestration. It analyzes user prompts and determines the most efficient handling strategy using a structured decision flow. Hermes excels at classifying tasks and delegating them to appropriate specialized agents without unnecessary overhead. The agent follows a minimalist approach, avoiding aggressive parallel execution and prioritizing direct responses when possible. Hermes uses the `xai/grok-4-1-fast-non-reasoning` model with optimized temperature settings for consistent routing decisions. This agent is particularly valuable for maintaining clean task delegation patterns and preventing unnecessary agent spawns.
 
 **Serena - MCP Code Intelligence Specialist**
 
 Serena is a specialized MCP (Model Context Protocol) subagent designed for precise, token-efficient code operations. It leverages Serena's Language Server and MCP tools for accurate symbol retrieval, semantic search, and AST-aware code edits. Serena is mandatory for all symbol-level operations including definition queries, reference finding, natural-language code searches, and symbol-level modifications. The agent prioritizes precision over breadth, using specialized tools first and avoiding generic read or grep operations. This dramatically reduces token consumption while improving accuracy for code navigation and refactoring tasks. Serena is configured to use the zai-coding-plan/glm-4.5-flash model with read-only default permissions for safety.
+
+**Note**: For symbol-level code operations (definition lookup, reference finding, AST-aware edits), always delegate to Serena using `@serena` to ensure precision and avoid token waste.
 
 ---
 
@@ -283,7 +285,7 @@ Serena is a specialized MCP (Model Context Protocol) subagent designed for preci
 The following resources provide additional information about skills, plugins, and the Vercel skills.sh system referenced in this configuration:
 
 - **Vercel Skills.sh**: https://skills.sh - The official skills installation and management system for OpenCode, providing community-maintained skills for various development tasks and domains.
-- **OpenCode Documentation**: https://docs.opencode.ai - Official documentation for OpenCode configuration, plugin development, and usage guides.
+- **OpenCode Documentation**: https://opencode.ai/docs - Official documentation for OpenCode configuration, plugin development, and usage guides.
 - **Oh-My-OpenCode Plugin**: https://github.com/code-yeongyu/oh-my-opencode - The foundational plugin providing comprehensive agent capabilities, available through the OpenCode plugin registry.
 - **OpenSupermemory Plugin**: https://github.com/supermemoryai/opencode-supermemory - The opencode-supermemory plugin repository providing persistent memory capabilities for OpenCode.
 - **Figma Desktop MCP**: https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server - Official MCP server for Figma integration, enabling design context retrieval and UI code generation.
