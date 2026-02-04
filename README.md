@@ -73,13 +73,13 @@ The following AI providers are configured in this setup:
 
 Ollama Cloud provides local model inference capabilities with excellent privacy and performance characteristics. This configuration uses `ollama-cloud/gemini-3-flash-preview:latest` for writing and content generation tasks, offering fast response times and reasonable context windows at no cost.
 
-**OpenCode**
+**OpenCode Zen **
 
 OpenCode's built-in model hub offers several free models optimized for different task types. The configuration utilizes `opencode/kimi-k2.5-free` for complex reasoning and `opencode/glm-4.7-free` for general-purpose tasks. These models provide a reliable fallback when premium providers are unavailable or exhausted.
 
-**Zen (z.ai)**
+**Z.ai**
 
-Zen (accessible via `zai-coding-plan/` prefix) provides access to advanced GLM models including GLM-4.7 and GLM-4.6 variants. These models offer excellent performance for planning, reasoning, and orchestration tasks. The configuration uses various Zen models for different agent categories, balancing between flash variants for speed and full variants for depth.
+Z.ai Coding Plan provides access to advanced GLM models including GLM-4.7 and GLM-4.6 variants. These models offer excellent performance for planning, reasoning, and orchestration tasks. The configuration uses various GLM models for different agent categories, balancing between flash variants for speed and full variants for depth.
 
 **xAI (Grok)**
 
@@ -128,7 +128,7 @@ Individual agents in the `agents` section receive specialized model assignments 
 
 The provider configuration considers several factors for optimal performance:
 
-1. **Rate Limit Management**: Different providers have varying rate limits. Free providers (OpenCode) are used for routine tasks to preserve quota on premium providers (Zen/z.ai, xAI) for complex operations.
+1. **Rate Limit Management**: Different providers have varying rate limits. Free providers (OpenCode) are used for routine tasks to preserve quota on premium providers (Z.ai, xAI) for complex operations.
 
 2. **Cost Optimization**: The configuration prioritizes free models (`opencode/*-free`) for everyday tasks while reserving premium models for tasks requiring their specific strengths.
 
@@ -142,7 +142,7 @@ The provider configuration considers several factors for optimal performance:
    - Use **Visual Engineering** for frontend and UI tasks requiring spatial reasoning
    - Use **Ultrabrain** for algorithm design and complex logical problems
    - Use **Unspecified-High** for ambiguous tasks that might require deep analysis
-   - Reserve **Premium Models** (Zen, xAI) for tasks where quality is critical
+   - Reserve **Premium Models** (Z.ai, xAI) for tasks where quality is critical
 
 This configuration represents a personalized setup balancing performance, cost, and reliability based on individual usage patterns and provider strengths.
 
