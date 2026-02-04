@@ -57,6 +57,7 @@
     "opencode-supermemory@latest"
   ],
   "enabled_providers": [
+    // "anthropic",
     "opencode",
     "ollama-cloud",
     "zai-coding-plan",
