@@ -35,6 +35,9 @@
     },
     "atlas": {
       "model": "zai-coding-plan/glm-4.7-flash"
+    },
+    "sisyphus_junior": {
+      "model": "opencode/gpt-5-nano"
     }
   },
   "categories": {
