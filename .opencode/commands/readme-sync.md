@@ -1,5 +1,5 @@
 ---
-description: Synchronizes README.md with actual OpenCode configuration files
+description: Synchronizes README.md with configuration files
 agent: sisyphus
 model: opencode/big-pickle
 ---
