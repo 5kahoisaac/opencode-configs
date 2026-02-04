@@ -1,7 +1,7 @@
 # Makefile for building OpenCode configuration with .env variables
 
-# Define the JSONC files to process
-JSONC_FILES := oh-my-opencode.jsonc opencode.jsonc supermemory.jsonc
+# Define the files to process
+FILES := AGENTS.md oh-my-opencode.jsonc opencode.jsonc supermemory.jsonc
 DIRECTORIES := agents commands skills
 
 # Main targets
@@ -19,7 +19,7 @@ build:
 	@echo "✓ Created and cleaned ./dist directory"
 	
 	# Copy JSONC files to dist directory first
-	@for file in $(JSONC_FILES); do \
+	@for file in $(FILES); do \
 		if [ -f "$$file" ]; then \
 			echo "📋 Copying $$file to dist..."; \
 			cp "$$file" "./dist/"; \
