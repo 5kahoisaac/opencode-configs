@@ -45,7 +45,7 @@
   "categories": {
     "visual-engineering": {
       // "model": "zai-coding-plan/glm-4.7"
-      "model": "grok-4-1-fast-reasoning"
+      "model": "xai/grok-4-1-fast-reasoning"
     },
     "ultrabrain": {
       // "model": "zai-coding-plan/glm-4.7",

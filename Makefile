@@ -18,19 +18,17 @@ build:
 	@rm -rf ./dist/*
 	@echo "✓ Created and cleaned ./dist directory"
 	
-	# Load environment variables and process config files
-	@echo "📋 Loading environment variables from .env..."
-	@( \
-		set -a; \
-		. .env; \
-		for file in $(JSONC_FILES); do \
-			if [ -f "$$file" ]; then \
-				echo "⚙️ Processing $$file..."; \
-				envsubst < "$$file" > "./dist/$$file"; \
-				echo "✅ $$file processed"; \
-			fi; \
-		done \
-	)
+	# Copy JSONC files to dist directory first
+	@for file in $(JSONC_FILES); do \
+		if [ -f "$$file" ]; then \
+			echo "📋 Copying $$file to dist..."; \
+			cp "$$file" "./dist/"; \
+		fi; \
+		done
+	
+	# Load environment variables and process config files in dist
+	@echo "🔄 Substituting environment variables..."
+	@./subst_env_vars.sh ./dist/*.jsonc
 	
 	# Copy directories
 	@for dir in $(DIRECTORIES); do \
@@ -60,6 +58,6 @@ help:
 	@echo ""
 	@echo "📝 This Makefile:"
 	@echo "  1. Loads environment variables from .env"
-	@echo "  2. Substitutes \$$VAR_NAME placeholders in JSONC files"
+	@echo "  2. Substitutes $$VAR_NAME placeholders in JSONC files (only .env variables)"
 	@echo "  3. Outputs processed files to ./dist directory"
 	@echo "  4. Copies agents, commands, and skills to ./dist"
