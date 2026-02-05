@@ -47,7 +47,7 @@ Use the **Task tool** to orchestrate parallel scanning and analysis:
 
 ### Phase 2: README.md Synchronization
 
-Based on detected changes, update the appropriate sections:
+Based on detected changes, update or remove legacy content in appropriate sections:
 
 **For `./opencode.jsonc` Plugin Changes:**
 - Navigate to **Plugins** section in README.md
@@ -82,7 +82,8 @@ Skills Documentation:
 Custom Agents Documentation:
 - Compare agents found in `./agents/` directory with Custom Agents section
 - Identify missing agents (installed but not documented)
-- Update **Custom Agents** subsection with current agent configuration (e.g. model, temperature or etc.)
+- Update **Agent-Specific Model Assignments** table with current agent configuration
+- Update **Custom Agents** subsection with current agent's details
 - Ensure accurate model assignments and descriptions
 
 Custom Commands Documentation:
