@@ -7,8 +7,8 @@
 For tasks needing precise code access or edits: use Serena MCP tools unless the MCP is down. Avoid noisy or inefficient methods like full-file read() or grep.
 
 >CRITICAL:
->When you have doubts about the tools, you can always refer to [full list of Serena’s tools](https://oraios.github.io/serena/01-about/035_tools.html).
->If no need, then do not refer, as reading external documents requires more tokens
+>When you have doubts about the tools, you can always refer to [full list of Serena’s tools](https://oraios.github.io/serena/01-about/035_tools.html). 
+>If no need, then do not refer, as reading external documents requires more tokens.
 
 ### Key Tools
 
