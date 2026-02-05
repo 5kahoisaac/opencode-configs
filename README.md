@@ -73,7 +73,7 @@ The following AI providers are configured in this setup:
 
 Ollama Cloud provides local model inference capabilities with excellent privacy and performance characteristics. This configuration uses `ollama-cloud/gemini-3-flash-preview:latest` for writing and content generation tasks, offering fast response times and reasonable context windows at no cost.
 
-**OpenCode Zen **
+**OpenCode Zen**
 
 OpenCode's built-in model hub offers several free models optimized for different task types. The configuration utilizes `opencode/kimi-k2.5-free` for complex reasoning and `opencode/glm-4.7-free` for general-purpose tasks. These models provide a reliable fallback when premium providers are unavailable or exhausted.
 
@@ -88,41 +88,40 @@ xAI provides the Grok family of models, specifically `xai/grok-code-fast-1` for 
 
 #### Models Configuration
 
-The `oh-my-opencode.jsonc` file contains a sophisticated model assignment system that categorizes tasks and assigns appropriate models based on complexity and requirements. This configuration represents a carefully tuned balance between API rate limits, response quality, and cost management.
+The `oh-my-opencode.jsonc` and `./agents/*.md` files contains a sophisticated model assignment system that categorizes tasks and assigns appropriate models based on complexity and requirements. This configuration represents a carefully tuned balance between API rate limits, response quality, and cost management.
 
 **Task Categories and Model Selection**
 
-The configuration defines several task categories in the `categories` section, each optimized for specific workload types:
+The configuration defines several task categories, each optimized for specific workload types:
 
-- **Visual Engineering Tasks** (`visual-engineering`): Uses `grok-4-1-fast-reasoning` for UI/UX design tasks that benefit from rapid pattern recognition and spatial reasoning capabilities.
-
-- **Ultra-Brain Tasks** (`ultrabrain`): Deploys `opencode/kimi-k2.5-free` with `xhigh` variant for mathematically intensive or deeply logical problems requiring extensive reasoning chains.
-
-- **Artistry Tasks** (`artistry`): Leverages `zai-coding-plan/glm-4.7` with `max` variant for creative tasks that benefit from higher token generation and imaginative output.
-
-- **Quick Tasks** (`quick`): Utilizes `zai-coding-plan/glm-4.5-flash` for simple, straightforward tasks that benefit from minimal latency and reduced cost.
-
-- **Unspecified Low Complexity** (`unspecified-low`): Assigns `zai-coding-plan/glm-4.6` for routine tasks without specific categorization needs.
-
-- **Unspecified High Complexity** (`unspecified-high`): Uses `zai-coding-plan/glm-4.7` with `max` variant for complex, uncategorized tasks requiring comprehensive analysis.
-
-- **Writing Tasks** (`writing`): Employs `ollama-cloud/gemini-3-flash-preview:latest` for documentation and content generation, taking advantage of its strong writing capabilities.
+| Category                        | Name                 | Model                                        | Description                                                                                                        |
+|:--------------------------------|:---------------------|:---------------------------------------------|:-------------------------------------------------------------------------------------------------------------------|
+| **Visual Engineering Tasks**    | `visual-engineering` | `grok-4-1-fast-reasoning`                    | For UI/UX design tasks that benefit from rapid pattern recognition and spatial reasoning capabilities.             |
+| **Ultra-Brain Tasks**           | `ultrabrain`         | `opencode/kimi-k2.5-free`                    | With `xhigh` variant for mathematically intensive or deeply logical problems requiring extensive reasoning chains. |
+| **Artistry Tasks**              | `artistry`           | `zai-coding-plan/glm-4.7`                    | With `max` variant for creative tasks that benefit from higher token generation and imaginative output.            |
+| **Quick Tasks**                 | `quick`              | `zai-coding-plan/glm-4.5-flash`              | For simple, straightforward tasks that benefit from minimal latency and reduced cost.                              |
+| **Unspecified Low Complexity**  | `unspecified-low`    | `zai-coding-plan/glm-4.6`                    | For routine tasks without specific categorization needs.                                                           |
+| **Unspecified High Complexity** | `unspecified-high`   | `zai-coding-plan/glm-4.7`                    | With `max` variant for complex, uncategorized tasks requiring comprehensive analysis.                              |
+| **Writing Tasks**               | `writing`            | `ollama-cloud/gemini-3-flash-preview:latest` | For documentation and content generation, taking advantage of its strong writing capabilities.                     |
 
 **Agent-Specific Model Assignments**
 
-Individual agents in the `agents` section receive specialized model assignments optimized for their specific functions:
+Individual agents receive specialized model assignments optimized for their specific functions:
 
-- **Sisyphus** (Orchestration): `zai-coding-plan/glm-4.7` for complex task planning and delegation
-- **Hephaestus** (Build): `opencode/kimi-k2.5-free` for code generation and implementation
-- **Oracle** (High-Level Reasoning): `opencode/glm-4.7-free` with `high` variant for complex problem analysis
-- **Librarian** (Research): `opencode/glm-4.7-free` for documentation lookup and information retrieval
-- **Explore** (Codebase Analysis): `xai/grok-code-fast-1` for rapid code navigation and pattern detection
-- **Multimodal Looker**: `zai-coding-plan/glm-4.6-v` for image and document analysis
-- **Prometheus** (Planning): `zai-coding-plan/glm-4.7` with `max` variant for comprehensive planning tasks
-- **Metis** (Pre-Planning): `zai-coding-plan/glm-4.6-v` with `max` variant for preliminary analysis
-- **Momus** (Review): `zai-coding-plan/glm-4.6-v` with `medium` variant for balanced review tasks
-- **Atlas** (Context): `zai-coding-plan/glm-4.7-flash` for quick context retrieval and summarization
-- **Sisyphus Junior** (Focused Task Executor): `opencode/gpt-5-nano` for single, straightforward tasks with disciplined execution and no delegation
+| Source             | Agent Name          | Role                  | Model                             | Description                                                                                                |
+|:-------------------|:--------------------|:----------------------|:----------------------------------|:-----------------------------------------------------------------------------------------------------------|
+| **custom**         | `hermes`            | Orchestration         | `xai/grok-4-1-fast-non-reasoning` | Analyzes user prompts and determines the most efficient handling strategy using a structured decision flow |
+| **oh-my-opencode** | `sisyphus`          | Orchestration         | `zai-coding-plan/glm-4.7`         | For complex task planning and delegation                                                                   |
+| **oh-my-opencode** | `hephaestus`        | Build                 | `opencode/kimi-k2.5-free`         | For code generation and implementation                                                                     |
+| **oh-my-opencode** | `oracle`            | High-Level Reasoning  | `opencode/glm-4.7-free`           | With `high` variant for complex problem analysis                                                           |
+| **oh-my-opencode** | `librarian`         | Research              | `opencode/glm-4.7-free`           | For documentation lookup and information retrieval                                                         |
+| **oh-my-opencode** | `explore`           | Codebase Analysis     | `xai/grok-code-fast-1`            | For rapid code navigation and pattern detection                                                            |
+| **oh-my-opencode** | `multimodal-looker` | Multimodal            | `zai-coding-plan/glm-4.6-v`       | For image and document analysis                                                                            |
+| **oh-my-opencode** | `prometheus`        | Planning              | `zai-coding-plan/glm-4.7`         | With `max` variant for comprehensive planning tasks                                                        |
+| **oh-my-opencode** | `metis`             | Pre-Planning          | `zai-coding-plan/glm-4.6-v`       | With `max` variant for preliminary analysis                                                                |
+| **oh-my-opencode** | `momus`             | Review                | `zai-coding-plan/glm-4.6-v`       | With `medium` variant for balanced review tasks                                                            |
+| **oh-my-opencode** | `atlas`             | Context               | `zai-coding-plan/glm-4.7-flash`   | For quick context retrieval and summarization                                                              |
+| **oh-my-opencode** | `sisyphus-junior`   | Focused Task Executor | `opencode/gpt-5-nano`             | For single, straightforward tasks with disciplined execution and no delegation                             |
 
 **Currency API Rate Limits and Suggested Setup**
 
@@ -168,7 +167,8 @@ The supermemory plugin introduces persistent memory capabilities to OpenCode, al
 
 ## MCPs
 
-Model Context Protocol (MCP) servers extend OpenCode's capabilities by providing specialized tools and integrations. This configuration includes both manually configured MCPs and pre-installed MCPs from the oh-my-opencode plugin.
+Model Context Protocol (MCP) servers extend OpenCode's capabilities by providing specialized tools and integrations. 
+This configuration includes both manually configured MCPs and pre-installed MCPs from the oh-my-opencode plugin.
 
 ### Manually Configured MCPs
 
@@ -176,19 +176,27 @@ The following MCPs are explicitly configured in the `opencode.jsonc` file:
 
 **figma-desktop**
 
-The Figma Desktop MCP enables seamless integration with Figma for design-related operations. This MCP allows OpenCode to interact with Figma's desktop application, enabling design context retrieval, UI code generation, and design system exploration directly from Figma files.
+The Figma Desktop MCP enables seamless integration with Figma for design-related operations. 
+This MCP allows OpenCode to interact with Figma's desktop application, enabling design context retrieval, 
+UI code generation, and design system exploration directly from Figma files.
 
 **github**
 
-The GitHub MCP provides comprehensive integration with GitHub for repository operations, pull request management, issue tracking, and code search. This MCP enables OpenCode to interact with GitHub's API for various development workflows directly from the conversation interface.
+The GitHub MCP provides comprehensive integration with GitHub for repository operations, 
+pull request management, issue tracking, and code search. 
+This MCP enables OpenCode to interact with GitHub's API for various development workflows directly from the conversation interface.
 
 **jira**
 
-The Jira MCP integrates with Atlassian Jira for project management operations including issue tracking, sprint management, and workflow automation. This MCP connects to both Jira and Confluence, enabling seamless access to project management data.
+The Jira MCP integrates with Atlassian Jira for project management operations including issue tracking, 
+sprint management, and workflow automation. This MCP connects to both Jira and Confluence, 
+enabling seamless access to project management data.
 
 **serena**
 
-The Serena MCP server provides advanced code intelligence capabilities including precise symbol navigation, semantic search, and AST-aware code operations. This MCP is essential for the Serena agent's functionality, enabling token-efficient code retrieval and modifications.
+The Serena MCP server provides advanced code intelligence capabilities including precise symbol navigation, 
+semantic search, and AST-aware code operations. This MCP is essential for the Serena agent's functionality, 
+enabling token-efficient code retrieval and modifications.
 
 ### Pre-installed MCPs from Oh-My-Opencode
 
@@ -199,7 +207,8 @@ The oh-my-opencode plugin includes several pre-configured MCP servers that provi
 - **Web Search** - Provides general web search capabilities for current information and documentation
 - **Google Search** - Enables Google-powered web search with URL analysis capabilities
 
-These pre-installed MCPs are automatically available when the oh-my-opencode plugin is enabled, providing a comprehensive set of tools for research, documentation lookup, and web-based information retrieval without additional configuration.
+These pre-installed MCPs are automatically available when the oh-my-opencode plugin is enabled, providing a comprehensive set of tools for research, 
+documentation lookup, and web-based information retrieval without additional configuration.
 
 ---
 
@@ -247,7 +256,9 @@ The commands directory contains custom slash commands that extend OpenCode's int
 
 **supermemory-init**
 
-A comprehensive command for initializing persistent memory with comprehensive codebase knowledge. This command performs deep research on the project including tech stack, architecture, build commands, conventions, and team workflows. It systematically saves memories across project-scoped and user-scoped contexts, enabling OpenCode to maintain context across sessions and become more effective over time.
+A comprehensive command for initializing persistent memory with comprehensive codebase knowledge. 
+This command performs deep research on the project including tech stack, architecture, build commands, conventions, and team workflows. 
+It systematically saves memories across project-scoped and user-scoped contexts, enabling OpenCode to maintain context across sessions and become more effective over time.
 
 ---
 
@@ -258,11 +269,9 @@ OpenCode employs a sophisticated agent system where specialized AI agents handle
 
 #### Oh-My-OpenCode Agents
 
-The oh-my-opencode plugin provides a comprehensive suite of agents that form the backbone of OpenCode's autonomous capabilities. For detailed documentation on all available agents and their features, please refer to the official documentation:
-
-- [Oh-My-OpenCode Features Documentation](https://github.com/code-yeongyu/oh-my-opencode/blob/dev/docs/features.md)
-
+The oh-my-opencode plugin provides a comprehensive suite of agents that form the backbone of OpenCode's autonomous capabilities.
 The plugin includes agents for various development tasks including codebase exploration, documentation lookup, planning, and handling both conventional and non-conventional development challenges.
+For detailed documentation on all available agents and their features, please refer to the [official documentation]((https://github.com/code-yeongyu/oh-my-opencode/blob/dev/docs/features.md)).
 
 #### Custom Agents
 
@@ -270,7 +279,10 @@ This configuration includes custom agents designed to enhance OpenCode's orchest
 
 **Hermes - Orchestration Router Agent**
 
-Hermes serves as the router agent for intelligent task orchestration. It analyzes user prompts and determines the most efficient handling strategy using a structured decision flow. Hermes excels at classifying tasks and delegating them to appropriate specialized agents without unnecessary overhead. The agent follows a minimalist approach, avoiding aggressive parallel execution and prioritizing direct responses when possible. Hermes uses the `xai/grok-4-1-fast-non-reasoning` model with optimized temperature settings for consistent routing decisions. This agent is particularly valuable for maintaining clean task delegation patterns and preventing unnecessary agent spawns.
+Hermes serves as the router agent for intelligent task orchestration. 
+Hermes excels at classifying tasks and delegating them to appropriate specialized agents without unnecessary overhead. 
+The agent follows a minimalist approach, avoiding aggressive parallel execution and prioritizing direct responses when possible. 
+This agent is particularly valuable for maintaining clean task delegation patterns and preventing unnecessary agent spawns.
 
 ---
 

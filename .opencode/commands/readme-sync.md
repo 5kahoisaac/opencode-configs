@@ -12,16 +12,7 @@ This command ensures that `README.md` documentation remains perpetually synchron
 
 You must execute this command with a strategic approach, carefully analyzing the current state before making modifications. Follow these phases:
 
-### Phase 1: Command Location Detection
-
-1. Check if running from within a git repository: `git rev-parse --is-inside-work-tree 2>/dev/null`
-2. Determine default location:
-   - Inside git repo → Project-level: `.opencode/commands/`
-   - Not in git repo → Global: `~/.config/opencode/commands/`
-3. Report the chosen location to the user before proceeding
-4. Create directory if it doesn't exist: `mkdir -p [directory-path]`
-
-### Phase 2: Configuration Analysis and Change Detection
+### Phase 1: Configuration Analysis and Change Detection
 
 You must analyze the project structure to identify what needs synchronization:
 
@@ -54,7 +45,7 @@ Use the **Task tool** to orchestrate parallel scanning and analysis:
 
 4. Synthesize all findings and determine what README.md sections need updates
 
-### Phase 3: README.md Synchronization
+### Phase 2: README.md Synchronization
 
 Based on detected changes, update the appropriate sections:
 
@@ -106,7 +97,7 @@ Custom Commands Documentation:
 - Check model variant specifications are accurate
 - Verify provider mappings and aliases are consistent
 
-### Phase 4: Validation and Output
+### Phase 3: Validation and Output
 
 After completing updates, perform comprehensive validation:
 
