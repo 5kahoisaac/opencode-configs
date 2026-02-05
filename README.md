@@ -94,15 +94,15 @@ The `oh-my-opencode.jsonc` and `./agents/*.md` files contains a sophisticated mo
 
 The configuration defines several task categories, each optimized for specific workload types:
 
-| Category                        | Name                 | Model                                        | Description                                                                                                        |
-|:--------------------------------|:---------------------|:---------------------------------------------|:-------------------------------------------------------------------------------------------------------------------|
-| **Visual Engineering Tasks**    | `visual-engineering` | `grok-4-1-fast-reasoning`                    | For UI/UX design tasks that benefit from rapid pattern recognition and spatial reasoning capabilities.             |
-| **Ultra-Brain Tasks**           | `ultrabrain`         | `opencode/kimi-k2.5-free`                    | With `xhigh` variant for mathematically intensive or deeply logical problems requiring extensive reasoning chains. |
-| **Artistry Tasks**              | `artistry`           | `zai-coding-plan/glm-4.7`                    | With `max` variant for creative tasks that benefit from higher token generation and imaginative output.            |
-| **Quick Tasks**                 | `quick`              | `zai-coding-plan/glm-4.5-flash`              | For simple, straightforward tasks that benefit from minimal latency and reduced cost.                              |
-| **Unspecified Low Complexity**  | `unspecified-low`    | `zai-coding-plan/glm-4.6`                    | For routine tasks without specific categorization needs.                                                           |
-| **Unspecified High Complexity** | `unspecified-high`   | `zai-coding-plan/glm-4.7`                    | With `max` variant for complex, uncategorized tasks requiring comprehensive analysis.                              |
-| **Writing Tasks**               | `writing`            | `ollama-cloud/gemini-3-flash-preview:latest` | For documentation and content generation, taking advantage of its strong writing capabilities.                     |
+| Category                        | Name                 | Model                                 | Description                                                                                                        |
+|:--------------------------------|:---------------------|:--------------------------------------|:-------------------------------------------------------------------------------------------------------------------|
+| **Visual Engineering Tasks**    | `visual-engineering` | `grok-4-1-fast-reasoning`             | For UI/UX design tasks that benefit from rapid pattern recognition and spatial reasoning capabilities.             |
+| **Ultra-Brain Tasks**           | `ultrabrain`         | `opencode/kimi-k2.5-free`             | With `xhigh` variant for mathematically intensive or deeply logical problems requiring extensive reasoning chains. |
+| **Artistry Tasks**              | `artistry`           | `zai-coding-plan/glm-4.7`             | With `max` variant for creative tasks that benefit from higher token generation and imaginative output.            |
+| **Quick Tasks**                 | `quick`              | `zai-coding-plan/glm-4.5-flash`       | For simple, straightforward tasks that benefit from minimal latency and reduced cost.                              |
+| **Unspecified Low Complexity**  | `unspecified-low`    | `zai-coding-plan/glm-4.6`             | For routine tasks without specific categorization needs.                                                           |
+| **Unspecified High Complexity** | `unspecified-high`   | `zai-coding-plan/glm-4.7`             | With `max` variant for complex, uncategorized tasks requiring comprehensive analysis.                              |
+| **Writing Tasks**               | `writing`            | `ollama-cloud/gemini-3-flash-preview` | For documentation and content generation, taking advantage of its strong writing capabilities.                     |
 
 **Agent-Specific Model Assignments**
 
@@ -110,7 +110,7 @@ Individual agents receive specialized model assignments optimized for their spec
 
 | Source             | Agent Name          | Role                  | Model                             | Description                                                                                                |
 |:-------------------|:--------------------|:----------------------|:----------------------------------|:-----------------------------------------------------------------------------------------------------------|
-| **custom**         | `hermes`            | Orchestration         | `xai/grok-4-1-fast-non-reasoning` | Analyzes user prompts and determines the most efficient handling strategy using a structured decision flow |
+| **custom**         | `hermes`            | Decision Router       | `xai/grok-4-1-fast-non-reasoning` | Analyzes user prompts and determines the most efficient handling strategy using a structured decision flow |
 | **oh-my-opencode** | `sisyphus`          | Orchestration         | `zai-coding-plan/glm-4.7`         | For complex task planning and delegation                                                                   |
 | **oh-my-opencode** | `hephaestus`        | Build                 | `opencode/kimi-k2.5-free`         | For code generation and implementation                                                                     |
 | **oh-my-opencode** | `oracle`            | High-Level Reasoning  | `opencode/glm-4.7-free`           | With `high` variant for complex problem analysis                                                           |
