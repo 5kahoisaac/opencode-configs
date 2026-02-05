@@ -149,10 +149,10 @@ Detected Changes:
 
 Documentation Sections Updated:
   → Plugins: Added 1 plugin, updated 2
-  → MCPs: Updated 3 MCP configurations
+  → MCPs: Added 1 MCP configurations, updated 3 MCP configurations
   → Provider List: Synchronized with 5 providers
   → Skills: Added 2 missing skills
-  → Custom Agents: Updated 1 agent configuration
+  → Custom Agents: Updated 1 agent configuration, removed 1 legacy agent
   → Models Configuration: Synchronized agent and task category assignments
 
 Reference Links Validation:
