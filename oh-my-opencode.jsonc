@@ -37,7 +37,7 @@
       "model": "zai-coding-plan/glm-4.7-flash"
     },
     "sisyphus-junior": {
-      "model": "opencode/gpt-5-nano"
+      "model": "zai-coding-plan/glm-4.7-flash"
     }
   },
   "categories": {
