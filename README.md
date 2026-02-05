@@ -38,7 +38,7 @@ The Makefile provides a set of commands to build, clean, and manage the OpenCode
 
 ### Build Command
 
-The build command is the default target that processes all configuration files and prepares them for deployment. When executed, it performs the following operations:
+The build command is the default target that processes all the .env and prepares them for build configuration files. When executed, it performs the following operations:
 
 1. Creates and cleans the `./dist` directory to ensure a fresh build environment
 2. Loads environment variables from the `.env` file
