@@ -121,7 +121,7 @@ Individual agents receive specialized model assignments optimized for their spec
 | **oh-my-opencode** | `metis`             | Pre-Planning          | `zai-coding-plan/glm-4.6-v`       | With `max` variant for preliminary analysis                                                                |
 | **oh-my-opencode** | `momus`             | Review                | `zai-coding-plan/glm-4.6-v`       | With `medium` variant for balanced review tasks                                                            |
 | **oh-my-opencode** | `atlas`             | Context               | `zai-coding-plan/glm-4.7-flash`   | For quick context retrieval and summarization                                                              |
-| **oh-my-opencode** | `sisyphus-junior`   | Focused Task Executor | `opencode/gpt-5-nano`             | For single, straightforward tasks with disciplined execution and no delegation                             |
+| **oh-my-opencode** | `sisyphus-junior`   | Focused Task Executor | `zai-coding-plan/glm-4.7-flash`   | For single, straightforward tasks with disciplined execution and no delegation                             |
 
 **Currency API Rate Limits and Suggested Setup**
 
