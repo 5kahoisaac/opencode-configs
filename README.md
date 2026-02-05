@@ -271,7 +271,7 @@ OpenCode employs a sophisticated agent system where specialized AI agents handle
 
 The oh-my-opencode plugin provides a comprehensive suite of agents that form the backbone of OpenCode's autonomous capabilities.
 The plugin includes agents for various development tasks including codebase exploration, documentation lookup, planning, and handling both conventional and non-conventional development challenges.
-For detailed documentation on all available agents and their features, please refer to the [official documentation]((https://github.com/code-yeongyu/oh-my-opencode/blob/dev/docs/features.md)).
+For detailed documentation on all available agents and their features, please refer to the [official documentation](https://github.com/code-yeongyu/oh-my-opencode/blob/dev/docs/features.md).
 
 #### Custom Agents
 
