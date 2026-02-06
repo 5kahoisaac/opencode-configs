@@ -54,7 +54,7 @@
   "plugin": [
     "oh-my-opencode@latest",
     "@nick-vi/opencode-type-inject@latest",
-    "opencode-supermemory@latest"
+    "@knikolov/opencode-plugin-simple-memory"
   ],
   "enabled_providers": [
     // "anthropic",
