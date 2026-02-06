@@ -102,19 +102,19 @@ The following AI providers are configured in this setup:
 
 **Ollama Cloud**
 
-Ollama Cloud provides local model inference capabilities with excellent privacy and performance characteristics. This configuration uses `ollama-cloud/gemini-3-flash-preview:latest` for writing and content generation tasks, offering fast response times and reasonable context windows at no cost.
+Ollama Cloud provides local model inference capabilities with excellent privacy and performance characteristics. This configuration uses `ollama-cloud/gemini-3-flash-preview` for writing and content generation tasks, offering fast response times and reasonable context windows at no cost.
 
-**OpenCode Zen**
+**OpenCode**
 
 OpenCode's built-in model hub offers several free models optimized for different task types. The configuration utilizes `opencode/kimi-k2.5-free` for complex reasoning and `opencode/glm-4.7-free` for general-purpose tasks. These models provide a reliable fallback when premium providers are unavailable or exhausted.
 
 **Z.ai**
 
-Z.ai Coding Plan provides access to advanced GLM models including GLM-4.7 and GLM-4.6 variants. These models offer excellent performance for planning, reasoning, and orchestration tasks. The configuration uses various GLM models for different agent categories, balancing between flash variants for speed and full variants for depth.
+Z.ai provides access to advanced GLM models including GLM-4.7, GLM-4.6, and flash variants. These models offer excellent performance for planning, reasoning, and orchestration tasks. The configuration uses various GLM models for different agent categories, balancing between flash variants for speed and full variants for depth.
 
 **xAI (Grok)**
 
-xAI provides the Grok family of models, specifically `xai/grok-code-fast-1` for exploration tasks and `grok-4-1-fast-reasoning` for visual engineering. These models excel at code understanding and fast reasoning, making them ideal for tasks requiring quick analysis and pattern recognition.
+xAI provides the Grok family of models, specifically `xai/grok-code-fast-1` for exploration tasks and `xai/grok-4-1-fast-reasoning` for visual engineering and artistry tasks. These models excel at code understanding and fast reasoning, making them ideal for tasks requiring quick analysis and pattern recognition.
 
 
 #### Models Configuration
@@ -128,8 +128,8 @@ The configuration defines several task categories, each optimized for specific w
 | Category                        | Name                 | Model                                 | Description                                                                                                        |
 |:--------------------------------|:---------------------|:--------------------------------------|:-------------------------------------------------------------------------------------------------------------------|
 | **Visual Engineering Tasks**    | `visual-engineering` | `grok-4-1-fast-reasoning`             | For UI/UX design tasks that benefit from rapid pattern recognition and spatial reasoning capabilities.             |
-| **Ultra-Brain Tasks**           | `ultrabrain`         | `opencode/kimi-k2.5-free`             | With `xhigh` variant for mathematically intensive or deeply logical problems requiring extensive reasoning chains. |
-| **Artistry Tasks**              | `artistry`           | `zai-coding-plan/glm-4.7`             | With `max` variant for creative tasks that benefit from higher token generation and imaginative output.            |
+| **Ultra-Brain Tasks**           | `ultrabrain`         | `zai-coding-plan/glm-4.7`             | With `xhigh` variant for mathematically intensive or deeply logical problems requiring extensive reasoning chains. |
+| **Artistry Tasks**              | `artistry`           | `xai/grok-4-1-fast-reasoning`         | With `max` variant for creative tasks that benefit from higher token generation and imaginative output.            |
 | **Quick Tasks**                 | `quick`              | `zai-coding-plan/glm-4.5-flash`       | For simple, straightforward tasks that benefit from minimal latency and reduced cost.                              |
 | **Unspecified Low Complexity**  | `unspecified-low`    | `zai-coding-plan/glm-4.6`             | For routine tasks without specific categorization needs.                                                           |
 | **Unspecified High Complexity** | `unspecified-high`   | `zai-coding-plan/glm-4.7`             | With `max` variant for complex, uncategorized tasks requiring comprehensive analysis.                              |
@@ -143,14 +143,14 @@ Individual agents receive specialized model assignments optimized for their spec
 |:-------------------|:--------------------|:----------------------|:----------------------------------|:-----------------------------------------------------------------------------------------------------------|
 | **custom**         | `hermes`            | Decision Router       | `xai/grok-4-1-fast-non-reasoning` | Analyzes user prompts and determines the most efficient handling strategy using a structured decision flow |
 | **oh-my-opencode** | `sisyphus`          | Orchestration         | `zai-coding-plan/glm-4.7`         | For complex task planning and delegation                                                                   |
-| **oh-my-opencode** | `hephaestus`        | Build                 | `opencode/kimi-k2.5-free`         | For code generation and implementation                                                                     |
-| **oh-my-opencode** | `oracle`            | High-Level Reasoning  | `opencode/glm-4.7-free`           | With `high` variant for complex problem analysis                                                           |
-| **oh-my-opencode** | `librarian`         | Research              | `opencode/glm-4.7-free`           | For documentation lookup and information retrieval                                                         |
+| **oh-my-opencode** | `hephaestus`        | Build                 | `opencode/glm-4.7-free`           | For code generation and implementation                                                                     |
+| **oh-my-opencode** | `oracle`            | High-Level Reasoning  | `opencode/glm-4.6`                | With `high` variant for complex problem analysis                                                           |
+| **oh-my-opencode** | `librarian`         | Research              | `zai-coding-plan/glm-4.6-v`       | For documentation lookup and information retrieval                                                         |
 | **oh-my-opencode** | `explore`           | Codebase Analysis     | `xai/grok-code-fast-1`            | For rapid code navigation and pattern detection                                                            |
-| **oh-my-opencode** | `multimodal-looker` | Multimodal            | `zai-coding-plan/glm-4.6-v`       | For image and document analysis                                                                            |
+| **oh-my-opencode** | `multimodal-looker` | Multimodal            | `opencode/kimi-k2.5-free`         | For image and document analysis                                                                            |
 | **oh-my-opencode** | `prometheus`        | Planning              | `zai-coding-plan/glm-4.7`         | With `max` variant for comprehensive planning tasks                                                        |
 | **oh-my-opencode** | `metis`             | Pre-Planning          | `zai-coding-plan/glm-4.6-v`       | With `max` variant for preliminary analysis                                                                |
-| **oh-my-opencode** | `momus`             | Review                | `zai-coding-plan/glm-4.6-v`       | With `medium` variant for balanced review tasks                                                            |
+| **oh-my-opencode** | `momus`             | Review                | `zai-coding-plan/glm-4.6`         | With `medium` variant for balanced review tasks                                                            |
 | **oh-my-opencode** | `atlas`             | Context               | `zai-coding-plan/glm-4.7-flash`   | For quick context retrieval and summarization                                                              |
 | **oh-my-opencode** | `sisyphus-junior`   | Focused Task Executor | `zai-coding-plan/glm-4.7-flash`   | For single, straightforward tasks with disciplined execution and no delegation                             |
 
