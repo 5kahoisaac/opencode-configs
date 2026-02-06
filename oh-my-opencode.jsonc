@@ -5,21 +5,20 @@
       "model": "zai-coding-plan/glm-4.7"
     },
     "hephaestus": {
-      "model": "opencode/kimi-k2.5-free"
+      "model": "opencode/glm-4.7-free"
     },
     "oracle": {
-      "model": "opencode/glm-4.7-free",
+      "model": "opencode/glm-4.6",
       "variant": "high"
     },
     "librarian": {
-      "model": "opencode/glm-4.7-free"
+      "model": "zai-coding-plan/glm-4.6-v"
     },
     "explore": {
-      // "model": "opencode/gpt-5-nano",
       "model": "xai/grok-code-fast-1"
     },
     "multimodal-looker": {
-      "model": "zai-coding-plan/glm-4.6-v"
+      "model": "opencode/kimi-k2.5-free"
     },
     "prometheus": {
       "model": "zai-coding-plan/glm-4.7",
@@ -30,7 +29,7 @@
       "variant": "max"
     },
     "momus": {
-      "model": "zai-coding-plan/glm-4.6-v",
+      "model": "zai-coding-plan/glm-4.6",
       "variant": "medium"
     },
     "atlas": {
@@ -42,16 +41,14 @@
   },
   "categories": {
     "visual-engineering": {
-      // "model": "zai-coding-plan/glm-4.7"
       "model": "xai/grok-4-1-fast-reasoning"
     },
-    "ultrabrain": {/models
-      // "model": "zai-coding-plan/glm-4.7",
-      "model": "opencode/kimi-k2.5-free",
+    "ultrabrain": {
+      "model": "zai-coding-plan/glm-4.7",
       "variant": "xhigh"
     },
     "artistry": {
-      "model": "zai-coding-plan/glm-4.7",
+      "model": "xai/grok-4-1-fast-reasoning",
       "variant": "max"
     },
     "quick": {
@@ -65,6 +62,7 @@
       "variant": "max"
     },
     "writing": {
+      // "model": "opencode/gpt-5-nano"
       // "model": "opencode/big-pickle"
       "model": "ollama-cloud/gemini-3-flash-preview"
     }
