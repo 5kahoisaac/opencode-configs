@@ -7,7 +7,6 @@
   - [Build Command](#build-command)
   - [Clean Command](#clean-command)
   - [Help Command](#help-command)
-  - [Migrate Command](#migrate-command)
 - [Configuration](#configuration)
   - [Providers](#providers)
     - [Provider List](#provider-list)
@@ -56,36 +55,6 @@ The clean command removes the entire `./dist` directory and all its contents. Th
 ### Help Command
 
 The help command displays a comprehensive list of available Makefile targets along with their descriptions. This command provides quick access to documentation without requiring users to read the Makefile directly. The help output includes basic usage examples and explains the overall workflow of the build system.
-
-### Migrate Command
-
-The migrate command handles deployment of built configuration files to their appropriate global locations. This command must be run after `make build` to install the processed configuration into the OpenCode system. When executed, it performs the following operations:
-
-1. Creates target directories if they don't exist:
-   - `~/.config/opencode/` - Main OpenCode configuration directory
-   - `~/.agents/skills/` - Skills storage location
-   - `~/.config/opencode/agents/` - Agent configurations
-   - `~/.config/opencode/commands/` - Custom commands
-   - `~/.config/opencode/skills/` - Skills symlinks location
-
-2. Migrates configuration files from `./dist/` to `~/.config/opencode/`:
-   - Copies JSONC files (opencode.jsonc, oh-my-opencode.jsonc, etc.)
-   - Copies AGENTS.md file
-
-3. Migrates agent folders:
-   - Removes existing agents in `~/.config/opencode/agents/`
-   - Copies all agent configurations from `./dist/agents/`
-
-4. Migrates command folders:
-   - Removes existing commands in `~/.config/opencode/commands/`
-   - Copies all command definitions from `./dist/commands/`
-
-5. Migrates skills:
-   - Removes existing skills in `~/.agents/skills/`
-   - Copies all skill directories from `./dist/skills/`
-   - Creates symlinks from `~/.config/opencode/skills/` to `~/.agents/skills/` for proper skill resolution
-
-The migration process ensures that all OpenCode components are properly installed with correct file permissions and symlink structures, making the configuration immediately available for use.
 
 ---
 
@@ -189,9 +158,9 @@ The oh-my-opencode plugin serves as the foundational extension for OpenCode, pro
 
 The type-inject plugin provides advanced type inference and injection capabilities for OpenCode. This plugin enhances the AI's understanding of type systems across different programming languages, enabling more accurate code completion and type-aware refactoring operations. It integrates with OpenCode's language server protocol to provide real-time type information and suggestions.
 
-**@knikolov/opencode-plugin-simple-memory**
+**opencode-supermemory@latest**
 
-The simple-memory plugin provides persistent memory capabilities to OpenCode, replacing the previous supermemory implementation. This plugin enables the AI assistant to maintain context and learn from previous interactions within sessions. It allows OpenCode to store and retrieve information about projects, development patterns, and user preferences across different sessions, significantly improving the assistant's ability to provide personalized and context-aware assistance. This plugin was migrated from the separate supermemory.jsonc configuration to the plugin-based architecture for better maintainability.
+The supermemory plugin introduces persistent memory capabilities to OpenCode, allowing the AI assistant to maintain context and learn from previous interactions within a session. This plugin enables OpenCode to store and retrieve information about the project, development patterns, and user preferences across different sessions, significantly improving the assistant's ability to provide personalized and context-aware assistance.
 
 ---
 
@@ -250,28 +219,33 @@ The skills system in OpenCode provides a modular way to extend the assistant's c
 
 #### Skills List
 
-The following skills are available in this configuration, organized by category:
+The following skills are available in this configuration:
 
-**Document & File Processing**
-- **docx** - Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction. Use when OpenCode needs to work with professional documents (.docx files) for: (1) Creating new documents, (2) Modifying or editing content, (3) Working with tracked changes, (4) Adding comments, or any other document tasks
-- **xlsx** - Comprehensive spreadsheet creation, editing, and analysis with support for formulas, formatting, data analysis, and visualization. Use when OpenCode needs to work with spreadsheets (.xlsx, .xlsm, .csv, .tsv, etc) for: (1) Creating new spreadsheets with formulas and formatting, (2) Reading or analyzing data, (3) Modifying existing spreadsheets while preserving formulas, (4) Data analysis and visualization in spreadsheets, or (5) Recalculating formulas
-- **pdf** - Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. Use when OpenCode needs to fill in a PDF form or programmatically process, generate, or analyze PDF documents at scale
-- **pptx** - Presentation creation, editing, and analysis for PowerPoint (.pptx) files including layouts, comments, and speaker notes. Use when OpenCode needs to work with presentations for: (1) Creating new presentations, (2) Modifying or editing content, (3) Working with layouts, (4) Adding comments or speaker notes, or any other presentation tasks
+- **algorithmic-art** - Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Enables generation of original algorithmic art, flow fields, and particle systems.
+   
+- **command-creator** - Guide for creating effective OpenCode slash commands. Essential for creating optimized, agent-executable slash commands with proper structure and best practices.
 
-**Development Workflow**
-- **receiving-code-review** - Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation
-- **requesting-code-review** - Use when completing tasks, implementing major features, or before merging to verify work meets requirements
-- **vercel-react-best-practices** - React and Next.js performance optimization guidelines from Vercel Engineering. Use when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patterns. Triggers on tasks involving React components, Next.js pages, data fetching, bundle optimization, or performance improvements
+- **docx** - Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction.
 
-**Skill Management**
-- **find-skills** - Helps users discover and install agent skills when they ask questions like "how do I do X", "find a skill for X", "is there a skill that can...", or express interest in extending capabilities. Use when the user is looking for functionality that might exist as an installable skill
-- **skill-creator** - Guide for creating effective skills. Use when users want to create a new skill (or update an existing skill) that extends OpenCode's capabilities with specialized knowledge, workflows, or tool integrations
-- **command-creator** - Guide for creating effective OpenCode slash commands. Use when users ask to "create a command", "make a slash command", "add a command", or want to document a workflow as a reusable command. Essential for creating optimized, agent-executable slash commands with proper structure and best practices
+- **find-skills** - Helps users discover and install agent skills when looking for functionality that might exist as an installable skill.
 
-**Other**
-- **algorithmic-art** - Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems. Create original algorithmic art rather than copying existing artists' work to avoid copyright violations
-- **web-design-guidelines** - Review UI code for Web Interface Guidelines compliance. Use when asked to "review my UI", "check accessibility", "audit design", "review UX", or "check my site against best practices"
-- **next-best-practices** - Next.js best practices - file conventions, RSC boundaries, data patterns, async APIs, metadata, error handling, route handlers, image/font optimization, and bundling
+- **pdf** - Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms.
+
+- **pptx** - Presentation creation, editing, and analysis for PowerPoint (.pptx) files including layouts, comments, and speaker notes.
+
+- **receiving-code-review** - Use when receiving code review feedback, before implementing suggestions. Requires technical rigor and verification.
+
+- **requesting-code-review** - Use when completing tasks, implementing major features, or before merging to verify work meets requirements.
+
+- **skill-creator** - Guide for creating effective skills. Used when users want to create a new skill that extends OpenCode's capabilities.
+
+- **vercel-react-best-practices** - React and Next.js performance optimization guidelines from Vercel Engineering. Ensures optimal performance patterns for React components, data fetching, and bundle optimization.
+
+- **web-design-guidelines** - Review UI code for Web Interface Guidelines compliance. Use when asked to review UI, check accessibility, audit design, or check site against best practices.
+
+- **xlsx** - Comprehensive spreadsheet creation, editing, and analysis with support for formulas, formatting, data analysis, and visualization.
+
+- **next-best-practices** - Next.js best practices - file conventions, RSC boundaries, data patterns, async APIs, metadata, error handling, route handlers, image/font optimization, bundling.
 
 ---
 
@@ -320,7 +294,7 @@ The following resources provide additional information about skills, plugins, an
 - **Vercel Skills.sh**: https://skills.sh - The official skills installation and management system for OpenCode, providing community-maintained skills for various development tasks and domains.
 - **OpenCode Documentation**: https://opencode.ai/docs - Official documentation for OpenCode configuration, plugin development, and usage guides.
 - **Oh-My-OpenCode Plugin**: https://github.com/code-yeongyu/oh-my-opencode - The foundational plugin providing comprehensive agent capabilities, available through the OpenCode plugin registry.
-- **OpenSimpleMemory Plugin**: https://github.com/cnicolov/opencode-plugin-simple-memory - A persistent memory plugin for OpenCode that enables AI assistant to maintain context and learn from previous interactions across sessions.
+- **OpenSupermemory Plugin**: https://github.com/supermemoryai/opencode-supermemory - The opencode-supermemory plugin repository providing persistent memory capabilities for OpenCode.
 - **Figma Desktop MCP**: https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server - Official MCP server for Figma integration, enabling design context retrieval and UI code generation.
 - **GitHub MCP**: https://github.com/github/github-mcp-server - Official MCP server for GitHub API integration, enabling repository operations and issue management.
 - **Jira MCP**: https://github.com/sooperset/mcp-atlassian - Official MCP server for Atlassian Jira and Confluence integration, enabling project management workflows.

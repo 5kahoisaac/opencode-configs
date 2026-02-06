@@ -45,7 +45,7 @@
       // "model": "zai-coding-plan/glm-4.7"
       "model": "xai/grok-4-1-fast-reasoning"
     },
-    "ultrabrain": {
+    "ultrabrain": {/models
       // "model": "zai-coding-plan/glm-4.7",
       "model": "opencode/kimi-k2.5-free",
       "variant": "xhigh"
@@ -68,8 +68,5 @@
       // "model": "opencode/big-pickle"
       "model": "ollama-cloud/gemini-3-flash-preview"
     }
-  },
-  "disabled_hooks": [
-    "anthropic-context-window-limit-recovery"
-  ]
+  }
 }
