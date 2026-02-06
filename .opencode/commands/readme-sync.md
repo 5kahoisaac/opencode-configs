@@ -31,6 +31,7 @@ You must analyze the project structure to identify what needs synchronization:
 Use the **Task tool** to orchestrate parallel scanning and analysis:
 
 1. Launch parallel exploration tasks to analyze configuration structure:
+   - Task: Scan `Makefile` for changes of action
    - Task: Scan `opencode.jsonc` "plugins" section and detect changes
    - Task: Scan `opencode.jsonc` "mcp" section and detect changes
    - Task: Scan `opencode.jsonc` "enabled_providers" section and detect changes
@@ -48,6 +49,11 @@ Use the **Task tool** to orchestrate parallel scanning and analysis:
 ### Phase 2: README.md Synchronization
 
 Based on detected changes, update or remove legacy content in appropriate sections:
+
+**For `./Makefile` Changes:**
+- Navigate to **Available Makefile Commands** section in README.md
+- Parse available action from `Makefile`
+- Update documentation with current action and details
 
 **For `./opencode.jsonc` Plugin Changes:**
 - Navigate to **Plugins** section in README.md
