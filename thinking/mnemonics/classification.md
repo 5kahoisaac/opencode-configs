@@ -1,4 +1,4 @@
-# Response to Prometheus
+# Classification
 
 ## Memory classification logic: How to automatically classify input into memory types? This needs to be in the skill or scripts.
 

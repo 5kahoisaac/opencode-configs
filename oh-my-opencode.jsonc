@@ -29,7 +29,7 @@
       "variant": "max"
     },
     "momus": {
-      "model": "zai-coding-plan/glm-4.6",
+      "model": "opencode/big-pickle",
       "variant": "medium"
     },
     "atlas": {
@@ -55,7 +55,7 @@
       "model": "zai-coding-plan/glm-4.5-flash"
     },
     "unspecified-low": {
-      "model": "zai-coding-plan/glm-4.6"
+      "model": "opencode/big-pickle"
     },
     "unspecified-high": {
       "model": "zai-coding-plan/glm-4.7",
@@ -63,7 +63,6 @@
     },
     "writing": {
       // "model": "opencode/gpt-5-nano"
-      // "model": "opencode/big-pickle"
       "model": "ollama-cloud/gemini-3-flash-preview"
     }
   }
