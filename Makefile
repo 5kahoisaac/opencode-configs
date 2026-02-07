@@ -72,21 +72,21 @@ migrate: build
 	# Migrate agents folder
 	@echo "📁 Migrating agents folder..."
 	@rm -rf ~/.config/opencode/agents/*
-	@cp -r ./dist/agents/* ~/.config/opencode/agents/
+	@cp -r ./dist/agents/* ~/.config/opencode/agents/ 2>/dev/null || true
 	@echo "✓ agents folder migrated"
 	@echo ""
 	
 	# Migrate commands folder
 	@echo "📁 Migrating commands folder..."
 	@rm -rf ~/.config/opencode/commands/*
-	@cp -r ./dist/commands/* ~/.config/opencode/commands/
+	@cp -r ./dist/commands/* ~/.config/opencode/commands/ 2>/dev/null || true
 	@echo "✓ commands folder migrated"
 	@echo ""
 	
 	# Migrate skills folder to ~/.agents/skills/
 	@echo "📁 Migrating skills folder to ~/.agents/skills/..."
 	@rm -rf ~/.agents/skills/*
-	@cp -r ./dist/skills/* ~/.agents/skills/
+	@cp -r ./dist/skills/* ~/.agents/skills/ 2>/dev/null || true
 	@echo "✓ skills copied to ~/.agents/skills/"
 	
 	# Clear and symlink skills from ~/.agents/skills/ to ~/.config/opencode/skills/
