@@ -1,5 +1,6 @@
 # AGENTS.md - Agents' Basic Accomplishments and Rules
 
+
 ---
 
 ## Maximum Truth Seeking

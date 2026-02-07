@@ -53,8 +53,7 @@
   },
   "plugin": [
     "oh-my-opencode@latest",
-    "@nick-vi/opencode-type-inject@latest",
-    "@knikolov/opencode-plugin-simple-memory"
+    "@nick-vi/opencode-type-inject@latest"
   ],
   "enabled_providers": [
     // "anthropic",
