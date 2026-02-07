@@ -47,7 +47,9 @@
     }
   },
   "permission": {
-    "skill": "allow",
+    "skill": {
+      "*": "allow"
+    },
     "todoread": "allow",
     "todowrite": "allow"
   },
