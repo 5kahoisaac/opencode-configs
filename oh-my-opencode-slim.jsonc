@@ -75,6 +75,7 @@
         "model": "zai-coding-plan/glm-4.7",
         "variant": "low",
         "skills": [
+          "simplify",
           "golang-pro",
           "rust-best-practices",
           "python-packaging",
