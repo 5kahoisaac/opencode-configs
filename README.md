@@ -4,10 +4,6 @@
 
 - [Overview](#overview)
 - [Available Makefile Commands](#available-makefile-commands)
-  - [Build Command](#build-command)
-  - [Clean Command](#clean-command)
-  - [Help Command](#help-command)
-  - [Migrate Command](#migrate-command)
 - [Configuration](#configuration)
   - [Providers](#providers)
     - [Provider List](#provider-list)
@@ -35,57 +31,19 @@ OpenCode serves as a powerful alternative to traditional IDE-based AI assistants
 
 ## Available Makefile Commands
 
-The Makefile provides a set of commands to build, clean, and manage the OpenCode configuration. These commands handle the processing of configuration files and prepare them for use with OpenCode.
+The Makefile provides essential commands to build, clean, and manage the OpenCode configuration:
 
-### Build Command
+| Command | Description |
+|:--------|:------------|
+| `make build` | Build OpenCode configuration with .env variables substitution. Creates `./dist/` directory, processes JSONC files with environment variable substitution, and copies agents/commands/skills directories |
+| `make clean` | Remove the `./dist` directory and all generated files |
+| `make migrate` | Deploy built configuration to global OpenCode locations (`~/.config/opencode/` and `~/.agents/skills/`). Must be run after `make build` |
+| `make help` | Display available targets and their descriptions |
 
-The build command is the default target that processes all the .env and prepares them for build configuration files. When executed, it performs the following operations:
-
-1. Creates and cleans the `./dist` directory to ensure a fresh build environment
-2. Loads environment variables from the `.env` file
-3. Processes each JSONC file by substituting environment variables using a custom substitution script that only replaces `$VAR` patterns when the corresponding key exists in `.env`
-4. Copies the `agents`, `commands`, and `skills` directories to the output location
-5. Displays a summary of all generated files in the `./dist` directory
-
-The build process ensures that all sensitive information like API tokens and configuration values are properly injected from environment variables, making the configuration secure and portable across different environments.
-
-### Clean Command
-
-The clean command removes the entire `./dist` directory and all its contents. This command is useful when you want to start fresh with a new build or when you need to remove all generated files from the system. The command simply executes `rm -rf ./dist` and displays a confirmation message indicating that the directory has been cleaned.
-
-### Help Command
-
-The help command displays a comprehensive list of available Makefile targets along with their descriptions. This command provides quick access to documentation without requiring users to read the Makefile directly. The help output includes basic usage examples and explains the overall workflow of the build system.
-
-### Migrate Command
-
-The migrate command handles deployment of built configuration files to their appropriate global locations. This command must be run after `make build` to install the processed configuration into the OpenCode system. When executed, it performs the following operations:
-
-1. Creates target directories if they don't exist:
-   - `~/.config/opencode/` - Main OpenCode configuration directory
-   - `~/.agents/skills/` - Skills storage location
-   - `~/.config/opencode/agents/` - Agent configurations
-   - `~/.config/opencode/commands/` - Custom commands
-   - `~/.config/opencode/skills/` - Skills symlinks location
-
-2. Migrates configuration files from `./dist/` to `~/.config/opencode/`:
-   - Copies JSONC files (opencode.jsonc, oh-my-opencode.jsonc, etc.)
-   - Copies AGENTS.md file
-
-3. Migrates agent folders:
-   - Removes existing agents in `~/.config/opencode/agents/`
-   - Copies all agent configurations from `./dist/agents/`
-
-4. Migrates command folders:
-   - Removes existing commands in `~/.config/opencode/commands/`
-   - Copies all command definitions from `./dist/commands/`
-
-5. Migrates skills:
-   - Removes existing skills in `~/.agents/skills/`
-   - Copies all skill directories from `./dist/skills/`
-   - Creates symlinks from `~/.config/opencode/skills/` to `~/.agents/skills/` for proper skill resolution
-
-The migration process ensures that all OpenCode components are properly installed with correct file permissions and symlink structures, making the configuration immediately available for use.
+**Workflow:**
+1. Run `make build` to process configuration files with environment variables
+2. Run `make migrate` to install the configuration to system locations
+3. Use `make clean` to start fresh when needed
 
 ---
 
@@ -119,40 +77,21 @@ xAI provides the Grok family of models, specifically `xai/grok-code-fast-1` for 
 
 #### Models Configuration
 
-The `oh-my-opencode.jsonc` and `./agents/*.md` files contains a sophisticated model assignment system that categorizes tasks and assigns appropriate models based on complexity and requirements. This configuration represents a carefully tuned balance between API rate limits, response quality, and cost management.
-
-**Task Categories and Model Selection**
-
-The configuration defines several task categories, each optimized for specific workload types:
-
-| Category                        | Name                 | Model                                 | Description                                                                                                        |
-|:--------------------------------|:---------------------|:--------------------------------------|:-------------------------------------------------------------------------------------------------------------------|
-| **Visual Engineering Tasks**    | `visual-engineering` | `grok-4-1-fast-reasoning`             | For UI/UX design tasks that benefit from rapid pattern recognition and spatial reasoning capabilities.             |
-| **Ultra-Brain Tasks**           | `ultrabrain`         | `zai-coding-plan/glm-4.7`             | With `xhigh` variant for mathematically intensive or deeply logical problems requiring extensive reasoning chains. |
-| **Artistry Tasks**              | `artistry`           | `xai/grok-4-1-fast-reasoning`         | With `max` variant for creative tasks that benefit from higher token generation and imaginative output.            |
-| **Quick Tasks**                 | `quick`              | `zai-coding-plan/glm-4.5-flash`       | For simple, straightforward tasks that benefit from minimal latency and reduced cost.                              |
-| **Unspecified Low Complexity**  | `unspecified-low`    | `zai-coding-plan/glm-4.6`             | For routine tasks without specific categorization needs.                                                           |
-| **Unspecified High Complexity** | `unspecified-high`   | `zai-coding-plan/glm-4.7`             | With `max` variant for complex, uncategorized tasks requiring comprehensive analysis.                              |
-| **Writing Tasks**               | `writing`            | `ollama-cloud/gemini-3-flash-preview` | For documentation and content generation, taking advantage of its strong writing capabilities.                     |
+The `oh-my-opencode-slim.jsonc` and `./agents/*.md` files contain a sophisticated model assignment system that maps specialized agents to appropriate models based on their specific functions. This configuration represents a carefully tuned balance between API rate limits, response quality, and cost management.
 
 **Agent-Specific Model Assignments**
 
-Individual agents receive specialized model assignments optimized for their specific functions:
+Individual agents from the oh-my-opencode-slim plugin receive specialized model assignments optimized for their specific functions:
 
-| Source             | Agent Name          | Role                  | Model                             | Description                                                                                                |
-|:-------------------|:--------------------|:----------------------|:----------------------------------|:-----------------------------------------------------------------------------------------------------------|
-| **custom**         | `hermes`            | Decision Router       | `xai/grok-4-1-fast-non-reasoning` | Analyzes user prompts and determines the most efficient handling strategy using a structured decision flow |
-| **oh-my-opencode** | `sisyphus`          | Orchestration         | `zai-coding-plan/glm-4.7`         | For complex task planning and delegation                                                                   |
-| **oh-my-opencode** | `hephaestus`        | Build                 | `opencode/glm-4.7-free`           | For code generation and implementation                                                                     |
-| **oh-my-opencode** | `oracle`            | High-Level Reasoning  | `opencode/glm-4.6`                | With `high` variant for complex problem analysis                                                           |
-| **oh-my-opencode** | `librarian`         | Research              | `zai-coding-plan/glm-4.6-v`       | For documentation lookup and information retrieval                                                         |
-| **oh-my-opencode** | `explore`           | Codebase Analysis     | `xai/grok-code-fast-1`            | For rapid code navigation and pattern detection                                                            |
-| **oh-my-opencode** | `multimodal-looker` | Multimodal            | `opencode/kimi-k2.5-free`         | For image and document analysis                                                                            |
-| **oh-my-opencode** | `prometheus`        | Planning              | `zai-coding-plan/glm-4.7`         | With `max` variant for comprehensive planning tasks                                                        |
-| **oh-my-opencode** | `metis`             | Pre-Planning          | `zai-coding-plan/glm-4.6-v`       | With `max` variant for preliminary analysis                                                                |
-| **oh-my-opencode** | `momus`             | Review                | `zai-coding-plan/glm-4.6`         | With `medium` variant for balanced review tasks                                                            |
-| **oh-my-opencode** | `atlas`             | Context               | `zai-coding-plan/glm-4.7-flash`   | For quick context retrieval and summarization                                                              |
-| **oh-my-opencode** | `sisyphus-junior`   | Focused Task Executor | `zai-coding-plan/glm-4.7-flash`   | For single, straightforward tasks with disciplined execution and no delegation                             |
+| Source                  | Agent Name      | Role                     | Model                                     | Variant | Description                                                                                                |
+|:------------------------|:----------------|:-------------------------|:------------------------------------------|:--------|:-----------------------------------------------------------------------------------------------------------|
+| **oh-my-opencode-slim** | `orchestrator`  | Task Orchestration       | `opencode/kimi-k2.5-free`                 | -       | Coordinates complex, multi-step tasks and manages agent delegation workflows                               |
+| **oh-my-opencode-slim** | `oracle`        | Strategic Advisor        | `zai-coding-plan/glm-4.7`                 | `high`  | Provides high-level architectural guidance and complex reasoning for critical decisions                    |
+| **oh-my-opencode-slim** | `librarian`     | Research Specialist      | `ollama-cloud/gemini-3-flash-preview`     | `low`   | Handles documentation lookup, external research, and information retrieval tasks                           |
+| **oh-my-opencode-slim** | `explorer`      | Codebase Analysis        | `xai/grok-code-fast-1`                    | `medium`| Performs rapid codebase navigation, pattern detection, and symbol exploration                              |
+| **oh-my-opencode-slim** | `designer`      | UI/UX Design             | `xai/grok-4-1-fast-reasoning`             | `medium`| Creates polished frontend interfaces, handles visual design, animations, and responsive layouts            |
+| **oh-my-opencode-slim** | `fixer`         | Implementation Specialist| `zai-coding-plan/glm-4.7`                 | `low`   | Executes well-defined coding tasks with efficiency and precision                                           |
+| **custom**              | `courier`       | Primary Router           | `xai/grok-4-1-fast-non-reasoning`         | -       | Ultra-fast task router that answers simple queries directly and delegates complex tasks to specialists     |
 
 **Currency API Rate Limits and Suggested Setup**
 
@@ -168,10 +107,12 @@ The provider configuration considers several factors for optimal performance:
    - **High/Max Variants**: Enhanced capability for complex reasoning tasks
 
 4. **Suggested Usage Pattern**:
-   - Use **Quick** category for simple edits, typo fixes, and basic queries
-   - Use **Visual Engineering** for frontend and UI tasks requiring spatial reasoning
-   - Use **Ultrabrain** for algorithm design and complex logical problems
-   - Use **Unspecified-High** for ambiguous tasks that might require deep analysis
+   - Use **@orchestrator** for complex, multi-step tasks requiring coordination and planning
+   - Use **@explorer** for codebase navigation, pattern detection, and symbol lookup
+   - Use **@librarian** for documentation research and external API lookup
+   - Use **@oracle** for high-stakes architectural decisions and complex reasoning
+   - Use **@designer** for UI/UX tasks, frontend components, and visual design
+   - Use **@fixer** for straightforward coding tasks and implementations
    - Reserve **Premium Models** (Z.ai, xAI) for tasks where quality is critical
 
 This configuration represents a personalized setup balancing performance, cost, and reliability based on individual usage patterns and provider strengths.
@@ -181,25 +122,21 @@ This configuration represents a personalized setup balancing performance, cost, 
 
 The OpenCode configuration utilizes several plugins to extend its core functionality. These plugins are defined in the `opencode.jsonc` configuration file and provide integration with external services and additional features.
 
-**oh-my-opencode@latest**
+**oh-my-opencode-slim@latest**
 
-The oh-my-opencode plugin serves as the foundational extension for OpenCode, providing essential agent capabilities and workflow enhancements. This plugin introduces a comprehensive set of specialized agents designed to handle various development tasks autonomously. The plugin enables advanced orchestration features, allowing OpenCode to delegate complex tasks to appropriate agents based on the nature of the request. It includes agents for codebase exploration, documentation lookup, planning, and handling both conventional and non-conventional development challenges.
+The oh-my-opencode-slim plugin serves as the foundational extension for OpenCode, providing essential agent capabilities and workflow enhancements in a lightweight package. This plugin introduces a focused set of specialized agents designed to handle various development tasks autonomously. The plugin enables advanced orchestration features, allowing OpenCode to delegate complex tasks to appropriate agents based on the nature of the request. It includes six core agents: orchestrator (task coordination), oracle (strategic reasoning), librarian (research), explorer (codebase analysis), designer (UI/UX), and fixer (implementation). The slim edition provides optimized agent selection for efficient task delegation without unnecessary overhead.
 
 **@nick-vi/opencode-type-inject@latest**
 
 The type-inject plugin provides advanced type inference and injection capabilities for OpenCode. This plugin enhances the AI's understanding of type systems across different programming languages, enabling more accurate code completion and type-aware refactoring operations. It integrates with OpenCode's language server protocol to provide real-time type information and suggestions.
-
-**@knikolov/opencode-plugin-simple-memory**
-
-The simple-memory plugin provides persistent memory capabilities to OpenCode, replacing the previous supermemory implementation. This plugin enables the AI assistant to maintain context and learn from previous interactions within sessions. It allows OpenCode to store and retrieve information about projects, development patterns, and user preferences across different sessions, significantly improving the assistant's ability to provide personalized and context-aware assistance. This plugin was migrated from the separate supermemory.jsonc configuration to the plugin-based architecture for better maintainability.
 
 ---
 
 
 ## MCPs
 
-Model Context Protocol (MCP) servers extend OpenCode's capabilities by providing specialized tools and integrations. 
-This configuration includes both manually configured MCPs and pre-installed MCPs from the oh-my-opencode plugin.
+Model Context Protocol (MCP) servers extend OpenCode's capabilities by providing specialized tools and integrations.
+This configuration includes both manually configured MCPs and pre-installed MCPs from the oh-my-opencode-slim plugin.
 
 ### Manually Configured MCPs
 
@@ -229,17 +166,25 @@ The Serena MCP server provides advanced code intelligence capabilities including
 semantic search, and AST-aware code operations. This MCP is essential for the Serena agent's functionality, 
 enabling token-efficient code retrieval and modifications.
 
-### Pre-installed MCPs from Oh-My-Opencode
+### Pre-installed MCPs from Oh-My-Opencode-Slim
 
-The oh-my-opencode plugin includes several pre-configured MCP servers that provide essential development tools:
+The oh-my-opencode-slim plugin includes three pre-configured MCP servers that provide essential development tools:
 
-- **Context7** - Provides access to official documentation and code examples for various libraries and frameworks
-- **Code Search (Exa)** - Enables real-time web search for programming-related queries and code examples
-- **Web Search** - Provides general web search capabilities for current information and documentation
-- **Google Search** - Enables Google-powered web search with URL analysis capabilities
+| MCP | Purpose | Default Assignment |
+|-----|---------|-------------------|
+| `websearch` | Real-time web search via Exa AI | `orchestrator`, `librarian` |
+| `context7` | Official library documentation | `librarian` |
+| `grep_app` | GitHub code search via grep.app | `librarian` |
 
-These pre-installed MCPs are automatically available when the oh-my-opencode plugin is enabled, providing a comprehensive set of tools for research, 
-documentation lookup, and web-based information retrieval without additional configuration.
+**MCP Descriptions:**
+
+- **websearch** - Provides real-time web search capabilities via Exa AI. This MCP enables agents to search for current information, documentation, and code examples from across the web.
+
+- **context7** - Provides access to up-to-date official documentation and code examples for various libraries and frameworks. This MCP fetches version-specific documentation directly from the source, ensuring accurate and current information for library usage and API references.
+
+- **grep_app** - Enables ultra-fast code search across millions of public GitHub repositories. This MCP allows agents to search for code patterns, find real-world implementation examples, and discover how others have solved similar problems.
+
+These pre-installed MCPs are automatically available when the oh-my-opencode-slim plugin is enabled. MCP access is controlled via per-agent permissions in the configuration. See the [official documentation](https://github.com/alvinunreal/oh-my-opencode-slim/blob/master/docs/quick-reference.md#mcp-servers) for details on MCP assignment syntax and global disabling options.
 
 ---
 
@@ -268,23 +213,28 @@ The following skills are available in this configuration, organized by category:
 - **skill-creator** - Guide for creating effective skills. Use when users want to create a new skill (or update an existing skill) that extends OpenCode's capabilities with specialized knowledge, workflows, or tool integrations
 - **command-creator** - Guide for creating effective OpenCode slash commands. Use when users ask to "create a command", "make a slash command", "add a command", or want to document a workflow as a reusable command. Essential for creating optimized, agent-executable slash commands with proper structure and best practices
 
+**Programming Language Patterns**
+- **async-python-patterns** - Master Python asyncio, concurrent programming, and async/await patterns for high-performance applications. Use when building async APIs, concurrent systems, or I/O-bound applications requiring non-blocking operations
+- **python-packaging** - Create distributable Python packages with proper project structure, setup.py/pyproject.toml, and publishing to PyPI. Use when packaging Python libraries, creating CLI tools, or distributing Python code
+- **python-performance-optimization** - Profile and optimize Python code using cProfile, memory profilers, and performance best practices. Use when debugging slow Python code, optimizing bottlenecks, or improving application performance
+- **python-testing-patterns** - Implement comprehensive testing strategies with pytest, fixtures, mocking, and test-driven development. Use when writing Python tests, setting up test suites, or implementing testing best practices
+- **rust-best-practices** - Guide for writing idiomatic Rust code based on Apollo GraphQL's best practices handbook. Use when writing, reviewing, or refactoring Rust code, implementing error handling, or optimizing performance
+- **golang-pro** - Use when building Go applications requiring concurrent programming, microservices architecture, or high-performance systems. Invoke for goroutines, channels, Go generics, gRPC integration
+
 **Other**
 - **algorithmic-art** - Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems. Create original algorithmic art rather than copying existing artists' work to avoid copyright violations
 - **web-design-guidelines** - Review UI code for Web Interface Guidelines compliance. Use when asked to "review my UI", "check accessibility", "audit design", "review UX", or "check my site against best practices"
 - **next-best-practices** - Next.js best practices - file conventions, RSC boundaries, data patterns, async APIs, metadata, error handling, route handlers, image/font optimization, and bundling
+- **agent-browser** - Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task
+- **simplify** - Simplify and refine recently modified code for clarity and consistency. Use after writing code to improve readability without changing functionality
+- **frontend-design** - Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications
 
 ---
 
 
 ## Commands
 
-The commands directory contains custom slash commands that extend OpenCode's interaction capabilities:
-
-**supermemory-init**
-
-A comprehensive command for initializing persistent memory with comprehensive codebase knowledge. 
-This command performs deep research on the project including tech stack, architecture, build commands, conventions, and team workflows. 
-It systematically saves memories across project-scoped and user-scoped contexts, enabling OpenCode to maintain context across sessions and become more effective over time.
+The commands directory is available for custom slash commands that extend OpenCode's interaction capabilities. Currently, no custom commands are configured in this setup. Commands can be added to the `./commands/` directory and will be migrated along with other configuration files during the build process.
 
 ---
 
@@ -293,22 +243,34 @@ It systematically saves memories across project-scoped and user-scoped contexts,
 
 OpenCode employs a sophisticated agent system where specialized AI agents handle different types of tasks. The agent architecture enables parallel task execution, context-aware processing, and delegation based on task complexity and requirements.
 
-#### Oh-My-OpenCode Agents
+#### Oh-My-OpenCode-Slim Agents
 
-The oh-my-opencode plugin provides a comprehensive suite of agents that form the backbone of OpenCode's autonomous capabilities.
-The plugin includes agents for various development tasks including codebase exploration, documentation lookup, planning, and handling both conventional and non-conventional development challenges.
-For detailed documentation on all available agents and their features, please refer to the [official documentation](https://github.com/code-yeongyu/oh-my-opencode/blob/dev/docs/features.md).
+The oh-my-opencode-slim plugin provides a focused suite of six specialized agents that form the backbone of OpenCode's autonomous capabilities:
+
+- **@orchestrator** - Coordinates complex, multi-step tasks with heavy planning and parallel execution potential
+- **@oracle** - Provides strategic architectural guidance and complex reasoning for high-stakes decisions
+- **@librarian** - Handles external documentation lookup, API research, and library information retrieval
+- **@explorer** - Performs rapid codebase navigation, pattern detection, and symbol exploration
+- **@designer** - Creates polished UI/UX designs, frontend components, and visual experiences
+- **@fixer** - Executes well-defined coding tasks with speed and precision
+
+These agents work together to provide comprehensive coverage of development tasks while maintaining efficiency through the slim architecture.
 
 #### Custom Agents
 
-This configuration includes custom agents designed to enhance OpenCode's orchestration and code analysis capabilities:
+This configuration includes a custom primary agent designed to enhance OpenCode's task routing capabilities:
 
-**Hermes - Orchestration Router Agent**
+**Courier - Ultra-Fast Task Router**
 
-Hermes serves as the router agent for intelligent task orchestration. 
-Hermes excels at classifying tasks and delegating them to appropriate specialized agents without unnecessary overhead. 
-The agent follows a minimalist approach, avoiding aggressive parallel execution and prioritizing direct responses when possible. 
-This agent is particularly valuable for maintaining clean task delegation patterns and preventing unnecessary agent spawns.
+Courier serves as the primary agent for intelligent task routing. It is an ultra-lightweight and fast task router optimized for oh-my-opencode-slim. Courier excels at responding quickly to simple queries while intelligently delegating complex tasks to appropriate specialized agents.
+
+**Key characteristics:**
+- **Direct First**: Answers simple/trivial prompts directly with concise responses (including short code snippets when needed)
+- **Smart Delegation**: Only delegates when truly necessary, following a strict preference order: direct answer > single delegation > ask for clarification
+- **Speed Optimized**: Prioritizes response speed above all else, keeping all communication extremely concise
+- **Specialist Routing**: Routes to @orchestrator (complex coordination), @explorer (codebase context), @librarian (research), @oracle (strategic decisions), @designer (UI/UX), or @fixer (implementation) based on task requirements
+
+Courier is configured as the primary agent (`mode: primary`) with low temperature (0.3) for consistent, fast routing decisions using the `xai/grok-4-1-fast-non-reasoning` model.
 
 ---
 
@@ -319,8 +281,8 @@ The following resources provide additional information about skills, plugins, an
 
 - **Vercel Skills.sh**: https://skills.sh - The official skills installation and management system for OpenCode, providing community-maintained skills for various development tasks and domains.
 - **OpenCode Documentation**: https://opencode.ai/docs - Official documentation for OpenCode configuration, plugin development, and usage guides.
-- **Oh-My-OpenCode Plugin**: https://github.com/code-yeongyu/oh-my-opencode - The foundational plugin providing comprehensive agent capabilities, available through the OpenCode plugin registry.
-- **OpenSimpleMemory Plugin**: https://github.com/cnicolov/opencode-plugin-simple-memory - A persistent memory plugin for OpenCode that enables AI assistant to maintain context and learn from previous interactions across sessions.
+- **Oh-My-OpenCode-Slim Plugin**: https://github.com/code-yeongyu/oh-my-opencode - The foundational plugin providing focused agent capabilities in a lightweight package, available through the OpenCode plugin registry.
+- **Type-Inject Plugin**: https://github.com/nick-vi/opencode-type-inject - Advanced type inference and injection capabilities for OpenCode, enhancing type system understanding across programming languages.
 - **Figma Desktop MCP**: https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server - Official MCP server for Figma integration, enabling design context retrieval and UI code generation.
 - **GitHub MCP**: https://github.com/github/github-mcp-server - Official MCP server for GitHub API integration, enabling repository operations and issue management.
 - **Jira MCP**: https://github.com/sooperset/mcp-atlassian - Official MCP server for Atlassian Jira and Confluence integration, enabling project management workflows.

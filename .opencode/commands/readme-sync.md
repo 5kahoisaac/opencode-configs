@@ -1,7 +1,5 @@
 ---
 description: Synchronizes README.md with configuration files
-agent: sisyphus
-model: opencode/big-pickle
 ---
 
 # OpenCode Command: README Synchronizer
@@ -18,7 +16,7 @@ You must analyze the project structure to identify what needs synchronization:
 
 **Primary Configuration Files to Monitor:**
 - `*.jsonc` files in project root
-  - Specifically: `opencode.jsonc`, `oh-my-opencode.jsonc`, `supermemory.jsonc`
+  - Specifically: `opencode.jsonc`, `oh-my-opencode-slim.jsonc`, `supermemory.jsonc`
   - Any additional JSONC files
 
 **Component Directories to Scan:**
@@ -35,7 +33,7 @@ Use the **Task tool** to orchestrate parallel scanning and analysis:
    - Task: Scan `opencode.jsonc` "plugins" section and detect changes
    - Task: Scan `opencode.jsonc` "mcp" section and detect changes
    - Task: Scan `opencode.jsonc` "enabled_providers" section and detect changes
-   - Task: Scan `oh-my-opencode.jsonc` for model configuration changes of agents
+   - Task: Scan `oh-my-opencode-slim.jsonc` for model configuration changes of agents
 
 2. Wait for all exploration tasks to complete and collect their findings
 
@@ -98,7 +96,7 @@ Custom Commands Documentation:
 - Update documentation as needed
 
 **Models Configuration:**
-- Scan `./oh-my-opencode.jsonc` and compare against Models Configuration section
+- Scan `./oh-my-opencode-slim.jsonc` and compare against Models Configuration section
 - Verify all agent-specific model assignments match
 - Verify all task category model configurations match
 - Check model variant specifications are accurate
@@ -150,7 +148,7 @@ When analyzing and updating documentation:
 
 Detected Changes:
   ✓ opencode.jsonc (MCPs section updated)
-  ✓ oh-my-opencode.jsonc (agents modified)
+  ✓ oh-my-opencode-slim.jsonc (agents modified)
   ✓ skills/ (new skills detected)
 
 Documentation Sections Updated:
