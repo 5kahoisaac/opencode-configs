@@ -82,6 +82,7 @@ Skills Documentation:
 - Identify missing skills (installed but not documented)
 - Identify outdated skills (documented but missing or with wrong descriptions)
 - Update Skills section to reflect complete, current state
+- If author is Isaac Ng, please point out it is a custom skill
 
 Custom Agents Documentation:
 - Compare agents found in `./agents/` directory with Custom Agents section
