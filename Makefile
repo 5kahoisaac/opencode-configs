@@ -1,7 +1,7 @@
 # Makefile for building OpenCode configuration with .env variables
 
 # Define the files to process
-FILES := AGENTS.md oh-my-opencode.jsonc opencode.jsonc
+FILES := AGENTS.md oh-my-opencode-slim.jsonc opencode.jsonc
 DIRECTORIES := agents commands skills
 
 # Main targets

@@ -1,0 +1,94 @@
+{
+  "preset": "isaac",
+  "presets": {
+    "isaac": {
+      "orchestrator": {
+        "model": "opencode/kimi-k2.5-free",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "websearch"
+        ]
+      },
+      "oracle": {
+        "model": "zai-coding-plan/glm-4.7",
+        "variant": "high",
+        "skills": [
+          "next-best-practices",
+          "vercel-react-best-practices",
+          "async-python-patterns",
+          "python-packaging",
+          "python-performance-optimization",
+          "python-testing-patterns",
+          "rust-best-practices",
+          "golang-pro"
+        ],
+        "mcps": [
+          "grep_app"
+        ]
+      },
+      "librarian": {
+        "model": "ollama-cloud/gemini-3-flash-preview",
+        "variant": "low",
+        "skills": [
+          "docx",
+          "pdf",
+          "xlsx",
+          "pptx"
+        ],
+        "mcps": [
+          "websearch",
+          "context7",
+          "grep_app",
+          "serena",
+          "jira",
+          "github"
+        ]
+      },
+      "explorer": {
+        "model": "xai/grok-code-fast-1",
+        "variant": "medium",
+        "skills": [],
+        "mcps": [
+          "serena"
+        ]
+      },
+      "designer": {
+        "model": "xai/grok-4-1-fast-reasoning",
+        "variant": "medium",
+        "skills": [
+          "agent-browser",
+          "web-design-guidelines",
+          "algorithmic-art",
+          "frontend-design",
+          "agent-browser"
+        ],
+        "mcps": [
+          "figma-desktop"
+        ]
+      },
+      "fixer": {
+        "model": "zai-coding-plan/glm-4.7",
+        "variant": "low",
+        "skills": [
+          "next-best-practices",
+          "vercel-react-best-practices",
+          "async-python-patterns",
+          "python-packaging",
+          "python-performance-optimization",
+          "python-testing-patterns",
+          "rust-best-practices",
+          "golang-pro"
+        ],
+        "mcps": [
+          "serena"
+        ]
+      }
+    }
+  },
+  "tmux": {
+    "enabled": true,
+    "layout": "main-vertical"
+  }
+}
