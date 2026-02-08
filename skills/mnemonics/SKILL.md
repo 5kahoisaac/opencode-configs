@@ -1,6 +1,12 @@
 ---
 name: mnemonics
 description: Memory management system for context retention and compounded engineering practices. Use when the user explicitly says "remember", "recall", or "forget" with memory content. Handles storage, retrieval, and deletion of project knowledge including architectural decisions, design patterns, learnings, preferences, issues, and context. Automatically classifies memory types and manages circular references between related memories.
+
+license: MIT
+compatibility: opencode
+
+metadata:
+  author: Isaac Ng, Ka Ho
 ---
 
 # Mnemonics: recall, remember and forget
