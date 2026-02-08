@@ -35,6 +35,7 @@
         "model": "ollama-cloud/gemini-3-flash-preview",
         "variant": "low",
         "skills": [
+          "mnemonics",
           "docx",
           "pdf",
           "xlsx",
@@ -54,6 +55,7 @@
         "variant": "medium",
         "skills": [],
         "mcps": [
+          "mnemonics",
           "serena"
         ]
       },
@@ -61,6 +63,7 @@
         "model": "xai/grok-4-1-fast-reasoning",
         "variant": "medium",
         "skills": [
+          "mnemonics",
           "agent-browser",
           "web-design-guidelines",
           "algorithmic-art",
@@ -75,6 +78,7 @@
         "model": "zai-coding-plan/glm-4.7",
         "variant": "low",
         "skills": [
+          "mnemonics",
           "simplify",
           "golang-pro",
           "rust-best-practices",
