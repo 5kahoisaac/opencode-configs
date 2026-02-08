@@ -66,7 +66,9 @@ Does answering require **tool execution** to be truthful?
 - Any task claiming success/failure of a system action
 - Skills with mandatory tool requirements
 
-→ **YES** → **Execute tools first, verify output, then report** (Never answer without tool verification)  
+→ **YES** → **Execute tools first, verify output, then report** (Never answer without tool verification)
+  - **CRITICAL**: Always verify the **SPECIFIC FILE** exists, never just the parent directory
+  - Use exact file path in verification: `ls -la path/to/file.ext` not `ls -la path/to/`
 → **NO** → Continue to standard flow
 
 1. Is this a **quick / trivial / simple** task that can be answered in <100 words or a small code block?  

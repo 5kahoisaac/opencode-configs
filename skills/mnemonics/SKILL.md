@@ -35,7 +35,7 @@ Memories are stored relative to the project root at `.opencode/memory/`:
 
 ### remember
 
-**Trigger**: User says "remember" or "remember as [type]:" followed by content
+**Trigger**: User says "remember that" or "remember as [type]:" followed by content
 
 **Workflow**:
 1. **Analyze user intent**
@@ -131,7 +131,7 @@ Memories are stored relative to the project root at `.opencode/memory/`:
 
 ### forget
 
-**Trigger**: User says "forget" followed by memory identifier or description
+**Trigger**: User says "forget about..." followed by memory identifier or description
 
 **Workflow**:
 1. **Identify target memory**

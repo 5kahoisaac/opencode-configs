@@ -2,7 +2,7 @@
 
 # Define the files to process
 FILES := AGENTS.md oh-my-opencode-slim.jsonc opencode.jsonc
-DIRECTORIES := agents commands skills
+DIRECTORIES := agents commands skills oh-my-opencode-slim
 
 # Main targets
 .PHONY: build clean migrate help
