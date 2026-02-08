@@ -15,14 +15,17 @@
         "model": "zai-coding-plan/glm-4.7",
         "variant": "high",
         "skills": [
-          "next-best-practices",
-          "vercel-react-best-practices",
-          "async-python-patterns",
-          "python-packaging",
-          "python-performance-optimization",
-          "python-testing-patterns",
+          "golang-pro",
           "rust-best-practices",
-          "golang-pro"
+          "python-packaging",
+          "async-python-patterns",
+          "python-testing-patterns",
+          "python-performance-optimization",
+          "typescript-advanced-types",
+          "modern-javascript-patterns",
+          "javascript-testing-patterns",
+          "next-best-practices",
+          "vercel-react-best-practices"
         ],
         "mcps": [
           "grep_app"
@@ -72,14 +75,17 @@
         "model": "zai-coding-plan/glm-4.7",
         "variant": "low",
         "skills": [
-          "next-best-practices",
-          "vercel-react-best-practices",
-          "async-python-patterns",
-          "python-packaging",
-          "python-performance-optimization",
-          "python-testing-patterns",
+          "golang-pro",
           "rust-best-practices",
-          "golang-pro"
+          "python-packaging",
+          "async-python-patterns",
+          "python-testing-patterns",
+          "python-performance-optimization",
+          "typescript-advanced-types",
+          "modern-javascript-patterns",
+          "javascript-testing-patterns",
+          "next-best-practices",
+          "vercel-react-best-practices"
         ],
         "mcps": [
           "serena"

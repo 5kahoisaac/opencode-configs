@@ -83,15 +83,15 @@ The `oh-my-opencode-slim.jsonc` and `./agents/*.md` files contain a sophisticate
 
 Individual agents from the oh-my-opencode-slim plugin receive specialized model assignments optimized for their specific functions:
 
-| Source                  | Agent Name      | Role                     | Model                                     | Variant | Description                                                                                                |
-|:------------------------|:----------------|:-------------------------|:------------------------------------------|:--------|:-----------------------------------------------------------------------------------------------------------|
-| **oh-my-opencode-slim** | `orchestrator`  | Task Orchestration       | `opencode/kimi-k2.5-free`                 | -       | Coordinates complex, multi-step tasks and manages agent delegation workflows                               |
-| **oh-my-opencode-slim** | `oracle`        | Strategic Advisor        | `zai-coding-plan/glm-4.7`                 | `high`  | Provides high-level architectural guidance and complex reasoning for critical decisions                    |
-| **oh-my-opencode-slim** | `librarian`     | Research Specialist      | `ollama-cloud/gemini-3-flash-preview`     | `low`   | Handles documentation lookup, external research, and information retrieval tasks                           |
-| **oh-my-opencode-slim** | `explorer`      | Codebase Analysis        | `xai/grok-code-fast-1`                    | `medium`| Performs rapid codebase navigation, pattern detection, and symbol exploration                              |
-| **oh-my-opencode-slim** | `designer`      | UI/UX Design             | `xai/grok-4-1-fast-reasoning`             | `medium`| Creates polished frontend interfaces, handles visual design, animations, and responsive layouts            |
-| **oh-my-opencode-slim** | `fixer`         | Implementation Specialist| `zai-coding-plan/glm-4.7`                 | `low`   | Executes well-defined coding tasks with efficiency and precision                                           |
-| **custom**              | `courier`       | Primary Router           | `xai/grok-4-1-fast-non-reasoning`         | -       | Ultra-fast task router that answers simple queries directly and delegates complex tasks to specialists     |
+| Source                  | Agent Name     | Role                      | Model                                 | Variant  | Description                                                                                            |
+|:------------------------|:---------------|:--------------------------|:--------------------------------------|:---------|:-------------------------------------------------------------------------------------------------------|
+| **oh-my-opencode-slim** | `orchestrator` | Task Orchestration        | `opencode/kimi-k2.5-free`             | -        | Coordinates complex, multi-step tasks and manages agent delegation workflows                           |
+| **oh-my-opencode-slim** | `oracle`       | Strategic Advisor         | `zai-coding-plan/glm-4.7`             | `high`   | Provides high-level architectural guidance and complex reasoning for critical decisions                |
+| **oh-my-opencode-slim** | `librarian`    | Research Specialist       | `ollama-cloud/gemini-3-flash-preview` | `low`    | Handles documentation lookup, external research, and information retrieval tasks                       |
+| **oh-my-opencode-slim** | `explorer`     | Codebase Analysis         | `xai/grok-code-fast-1`                | `medium` | Performs rapid codebase navigation, pattern detection, and symbol exploration                          |
+| **oh-my-opencode-slim** | `designer`     | UI/UX Design              | `xai/grok-4-1-fast-reasoning`         | `medium` | Creates polished frontend interfaces, handles visual design, animations, and responsive layouts        |
+| **oh-my-opencode-slim** | `fixer`        | Implementation Specialist | `zai-coding-plan/glm-4.7`             | `low`    | Executes well-defined coding tasks with efficiency and precision                                       |
+| **custom**              | `courier`      | Primary Router            | `xai/grok-4-1-fast-non-reasoning`     | -        | Ultra-fast task router that answers simple queries directly and delegates complex tasks to specialists |
 
 **Currency API Rate Limits and Suggested Setup**
 
@@ -170,11 +170,11 @@ enabling token-efficient code retrieval and modifications.
 
 The oh-my-opencode-slim plugin includes three pre-configured MCP servers that provide essential development tools:
 
-| MCP | Purpose | Default Assignment |
-|-----|---------|-------------------|
+| MCP         | Purpose                         | Default Assignment          |
+|-------------|---------------------------------|-----------------------------|
 | `websearch` | Real-time web search via Exa AI | `orchestrator`, `librarian` |
-| `context7` | Official library documentation | `librarian` |
-| `grep_app` | GitHub code search via grep.app | `librarian` |
+| `context7`  | Official library documentation  | `librarian`                 |
+| `grep_app`  | GitHub code search via grep.app | `librarian`                 |
 
 **MCP Descriptions:**
 
@@ -220,6 +220,9 @@ The following skills are available in this configuration, organized by category:
 - **python-testing-patterns** - Implement comprehensive testing strategies with pytest, fixtures, mocking, and test-driven development. Use when writing Python tests, setting up test suites, or implementing testing best practices
 - **rust-best-practices** - Guide for writing idiomatic Rust code based on Apollo GraphQL's best practices handbook. Use when writing, reviewing, or refactoring Rust code, implementing error handling, or optimizing performance
 - **golang-pro** - Use when building Go applications requiring concurrent programming, microservices architecture, or high-performance systems. Invoke for goroutines, channels, Go generics, gRPC integration
+- **javascript-testing-patterns** - Implement comprehensive testing strategies using Jest, Vitest, and Testing Library for unit tests, integration tests, and end-to-end testing with mocking, fixtures, and test-driven development. Use when writing JavaScript/TypeScript tests, setting up test infrastructure, or implementing TDD/BDD workflows
+- **modern-javascript-patterns** - Master ES6+ features including async/await, destructuring, spread operators, arrow functions, promises, modules, iterators, generators, and functional programming patterns for writing clean, efficient JavaScript code. Use when refactoring legacy code, implementing modern patterns, or optimizing JavaScript applications
+- **typescript-advanced-types** - Master TypeScript's advanced type system including generics, conditional types, mapped types, template literals, and utility types for building type-safe applications. Use when implementing complex type logic, creating reusable type utilities, or ensuring compile-time type safety in TypeScript projects
 
 **Other**
 - **algorithmic-art** - Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems. Create original algorithmic art rather than copying existing artists' work to avoid copyright violations
