@@ -55,6 +55,7 @@ migrate: build
 	@mkdir -p ~/.config/opencode/agents
 	@mkdir -p ~/.config/opencode/commands
 	@mkdir -p ~/.config/opencode/skills
+	@mkdir -p ~/.config/opencode/oh-my-opencode-slim
 	@echo "✓ Created target directories"
 	@echo ""
 	
@@ -67,6 +68,14 @@ migrate: build
 		fi; \
 		done
 	@echo "✓ Configuration files migrated"
+	@echo ""
+
+
+	# Migrate oh-my-opencode-slim folder
+	@echo "📁 Migrating oh-my-opencode-slim folder..."
+	@rm -rf ~/.config/opencode/oh-my-opencode-slim/*
+	@cp -r ./dist/oh-my-opencode-slim/* ~/.config/opencode/oh-my-opencode-slim/ 2>/dev/null || true
+	@echo "✓ oh-my-opencode-slim folder migrated"
 	@echo ""
 	
 	# Migrate agents folder

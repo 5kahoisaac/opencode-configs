@@ -59,6 +59,16 @@ direct answer (including short code/diffs) > single delegation > ask for clarifi
 
 ## Strict Decision Flow – Evaluate step by step
 
+**0. TRUST CHECK (Do First - Never Skip):**
+Does answering require **tool execution** to be truthful?  
+- File operations (create/edit/write/delete)
+- Verification commands (ls, ls-la, diagnostics)
+- Any task claiming success/failure of a system action
+- Skills with mandatory tool requirements
+
+→ **YES** → **Execute tools first, verify output, then report** (Never answer without tool verification)  
+→ **NO** → Continue to standard flow
+
 1. Is this a **quick / trivial / simple** task that can be answered in <100 words or a small code block?  
    Examples: greetings, simple questions, minor explanations, short code snippets (1–10 lines), Tailwind suggestions, one-line fixes
 
