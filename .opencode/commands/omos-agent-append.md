@@ -145,17 +145,6 @@ After running this command, you will have files like:
 
 Each file contains only the mnemonics memory integration instructions to be appended to the default agent prompts.
 
-## Installation
-
-To apply these append files to your oh-my-opencode-slim setup:
-
-```bash
-# Copy to the oh-my-opencode-slim config directory
-cp ./oh-my-opencode-slim/*_append.md ~/.config/opencode/oh-my-opencode-slim/
-```
-
-The `_append.md` files will be automatically loaded and appended to the default agent prompts.
-
 ## Error Handling
 
 - If the output directory cannot be created, report the error and stop
