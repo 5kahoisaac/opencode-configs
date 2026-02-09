@@ -176,6 +176,7 @@ Reference Links Validation:
 5. **Atomic Updates**: Group related changes into single updates when possible
 6. **Backup Before Changes**: Always create a README.md backup before modifications
 7. **Read Carefully**: Always read the whole README.md, ensure no changes un-sync and duplicate content after modifications
+8. **Tidy and Valid**: Make sure the table is correctly formatted, no spelling mistakes
 
 ## Quality Checklist
 

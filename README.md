@@ -124,7 +124,7 @@ The OpenCode configuration utilizes several plugins to extend its core functiona
 
 **oh-my-opencode-slim@latest**
 
-The oh-my-opencode-slim plugin serves as the foundational extension for OpenCode, providing essential agent capabilities and workflow enhancements in a lightweight package. This plugin introduces a focused set of specialized agents designed to handle various development tasks autonomously. The plugin enables advanced orchestration features, allowing OpenCode to delegate complex tasks to appropriate agents based on the nature of the request. It includes six core agents: orchestrator (task coordination), oracle (strategic reasoning), librarian (research), explorer (codebase analysis), designer (UI/UX), and fixer (implementation). The slim edition provides optimized agent selection for efficient task delegation without unnecessary overhead.
+The oh-my-opencode-slim plugin is a lightweight, focused agent collection for OpenCode that provides essential development capabilities without the overhead of the full oh-my-opencode suite. This slim edition delivers a curated set of specialized agents optimized for efficient task delegation and rapid development workflows. Unlike the full version, the slim plugin offers a streamlined agent architecture designed for users who need core agent functionality with minimal resource consumption and faster initialization times.
 
 **@nick-vi/opencode-type-inject@latest**
 
@@ -287,7 +287,7 @@ The following resources provide additional information about skills, plugins, an
 
 - **Vercel Skills.sh**: https://skills.sh - The official skills installation and management system for OpenCode, providing community-maintained skills for various development tasks and domains.
 - **OpenCode Documentation**: https://opencode.ai/docs - Official documentation for OpenCode configuration, plugin development, and usage guides.
-- **Oh-My-OpenCode-Slim Plugin**: https://github.com/code-yeongyu/oh-my-opencode - The foundational plugin providing focused agent capabilities in a lightweight package, available through the OpenCode plugin registry.
+- **Oh-My-OpenCode-Slim Plugin**: https://github.com/alvinunreal/oh-my-opencode-slim - A lightweight, focused agent collection providing essential development capabilities without the overhead of the full suite, available through the OpenCode plugin registry.
 - **Type-Inject Plugin**: https://github.com/nick-vi/opencode-type-inject - Advanced type inference and injection capabilities for OpenCode, enhancing type system understanding across programming languages.
 - **Figma Desktop MCP**: https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server - Official MCP server for Figma integration, enabling design context retrieval and UI code generation.
 - **GitHub MCP**: https://github.com/github/github-mcp-server - Official MCP server for GitHub API integration, enabling repository operations and issue management.
