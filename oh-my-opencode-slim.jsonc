@@ -53,9 +53,8 @@
       "explorer": {
         "model": "xai/grok-code-fast-1",
         "variant": "medium",
-        "skills": [],
+        "skills": ["mnemonics"],
         "mcps": [
-          "mnemonics",
           "serena"
         ]
       },
