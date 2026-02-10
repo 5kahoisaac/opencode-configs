@@ -32,7 +32,8 @@
         ]
       },
       "librarian": {
-        "model": "ollama-cloud/gemini-3-flash-preview",
+        // "model": "ollama-cloud/gemini-3-flash-preview",
+        "model": "opencode/gemini-3-flash",
         "variant": "low",
         "skills": [
           "mnemonics",
@@ -74,8 +75,8 @@
         ]
       },
       "fixer": {
-        "model": "zai-coding-plan/glm-4.7",
-        "variant": "low",
+        "model": "opencode/glm-4.7-free",
+        "variant": "high",
         "skills": [
           "mnemonics",
           "simplify",
