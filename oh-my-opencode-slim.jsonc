@@ -12,7 +12,8 @@
         ]
       },
       "oracle": {
-        "model": "zai-coding-plan/glm-4.7",
+        // "model": "zai-coding-plan/glm-4.7",
+        "model": "openrouter/pony-alpha",
         "variant": "high",
         "skills": [
           "golang-pro",
@@ -75,7 +76,8 @@
         ]
       },
       "fixer": {
-        "model": "opencode/glm-4.7-free",
+        // "model": "opencode/glm-4.7-free",
+        "model": "zai-coding-plan/glm-4.7",
         "variant": "high",
         "skills": [
           "mnemonics",

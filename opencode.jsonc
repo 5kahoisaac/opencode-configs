@@ -23,6 +23,7 @@
   "enabled_providers": [
     // "anthropic",
     "opencode",
+    "openrouter",
     "ollama-cloud",
     "zai-coding-plan",
     "xai"
@@ -70,6 +71,19 @@
         "False"
       ],
       "enabled": true,
+      "type": "local"
+    },
+    "vision": {
+      "command": [
+        "npx",
+        "-y",
+        "@z_ai/mcp-server"
+      ],
+      "enabled": true,
+      "environment": {
+        "Z_AI_API_KEY": "$Z_AI_API_KEY",
+        "Z_AI_MODE": "ZAI"
+      },
       "type": "local"
     }
   }
