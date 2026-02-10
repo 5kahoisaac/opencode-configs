@@ -74,6 +74,10 @@ Z.ai provides access to advanced GLM models including GLM-4.7, GLM-4.6, and flas
 
 xAI provides the Grok family of models, specifically `xai/grok-code-fast-1` for exploration tasks and `xai/grok-4-1-fast-reasoning` for visual engineering and artistry tasks. These models excel at code understanding and fast reasoning, making them ideal for tasks requiring quick analysis and pattern recognition.
 
+**OpenRouter**
+
+OpenRouter provides a unified API for accessing multiple AI models from various providers. This configuration uses `openrouter/pony-alpha` for strategic reasoning tasks, offering access to high-quality models through a single, consistent interface.
+
 
 #### Models Configuration
 
@@ -86,11 +90,11 @@ Individual agents from the oh-my-opencode-slim plugin receive specialized model 
 | Source                  | Agent Name     | Role                      | Model                                 | Variant  | Description                                                                                            |
 |:------------------------|:---------------|:--------------------------|:--------------------------------------|:---------|:-------------------------------------------------------------------------------------------------------|
 | **oh-my-opencode-slim** | `orchestrator` | Task Orchestration        | `opencode/kimi-k2.5-free`             | -        | Coordinates complex, multi-step tasks and manages agent delegation workflows                           |
-| **oh-my-opencode-slim** | `oracle`       | Strategic Advisor         | `zai-coding-plan/glm-4.7`             | `high`   | Provides high-level architectural guidance and complex reasoning for critical decisions                |
-| **oh-my-opencode-slim** | `librarian`    | Research Specialist       | `ollama-cloud/gemini-3-flash-preview` | `low`    | Handles documentation lookup, external research, and information retrieval tasks                       |
+| **oh-my-opencode-slim** | `oracle`       | Strategic Advisor         | `openrouter/pony-alpha`               | `high`   | Provides high-level architectural guidance and complex reasoning for critical decisions                |
+| **oh-my-opencode-slim** | `librarian`    | Research Specialist       | `opencode/gemini-3-flash`             | `low`    | Handles documentation lookup, external research, and information retrieval tasks                       |
 | **oh-my-opencode-slim** | `explorer`     | Codebase Analysis         | `xai/grok-code-fast-1`                | `medium` | Performs rapid codebase navigation, pattern detection, and symbol exploration                          |
 | **oh-my-opencode-slim** | `designer`     | UI/UX Design              | `xai/grok-4-1-fast-reasoning`         | `medium` | Creates polished frontend interfaces, handles visual design, animations, and responsive layouts        |
-| **oh-my-opencode-slim** | `fixer`        | Implementation Specialist | `zai-coding-plan/glm-4.7`             | `low`    | Executes well-defined coding tasks with efficiency and precision                                       |
+| **oh-my-opencode-slim** | `fixer`        | Implementation Specialist | `zai-coding-plan/glm-4.7`             | `high`   | Executes well-defined coding tasks with efficiency and precision                                       |
 | **custom**              | `courier`      | Primary Router            | `xai/grok-4-1-fast-non-reasoning`     | -        | Ultra-fast task router that answers simple queries directly and delegates complex tasks to specialists |
 
 **Currency API Rate Limits and Suggested Setup**
@@ -162,9 +166,15 @@ enabling seamless access to project management data.
 
 **serena**
 
-The Serena MCP server provides advanced code intelligence capabilities including precise symbol navigation, 
-semantic search, and AST-aware code operations. This MCP is essential for the Serena agent's functionality, 
+The Serena MCP server provides advanced code intelligence capabilities including precise symbol navigation,
+semantic search, and AST-aware code operations. This MCP is essential for the Serena agent's functionality,
 enabling token-efficient code retrieval and modifications.
+
+**vision**
+
+The Vision MCP provides visual analysis capabilities through Z.ai's vision models. This MCP enables image understanding,
+visual content analysis, and image-based reasoning tasks. It connects to Z.ai's vision API to process and analyze
+visual inputs alongside code and text.
 
 ### Pre-installed MCPs from Oh-My-Opencode-Slim
 
@@ -293,3 +303,5 @@ The following resources provide additional information about skills, plugins, an
 - **GitHub MCP**: https://github.com/github/github-mcp-server - Official MCP server for GitHub API integration, enabling repository operations and issue management.
 - **Jira MCP**: https://github.com/sooperset/mcp-atlassian - Official MCP server for Atlassian Jira and Confluence integration, enabling project management workflows.
 - **Serena MCP**: https://github.com/oraios/serena - Advanced code intelligence MCP providing precise symbol navigation and AST-aware operations.
+- **Vision MCP**: https://github.com/z-ai-org/mcp-server - Visual analysis MCP powered by Z.ai vision models for image understanding and visual content analysis.
+- **OpenRouter**: https://openrouter.ai - Unified API for accessing multiple AI models from various providers through a single interface.
