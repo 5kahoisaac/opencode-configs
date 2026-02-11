@@ -54,29 +54,23 @@ The Makefile provides essential commands to build, clean, and manage the OpenCod
 
 This configuration integrates multiple AI model providers to offer a diverse range of capabilities, from lightweight fast responses to deep reasoning tasks. The provider setup is designed to balance cost-effectiveness with performance, utilizing both free and premium models across different use cases.
 
+**Default Model:** `zai-coding-plan/glm-5` (configured as the primary model in `opencode.jsonc`)
+
 #### Provider List
 
-The following AI providers are configured in this setup:
-
-**Ollama Cloud**
-
-Ollama Cloud provides local model inference capabilities with excellent privacy and performance characteristics. This configuration uses `ollama-cloud/gemini-3-flash-preview` for writing and content generation tasks, offering fast response times and reasonable context windows at no cost.
+The following AI providers are **enabled** in this setup (configured in `opencode.jsonc`):
 
 **OpenCode**
 
-OpenCode's built-in model hub offers several free models optimized for different task types. The configuration utilizes `opencode/kimi-k2.5-free` for complex reasoning and `opencode/glm-4.7-free` for general-purpose tasks. These models provide a reliable fallback when premium providers are unavailable or exhausted.
+OpenCode's built-in model hub offers several free models optimized for different task types. The configuration utilizes `opencode/kimi-k2.5-free` for orchestration and complex reasoning tasks, and `opencode/gemini-3-flash` for research and documentation tasks. These models provide a reliable, cost-effective foundation for everyday development workflows.
 
-**Z.ai**
+**Z.ai Coding Plan**
 
-Z.ai provides access to advanced GLM models including GLM-4.7, GLM-4.6, and flash variants. These models offer excellent performance for planning, reasoning, and orchestration tasks. The configuration uses various GLM models for different agent categories, balancing between flash variants for speed and full variants for depth.
+Z.ai provides access to advanced GLM models including GLM-5 and GLM-4.7. These models offer excellent performance for planning, reasoning, and implementation tasks. The configuration uses `zai-coding-plan/glm-5` for high-level strategic reasoning and `zai-coding-plan/glm-4.7` for implementation tasks, balancing capability and efficiency.
 
 **xAI (Grok)**
 
-xAI provides the Grok family of models, specifically `xai/grok-code-fast-1` for exploration tasks and `xai/grok-4-1-fast-reasoning` for visual engineering and artistry tasks. These models excel at code understanding and fast reasoning, making them ideal for tasks requiring quick analysis and pattern recognition.
-
-**OpenRouter**
-
-OpenRouter provides a unified API for accessing multiple AI models from various providers. This configuration uses `openrouter/pony-alpha` for strategic reasoning tasks, offering access to high-quality models through a single, consistent interface.
+xAI provides the Grok family of models, specifically `xai/grok-code-fast-1` for exploration tasks and `xai/grok-4-1-fast-reasoning` for visual engineering and design tasks. These models excel at code understanding and fast reasoning, making them ideal for tasks requiring quick analysis and pattern recognition.
 
 
 #### Models Configuration
@@ -90,7 +84,7 @@ Individual agents from the oh-my-opencode-slim plugin receive specialized model 
 | Source                  | Agent Name     | Role                      | Model                                 | Variant  | Description                                                                                            |
 |:------------------------|:---------------|:--------------------------|:--------------------------------------|:---------|:-------------------------------------------------------------------------------------------------------|
 | **oh-my-opencode-slim** | `orchestrator` | Task Orchestration        | `opencode/kimi-k2.5-free`             | -        | Coordinates complex, multi-step tasks and manages agent delegation workflows                           |
-| **oh-my-opencode-slim** | `oracle`       | Strategic Advisor         | `openrouter/pony-alpha`               | `high`   | Provides high-level architectural guidance and complex reasoning for critical decisions                |
+| **oh-my-opencode-slim** | `oracle`       | Strategic Advisor         | `zai-coding-plan/glm-5`               | `high`   | Provides high-level architectural guidance and complex reasoning for critical decisions                |
 | **oh-my-opencode-slim** | `librarian`    | Research Specialist       | `opencode/gemini-3-flash`             | `low`    | Handles documentation lookup, external research, and information retrieval tasks                       |
 | **oh-my-opencode-slim** | `explorer`     | Codebase Analysis         | `xai/grok-code-fast-1`                | `medium` | Performs rapid codebase navigation, pattern detection, and symbol exploration                          |
 | **oh-my-opencode-slim** | `designer`     | UI/UX Design              | `xai/grok-4-1-fast-reasoning`         | `medium` | Creates polished frontend interfaces, handles visual design, animations, and responsive layouts        |
@@ -201,7 +195,7 @@ These pre-installed MCPs are automatically available when the oh-my-opencode-sli
 
 ## Skills
 
-The skills system in OpenCode provides a modular way to extend the assistant's capabilities with specialized knowledge and workflows. This configuration includes skills installed via Vercel's official skills.sh system, located in the `skills` directory.
+The skills system in OpenCode provides a modular way to extend the assistant's capabilities with specialized knowledge and workflows. This configuration includes skills installed via Vercel's official skills.sh system. Note that skills are installed to `~/.agents/skills/` via the skills.sh system, not in the local `skills/` directory of this repository.
 
 #### Skills List
 

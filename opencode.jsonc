@@ -1,5 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "model": "zai-coding-plan/glm-5",
   "theme": "opencode",
   "agent": {
     "plan": {
@@ -23,8 +24,6 @@
   "enabled_providers": [
     // "anthropic",
     "opencode",
-    "openrouter",
-    "ollama-cloud",
     "zai-coding-plan",
     "xai"
   ],

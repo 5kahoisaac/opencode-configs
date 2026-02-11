@@ -12,8 +12,7 @@
         ]
       },
       "oracle": {
-        // "model": "zai-coding-plan/glm-4.7",
-        "model": "openrouter/pony-alpha",
+        "model": "zai-coding-plan/glm-5",
         "variant": "high",
         "skills": [
           "golang-pro",
@@ -33,7 +32,6 @@
         ]
       },
       "librarian": {
-        // "model": "ollama-cloud/gemini-3-flash-preview",
         "model": "opencode/gemini-3-flash",
         "variant": "low",
         "skills": [
@@ -76,7 +74,6 @@
         ]
       },
       "fixer": {
-        // "model": "opencode/glm-4.7-free",
         "model": "zai-coding-plan/glm-4.7",
         "variant": "high",
         "skills": [

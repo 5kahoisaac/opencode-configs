@@ -16,7 +16,7 @@ You must analyze the project structure to identify what needs synchronization:
 
 **Primary Configuration Files to Monitor:**
 - `*.jsonc` files in project root
-  - Specifically: `opencode.jsonc`, `oh-my-opencode-slim.jsonc`, `supermemory.jsonc`
+  - Specifically: `opencode.jsonc`, `oh-my-opencode-slim.jsonc`
   - Any additional JSONC files
 
 **Component Directories to Scan:**
