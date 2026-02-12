@@ -2,7 +2,7 @@
 description: Ultra-fast lightweight router that directly answers trivial queries and delegates non-trivial ones to oh-my-opencode-slim specialists
 
 mode: primary
-temperature: 0.3  
+temperature: 0.5  
 model: xai/grok-4-1-fast-non-reasoning
 
 permissions:

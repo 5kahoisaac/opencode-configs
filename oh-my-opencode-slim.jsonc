@@ -14,19 +14,6 @@
       "oracle": {
         "model": "zai-coding-plan/glm-5",
         "variant": "high",
-        "skills": [
-          "golang-pro",
-          "rust-best-practices",
-          "python-packaging",
-          "async-python-patterns",
-          "python-testing-patterns",
-          "python-performance-optimization",
-          "typescript-advanced-types",
-          "modern-javascript-patterns",
-          "javascript-testing-patterns",
-          "next-best-practices",
-          "vercel-react-best-practices"
-        ],
         "mcps": [
           "grep_app"
         ]
@@ -42,18 +29,15 @@
           "pptx"
         ],
         "mcps": [
-          "websearch",
-          "context7",
-          "grep_app",
-          "serena",
-          "jira",
-          "github"
+          "*"
         ]
       },
       "explorer": {
         "model": "xai/grok-code-fast-1",
         "variant": "medium",
-        "skills": ["mnemonics"],
+        "skills": [
+          "mnemonics"
+        ],
         "mcps": [
           "serena"
         ]
@@ -78,18 +62,7 @@
         "variant": "high",
         "skills": [
           "mnemonics",
-          "simplify",
-          "golang-pro",
-          "rust-best-practices",
-          "python-packaging",
-          "async-python-patterns",
-          "python-testing-patterns",
-          "python-performance-optimization",
-          "typescript-advanced-types",
-          "modern-javascript-patterns",
-          "javascript-testing-patterns",
-          "next-best-practices",
-          "vercel-react-best-practices"
+          "simplify"
         ],
         "mcps": [
           "serena"

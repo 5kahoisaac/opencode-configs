@@ -33,12 +33,12 @@ OpenCode serves as a powerful alternative to traditional IDE-based AI assistants
 
 The Makefile provides essential commands to build, clean, and manage the OpenCode configuration:
 
-| Command | Description |
-|:--------|:------------|
-| `make build` | Build OpenCode configuration with .env variables substitution. Creates `./dist/` directory, processes JSONC files with environment variable substitution, and copies agents/commands/skills directories |
-| `make clean` | Remove the `./dist` directory and all generated files |
-| `make migrate` | Deploy built configuration to global OpenCode locations (`~/.config/opencode/` and `~/.agents/skills/`). Must be run after `make build` |
-| `make help` | Display available targets and their descriptions |
+| Command        | Description                                                                                                                                                                                             |
+|:---------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `make build`   | Build OpenCode configuration with .env variables substitution. Creates `./dist/` directory, processes JSONC files with environment variable substitution, and copies agents/commands/skills directories |
+| `make clean`   | Remove the `./dist` directory and all generated files                                                                                                                                                   |
+| `make migrate` | Deploy built configuration to global OpenCode locations (`~/.config/opencode/` and `~/.agents/skills/`). Must be run after `make build`                                                                 |
+| `make help`    | Display available targets and their descriptions                                                                                                                                                        |
 
 **Workflow:**
 1. Run `make build` to process configuration files with environment variables
@@ -54,7 +54,7 @@ The Makefile provides essential commands to build, clean, and manage the OpenCod
 
 This configuration integrates multiple AI model providers to offer a diverse range of capabilities, from lightweight fast responses to deep reasoning tasks. The provider setup is designed to balance cost-effectiveness with performance, utilizing both free and premium models across different use cases.
 
-**Default Model:** `zai-coding-plan/glm-5` (configured as the primary model in `opencode.jsonc`)
+**Default Model:** `zai-coding-plan/glm-5` (configured as a primary model in `opencode.jsonc`)
 
 #### Provider List
 
@@ -118,7 +118,7 @@ This configuration represents a personalized setup balancing performance, cost, 
 
 ### Plugins
 
-The OpenCode configuration utilizes several plugins to extend its core functionality. These plugins are defined in the `opencode.jsonc` configuration file and provide integration with external services and additional features.
+The OpenCode configuration utilizes several plugins to extend its core functionality. These plugins are defined in `opencode.jsonc` configuration file and provide integration with external services and additional features.
 
 **oh-my-opencode-slim@latest**
 
@@ -138,30 +138,30 @@ This configuration includes both manually configured MCPs and pre-installed MCPs
 
 ### Manually Configured MCPs
 
-The following MCPs are explicitly configured in the `opencode.jsonc` file:
+The following MCPs are explicitly configured in `opencode.jsonc` file:
 
 **figma-desktop**
 
-The Figma Desktop MCP enables seamless integration with Figma for design-related operations. 
-This MCP allows OpenCode to interact with Figma's desktop application, enabling design context retrieval, 
+The Figma Desktop MCP enables seamless integration with Figma for design-related operations.
+This MCP allows OpenCode to interact with Figma's desktop application, enabling design context retrieval,
 UI code generation, and design system exploration directly from Figma files.
 
 **github**
 
-The GitHub MCP provides comprehensive integration with GitHub for repository operations, 
-pull request management, issue tracking, and code search. 
+The GitHub MCP provides comprehensive integration with GitHub for repository operations,
+pull request management, issue tracking, and code search.
 This MCP enables OpenCode to interact with GitHub's API for various development workflows directly from the conversation interface.
 
 **jira**
 
-The Jira MCP integrates with Atlassian Jira for project management operations including issue tracking, 
-sprint management, and workflow automation. This MCP connects to both Jira and Confluence, 
+The Jira MCP integrates with Atlassian Jira for project management operations including issue tracking,
+sprint management, and workflow automation. This MCP connects to both Jira and Confluence,
 enabling seamless access to project management data.
 
 **serena**
 
 The Serena MCP server provides advanced code intelligence capabilities including precise symbol navigation,
-semantic search, and AST-aware code operations. This MCP is essential for the Serena agent's functionality,
+semantic search, and AST-aware code operations. This MCP is essential to the Serena agent's functionality,
 enabling token-efficient code retrieval and modifications.
 
 **vision**
@@ -203,30 +203,18 @@ The following skills are available in this configuration, organized by category:
 
 **Document & File Processing**
 - **docx** - Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction. Use when OpenCode needs to work with professional documents (.docx files) for: (1) Creating new documents, (2) Modifying or editing content, (3) Working with tracked changes, (4) Adding comments, or any other document tasks
-- **xlsx** - Comprehensive spreadsheet creation, editing, and analysis with support for formulas, formatting, data analysis, and visualization. Use when OpenCode needs to work with spreadsheets (.xlsx, .xlsm, .csv, .tsv, etc) for: (1) Creating new spreadsheets with formulas and formatting, (2) Reading or analyzing data, (3) Modifying existing spreadsheets while preserving formulas, (4) Data analysis and visualization in spreadsheets, or (5) Recalculating formulas
+- **xlsx** - Comprehensive spreadsheet creation, editing, and analysis with support for formulas, formatting, data analysis, and visualization. Use when OpenCode needs to work with spreadsheets (.xlsx, .xlsm, .csv, .tsv, etc.) for: (1) Creating new spreadsheets with formulas and formatting, (2) Reading or analyzing data, (3) Modifying existing spreadsheets while preserving formulas, (4) Data analysis and visualization in spreadsheets, or (5) Recalculating formulas
 - **pdf** - Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. Use when OpenCode needs to fill in a PDF form or programmatically process, generate, or analyze PDF documents at scale
 - **pptx** - Presentation creation, editing, and analysis for PowerPoint (.pptx) files including layouts, comments, and speaker notes. Use when OpenCode needs to work with presentations for: (1) Creating new presentations, (2) Modifying or editing content, (3) Working with layouts, (4) Adding comments or speaker notes, or any other presentation tasks
 
 **Development Workflow**
 - **receiving-code-review** - Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation
 - **requesting-code-review** - Use when completing tasks, implementing major features, or before merging to verify work meets requirements
-- **vercel-react-best-practices** - React and Next.js performance optimization guidelines from Vercel Engineering. Use when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patterns. Triggers on tasks involving React components, Next.js pages, data fetching, bundle optimization, or performance improvements
 
 **Skill Management**
 - **find-skills** - Helps users discover and install agent skills when they ask questions like "how do I do X", "find a skill for X", "is there a skill that can...", or express interest in extending capabilities. Use when the user is looking for functionality that might exist as an installable skill
 - **skill-creator** - Guide for creating effective skills. Use when users want to create a new skill (or update an existing skill) that extends OpenCode's capabilities with specialized knowledge, workflows, or tool integrations
 - **command-creator** - Guide for creating effective OpenCode slash commands. Use when users ask to "create a command", "make a slash command", "add a command", or want to document a workflow as a reusable command. Essential for creating optimized, agent-executable slash commands with proper structure and best practices
-
-**Programming Language Patterns**
-- **async-python-patterns** - Master Python asyncio, concurrent programming, and async/await patterns for high-performance applications. Use when building async APIs, concurrent systems, or I/O-bound applications requiring non-blocking operations
-- **python-packaging** - Create distributable Python packages with proper project structure, setup.py/pyproject.toml, and publishing to PyPI. Use when packaging Python libraries, creating CLI tools, or distributing Python code
-- **python-performance-optimization** - Profile and optimize Python code using cProfile, memory profilers, and performance best practices. Use when debugging slow Python code, optimizing bottlenecks, or improving application performance
-- **python-testing-patterns** - Implement comprehensive testing strategies with pytest, fixtures, mocking, and test-driven development. Use when writing Python tests, setting up test suites, or implementing testing best practices
-- **rust-best-practices** - Guide for writing idiomatic Rust code based on Apollo GraphQL's best practices handbook. Use when writing, reviewing, or refactoring Rust code, implementing error handling, or optimizing performance
-- **golang-pro** - Use when building Go applications requiring concurrent programming, microservices architecture, or high-performance systems. Invoke for goroutines, channels, Go generics, gRPC integration
-- **javascript-testing-patterns** - Implement comprehensive testing strategies using Jest, Vitest, and Testing Library for unit tests, integration tests, and end-to-end testing with mocking, fixtures, and test-driven development. Use when writing JavaScript/TypeScript tests, setting up test infrastructure, or implementing TDD/BDD workflows
-- **modern-javascript-patterns** - Master ES6+ features including async/await, destructuring, spread operators, arrow functions, promises, modules, iterators, generators, and functional programming patterns for writing clean, efficient JavaScript code. Use when refactoring legacy code, implementing modern patterns, or optimizing JavaScript applications
-- **typescript-advanced-types** - Master TypeScript's advanced type system including generics, conditional types, mapped types, template literals, and utility types for building type-safe applications. Use when implementing complex type logic, creating reusable type utilities, or ensuring compile-time type safety in TypeScript projects
 
 **Memory Management**
 - **mnemonics** - Memory management system for context retention and compounded engineering practices. Use when the user explicitly says "remember", "recall", or "forget" with memory content. Handles storage, retrieval, and deletion of project knowledge including architectural decisions, design patterns, learnings, preferences, issues, and context. Automatically classifies memory types and manages circular references between related memories
@@ -234,7 +222,6 @@ The following skills are available in this configuration, organized by category:
 **Other**
 - **algorithmic-art** - Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems. Create original algorithmic art rather than copying existing artists' work to avoid copyright violations
 - **web-design-guidelines** - Review UI code for Web Interface Guidelines compliance. Use when asked to "review my UI", "check accessibility", "audit design", "review UX", or "check my site against best practices"
-- **next-best-practices** - Next.js best practices - file conventions, RSC boundaries, data patterns, async APIs, metadata, error handling, route handlers, image/font optimization, and bundling
 - **agent-browser** - Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task
 - **simplify** - Simplify and refine recently modified code for clarity and consistency. Use after writing code to improve readability without changing functionality
 - **frontend-design** - Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications
@@ -264,7 +251,8 @@ The oh-my-opencode-slim plugin provides a focused suite of six specialized agent
 - **@designer** - Creates polished UI/UX designs, frontend components, and visual experiences
 - **@fixer** - Executes well-defined coding tasks with speed and precision
 
-These agents work together to provide comprehensive coverage of development tasks while maintaining efficiency through the slim architecture.
+These agents work together to provide comprehensive coverage of development tasks while maintaining efficiency through a slim architecture.
+
 
 #### Custom Agents
 
@@ -280,7 +268,8 @@ Courier serves as the primary agent for intelligent task routing. It is an ultra
 - **Speed Optimized**: Prioritizes response speed above all else, keeping all communication extremely concise
 - **Specialist Routing**: Routes to @orchestrator (complex coordination), @explorer (codebase context), @librarian (research), @oracle (strategic decisions), @designer (UI/UX), or @fixer (implementation) based on task requirements
 
-Courier is configured as the primary agent (`mode: primary`) with low temperature (0.3) for consistent, fast routing decisions using the `xai/grok-4-1-fast-non-reasoning` model.
+Courier is configured as the primary agent (`mode: primary`) with a low temperature (0.5) for consistent, fast routing decisions using the `xai/grok-4-1-fast-non-reasoning` model.
+
 
 ---
 
