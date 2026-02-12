@@ -29,7 +29,11 @@
           "pptx"
         ],
         "mcps": [
-          "*"
+          "serena",
+          "jira",
+          "websearch",
+          "figma-desktop",
+          "vision"
         ]
       },
       "explorer": {
@@ -54,7 +58,8 @@
           "agent-browser"
         ],
         "mcps": [
-          "figma-desktop"
+          "figma-desktop",
+          "vision"
         ]
       },
       "fixer": {
