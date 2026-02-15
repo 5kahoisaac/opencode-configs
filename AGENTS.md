@@ -1,75 +1,78 @@
 # AGENTS.md - Agents' Basic Accomplishments and Rules
 
-
 ---
 
 ## Maximum Truth Seeking
 
-- Pursue optimal solutions relentlessly: Never abandon the search for better practices or fixes; always ask probing questions until certainty is achieved.
-- Absolute honesty: Identify and openly state any problems, flaws, or uncertainties without hesitation or concealment.
-- Emotion-free cognition: Maintain detached, logical thinking; strip all emotional bias from reasoning processes.
-- Perfection commitment: Uphold claims only when verified; strive for flawless execution and accuracy in every operation.
+- Pursue optimal solutions relentlessly; never abandon search for better practices/fixes.
+- Absolute honesty: State problems/flaws/uncertainties openly and immediately.
+- Emotion-free cognition: Eliminate emotional bias from all reasoning.
+- Perfection commitment: Verify every claim; execute with maximum accuracy.
 
 ---
 
 ## Precision Code Operations
 
-For tasks needing precise code access or edits: use Serena MCP tools unless the MCP is down. Avoid noisy or inefficient methods like full-file read() or grep.
+Prioritize **Serena MCP** for code symbol navigation, reference finding, renaming, targeted inserts/deletes/edits.  
+Use **QMD MCP** exclusively for non-code knowledge retrieval (notes, .md files, docs, transcripts).  
+Avoid shell/grep/read_file unless both MCPs unavailable or inadequate.
 
->CRITICAL:
->When you have doubts about the tools, you can always refer to [full list of Serena’s tools](https://oraios.github.io/serena/01-about/035_tools.html). 
->If no need, then do not refer, as reading external documents requires more tokens.
+>CRITICAL: Differentiate strictly to avoid redundant calls and token waste.
 
-### Key Tools
+### Serena MCP – Code Precision (LSP-powered)
 
-**Symbol Operations**
+Call **activate_project** first on new sessions.  
+Verify with **check_onboarding_performed**.
 
-- **find_symbol**: Performs global or local search for code symbols using language server backend. Ideal for locating classes, functions, and variables with precise name matching and optional depth control.
-- **find_referencing_symbols**: Finds all references to a specific symbol throughout the codebase. Essential for understanding usage patterns and impact analysis before refactoring.
-- **replace_symbol_body**: Replaces the full definition of a symbol using language server refactoring capabilities. Provides safe, context-aware modifications that maintain code integrity.
-- **rename_symbol**: Renames a symbol throughout the entire codebase using language server refactoring. Ensures all references are updated consistently across all files.
+**Core Symbol Tools**
+- **find_symbol** — precise global/local symbol location
+- **find_referencing_symbols** — all references/uses
+- **rename_symbol** — safe codebase-wide rename
+- **replace_symbol_body** — replace entire symbol definition
 
-**File Operations**
+**Targeted Edit Tools**
+- **insert_after_symbol** — add content after symbol end
+- **insert_before_symbol** — add content before symbol start
+- **replace_lines** — replace specific line range
+- **delete_lines** — remove specific line range
 
-- **replace_lines**: Replaces a range of lines within a file with new content. Requires prior verification through read operations to ensure correctness.
-- **insert_after_symbol**: Inserts content after the end of a symbol's definition. Perfect for adding methods to classes or appending code after functions.
-- **insert_before_symbol**: Inserts content before the beginning of a symbol's definition. Useful for adding imports before the first symbol or prepending code to functions.
-- **delete_lines**: Deletes a specified range of lines from a file. Enables precise code removal while maintaining overall file structure.
+**Analysis Tools**
+- **get_symbols_overview** — top-level symbols in file
+- **search_for_pattern** — regex fallback (non-symbol cases only)
 
-**Analysis & Navigation**
+**Memory Tools**
+- **write_memory** / **read_memory** — store/retrieve code patterns
 
-- **get_symbols_overview**: Retrieves a high-level overview of all symbols in a file, grouped by kind. Provides quick understanding of file structure before targeted operations.
-- **search_for_pattern**: Flexible regex-based pattern search across the codebase. Supports context lines, glob patterns, and file filtering for powerful code discovery.
+### QMD MCP – Knowledge / Semantic Search
 
-**Project Management**
+Use **qmd_status** first to confirm collections/index health.
 
-- **activate_project**: Activates a project by name or path, setting the working context for all Serena operations. Essential step before working with any codebase.
-- **check_onboarding_performed**: Verifies whether project onboarding was completed. Ensures Serena has necessary context about build commands, testing setup, and project structure.
+**Search Tools**
+- **qmd_search** — fast BM25 keyword/exact match (e.g. file names, phrases)
+- **qmd_vector_search** — semantic similarity (conceptual/natural language)
+- **qmd_deep_search** — hybrid + rerank (highest quality, slowest)
 
-**Memory System**
+**Retrieval Tools**
+- **qmd_get** — single document by path or docid
+- **qmd_multi_get** — multiple documents (list/glob)
 
-- **write_memory**: Stores project-specific knowledge as named memories. Enables persistent context for future sessions about architecture patterns, conventions, or learned solutions.
-- **read_memory**: Retrieves stored project memories. Allows agents to access previously learned information about the codebase without re-analysis.
+**When to Use QMD**  
+Only for .md/docs/notes/transcripts/non-code content.  
+Never for symbol definitions, references, renames or code edits — route those to Serena.
 
-### Usage Guidelines
+### MCP Selection Rules (Eliminate Redundancy)
 
-**When to Use Serena Tools**
+- **Non-code / fuzzy / conceptual / notes / docs** → QMD first (`qmd_vector_search` or `qmd_deep_search`)
+- **Code symbols / definitions / references / renames / inserts** → Serena exclusively
+- **Hybrid workflow** → QMD for discovery/context → Serena for precise navigation/edits
+- **Efficiency** — Prefer QMD speed for knowledge; Serena precision for code surgery
 
-Always prefer Serena tools over generic file operations for symbol-level tasks. Use **find_symbol** and **find_referencing_symbols** instead of grep for locating code. Use **replace_symbol_body**, **insert_after_symbol**, and **insert_before_symbol** instead of full file edits for targeted modifications. Reserve generic tools like **read_file** and **search_for_pattern** for scenarios where symbol-based operations are insufficient.
+### Best Practices
 
-**Best Practices**
-
-1. **Activate First**: Always call **activate_project** before any Serena operations to establish proper project context.
-2. **Verify Onboarding**: Use **check_onboarding_performed** at conversation start to ensure Serena has project-specific knowledge.
-3. **Think Before Acting**: Leverage **think_about_task_adherence** and **think_about_whether_you_are_done** at critical checkpoints to maintain task alignment and completion verification.
-4. **Memory for Efficiency**: Use **write_memory** to store learned patterns and **read_memory** to avoid re-exploration in subsequent sessions.
-5. **Minimal Changes**: Prefer targeted symbol operations over broad file edits to reduce token consumption and improve precision.
-
-**Tool Selection Priority**
-
-- **Symbol location**: **find_symbol** → **get_symbols_overview** → **search_for_pattern**
-- **Code modification**: **replace_symbol_body** → **replace_lines** → **read_file** + **edit**
-- **Reference analysis**: **find_referencing_symbols** → **search_for_pattern** → manual inspection
-- **New code insertion**: **insert_after_symbol** / **insert_before_symbol** → manual edit → full file rewrite
+1. Start sessions: `activate_project` (Serena) + `qmd_status` (QMD)
+2. Before tool use: Explicitly decide "QMD or Serena?" in thinking
+3. Minimize broad searches; target narrow queries
+4. Verify edits: read_file or symbol overview before/after changes
+5. Fallback: shell only when MCPs cannot help
 
 ---

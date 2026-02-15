@@ -15,25 +15,25 @@ You must execute this command with a strategic approach, carefully analyzing the
 You must analyze the project structure to identify what needs synchronization:
 
 **Primary Configuration Files to Monitor:**
-- `*.jsonc` files in project root
-  - Specifically: `opencode.jsonc`, `oh-my-opencode-slim.jsonc`
-  - Any additional JSONC files
+- `*.json` files in project root
+  - Specifically: `opencode.json`, `oh-my-opencode-slim.json`
+  - Any additional JSON files
 
 **Component Directories to Scan:**
 - `agents/` directory for custom agent configurations
 - `skills/` directory for skill definitions
 - `commands/` directory for custom command files
 
-**For `opencode.jsonc` Changes:**
+**For `opencode.json` Changes:**
 
 Use the **Task tool** to orchestrate parallel scanning and analysis:
 
 1. Launch parallel exploration tasks to analyze configuration structure:
    - Task: Scan `Makefile` for changes of action
-   - Task: Scan `opencode.jsonc` "plugins" section and detect changes
-   - Task: Scan `opencode.jsonc` "mcp" section and detect changes
-   - Task: Scan `opencode.jsonc` "enabled_providers" section and detect changes
-   - Task: Scan `oh-my-opencode-slim.jsonc` for model configuration changes of agents
+   - Task: Scan `opencode.json` "plugins" section and detect changes
+   - Task: Scan `opencode.json` "mcp" section and detect changes
+   - Task: Scan `opencode.json` "enabled_providers" section and detect changes
+   - Task: Scan `oh-my-opencode-slim.json` for model configuration changes of agents
 
 2. Wait for all exploration tasks to complete and collect their findings
 
@@ -53,25 +53,25 @@ Based on detected changes, update or remove legacy content in appropriate sectio
 - Parse available action from `Makefile`
 - Update documentation with current action and details
 
-**For `./opencode.jsonc` Plugin Changes:**
+**For `./opencode.json` Plugin Changes:**
 - Navigate to **Plugins** section in README.md
-- Parse current plugin configurations from `opencode.jsonc`
+- Parse current plugin configurations from `opencode.json`
 - Update plugin documentation with current configurations
 - Find documentation URLs from plugin names/versions
 - Add or update corresponding links in **Reference Links** section
 - Validate that all documentation links are accessible
 
-**For `./opencode.jsonc` MCP Changes:**
+**For `./opencode.json` MCP Changes:**
 - Navigate to **Manually Configured MCPs** subsection
-- Parse current MCP configurations from `opencode.jsonc`
+- Parse current MCP configurations from `opencode.json`
 - Update MCP documentation to match current configurations
 - Find MCP documentation URLs or repository links
 - Add or update corresponding links in **Reference Links** section
 - Validate link accessibility
 
-**For `./opencode.jsonc` Provider Changes:**
+**For `./opencode.json` Provider Changes:**
 - Navigate to **Provider List** subsection within **Providers** section
-- Parse current provider configurations from `opencode.jsonc`
+- Parse current provider configurations from `opencode.json`
 - Update provider list to reflect currently enabled providers
 - Document provider details: API endpoints, authentication, models, capabilities
 
@@ -97,7 +97,7 @@ Custom Commands Documentation:
 - Update documentation as needed
 
 **Models Configuration:**
-- Scan `./oh-my-opencode-slim.jsonc` and compare against Models Configuration section
+- Scan `./oh-my-opencode-slim.json` and compare against Models Configuration section
 - Verify all agent-specific model assignments match
 - Verify all task category model configurations match
 - Check model variant specifications are accurate
@@ -148,8 +148,8 @@ When analyzing and updating documentation:
 ==============================
 
 Detected Changes:
-  ✓ opencode.jsonc (MCPs section updated)
-  ✓ oh-my-opencode-slim.jsonc (agents modified)
+  ✓ opencode.json (MCPs section updated)
+  ✓ oh-my-opencode-slim.json (agents modified)
   ✓ skills/ (new skills detected)
 
 Documentation Sections Updated:

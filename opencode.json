@@ -22,7 +22,7 @@
     "@nick-vi/opencode-type-inject@latest"
   ],
   "enabled_providers": [
-    // "anthropic",
+    "antigravity-manager",
     "opencode",
     "zai-coding-plan",
     "xai"
@@ -70,6 +70,14 @@
         "False"
       ],
       "enabled": true,
+      "type": "local"
+    },
+    "qmd": {
+      "command": [
+        "qmd",
+        "mcp"
+      ],
+      "enabled": false,
       "type": "local"
     },
     "vision": {

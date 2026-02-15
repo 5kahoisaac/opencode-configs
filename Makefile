@@ -1,7 +1,7 @@
 # Makefile for building OpenCode configuration with .env variables
 
 # Define the files to process
-FILES := AGENTS.md oh-my-opencode-slim.jsonc opencode.jsonc
+FILES := AGENTS.md oh-my-opencode-slim.json opencode.json
 DIRECTORIES := agents commands skills oh-my-opencode-slim
 
 # Main targets
@@ -15,7 +15,7 @@ build: clean
 	@mkdir -p ./dist
 	@echo "✓ Created ./dist directory"
 	
-	# Copy JSONC files to dist directory first
+	# Copy JSON files to dist directory first
 	@for file in $(FILES); do \
 		if [ -f "$$file" ]; then \
 			echo "📋 Copying $$file to dist..."; \
@@ -25,7 +25,7 @@ build: clean
 	
 	# Load environment variables and process config files in dist
 	@echo "🔄 Substituting environment variables..."
-	@./subst_env_vars.sh ./dist/*.jsonc
+	@./subst_env_vars.sh ./dist/*.json
 	
 	# Copy directories
 	@for dir in $(DIRECTORIES); do \
@@ -123,7 +123,7 @@ help:
 	@echo ""
 	@echo "📝 This Makefile:"
 	@echo "  1. Loads environment variables from .env"
-	@echo "  2. Substitutes $$VAR_NAME placeholders in JSONC files (only .env variables)"
+	@echo "  2. Substitutes $$VAR_NAME placeholders in JSON files (only .env variables)"
 	@echo "  3. Outputs processed files to ./dist directory"
 	@echo "  4. Copies agents, commands, and skills to ./dist"
 	@echo "  5. Migrates dist content to ~/.config/opencode/ and ~/.agents/skills/"

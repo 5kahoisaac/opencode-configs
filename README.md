@@ -35,7 +35,7 @@ The Makefile provides essential commands to build, clean, and manage the OpenCod
 
 | Command        | Description                                                                                                                                                                                             |
 |:---------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `make build`   | Build OpenCode configuration with .env variables substitution. Creates `./dist/` directory, processes JSONC files with environment variable substitution, and copies agents/commands/skills directories |
+| `make build`   | Build OpenCode configuration with .env variables substitution. Creates `./dist/` directory, processes JSON files with environment variable substitution, and copies agents/commands/skills directories |
 | `make clean`   | Remove the `./dist` directory and all generated files                                                                                                                                                   |
 | `make migrate` | Deploy built configuration to global OpenCode locations (`~/.config/opencode/` and `~/.agents/skills/`). Must be run after `make build`                                                                 |
 | `make help`    | Display available targets and their descriptions                                                                                                                                                        |
@@ -54,11 +54,11 @@ The Makefile provides essential commands to build, clean, and manage the OpenCod
 
 This configuration integrates multiple AI model providers to offer a diverse range of capabilities, from lightweight fast responses to deep reasoning tasks. The provider setup is designed to balance cost-effectiveness with performance, utilizing both free and premium models across different use cases.
 
-**Default Model:** `zai-coding-plan/glm-5` (configured as a primary model in `opencode.jsonc`)
+**Default Model:** `zai-coding-plan/glm-5` (configured as a primary model in `opencode.json`)
 
 #### Provider List
 
-The following AI providers are **enabled** in this setup (configured in `opencode.jsonc`):
+The following AI providers are **enabled** in this setup (configured in `opencode.json`):
 
 **OpenCode**
 
@@ -75,7 +75,7 @@ xAI provides the Grok family of models, specifically `xai/grok-code-fast-1` for 
 
 #### Models Configuration
 
-The `oh-my-opencode-slim.jsonc` and `./agents/*.md` files contain a sophisticated model assignment system that maps specialized agents to appropriate models based on their specific functions. This configuration represents a carefully tuned balance between API rate limits, response quality, and cost management.
+The `oh-my-opencode-slim.json` and `./agents/*.md` files contain a sophisticated model assignment system that maps specialized agents to appropriate models based on their specific functions. This configuration represents a carefully tuned balance between API rate limits, response quality, and cost management.
 
 **Agent-Specific Model Assignments**
 
@@ -118,7 +118,7 @@ This configuration represents a personalized setup balancing performance, cost, 
 
 ### Plugins
 
-The OpenCode configuration utilizes several plugins to extend its core functionality. These plugins are defined in `opencode.jsonc` configuration file and provide integration with external services and additional features.
+The OpenCode configuration utilizes several plugins to extend its core functionality. These plugins are defined in `opencode.json` configuration file and provide integration with external services and additional features.
 
 **oh-my-opencode-slim@latest**
 
@@ -138,7 +138,7 @@ This configuration includes both manually configured MCPs and pre-installed MCPs
 
 ### Manually Configured MCPs
 
-The following MCPs are explicitly configured in `opencode.jsonc` file:
+The following MCPs are explicitly configured in `opencode.json` file:
 
 **figma-desktop**
 
