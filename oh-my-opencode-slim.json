@@ -3,7 +3,7 @@
   "presets": {
     "isaac": {
       "orchestrator": {
-        "model": "antigravity-manager/claude-sonnet-4-6-thinking",
+        "model": "opencode/kimi-k2.5-free",
         "skills": [
           "*"
         ],
