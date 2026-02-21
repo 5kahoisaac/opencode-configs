@@ -83,12 +83,13 @@ Individual agents from the oh-my-opencode-slim plugin receive specialized model 
 
 | Source                  | Agent Name     | Role                      | Model                                 | Variant  | Description                                                                                            |
 |:------------------------|:---------------|:--------------------------|:--------------------------------------|:---------|:-------------------------------------------------------------------------------------------------------|
-| **oh-my-opencode-slim** | `orchestrator` | Task Orchestration        | `opencode/kimi-k2.5-free`             | -        | Coordinates complex, multi-step tasks and manages agent delegation workflows                           |
+| **oh-my-opencode-slim** | `orchestrator` | Task Orchestration        | `zai-coding-plan/glm-5`               | -        | Coordinates complex, multi-step tasks and manages agent delegation workflows                           |
 | **oh-my-opencode-slim** | `oracle`       | Strategic Advisor         | `zai-coding-plan/glm-5`               | `high`   | Provides high-level architectural guidance and complex reasoning for critical decisions                |
 | **oh-my-opencode-slim** | `librarian`    | Research Specialist       | `opencode/gemini-3-flash`             | `low`    | Handles documentation lookup, external research, and information retrieval tasks                       |
 | **oh-my-opencode-slim** | `explorer`     | Codebase Analysis         | `xai/grok-code-fast-1`                | `medium` | Performs rapid codebase navigation, pattern detection, and symbol exploration                          |
 | **oh-my-opencode-slim** | `designer`     | UI/UX Design              | `xai/grok-4-1-fast-reasoning`         | `medium` | Creates polished frontend interfaces, handles visual design, animations, and responsive layouts        |
 | **oh-my-opencode-slim** | `fixer`        | Implementation Specialist | `zai-coding-plan/glm-4.7`             | `high`   | Executes well-defined coding tasks with efficiency and precision                                       |
+| **opencode-historian**  | `historian`    | Memory Management         | `zai-coding-plan/glm-4.7-flash`       | -        | Manages persistent memories, context retention, and semantic search across project knowledge base      |
 | **custom**              | `courier`      | Primary Router            | `xai/grok-4-1-fast-non-reasoning`     | -        | Ultra-fast task router that answers simple queries directly and delegates complex tasks to specialists |
 
 **Currency API Rate Limits and Suggested Setup**
@@ -128,23 +129,27 @@ The oh-my-opencode-slim plugin is a lightweight, focused agent collection for Op
 
 The type-inject plugin provides advanced type inference and injection capabilities for OpenCode. This plugin enhances the AI's understanding of type systems across different programming languages, enabling more accurate code completion and type-aware refactoring operations. It integrates with OpenCode's language server protocol to provide real-time type information and suggestions.
 
+**opencode-historian@latest**
+
+The historian plugin provides persistent memory management capabilities for OpenCode, enabling context retention and compounded engineering practices across sessions. This plugin allows agents to store, recall, and manage memories including architectural decisions, design patterns, learnings, preferences, issues, and contextual information. The historian system automatically classifies memory types and manages circular references between related memories, creating a knowledge base that persists beyond individual conversations.
+
 ---
 
 
 ## MCPs
 
 Model Context Protocol (MCP) servers extend OpenCode's capabilities by providing specialized tools and integrations.
-This configuration includes both manually configured MCPs and pre-installed MCPs from the oh-my-opencode-slim plugin.
+This configuration includes manually configured MCPs and pre-installed MCPs from the oh-my-opencode-slim and opencode-historian plugins.
 
 ### Manually Configured MCPs
 
 The following MCPs are explicitly configured in `opencode.json` file:
 
-**figma-desktop**
+**figma-desktop** *(disabled)*
 
 The Figma Desktop MCP enables seamless integration with Figma for design-related operations.
 This MCP allows OpenCode to interact with Figma's desktop application, enabling design context retrieval,
-UI code generation, and design system exploration directly from Figma files.
+UI code generation, and design system exploration directly from Figma files. Currently disabled in configuration.
 
 **github**
 
@@ -152,23 +157,28 @@ The GitHub MCP provides comprehensive integration with GitHub for repository ope
 pull request management, issue tracking, and code search.
 This MCP enables OpenCode to interact with GitHub's API for various development workflows directly from the conversation interface.
 
-**jira**
+**jira** *(disabled)*
 
 The Jira MCP integrates with Atlassian Jira for project management operations including issue tracking,
 sprint management, and workflow automation. This MCP connects to both Jira and Confluence,
-enabling seamless access to project management data.
-
-**serena**
-
-The Serena MCP server provides advanced code intelligence capabilities including precise symbol navigation,
-semantic search, and AST-aware code operations. This MCP is essential to the Serena agent's functionality,
-enabling token-efficient code retrieval and modifications.
+enabling seamless access to project management data. Currently disabled in configuration.
 
 **vision**
 
 The Vision MCP provides visual analysis capabilities through Z.ai's vision models. This MCP enables image understanding,
 visual content analysis, and image-based reasoning tasks. It connects to Z.ai's vision API to process and analyze
 visual inputs alongside code and text.
+
+### Pre-installed MCPs from opencode-historian
+
+The opencode-historian plugin includes the Serena MCP server:
+
+**serena**
+
+The Serena MCP server provides advanced code intelligence capabilities including precise symbol navigation,
+semantic search, and AST-aware code operations. This MCP is essential for code symbol manipulation and
+enables token-efficient code retrieval and modifications. It is automatically available when the
+opencode-historian plugin is enabled.
 
 ### Pre-installed MCPs from Oh-My-Opencode-Slim
 
@@ -195,7 +205,14 @@ These pre-installed MCPs are automatically available when the oh-my-opencode-sli
 
 ## Skills
 
-The skills system in OpenCode provides a modular way to extend the assistant's capabilities with specialized knowledge and workflows. This configuration includes skills installed via Vercel's official skills.sh system. Note that skills are installed to `~/.agents/skills/` via the skills.sh system, not in the local `skills/` directory of this repository.
+The skills system in OpenCode provides a modular way to extend the assistant's capabilities with specialized knowledge and workflows. This configuration includes skills installed via Vercel's official skills.sh system and pre-installed skills from the opencode-historian plugin. Note that skills are installed to `~/.agents/skills/` via the skills.sh system, not in the local `skills/` directory of this repository.
+
+#### Pre-installed Skills from opencode-historian
+
+The opencode-historian plugin includes the mnemonics skill for memory management:
+
+**Memory Management**
+- **mnemonics** *(from opencode-historian)* - Memory management system for context retention and compounded engineering practices. Use when the user explicitly says "remember", "recall", or "forget" with memory content. Handles storage, retrieval, and deletion of project knowledge including architectural decisions, design patterns, learnings, preferences, issues, and context. Automatically classifies memory types and manages circular references between related memories.
 
 #### Skills List
 
@@ -215,9 +232,6 @@ The following skills are available in this configuration, organized by category:
 - **find-skills** - Helps users discover and install agent skills when they ask questions like "how do I do X", "find a skill for X", "is there a skill that can...", or express interest in extending capabilities. Use when the user is looking for functionality that might exist as an installable skill
 - **skill-creator** - Guide for creating effective skills. Use when users want to create a new skill (or update an existing skill) that extends OpenCode's capabilities with specialized knowledge, workflows, or tool integrations
 - **command-creator** - Guide for creating effective OpenCode slash commands. Use when users ask to "create a command", "make a slash command", "add a command", or want to document a workflow as a reusable command. Essential for creating optimized, agent-executable slash commands with proper structure and best practices
-
-**Memory Management**
-- **mnemonics** - Memory management system for context retention and compounded engineering practices. Use when the user explicitly says "remember", "recall", or "forget" with memory content. Handles storage, retrieval, and deletion of project knowledge including architectural decisions, design patterns, learnings, preferences, issues, and context. Automatically classifies memory types and manages circular references between related memories
 
 **Other**
 - **algorithmic-art** - Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems. Create original algorithmic art rather than copying existing artists' work to avoid copyright violations
@@ -254,6 +268,23 @@ The oh-my-opencode-slim plugin provides a focused suite of six specialized agent
 These agents work together to provide comprehensive coverage of development tasks while maintaining efficiency through a slim architecture.
 
 
+#### OpenCode-Historian Agent
+
+The opencode-historian plugin provides a specialized agent for persistent memory management:
+
+**@historian - Memory Management Specialist**
+
+The historian agent manages persistent memories, enabling context retention and compounded engineering practices across sessions. It stores, recalls, and manages project knowledge including architectural decisions, design patterns, learnings, preferences, issues, and contextual information.
+
+**Key capabilities:**
+- **Memory Storage**: Stores project decisions, learnings, and context that persist across sessions
+- **Semantic Search**: Retrieves relevant memories using keyword or semantic search
+- **Memory Classification**: Automatically categorizes memories by type (architectural decisions, conventions, preferences, context)
+- **Cross-Reference Management**: Handles circular references between related memories
+
+The historian agent uses the `zai-coding-plan/glm-4.7-flash` model configured in `opencode-historian.json` for fast, efficient memory operations.
+
+
 #### Custom Agents
 
 This configuration includes a custom primary agent designed to enhance OpenCode's task routing capabilities:
@@ -282,6 +313,7 @@ The following resources provide additional information about skills, plugins, an
 - **OpenCode Documentation**: https://opencode.ai/docs - Official documentation for OpenCode configuration, plugin development, and usage guides.
 - **Oh-My-OpenCode-Slim Plugin**: https://github.com/alvinunreal/oh-my-opencode-slim - A lightweight, focused agent collection providing essential development capabilities without the overhead of the full suite, available through the OpenCode plugin registry.
 - **Type-Inject Plugin**: https://github.com/nick-vi/opencode-type-inject - Advanced type inference and injection capabilities for OpenCode, enhancing type system understanding across programming languages.
+- **Historian Plugin**: https://github.com/5kahoisaac/opencode-historian - Persistent memory management for OpenCode, enabling context retention and compounded engineering practices across sessions.
 - **Figma Desktop MCP**: https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server - Official MCP server for Figma integration, enabling design context retrieval and UI code generation.
 - **GitHub MCP**: https://github.com/github/github-mcp-server - Official MCP server for GitHub API integration, enabling repository operations and issue management.
 - **Jira MCP**: https://github.com/sooperset/mcp-atlassian - Official MCP server for Atlassian Jira and Confluence integration, enabling project management workflows.
