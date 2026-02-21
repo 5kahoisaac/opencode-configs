@@ -1,5 +1,6 @@
 {
   "model": "zai-coding-plan/glm-4.7-flash",
   "disabledMcps": [],
+  "autoCompound":true,
   "debug": false
 }
