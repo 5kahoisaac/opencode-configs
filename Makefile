@@ -1,7 +1,7 @@
-# Makefile for building OpenCode configuration with .env variables
+# Makefile for building OpenCode configuration
 
 # Define the files to process
-FILES := AGENTS.md oh-my-opencode-slim.json opencode.json
+FILES := AGENTS.md opencode-historian.json oh-my-opencode-slim.json opencode.json
 DIRECTORIES := agents commands skills oh-my-opencode-slim
 
 # Main targets
@@ -22,10 +22,6 @@ build: clean
 			cp "$$file" "./dist/"; \
 		fi; \
 		done
-	
-	# Load environment variables and process config files in dist
-	@echo "🔄 Substituting environment variables..."
-	@./subst_env_vars.sh ./dist/*.json
 	
 	# Copy directories
 	@for dir in $(DIRECTORIES); do \
@@ -116,14 +112,11 @@ migrate: build
 help:
 	@echo "📖 Available Makefile targets:"
 	@echo ""
-	@echo "  make build   - Build OpenCode configuration with .env variables"
 	@echo "  make clean   - Remove ./dist directory"
 	@echo "  make migrate - Migrate build output to global OpenCode config locations"
 	@echo "  make help    - Show this help message"
 	@echo ""
 	@echo "📝 This Makefile:"
-	@echo "  1. Loads environment variables from .env"
-	@echo "  2. Substitutes $$VAR_NAME placeholders in JSON files (only .env variables)"
-	@echo "  3. Outputs processed files to ./dist directory"
-	@echo "  4. Copies agents, commands, and skills to ./dist"
-	@echo "  5. Migrates dist content to ~/.config/opencode/ and ~/.agents/skills/"
+	@echo "  1. Gather files to ./dist directory"
+	@echo "  2. Copies agents, commands, and skills to ./dist"
+	@echo "  3. Migrates dist content to ~/.config/opencode/ and ~/.agents/skills/"

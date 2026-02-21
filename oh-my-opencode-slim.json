@@ -3,7 +3,7 @@
   "presets": {
     "isaac": {
       "orchestrator": {
-        "model": "opencode/kimi-k2.5-free",
+        "model": "zai-coding-plan/glm-5",
         "skills": [
           "*"
         ],
@@ -22,7 +22,6 @@
         "model": "opencode/gemini-3-flash",
         "variant": "low",
         "skills": [
-          "mnemonics",
           "docx",
           "pdf",
           "xlsx",
@@ -39,9 +38,7 @@
       "explorer": {
         "model": "xai/grok-code-fast-1",
         "variant": "medium",
-        "skills": [
-          "mnemonics"
-        ],
+        "skills": [],
         "mcps": [
           "serena"
         ]
@@ -50,7 +47,6 @@
         "model": "xai/grok-4-1-fast-reasoning",
         "variant": "medium",
         "skills": [
-          "mnemonics",
           "agent-browser",
           "web-design-guidelines",
           "algorithmic-art",
@@ -66,7 +62,6 @@
         "model": "zai-coding-plan/glm-4.7",
         "variant": "high",
         "skills": [
-          "mnemonics",
           "simplify"
         ],
         "mcps": [

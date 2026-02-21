@@ -14,72 +14,20 @@
     "skill": {
       "*": "allow"
     },
-    "todoread": "allow",
-    "todowrite": "allow"
+    "todoread": "ask",
+    "todowrite": "ask"
   },
   "plugin": [
     "oh-my-opencode-slim@latest",
-    "@nick-vi/opencode-type-inject@latest"
+    "@nick-vi/opencode-type-inject@latest",
+    "opencode-historian@latest"
   ],
   "enabled_providers": [
-    "antigravity-manager",
     "opencode",
     "zai-coding-plan",
     "xai"
   ],
   "mcp": {
-    "figma-desktop": {
-      "enabled": false,
-      "type": "remote",
-      "url": "http://127.0.0.1:3845/mcp"
-    },
-    "jira": {
-      "command": [
-        "uvx",
-        "mcp-atlassian"
-      ],
-      "enabled": false,
-      "environment": {
-        "CONFLUENCE_API_TOKEN": "$CONFLUENCE_API_TOKEN",
-        "CONFLUENCE_URL": "$CONFLUENCE_URL",
-        "CONFLUENCE_USERNAME": "$CONFLUENCE_USERNAME",
-        "JIRA_API_TOKEN": "$JIRA_API_TOKEN",
-        "JIRA_URL": "$JIRA_URL",
-        "JIRA_USERNAME": "$JIRA_USERNAME"
-      },
-      "type": "local"
-    },
-    "github": {
-      "enabled": true,
-      "headers": {
-        "Authorization": "Bearer $GITHUB_PAT_TOKEN"
-      },
-      "type": "remote",
-      "url": "https://api.githubcopilot.com/mcp"
-    },
-    "serena": {
-      "command": [
-        "uvx",
-        "--from",
-        "git+https://github.com/oraios/serena",
-        "serena",
-        "start-mcp-server",
-        "--context",
-        "ide-assistant",
-        "--open-web-dashboard",
-        "False"
-      ],
-      "enabled": true,
-      "type": "local"
-    },
-    "qmd": {
-      "command": [
-        "qmd",
-        "mcp"
-      ],
-      "enabled": false,
-      "type": "local"
-    },
     "vision": {
       "command": [
         "npx",
@@ -88,10 +36,39 @@
       ],
       "enabled": true,
       "environment": {
-        "Z_AI_API_KEY": "$Z_AI_API_KEY",
+        "Z_AI_API_KEY": "{env:Z_AI_API_KEY}",
         "Z_AI_MODE": "ZAI"
       },
       "type": "local"
+    },
+    "github": {
+      "enabled": true,
+      "headers": {
+        "Authorization": "Bearer {env:GITHUB_PAT_TOKEN}"
+      },
+      "type": "remote",
+      "url": "https://api.githubcopilot.com/mcp"
+    },
+    "jira": {
+      "command": [
+        "uvx",
+        "mcp-atlassian"
+      ],
+      "enabled": false,
+      "environment": {
+        "CONFLUENCE_API_TOKEN": "{env:CONFLUENCE_API_TOKEN}",
+        "CONFLUENCE_URL": "{env:CONFLUENCE_URL}",
+        "CONFLUENCE_USERNAME": "$CONFLUENCE_USERNAME}",
+        "JIRA_API_TOKEN": "{env:JIRA_API_TOKEN}",
+        "JIRA_URL": "{env:JIRA_URL}",
+        "JIRA_USERNAME": "{env:JIRA_USERNAME}"
+      },
+      "type": "local"
+    },
+    "figma-desktop": {
+      "enabled": false,
+      "type": "remote",
+      "url": "http://127.0.0.1:3845/mcp"
     }
   }
 }

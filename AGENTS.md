@@ -13,66 +13,100 @@
 
 ## Precision Code Operations
 
-Prioritize **Serena MCP** for code symbol navigation, reference finding, renaming, targeted inserts/deletes/edits.  
-Use **QMD MCP** exclusively for non-code knowledge retrieval (notes, .md files, docs, transcripts).  
-Avoid shell/grep/read_file unless both MCPs unavailable or inadequate.
+Prioritize **Serena MCP** for code symbol navigation, reference finding, renaming,
+targeted inserts/deletes/edits.
 
->CRITICAL: Differentiate strictly to avoid redundant calls and token waste.
+> CRITICAL: Use `@historian` subagent directly or the **mnemonics** skill for memory operations.
+> Serena memory tools are INTERNAL to Serena — NEVER use them for project memories.
 
 ### Serena MCP – Code Precision (LSP-powered)
 
-Call **activate_project** first on new sessions.  
-Verify with **check_onboarding_performed**.
+**Session Startup**
+1. `activate_project` — connect to project (required first)
+2. `check_onboarding_performed` — verify project is initialized
+3. `initial_instructions` — load Serena manual if agent seems "lost"
 
-**Core Symbol Tools**
-- **find_symbol** — precise global/local symbol location
-- **find_referencing_symbols** — all references/uses
-- **rename_symbol** — safe codebase-wide rename
-- **replace_symbol_body** — replace entire symbol definition
+**Symbol Tools (LSP/JetBrains)**
+- `find_symbol` — global/local search for classes, methods, functions
+- `find_referencing_symbols` — find all usages of a symbol
+- `rename_symbol` — safe codebase-wide rename
+- `get_symbols_overview` — quick summary of top-level symbols in a file
 
 **Targeted Edit Tools**
-- **insert_after_symbol** — add content after symbol end
-- **insert_before_symbol** — add content before symbol start
-- **replace_lines** — replace specific line range
-- **delete_lines** — remove specific line range
+- `replace_symbol_body` — replace entire function/class definition
+- `insert_after_symbol` / `insert_before_symbol` — add code relative to symbols
+- `replace_lines` / `delete_lines` — line-based editing (fallback for non-symbolic)
 
-**Analysis Tools**
-- **get_symbols_overview** — top-level symbols in file
-- **search_for_pattern** — regex fallback (non-symbol cases only)
+**File Operations**
+- `list_dir` — list directory contents (with recursion option)
+- `find_file` — find files by name/pattern
+- `search_for_pattern` — regex search (fallback when symbols don't work)
 
-**Memory Tools**
-- **write_memory** / **read_memory** — store/retrieve code patterns
+**Thinking Tools (Meta-cognition)**
+- `think_about_collected_information` — verify enough data gathered
+- `think_about_task_adherence` — check if drifted from goal
+- `think_about_whether_you_are_done` — final completion verification
 
-### QMD MCP – Knowledge / Semantic Search
+**Memory Tools (INTERNAL to Serena)**
+- `write_memory` / `read_memory` / `list_memories` — for Serena's own bookkeeping
+- **NOT for project memories** — use `@historian` instead
 
-Use **qmd_status** first to confirm collections/index health.
+**Serena Best Practices**
+- Prefer `replace_symbol_body` over `replace_lines` for structured code
+- Use `restart_language_server` if files modified outside Serena
+- Use `think_about_*` tools before committing to complex refactors
+- Use `open_dashboard` to monitor logs and tool usage in real-time
 
-**Search Tools**
-- **qmd_search** — fast BM25 keyword/exact match (e.g. file names, phrases)
-- **qmd_vector_search** — semantic similarity (conceptual/natural language)
-- **qmd_deep_search** — hybrid + rerank (highest quality, slowest)
+### Memory & Semantic Search – Use @historian or mnemonics skill
 
-**Retrieval Tools**
-- **qmd_get** — single document by path or docid
-- **qmd_multi_get** — multiple documents (list/glob)
+Memory tools are **ONLY available via the historian subagent**. You have two options:
 
-**When to Use QMD**  
-Only for .md/docs/notes/transcripts/non-code content.  
-Never for symbol definitions, references, renames or code edits — route those to Serena.
+1. **Direct invocation:** `@historian remember that we use PostgreSQL`
+2. **Load mnemonics skill:** Use the skill for detailed guidance on memory types
 
-### MCP Selection Rules (Eliminate Redundancy)
+> **NEVER confuse Serena memory tools with historian memory tools.**
+> - `serena_write_memory` / `serena_read_memory` → INTERNAL to Serena for code navigation
+> - `memory_remember` / `memory_recall` → Available ONLY via @historian subagent
 
-- **Non-code / fuzzy / conceptual / notes / docs** → QMD first (`qmd_vector_search` or `qmd_deep_search`)
-- **Code symbols / definitions / references / renames / inserts** → Serena exclusively
-- **Hybrid workflow** → QMD for discovery/context → Serena for precise navigation/edits
-- **Efficiency** — Prefer QMD speed for knowledge; Serena precision for code surgery
+**Memory Tools (via @historian only)**
+- `memory_remember` — create new memories or update existing ones
+- `memory_recall` — search and retrieve memories (keyword or semantic)
+- `memory_forget` — delete memories by file path
+- `memory_list_types` — list available memory types in the project
+- `memory_sync` — reindex after manual file changes (rarely needed)
+
+**When to Use @historian**
+- Storing project knowledge, decisions, or learnings
+- Recalling relevant context from past sessions
+- Semantic search across docs, notes, or transcripts
+- Reindexing after manual external file modifications
+
+### Tool Selection Table
+
+| Task                                              | Use This                            |
+|---------------------------------------------------|-------------------------------------|
+| Code symbol navigation (find, rename, references) | Serena                              |
+| Code edits (insert, replace, delete)              | Serena                              |
+| Store/recall project memories                     | `@historian` or **mnemonics** skill |
+| Semantic search across docs/notes                 | `@historian` or **mnemonics** skill |
+| Reindex after manual file changes                 | `@historian sync`                   |
 
 ### Best Practices
 
-1. Start sessions: `activate_project` (Serena) + `qmd_status` (QMD)
-2. Before tool use: Explicitly decide "QMD or Serena?" in thinking
-3. Minimize broad searches; target narrow queries
-4. Verify edits: read_file or symbol overview before/after changes
-5. Fallback: shell only when MCPs cannot help
+**Serena (Code):**
+1. Start sessions: `activate_project` → `check_onboarding_performed`
+2. Prefer symbol tools (`replace_symbol_body`) over line edits
+3. Use `restart_language_server` if files changed externally
+4. Use `think_about_*` tools before finishing complex refactors
+
+**Memory (@historian):**
+1. Use `@historian` or load **mnemonics** skill for memory operations
+2. **NEVER** use `serena_*_memory` tools for project memories
+3. Recall before deciding — check if decision already exists
+
+**General:**
+1. Minimize broad searches; target narrow queries
+2. Verify edits: read_file or symbol overview before/after changes
+3. Fallback: shell only when MCPs cannot help
 
 ---
