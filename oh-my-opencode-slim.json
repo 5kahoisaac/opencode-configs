@@ -3,7 +3,7 @@
   "presets": {
     "isaac": {
       "orchestrator": {
-        "model": "zai-coding-plan/glm-5",
+        "model": "opencode/glm-5-free",
         "skills": [
           "*"
         ],
@@ -59,7 +59,7 @@
         ]
       },
       "fixer": {
-        "model": "zai-coding-plan/glm-4.7",
+        "model": "opencode/glm-5-free",
         "variant": "high",
         "skills": [
           "simplify"
