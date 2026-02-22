@@ -22,6 +22,7 @@
         "model": "opencode/gemini-3-flash",
         "variant": "low",
         "skills": [
+          "mnemonics",
           "docx",
           "pdf",
           "xlsx",
@@ -38,7 +39,9 @@
       "explorer": {
         "model": "xai/grok-code-fast-1",
         "variant": "medium",
-        "skills": [],
+        "skills": [
+          "mnemonics"
+        ],
         "mcps": [
           "serena"
         ]
@@ -47,6 +50,7 @@
         "model": "xai/grok-4-1-fast-reasoning",
         "variant": "medium",
         "skills": [
+          "mnemonics",
           "agent-browser",
           "web-design-guidelines",
           "algorithmic-art",
@@ -62,6 +66,7 @@
         "model": "opencode/glm-5-free",
         "variant": "high",
         "skills": [
+          "mnemonics",
           "simplify"
         ],
         "mcps": [
