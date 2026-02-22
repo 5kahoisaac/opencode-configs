@@ -72,6 +72,10 @@ Z.ai provides access to advanced GLM models including GLM-5 and GLM-4.7. These m
 
 xAI provides the Grok family of models, specifically `xai/grok-code-fast-1` for exploration tasks and `xai/grok-4-1-fast-reasoning` for visual engineering and design tasks. These models excel at code understanding and fast reasoning, making them ideal for tasks requiring quick analysis and pattern recognition.
 
+**Kimi for Coding**
+
+Kimi for Coding provides the K2.5 model optimized specifically for coding tasks. The `kimi-for-coding/k2p5` model delivers excellent performance for code generation, refactoring, and technical implementation tasks with high accuracy and efficiency.
+
 
 #### Models Configuration
 
@@ -83,13 +87,13 @@ Individual agents from the oh-my-opencode-slim plugin receive specialized model 
 
 | Source                  | Agent Name     | Role                      | Model                                 | Variant  | Description                                                                                            |
 |:------------------------|:---------------|:--------------------------|:--------------------------------------|:---------|:-------------------------------------------------------------------------------------------------------|
-| **oh-my-opencode-slim** | `orchestrator` | Task Orchestration        | `zai-coding-plan/glm-5`               | -        | Coordinates complex, multi-step tasks and manages agent delegation workflows                           |
+| **oh-my-opencode-slim** | `orchestrator` | Task Orchestration        | `kimi-for-coding/k2p5`                | -        | Coordinates complex, multi-step tasks and manages agent delegation workflows                           |
 | **oh-my-opencode-slim** | `oracle`       | Strategic Advisor         | `zai-coding-plan/glm-5`               | `high`   | Provides high-level architectural guidance and complex reasoning for critical decisions                |
 | **oh-my-opencode-slim** | `librarian`    | Research Specialist       | `opencode/gemini-3-flash`             | `low`    | Handles documentation lookup, external research, and information retrieval tasks                       |
 | **oh-my-opencode-slim** | `explorer`     | Codebase Analysis         | `xai/grok-code-fast-1`                | `medium` | Performs rapid codebase navigation, pattern detection, and symbol exploration                          |
 | **oh-my-opencode-slim** | `designer`     | UI/UX Design              | `xai/grok-4-1-fast-reasoning`         | `medium` | Creates polished frontend interfaces, handles visual design, animations, and responsive layouts        |
-| **oh-my-opencode-slim** | `fixer`        | Implementation Specialist | `zai-coding-plan/glm-4.7`             | `high`   | Executes well-defined coding tasks with efficiency and precision                                       |
-| **opencode-historian**  | `historian`    | Memory Management         | `zai-coding-plan/glm-4.7-flash`       | -        | Manages persistent memories, context retention, and semantic search across project knowledge base      |
+| **oh-my-opencode-slim** | `fixer`        | Implementation Specialist | `opencode/glm-5-free`                 | `high`   | Executes well-defined coding tasks with efficiency and precision                                       |
+| **opencode-historian**  | `historian`    | Memory Management         | `kimi-for-coding/k2p5`                | -        | Manages persistent memories, context retention, and semantic search across project knowledge base      |
 | **custom**              | `courier`      | Primary Router            | `xai/grok-4-1-fast-non-reasoning`     | -        | Ultra-fast task router that answers simple queries directly and delegates complex tasks to specialists |
 
 **Currency API Rate Limits and Suggested Setup**
@@ -282,7 +286,7 @@ The historian agent manages persistent memories, enabling context retention and 
 - **Memory Classification**: Automatically categorizes memories by type (architectural decisions, conventions, preferences, context)
 - **Cross-Reference Management**: Handles circular references between related memories
 
-The historian agent uses the `zai-coding-plan/glm-4.7-flash` model configured in `opencode-historian.json` for fast, efficient memory operations.
+The historian agent uses the `kimi-for-coding/k2p5` model configured in `opencode-historian.json` for fast, efficient memory operations.
 
 
 #### Custom Agents

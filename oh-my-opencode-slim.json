@@ -3,7 +3,7 @@
   "presets": {
     "isaac": {
       "orchestrator": {
-        "model": "zai-coding-plan/glm-5",
+        "model": "kimi-for-coding/k2p5",
         "skills": [
           "*"
         ],

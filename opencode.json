@@ -25,6 +25,7 @@
   "enabled_providers": [
     "opencode",
     "zai-coding-plan",
+    "kimi-for-coding",
     "xai"
   ],
   "mcp": {
