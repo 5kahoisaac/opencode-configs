@@ -59,7 +59,7 @@
       "environment": {
         "CONFLUENCE_API_TOKEN": "{env:CONFLUENCE_API_TOKEN}",
         "CONFLUENCE_URL": "{env:CONFLUENCE_URL}",
-        "CONFLUENCE_USERNAME": "$CONFLUENCE_USERNAME}",
+        "CONFLUENCE_USERNAME": "{env:JIRA_USERNAME}",
         "JIRA_API_TOKEN": "{env:JIRA_API_TOKEN}",
         "JIRA_URL": "{env:JIRA_URL}",
         "JIRA_USERNAME": "{env:JIRA_USERNAME}"
