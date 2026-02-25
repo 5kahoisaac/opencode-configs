@@ -92,7 +92,7 @@ Individual agents from the oh-my-opencode-slim plugin receive specialized model 
 | **oh-my-opencode-slim** | `librarian`    | Research Specialist       | `opencode/gemini-3-flash`             | `low`    | Handles documentation lookup, external research, and information retrieval tasks                       |
 | **oh-my-opencode-slim** | `explorer`     | Codebase Analysis         | `xai/grok-code-fast-1`                | `medium` | Performs rapid codebase navigation, pattern detection, and symbol exploration                          |
 | **oh-my-opencode-slim** | `designer`     | UI/UX Design              | `xai/grok-4-1-fast-reasoning`         | `medium` | Creates polished frontend interfaces, handles visual design, animations, and responsive layouts        |
-| **oh-my-opencode-slim** | `fixer`        | Implementation Specialist | `opencode/glm-5-free`                 | `high`   | Executes well-defined coding tasks with efficiency and precision                                       |
+| **oh-my-opencode-slim** | `fixer`        | Implementation Specialist | `zai-coding-plan/glm-5`               | `high`   | Executes well-defined coding tasks with efficiency and precision                                       |
 | **opencode-historian**  | `historian`    | Memory Management         | `kimi-for-coding/k2p5`                | -        | Manages persistent memories, context retention, and semantic search across project knowledge base      |
 | **custom**              | `courier`      | Primary Router            | `xai/grok-4-1-fast-non-reasoning`     | -        | Ultra-fast task router that answers simple queries directly and delegates complex tasks to specialists |
 
@@ -188,11 +188,15 @@ opencode-historian plugin is enabled.
 
 The oh-my-opencode-slim plugin includes three pre-configured MCP servers that provide essential development tools:
 
-| MCP         | Purpose                         | Default Assignment          |
-|-------------|---------------------------------|-----------------------------|
-| `websearch` | Real-time web search via Exa AI | `orchestrator`, `librarian` |
-| `context7`  | Official library documentation  | `librarian`                 |
-| `grep_app`  | GitHub code search via grep.app | `librarian`                 |
+| MCP             | Purpose                         | Default Assignment          |
+|-----------------|---------------------------------|-----------------------------|
+| `websearch`     | Real-time web search via Exa AI | `orchestrator`, `librarian` |
+| `context7`      | Official library documentation  | `librarian`                 |
+| `grep_app`      | GitHub code search via grep.app | `oracle`                    |
+| `serena`        | Advanced code intelligence      | `librarian`, `explorer`, `fixer` |
+| `jira`          | Jira/Confluence integration     | `librarian`                 |
+| `figma-desktop` | Figma design integration        | `librarian`, `designer`     |
+| `vision`        | Visual analysis via Z.ai        | `librarian`, `designer`     |
 
 **MCP Descriptions:**
 
@@ -201,6 +205,22 @@ The oh-my-opencode-slim plugin includes three pre-configured MCP servers that pr
 - **context7** - Provides access to up-to-date official documentation and code examples for various libraries and frameworks. This MCP fetches version-specific documentation directly from the source, ensuring accurate and current information for library usage and API references.
 
 - **grep_app** - Enables ultra-fast code search across millions of public GitHub repositories. This MCP allows agents to search for code patterns, find real-world implementation examples, and discover how others have solved similar problems.
+
+**MCP Descriptions:**
+
+- **websearch** - Provides real-time web search capabilities via Exa AI. This MCP enables agents to search for current information, documentation, and code examples from across the web.
+
+- **context7** - Provides access to up-to-date official documentation and code examples for various libraries and frameworks. This MCP fetches version-specific documentation directly from the source, ensuring accurate and current information for library usage and API references.
+
+- **grep_app** - Enables ultra-fast code search across millions of public GitHub repositories. This MCP allows agents to search for code patterns, find real-world implementation examples, and discover how others have solved similar problems.
+
+- **serena** - Provides advanced code intelligence capabilities including precise symbol navigation, semantic search, and AST-aware code operations. Essential for code symbol manipulation and token-efficient code retrieval.
+
+- **jira** - Integrates with Atlassian Jira and Confluence for project management operations including issue tracking, sprint management, and workflow automation.
+
+- **figma-desktop** - Enables seamless integration with Figma for design-related operations, allowing design context retrieval, UI code generation, and design system exploration.
+
+- **vision** - Provides visual analysis capabilities through Z.ai's vision models for image understanding, visual content analysis, and image-based reasoning tasks.
 
 These pre-installed MCPs are automatically available when the oh-my-opencode-slim plugin is enabled. MCP access is controlled via per-agent permissions in the configuration. See the [official documentation](https://github.com/alvinunreal/oh-my-opencode-slim/blob/master/docs/quick-reference.md#mcp-servers) for details on MCP assignment syntax and global disabling options.
 
@@ -216,7 +236,7 @@ The skills system in OpenCode provides a modular way to extend the assistant's c
 The opencode-historian plugin includes the mnemonics skill for memory management:
 
 **Memory Management**
-- **mnemonics** *(from opencode-historian)* - Memory management system for context retention and compounded engineering practices. Use when the user explicitly says "remember", "recall", or "forget" with memory content. Handles storage, retrieval, and deletion of project knowledge including architectural decisions, design patterns, learnings, preferences, issues, and context. Automatically classifies memory types and manages circular references between related memories.
+- **mnemonics** *(from opencode-historian)* - Memory management system for context retention and compounded engineering practices. Use when the user explicitly says "remember", "recall", or "forget" with memory content. Handles storage, retrieval, and deletion of project knowledge including architectural decisions, design patterns, learnings, preferences, issues, and context. Automatically classifies memory types and manages circular references between related memories. This skill is available to orchestrator, librarian, explorer, designer, and fixer agents.
 
 #### Skills List
 
@@ -240,7 +260,7 @@ The following skills are available in this configuration, organized by category:
 **Other**
 - **algorithmic-art** - Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems. Create original algorithmic art rather than copying existing artists' work to avoid copyright violations
 - **web-design-guidelines** - Review UI code for Web Interface Guidelines compliance. Use when asked to "review my UI", "check accessibility", "audit design", "review UX", or "check my site against best practices"
-- **agent-browser** - Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task
+- **agent-browser** - Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task. Available to designer agent for web-based operations
 - **simplify** - Simplify and refine recently modified code for clarity and consistency. Use after writing code to improve readability without changing functionality
 - **frontend-design** - Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications
 
