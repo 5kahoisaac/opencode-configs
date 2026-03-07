@@ -1,0 +1,56 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/dev/assets/oh-my-opencode.schema.json",
+  "agents": {
+    "sisyphus": {
+      "model": "kimi-for-coding/k2p5"
+    },
+    "hephaestus": {
+      "model": "zai-coding-plan/glm-5",
+      "variant": "medium"
+    },
+    "oracle": {
+      "model": "zai-coding-plan/glm-5"
+    },
+    "librarian": {
+      "model": "opencode/gemini-3-flash"
+    },
+    "explore": {
+      "model": "xai/grok-code-fast-1"
+    },
+    "multimodal-looker": {
+      "model": "kimi-for-coding/k2p5"
+    },
+    "prometheus": {
+      "model": "kimi-for-coding/k2p5"
+    },
+    "metis": {
+      "model": "kimi-for-coding/k2p5"
+    },
+    "momus": {
+      "model": "zai-coding-plan/glm-4.7"
+    },
+    "atlas": {
+      "model": "kimi-for-coding/k2p5"
+    }
+  },
+  "categories": {
+    "visual-engineering": {
+      "model": "xai/grok-4-1-fast-reasoning"
+    },
+    "ultrabrain": {
+      "model": "zai-coding-plan/glm-5"
+    },
+    "quick": {
+      "model": "zai-coding-plan/glm-4.7"
+    },
+    "unspecified-low": {
+      "model": "zai-coding-plan/glm-4.6"
+    },
+    "unspecified-high": {
+      "model": "zai-coding-plan/glm-4.7"
+    },
+    "writing": {
+      "model": "kimi-for-coding/k2p5"
+    }
+  }
+}

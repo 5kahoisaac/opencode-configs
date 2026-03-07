@@ -14,18 +14,18 @@
     "skill": {
       "*": "allow"
     },
-    "todoread": "ask",
-    "todowrite": "ask"
+    "todoread": "allow",
+    "todowrite": "allow"
   },
   "plugin": [
-    "oh-my-opencode-slim@latest",
     "@nick-vi/opencode-type-inject@latest",
-    "opencode-historian@latest"
+    "opencode-historian@latest",
+    "oh-my-opencode@latest"
   ],
   "enabled_providers": [
-    "opencode",
     "zai-coding-plan",
     "kimi-for-coding",
+    "opencode",
     "xai"
   ],
   "mcp": {

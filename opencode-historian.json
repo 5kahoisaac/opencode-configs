@@ -1,6 +1,6 @@
 {
   "model": "kimi-for-coding/k2p5",
   "disabledMcps": [],
-  "autoCompound":true,
+  "autoCompound": true,
   "debug": false
 }
