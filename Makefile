@@ -1,7 +1,7 @@
 # Makefile for building OpenCode configuration
 
 # Define the files to process
-FILES := AGENTS.md opencode-historian.json oh-my-opencode.json opencode.json
+FILES := AGENTS.md opencode-historian.json oh-my-opencode.json opencode.json tui.json
 DIRECTORIES := agents commands skills
 
 # Main targets
