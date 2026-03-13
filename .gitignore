@@ -12,3 +12,6 @@
 # plan
 /.sisyphus
 /.archive
+
+# ide
+.idea
