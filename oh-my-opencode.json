@@ -2,55 +2,174 @@
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/dev/assets/oh-my-opencode.schema.json",
   "agents": {
     "sisyphus": {
-      "model": "kimi-for-coding/k2p5"
+      "model": "kimi-for-coding/k2p5",
+      "fallback_models": [
+        "zai-coding-plan/glm-5",
+        "opencode/big-pickle"
+      ]
     },
     "hephaestus": {
-      "model": "zai-coding-plan/glm-5",
+      "model": "kimi-for-coding/k2p5",
+      "fallback_models": [
+        "zai-coding-plan/glm-4.7"
+      ],
       "variant": "medium"
     },
     "oracle": {
-      "model": "zai-coding-plan/glm-5"
+      "model": "kimi-for-coding/k2p5",
+      "fallback_models": [
+        "zai-coding-plan/glm-5"
+      ]
     },
     "librarian": {
-      "model": "opencode/gemini-3-flash"
+      "model": "opencode/gemini-3-flash",
+      "fallback_models": [
+        "opencode/big-pickle"
+      ]
     },
     "explore": {
-      "model": "xai/grok-code-fast-1"
+      "model": "xai/grok-code-fast-1",
+      "fallback": [
+        "opencode/gpt-5-nano"
+      ]
     },
     "multimodal-looker": {
-      "model": "kimi-for-coding/k2p5"
+      "model": "kimi-for-coding/k2p5",
+      "fallback_models": [
+        "opencode/gemini-3-flash",
+        "zai-coding-plan/glm-4.6v",
+        "opencode/gpt-5-nano"
+      ]
     },
     "prometheus": {
-      "model": "kimi-for-coding/k2p5"
+      "model": "zai-coding-plan/glm-5",
+      "fallback_models": [
+        "kimi-for-coding/k2p5",
+        "zai-coding-plan/glm-4.7"
+      ]
     },
     "metis": {
-      "model": "kimi-for-coding/k2p5"
+      "model": "zai-coding-plan/glm-5",
+      "fallback_models": [
+        "kimi-for-coding/k2p5",
+        "zai-coding-plan/glm-4.7"
+      ]
     },
     "momus": {
-      "model": "zai-coding-plan/glm-4.7"
+      "model": "kimi-for-coding/k2p5",
+      "fallback_models": [
+        "zai-coding-plan/glm-5",
+        "zai-coding-plan/glm-4.7"
+      ]
     },
     "atlas": {
-      "model": "kimi-for-coding/k2p5"
+      "model": "zai-coding-plan/glm-5",
+      "fallback_models": [
+        "kimi-for-coding/k2p5"
+      ]
     }
   },
   "categories": {
     "visual-engineering": {
-      "model": "xai/grok-4-1-fast-reasoning"
+      "model": "xai/grok-4-1-fast-reasoning",
+      "fallback_models": [
+        "zai-coding-plan/glm-4.6v",
+        "zai-coding-plan/glm-4.5v"
+      ]
     },
     "ultrabrain": {
-      "model": "zai-coding-plan/glm-5"
+      "model": "kimi-for-coding/k2p5",
+      "fallback_models": [
+        "zai-coding-plan/glm-5",
+        "zai-coding-plan/glm-4.7"
+      ]
+    },
+    "deep": {
+      "model": "zai-coding-plan/glm-4.7",
+      "fallback_models": [
+        "zai-coding-plan/glm-4.6",
+        "zai-coding-plan/glm-4.5"
+      ]
+    },
+    "artistry": {
+      "model": "xai/grok-4-1-fast-reasoning",
+      "fallback_models": [
+        "kimi-for-coding/k2p5",
+        "zai-coding-plan/glm-4.7-flashx"
+      ]
     },
     "quick": {
-      "model": "zai-coding-plan/glm-4.7"
+      "model": "zai-coding-plan/glm-4.6",
+      "fallback_models": [
+        "zai-coding-plan/glm-4.5-flash",
+        "zai-coding-plan/glm-4.5-air"
+      ]
     },
     "unspecified-low": {
-      "model": "zai-coding-plan/glm-4.6"
+      "model": "zai-coding-plan/glm-4.7-flashx",
+      "fallback_models": [
+        "zai-coding-plan/glm-4.6",
+        "zai-coding-plan/glm-4.5-flash"
+      ]
     },
     "unspecified-high": {
-      "model": "zai-coding-plan/glm-4.7"
+      "model": "zai-coding-plan/glm-5",
+      "fallback_models": [
+        "kimi-for-coding/k2p5",
+        "zai-coding-plan/glm-4.7"
+      ]
     },
     "writing": {
-      "model": "kimi-for-coding/k2p5"
+      "model": "opencode/gemini-3-flash",
+      "fallback_models": [
+        "kimi-for-coding/k2p5",
+        "zai-coding-plan/glm-4.5"
+      ]
+    },
+    "git": {
+      "model": "opencode/gpt-5-nano",
+      "fallback_models": [
+        "big-pickle",
+        "zai-coding-plan/glm-4.5-air"
+      ],
+      "description": "All git operations",
+      "prompt_append": "Focus on atomic commits, clear messages, and safe operations."
     }
+  },
+  "background_task": {
+    "defaultConcurrency": 5,
+    "staleTimeoutMs": 60000,
+    "providerConcurrency": {
+      "xai": 5,
+      "opencode": 10,
+      "kimi-for-coding": 3,
+      "zai-coding-plan": 10
+    },
+    "modelConcurrency": {
+      "kimi-for-coding/k2p5": 3,
+      "zai-coding-plan/glm-4.5": 10,
+      "zai-coding-plan/glm-4.5v": 10,
+      "zai-coding-plan/glm-4.5-air": 5,
+      "zai-coding-plan/glm-4.5-flash": 2,
+      "zai-coding-plan/glm-4.6": 3,
+      "zai-coding-plan/glm-4.6v": 10,
+      "zai-coding-plan/glm-4.7": 2,
+      "zai-coding-plan/glm-4.7-flash": 1,
+      "zai-coding-plan/glm-4.7-flashx": 3,
+      "zai-coding-plan/glm-5": 3
+    }
+  },
+  "runtime_fallback": {
+    "enabled": true,
+    "retry_on_errors": [
+      400,
+      429,
+      503,
+      529
+    ],
+    "max_fallback_attempts": 3,
+    "cooldown_seconds": 60,
+    "timeout_seconds": 30,
+    "notify_on_fallback": true
   }
 }
