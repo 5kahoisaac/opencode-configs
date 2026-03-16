@@ -29,7 +29,7 @@
     },
     "explore": {
       "model": "xai/grok-code-fast-1",
-      "fallback": [
+      "fallback_models": [
         "opencode/gpt-5-nano"
       ]
     },
