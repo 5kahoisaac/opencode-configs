@@ -129,7 +129,7 @@
     "git": {
       "model": "opencode/gpt-5-nano",
       "fallback_models": [
-        "big-pickle",
+        "opencode/big-pickle",
         "zai-coding-plan/glm-4.5-air"
       ],
       "description": "All git operations",
