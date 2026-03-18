@@ -8,6 +8,25 @@
     "todoread": "allow",
     "todowrite": "allow"
   },
+  "small_model": "zai-coding-plan/glm-4.5",
+  "compaction": {
+    "auto": true,
+    "prune": true
+  },
+  "watcher": {
+    "ignore": [
+      "node_modules/**",
+      "dist/**",
+      ".git/**",
+      "*.lock",
+      "**/*.log",
+      ".cache/**",
+      "build/**",
+      "__pycache__/**",
+      ".venv/**",
+      "venv/**"
+    ]
+  },
   "plugin": [
     "@nick-vi/opencode-type-inject@latest",
     "opencode-historian@latest",
@@ -34,7 +53,7 @@
       "type": "local"
     },
     "github": {
-      "enabled": true,
+      "enabled": false,
       "headers": {
         "Authorization": "Bearer {env:GITHUB_PAT_TOKEN}"
       },

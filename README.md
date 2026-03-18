@@ -142,7 +142,7 @@ The `oh-my-opencode.json` configuration also defines task category model assignm
 | `unspecified-low`    | `zai-coding-plan/glm-4.7-flashx` | `zai-coding-plan/glm-4.6`, `zai-coding-plan/glm-4.5-flash`     | Low-effort tasks that don't fit other categories                    |
 | `unspecified-high`   | `zai-coding-plan/glm-5`          | `kimi-for-coding/k2p5`, `zai-coding-plan/glm-4.7`              | High-effort tasks that don't fit other categories                   |
 | `writing`            | `opencode/gemini-3-flash`        | `kimi-for-coding/k2p5`, `zai-coding-plan/glm-4.5`              | Documentation, prose, and technical writing tasks                   |
-| `git`                | `opencode/gpt-5-nano`            | `big-pickle`, `zai-coding-plan/glm-4.5-air`                    | All git operations with focus on atomic commits and safe operations |
+| `git`                | `opencode/gpt-5-nano`            | `opencode/big-pickle`, `zai-coding-plan/glm-4.5-air`           | All git operations with focus on atomic commits and safe operations |
 
 These category assignments enable intelligent task routing, ensuring each type of work is handled by the most suitable model for optimal results.
 
