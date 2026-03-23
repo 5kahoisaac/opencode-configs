@@ -146,6 +146,41 @@ The `oh-my-opencode.json` configuration also defines task category model assignm
 
 These category assignments enable intelligent task routing, ensuring each type of work is handled by the most suitable model for optimal results.
 
+**Background Task Configuration**
+
+The `oh-my-opencode.json` file includes sophisticated background task management settings:
+
+| Setting                         | Value | Description                                               |
+|:--------------------------------|:------|:----------------------------------------------------------|
+| `defaultConcurrency`            | 5     | Default number of concurrent background tasks             |
+| `staleTimeoutMs`                | 60000 | Timeout in milliseconds before a task is considered stale |
+| **Provider Concurrency**        |       | Per-provider task limits for rate limit management        |
+| `xai`                           | 5     | Maximum concurrent tasks for xAI provider                 |
+| `opencode`                      | 10    | Maximum concurrent tasks for OpenCode provider            |
+| `kimi-for-coding`               | 3     | Maximum concurrent tasks for Kimi provider                |
+| `zai-coding-plan`               | 10    | Maximum concurrent tasks for Z.ai provider                |
+| **Model Concurrency**           |       | Per-model fine-grained concurrency limits                 |
+| `kimi-for-coding/k2p5`          | 3     | Concurrency limit for K2.5 model                          |
+| `zai-coding-plan/glm-5`         | 3     | Concurrency limit for GLM-5 model                         |
+| `zai-coding-plan/glm-4.7`       | 2     | Concurrency limit for GLM-4.7 model                       |
+| `zai-coding-plan/glm-4.7-flash` | 1     | Concurrency limit for GLM-4.7-flash                       |
+
+**Runtime Fallback Configuration**
+
+Automatic fallback system for handling API errors and maintaining workflow continuity:
+
+| Setting                 | Value              | Description                                                |
+|:------------------------|:-------------------|:-----------------------------------------------------------|
+| `enabled`               | true               | Enable automatic fallback on errors                        |
+| `max_fallback_attempts` | 3                  | Maximum number of fallback attempts per request            |
+| `cooldown_seconds`      | 60                 | Cooldown period between fallback attempts                  |
+| `timeout_seconds`       | 30                 | Request timeout threshold                                  |
+| `notify_on_fallback`    | true               | Notify user when fallback occurs                           |
+| **Retry on Errors**     |                    | HTTP status codes that trigger fallback                    |
+|                         | 400, 429, 503, 529 | Bad Request, Rate Limited, Service Unavailable, Overloaded |
+
+This configuration ensures robust operation by automatically switching to fallback models when primary models encounter rate limits or service issues, maintaining workflow continuity without manual intervention.
+
 
 ### Plugins
 
@@ -162,6 +197,10 @@ The type-inject plugin provides advanced type inference and injection capabiliti
 **opencode-historian@latest**
 
 The historian plugin provides persistent memory management capabilities for OpenCode, enabling context retention and compounded engineering practices across sessions. This plugin allows agents to store, recall, and manage memories including architectural decisions, design patterns, learnings, preferences, issues, and contextual information. The historian system automatically classifies memory types and manages circular references between related memories, creating a knowledge base that persists beyond individual conversations.
+
+**opencode-worktree@latest**
+
+The worktree plugin provides advanced Git worktree management capabilities for OpenCode. This plugin enables efficient management of multiple Git worktrees, allowing parallel development on different branches without switching contexts. It streamlines workflows for feature development, hotfix management, and code review by providing tools to create, manage, and navigate between worktrees seamlessly.
 
 ---
 
@@ -181,11 +220,11 @@ The Figma Desktop MCP enables seamless integration with Figma for design-related
 This MCP allows OpenCode to interact with Figma's desktop application, enabling design context retrieval,
 UI code generation, and design system exploration directly from Figma files. Currently disabled in configuration.
 
-**github**
+**github** *(disabled)*
 
 The GitHub MCP provides comprehensive integration with GitHub for repository operations,
 pull request management, issue tracking, and code search.
-This MCP enables OpenCode to interact with GitHub's API for various development workflows directly from the conversation interface.
+This MCP enables OpenCode to interact with GitHub's API for various development workflows directly from the conversation interface. Currently disabled in configuration.
 
 **jira** *(disabled)*
 
@@ -358,6 +397,7 @@ The following resources provide additional information about skills, plugins, an
 - **Oh-My-Opencode Plugin**: https://github.com/alvinunreal/oh-my-opencode - A comprehensive agent collection providing a full suite of specialized agents for complex development tasks, available through the OpenCode plugin registry.
 - **Type-Inject Plugin**: https://github.com/nick-vi/opencode-type-inject - Advanced type inference and injection capabilities for OpenCode, enhancing type system understanding across programming languages.
 - **Historian Plugin**: https://github.com/5kahoisaac/opencode-historian - Persistent memory management for OpenCode, enabling context retention and compounded engineering practices across sessions.
+- **Worktree Plugin**: https://github.com/5kahoisaac/opencode-worktree - Advanced Git worktree management for parallel development workflows and efficient branch switching.
 - **Figma Desktop MCP**: https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server - Official MCP server for Figma integration, enabling design context retrieval and UI code generation.
 - **GitHub MCP**: https://github.com/github/github-mcp-server - Official MCP server for GitHub API integration, enabling repository operations and issue management.
 - **Jira MCP**: https://github.com/sooperset/mcp-atlassian - Official MCP server for Atlassian Jira and Confluence integration, enabling project management workflows.
