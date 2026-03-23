@@ -30,6 +30,7 @@
   "plugin": [
     "@nick-vi/opencode-type-inject@latest",
     "opencode-historian@latest",
+    "opencode-worktree@latest",
     "oh-my-opencode@latest"
   ],
   "enabled_providers": [
