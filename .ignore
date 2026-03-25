@@ -6,8 +6,8 @@
 .DS_Store
 *.pem
 
-# build
-/dist
+# archive
+.archive/
 
 # tools
 .idea/

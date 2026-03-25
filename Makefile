@@ -1,113 +1,66 @@
-# Makefile for building OpenCode configuration
+# Makefile for OpenCode configuration
 
-# Define the files to process
 FILES := AGENTS.md opencode-historian.json oh-my-opencode.json opencode.json tui.json
-DIRECTORIES := agents commands skills
+DIRECTORIES := agents commands
+SKILLS_CSV := skills.csv
 
-# Main targets
-.PHONY: build clean migrate help
+.PHONY: sync sync-skills help
 
-build: clean
-	@echo "🔨 Building OpenCode configuration..."
-	@echo ""
-	
-	# Create and clean output directory
-	@mkdir -p ./dist
-	@echo "✓ Created ./dist directory"
-	
-	# Copy JSON files to dist directory first
-	@for file in $(FILES); do \
-		if [ -f "$$file" ]; then \
-			echo "📋 Copying $$file to dist..."; \
-			cp "$$file" "./dist/"; \
-		fi; \
-		done
-	
-	# Copy directories
-	@for dir in $(DIRECTORIES); do \
-		if [ -d "$$dir" ]; then \
-			echo "📁 Copying $$dir..."; \
-			cp -r "$$dir" "./dist/"; \
-			echo "✅ $$dir copied"; \
-		fi; \
-		done
-	@echo ""
-	@echo "🎉 Build complete! OpenCode configuration saved to ./dist"
-	@echo ""
-	@echo "📁 Output summary:"
-	@ls -la ./dist/
-
-clean:
-	@rm -rf ./dist
-	@echo "🗑️ Cleaned ./dist directory"
-
-migrate: build
-	@echo "🚀 Migrating OpenCode configuration..."
-	@echo ""
-	
-	# Ensure target directories exist
+sync:
+	@echo "🚀 Syncing OpenCode configuration..."
 	@mkdir -p ~/.config/opencode
-	@mkdir -p ~/.agents/skills
 	@mkdir -p ~/.config/opencode/agents
 	@mkdir -p ~/.config/opencode/commands
-	@mkdir -p ~/.config/opencode/skills
 	@echo "✓ Created target directories"
-	@echo ""
-	
-	# Migrate individual files (not folders) from ./dist to ~/.config/opencode/
-	@echo "📋 Migrating configuration files..."
 	@for file in $(FILES); do \
-		if [ -f "./dist/$$file" ]; then \
-			echo "  → Moving $$file"; \
-			cp -f "./dist/$$file" ~/.config/opencode/; \
+		if [ -f "$$file" ]; then \
+			cp -f "$$file" ~/.config/opencode/; \
 		fi; \
-		done
-	@echo "✓ Configuration files migrated"
-	@echo ""
-	
-	# Migrate agents folder
-	@echo "📁 Migrating agents folder..."
+	done
 	@rm -rf ~/.config/opencode/agents/*
-	@cp -r ./dist/agents/* ~/.config/opencode/agents/ 2>/dev/null || true
-	@echo "✓ agents folder migrated"
-	@echo ""
-	
-	# Migrate commands folder
-	@echo "📁 Migrating commands folder..."
+	@cp -r ./agents/* ~/.config/opencode/agents/ 2>/dev/null || true
 	@rm -rf ~/.config/opencode/commands/*
-	@cp -r ./dist/commands/* ~/.config/opencode/commands/ 2>/dev/null || true
-	@echo "✓ commands folder migrated"
-	@echo ""
-	
-	# Migrate skills folder to ~/.agents/skills/
-	@echo "📁 Migrating skills folder to ~/.agents/skills/..."
-	@rm -rf ~/.agents/skills/*
-	@cp -r ./dist/skills/* ~/.agents/skills/ 2>/dev/null || true
-	@echo "✓ skills copied to ~/.agents/skills/"
-	
-	# Clear and symlink skills from ~/.agents/skills/ to ~/.config/opencode/skills/
-	@echo "🔗 Creating symlinks in ~/.config/opencode/skills/..."
-	@rm -rf ~/.config/opencode/skills/*
-	@for skill_dir in ~/.agents/skills/*/; do \
-		skill_name=$$(basename "$$skill_dir"); \
-		if [ "$$skill_name" != "*" ]; then \
-			echo "  → Linking $$skill_name"; \
-			ln -sf ../../../.agents/skills/$$skill_name ~/.config/opencode/skills/$$skill_name; \
+	@cp -r ./commands/* ~/.config/opencode/commands/ 2>/dev/null || true
+	@$(MAKE) sync-skills
+	@echo "🎉 Sync complete!"
+
+sync-skills:
+	@echo "🔧 Syncing skills to global scope..."
+	@npx skills ls -g --json 2>/dev/null > /tmp/installed_skills.json; \
+	installed_names=$$(cat /tmp/installed_skills.json | grep -o '"name": *"[^"]*"' | cut -d'"' -f4 | sort -u); \
+	csv_skills=$$(tail -n +2 $(SKILLS_CSV) | cut -d',' -f2 | sort -u); \
+	echo "📋 Installed: $$(echo $$installed_names | wc -w | tr -d ' ') skills"; \
+	echo "📋 CSV: $$(echo $$csv_skills | wc -w | tr -d ' ') skills"; \
+	echo ""; \
+	echo "🗑️  Removing obsolete skills..."; \
+	for skill in $$installed_names; do \
+		if ! echo "$$csv_skills" | grep -qw "$$skill"; then \
+			echo "   ✗ Removing: $$skill"; \
+			npx skills remove --skill "$$skill" -g -y 2>/dev/null || true; \
 		fi; \
-		done
-	@echo "✓ skills symlinks created"
-	@echo ""
-	
-	@echo "🎉 Migration complete!"
+	done; \
+	echo ""; \
+	echo "📦 Processing CSV skills..."; \
+	for skill in $$csv_skills; do \
+		if echo "$$installed_names" | grep -qw "$$skill"; then \
+			echo "   ✓ Already installed: $$skill"; \
+		else \
+			repo=$$(grep ",$$skill," $(SKILLS_CSV) | head -1 | cut -d',' -f1); \
+			agents=$$(grep ",$$skill," $(SKILLS_CSV) | head -1 | cut -d',' -f3); \
+			if [ -n "$$repo" ]; then \
+				echo "   → Installing: $$skill"; \
+				npx skills add "$$repo" --skill "$$skill" -g -a "$$agents" -y; \
+			fi; \
+		fi; \
+	done; \
+	echo ""; \
+	echo "⬆️  Updating all skills..."; \
+	npx skills update -g 2>/dev/null || true; \
+	echo ""; \
+	echo "✅ Skills sync complete"; \
+	rm -f /tmp/installed_skills.json
 
 help:
-	@echo "📖 Available Makefile targets:"
-	@echo ""
-	@echo "  make clean   - Remove ./dist directory"
-	@echo "  make migrate - Migrate build output to global OpenCode config locations"
-	@echo "  make help    - Show this help message"
-	@echo ""
-	@echo "📝 This Makefile:"
-	@echo "  1. Gather files to ./dist directory"
-	@echo "  2. Copies agents, commands, and skills to ./dist"
-	@echo "  3. Migrates dist content to ~/.config/opencode/ and ~/.agents/skills/"
+	@echo "  make sync          - Sync configuration and skills"
+	@echo "  make sync-skills   - Sync skills from CSV"
+	@echo "  make help          - Show this message"

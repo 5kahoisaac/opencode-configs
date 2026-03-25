@@ -77,7 +77,7 @@
       },
       "type": "local"
     },
-    "figma-desktop": {
+    "figma": {
       "enabled": false,
       "type": "remote",
       "url": "http://127.0.0.1:3845/mcp"

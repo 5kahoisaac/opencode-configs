@@ -21,8 +21,8 @@ You must analyze the project structure to identify what needs synchronization:
 
 **Component Directories to Scan:**
 - `agents/` directory for custom agent configurations
-- `skills/` directory for skill definitions
 - `commands/` directory for custom command files
+- `skills.csv` list of skills (for installing skills via skills.sh)
 
 **For `opencode.json` Changes:**
 
@@ -38,7 +38,7 @@ Use the **Task tool** to orchestrate parallel scanning and analysis:
 2. Wait for all exploration tasks to complete and collect their findings
 
 3. Launch parallel directory scanning tasks:
-   - Task: Scan `skills/` directory and enumerate all skills
+   - Task: Scan `skills.csv` directory and enumerate all skills
    - Task: Scan `agents/` directory and enumerate all custom agents
    - Task: Scan `commands/` directory and enumerate all custom commands
 
@@ -78,7 +78,7 @@ Based on detected changes, update or remove legacy content in appropriate sectio
 **For Directory Synchronization:**
 
 Skills Documentation:
-- Compare skills found in `./skills/` directory with Skills section in README.md
+- Compare skills found in `skills.csv` with Skills section in README.md
 - Identify missing skills (installed but not documented)
 - Identify outdated skills (documented but missing or with wrong descriptions)
 - Update Skills section to reflect complete, current state
