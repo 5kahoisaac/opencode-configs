@@ -3,7 +3,6 @@ https://github.com/5kahoisaac/opencode-historian/tree/main/src,mnemonics,opencod
 affaan-m/everything-claude-code,ai-regression-testing,opencode
 affaan-m/everything-claude-code,android-clean-architecture,opencode
 affaan-m/everything-claude-code,api-design,opencode
-affaan-m/everything-claude-code,async-python-patterns,opencode
 affaan-m/everything-claude-code,backend-patterns,opencode
 affaan-m/everything-claude-code,coding-standards,opencode
 affaan-m/everything-claude-code,compose-multiplatform-patterns,opencode
@@ -53,6 +52,7 @@ anthropics/skills,skill-creator,opencode
 anthropics/skills,xlsx,opencode
 apollographql/skills,rust-best-practices,opencode
 brianlovin/claude-config,simplify,opencode
+gracefullight/stock-checker,stock-analysis,opencode
 jeffallan/claude-skills,golang-pro,opencode
 jeffallan/claude-skills,laravel-specialist,opencode
 microck/ordinary-claude-skills,javascript-testing-patterns,opencode
@@ -64,6 +64,7 @@ vercel-labs/agent-browser,agent-browser,opencode
 vercel-labs/agent-skills,vercel-react-best-practices,opencode
 vercel-labs/agent-skills,web-design-guidelines,opencode
 vercel-labs/skills,find-skills,opencode
+wshobson/agents,async-python-patterns,opencode
 wshobson/agents,modern-javascript-patterns,opencode
 wshobson/agents,python-packaging,opencode
 wshobson/agents,python-performance-optimization,opencode

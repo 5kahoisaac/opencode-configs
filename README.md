@@ -33,11 +33,11 @@ OpenCode serves as a powerful alternative to traditional IDE-based AI assistants
 
 The Makefile provides essential commands to manage the OpenCode configuration:
 
-| Command          | Description                                                                                  |
-|:-----------------|:---------------------------------------------------------------------------------------------|
-| `make sync`      | Sync OpenCode configuration and skills to global locations (`~/.config/opencode/`). Copies all configuration files, agents, and commands |
-| `make sync-skills` | Sync skills from `skills.csv` to global scope. Removes obsolete skills, installs missing ones, and updates all installed skills |
-| `make help`      | Display available targets and their descriptions                                             |
+| Command            | Description                                                                                                                                |
+|:-------------------|:-------------------------------------------------------------------------------------------------------------------------------------------|
+| `make sync`        | Sync OpenCode configuration (`~/.config/opencode/`) and skills (`~/.agents/skills/`). Copies all configuration files, agents, and commands |
+| `make sync-skills` | Sync skills from `skills.csv` to global scope. Removes obsolete skills, installs missing ones, and updates all installed skills            |
+| `make help`        | Display available targets and their descriptions                                                                                           |
 
 **Workflow:**
 1. Run `make sync` to copy configuration files, agents, and commands to system locations
@@ -151,27 +151,27 @@ These category assignments enable intelligent task routing, ensuring each type o
 
 The `oh-my-opencode.json` file includes sophisticated background task management settings:
 
-| Setting                         | Value | Description                                               |
-|:--------------------------------|:------|:----------------------------------------------------------|
-| `defaultConcurrency`            | 5     | Default number of concurrent background tasks             |
-| `staleTimeoutMs`                | 60000 | Timeout in milliseconds before a task is considered stale |
-| **Provider Concurrency**        |       | Per-provider task limits for rate limit management        |
-| `xai`                           | 5     | Maximum concurrent tasks for xAI provider                 |
-| `opencode`                      | 10    | Maximum concurrent tasks for OpenCode provider            |
-| `kimi-for-coding`               | 3     | Maximum concurrent tasks for Kimi provider                |
-| `zai-coding-plan`               | 10    | Maximum concurrent tasks for Z.ai provider                |
-| **Model Concurrency**           |       | Per-model fine-grained concurrency limits                 |
-| `kimi-for-coding/k2p5`          | 3     | Concurrency limit for K2.5 model                          |
-| `zai-coding-plan/glm-5`         | 3     | Concurrency limit for GLM-5 model                         |
-| `zai-coding-plan/glm-4.7`       | 2     | Concurrency limit for GLM-4.7 model                       |
-| `zai-coding-plan/glm-4.7-flash` | 1     | Concurrency limit for GLM-4.7-flash                       |
-| `zai-coding-plan/glm-4.7-flashx`| 3     | Concurrency limit for GLM-4.7-flashx                      |
-| `zai-coding-plan/glm-4.6`       | 3     | Concurrency limit for GLM-4.6 model                       |
-| `zai-coding-plan/glm-4.6v`      | 10    | Concurrency limit for GLM-4.6v model                      |
-| `zai-coding-plan/glm-4.5`       | 10    | Concurrency limit for GLM-4.5 model                       |
-| `zai-coding-plan/glm-4.5v`      | 10    | Concurrency limit for GLM-4.5v model                      |
-| `zai-coding-plan/glm-4.5-air`   | 5     | Concurrency limit for GLM-4.5-air model                   |
-| `zai-coding-plan/glm-4.5-flash` | 2     | Concurrency limit for GLM-4.5-flash model                 |
+| Setting                          | Value | Description                                               |
+|:---------------------------------|:------|:----------------------------------------------------------|
+| `defaultConcurrency`             | 5     | Default number of concurrent background tasks             |
+| `staleTimeoutMs`                 | 60000 | Timeout in milliseconds before a task is considered stale |
+| **Provider Concurrency**         |       | Per-provider task limits for rate limit management        |
+| `xai`                            | 5     | Maximum concurrent tasks for xAI provider                 |
+| `opencode`                       | 10    | Maximum concurrent tasks for OpenCode provider            |
+| `kimi-for-coding`                | 3     | Maximum concurrent tasks for Kimi provider                |
+| `zai-coding-plan`                | 10    | Maximum concurrent tasks for Z.ai provider                |
+| **Model Concurrency**            |       | Per-model fine-grained concurrency limits                 |
+| `kimi-for-coding/k2p5`           | 3     | Concurrency limit for K2.5 model                          |
+| `zai-coding-plan/glm-5`          | 3     | Concurrency limit for GLM-5 model                         |
+| `zai-coding-plan/glm-4.7`        | 2     | Concurrency limit for GLM-4.7 model                       |
+| `zai-coding-plan/glm-4.7-flash`  | 1     | Concurrency limit for GLM-4.7-flash                       |
+| `zai-coding-plan/glm-4.7-flashx` | 3     | Concurrency limit for GLM-4.7-flashx                      |
+| `zai-coding-plan/glm-4.6`        | 3     | Concurrency limit for GLM-4.6 model                       |
+| `zai-coding-plan/glm-4.6v`       | 10    | Concurrency limit for GLM-4.6v model                      |
+| `zai-coding-plan/glm-4.5`        | 10    | Concurrency limit for GLM-4.5 model                       |
+| `zai-coding-plan/glm-4.5v`       | 10    | Concurrency limit for GLM-4.5v model                      |
+| `zai-coding-plan/glm-4.5-air`    | 5     | Concurrency limit for GLM-4.5-air model                   |
+| `zai-coding-plan/glm-4.5-flash`  | 2     | Concurrency limit for GLM-4.5-flash model                 |
 
 **Runtime Fallback Configuration**
 
