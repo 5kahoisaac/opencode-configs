@@ -31,19 +31,18 @@ OpenCode serves as a powerful alternative to traditional IDE-based AI assistants
 
 ## Available Makefile Commands
 
-The Makefile provides essential commands to build, clean, and manage the OpenCode configuration:
+The Makefile provides essential commands to manage the OpenCode configuration:
 
-| Command        | Description                                                                                                                             |
-|:---------------|:----------------------------------------------------------------------------------------------------------------------------------------|
-| `make build`   | Build OpenCode configuration. Creates `./dist/` directory, copies JSON files, and copies agents/commands/skills directories             |
-| `make clean`   | Remove the `./dist` directory and all generated files                                                                                   |
-| `make migrate` | Deploy built configuration to global OpenCode locations (`~/.config/opencode/` and `~/.agents/skills/`). Must be run after `make build` |
-| `make help`    | Display available targets and their descriptions                                                                                        |
+| Command          | Description                                                                                  |
+|:-----------------|:---------------------------------------------------------------------------------------------|
+| `make sync`      | Sync OpenCode configuration and skills to global locations (`~/.config/opencode/`). Copies all configuration files, agents, and commands |
+| `make sync-skills` | Sync skills from `skills.csv` to global scope. Removes obsolete skills, installs missing ones, and updates all installed skills |
+| `make help`      | Display available targets and their descriptions                                             |
 
 **Workflow:**
-1. Run `make build` to process configuration files with environment variables
-2. Run `make migrate` to install the configuration to system locations
-3. Use `make clean` to start fresh when needed
+1. Run `make sync` to copy configuration files, agents, and commands to system locations
+2. The `sync` command automatically calls `sync-skills` to manage skills installation
+3. Use `make help` to see all available commands
 
 ---
 
@@ -55,6 +54,8 @@ The Makefile provides essential commands to build, clean, and manage the OpenCod
 This configuration integrates multiple AI model providers to offer a diverse range of capabilities, from lightweight fast responses to deep reasoning tasks. The provider setup is designed to balance cost-effectiveness with performance, utilizing both free and premium models across different use cases.
 
 **Default Model:** `zai-coding-plan/glm-5` (configured as a primary model in `opencode.json`)
+
+**Small Model:** `zai-coding-plan/glm-4.5` (configured for quick tasks in `opencode.json`)
 
 #### Provider List
 
@@ -164,6 +165,13 @@ The `oh-my-opencode.json` file includes sophisticated background task management
 | `zai-coding-plan/glm-5`         | 3     | Concurrency limit for GLM-5 model                         |
 | `zai-coding-plan/glm-4.7`       | 2     | Concurrency limit for GLM-4.7 model                       |
 | `zai-coding-plan/glm-4.7-flash` | 1     | Concurrency limit for GLM-4.7-flash                       |
+| `zai-coding-plan/glm-4.7-flashx`| 3     | Concurrency limit for GLM-4.7-flashx                      |
+| `zai-coding-plan/glm-4.6`       | 3     | Concurrency limit for GLM-4.6 model                       |
+| `zai-coding-plan/glm-4.6v`      | 10    | Concurrency limit for GLM-4.6v model                      |
+| `zai-coding-plan/glm-4.5`       | 10    | Concurrency limit for GLM-4.5 model                       |
+| `zai-coding-plan/glm-4.5v`      | 10    | Concurrency limit for GLM-4.5v model                      |
+| `zai-coding-plan/glm-4.5-air`   | 5     | Concurrency limit for GLM-4.5-air model                   |
+| `zai-coding-plan/glm-4.5-flash` | 2     | Concurrency limit for GLM-4.5-flash model                 |
 
 **Runtime Fallback Configuration**
 
@@ -214,9 +222,9 @@ This configuration includes manually configured MCPs and pre-installed MCPs from
 
 The following MCPs are explicitly configured in `opencode.json` file:
 
-**figma-desktop** *(disabled)*
+**figma** *(disabled)*
 
-The Figma Desktop MCP enables seamless integration with Figma for design-related operations.
+The Figma MCP enables seamless integration with Figma for design-related operations.
 This MCP allows OpenCode to interact with Figma's desktop application, enabling design context retrieval,
 UI code generation, and design system exploration directly from Figma files. Currently disabled in configuration.
 
@@ -276,42 +284,97 @@ These pre-installed MCPs are automatically available when the oh-my-opencode plu
 
 The skills system in OpenCode provides a modular way to extend the assistant's capabilities with specialized knowledge and workflows. This configuration includes skills installed via Vercel's official skills.sh system and pre-installed skills from the opencode-historian plugin. Note that skills are installed to `~/.agents/skills/` via the skills.sh system, not in the local `skills/` directory of this repository.
 
-#### Custom Skills (by Isaac Ng)
+The following **70 skills** are available in this configuration, organized by category:
 
-The following custom skills are maintained in the `./skills/` directory:
+### Custom Skills
 
-**Memory Management**
-- **mnemonics** *(custom skill by Isaac Ng)* - Memory management by using the historian subagent to store, recall, and manage persistent memories across conversations. Use when you need to remember decisions, preferences, learnings, or retrieve stored context. Compatible with opencode, opencode-historian plugin and qmd CLI.
+| Skill Name    | Source                        | Description                                                                                                                                                                                                                                                                                                         |
+|:--------------|:------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **mnemonics** | 5kahoisaac/opencode-historian | Memory management by using the historian subagent to store, recall, and manage persistent memories across conversations. Use when you need to remember decisions, preferences, learnings, or retrieve stored context. Compatible with opencode, opencode-historian plugin and qmd CLI. *(custom skill by Isaac Ng)* |
 
-#### Skills List
+### Everything Claude Code Skills
 
-The following skills are available in this configuration, organized by category:
+| Skill Name                         | Description                                                                                                                                                                                                                                 |
+|:-----------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **ai-regression-testing**          | Regression testing strategies for AI-assisted development. Sandbox-mode API testing without database dependencies, automated bug-check workflows, and patterns to catch AI blind spots where the same model writes and reviews code.        |
+| **android-clean-architecture**     | Clean Architecture patterns for Android and Kotlin Multiplatform projects — module structure, dependency rules, UseCases, Repositories, and data layer patterns.                                                                            |
+| **api-design**                     | REST API design patterns including resource naming, status codes, pagination, filtering, error responses, versioning, and rate limiting for production APIs.                                                                                |
+| **async-python-patterns**          | Python async/await patterns, asyncio best practices, concurrent execution, and performance optimization for asynchronous applications.                                                                                                      |
+| **backend-patterns**               | Backend architecture patterns, API design, database optimization, and server-side best practices for Node.js, Express, and Next.js API routes.                                                                                              |
+| **coding-standards**               | Universal coding standards, best practices, and patterns for TypeScript, JavaScript, React, and Node.js development.                                                                                                                        |
+| **compose-multiplatform-patterns** | Compose Multiplatform and Jetpack Compose patterns for KMP projects — state management, navigation, theming, performance, and platform-specific UI.                                                                                         |
+| **configure-ecc**                  | Interactive installer for Everything Claude Code — guides users through selecting and installing skills and rules to user-level or project-level directories, verifies paths, and optionally optimizes installed files.                     |
+| **continuous-learning**            | Automatically extract reusable patterns from Claude Code sessions and save them as learned skills for future use.                                                                                                                           |
+| **continuous-learning-v2**         | Instinct-based learning system that observes sessions via hooks, creates atomic instincts with confidence scoring, and evolves them into skills/commands/agents. v2.1 adds project-scoped instincts to prevent cross-project contamination. |
+| **cpp-coding-standards**           | C++ coding standards based on the C++ Core Guidelines (isocpp.github.io). Use when writing, reviewing, or refactoring C++ code to enforce modern, safe, and idiomatic practices.                                                            |
+| **cpp-testing**                    | Use only when writing/updating/fixing C++ tests, configuring GoogleTest/CTest, diagnosing failing or flaky tests, or adding coverage/sanitizers.                                                                                            |
+| **django-patterns**                | Django architecture patterns, REST API design with DRF, ORM best practices, caching, signals, middleware, and production-grade Django apps.                                                                                                 |
+| **django-tdd**                     | Django testing strategies with pytest-django, TDD methodology, factory_boy, mocking, coverage, and testing Django REST Framework APIs.                                                                                                      |
+| **django-verification**            | Verification loop for Django projects: migrations, linting, tests with coverage, security scans, and deployment readiness checks before release or PR.                                                                                      |
+| **e2e-testing**                    | Playwright E2E testing patterns, Page Object Model, configuration, CI/CD integration, artifact management, and flaky test strategies.                                                                                                       |
+| **eval-harness**                   | Formal evaluation framework for Claude Code sessions implementing eval-driven development (EDD) principles.                                                                                                                                 |
+| **frontend-patterns**              | Frontend development patterns for React, Next.js, state management, performance optimization, and UI best practices.                                                                                                                        |
+| **frontend-slides**                | Create stunning, animation-rich HTML presentations from scratch or by converting PowerPoint files. Use when the user wants to build a presentation, convert a PPT/PPTX to web, or create slides for a talk/pitch.                           |
+| **golang-patterns**                | Idiomatic Go patterns, best practices, and conventions for building robust, efficient, and maintainable Go applications.                                                                                                                    |
+| **golang-testing**                 | Go testing patterns including table-driven tests, subtests, benchmarks, fuzzing, and test coverage. Follows TDD methodology with idiomatic Go practices.                                                                                    |
+| **iterative-retrieval**            | Pattern for progressively refining context retrieval to solve the subagent context problem.                                                                                                                                                 |
+| **java-coding-standards**          | Java coding standards for Spring Boot services: naming, immutability, Optional usage, streams, exceptions, generics, and project layout.                                                                                                    |
+| **kotlin-coroutines-flows**        | Kotlin Coroutines and Flow patterns for Android and KMP — structured concurrency, Flow operators, StateFlow, error handling, and testing.                                                                                                   |
+| **kotlin-exposed-patterns**        | JetBrains Exposed ORM patterns including DSL queries, DAO pattern, transactions, HikariCP connection pooling, Flyway migrations, and repository pattern.                                                                                    |
+| **kotlin-ktor-patterns**           | Ktor server patterns including routing DSL, plugins, authentication, Koin DI, kotlinx.serialization, WebSockets, and testApplication testing.                                                                                               |
+| **kotlin-patterns**                | Idiomatic Kotlin patterns, best practices, and conventions for building robust, efficient, and maintainable Kotlin applications with coroutines, null safety, and DSL builders.                                                             |
+| **kotlin-testing**                 | Kotlin testing patterns with Kotest, MockK, coroutine testing, property-based testing, and Kover coverage. Follows TDD methodology with idiomatic Kotlin practices.                                                                         |
+| **laravel-patterns**               | Laravel architecture patterns, routing/controllers, Eloquent ORM, service layers, queues, events, caching, and API resources for production apps.                                                                                           |
+| **laravel-tdd**                    | Test-driven development for Laravel with PHPUnit and Pest, factories, database testing, fakes, and coverage targets.                                                                                                                        |
+| **mcp-server-patterns**            | Build MCP servers with Node/TypeScript SDK — tools, resources, prompts, Zod validation, stdio vs Streamable HTTP. Use Context7 or official MCP docs for latest API.                                                                         |
+| **perl-patterns**                  | Modern Perl 5.36+ idioms, best practices, and conventions for building robust, maintainable Perl applications.                                                                                                                              |
+| **perl-testing**                   | Perl testing patterns using Test2::V0, Test::More, prove runner, mocking, coverage with Devel::Cover, and TDD methodology.                                                                                                                  |
+| **plankton-code-quality**          | Write-time code quality enforcement using Plankton — auto-formatting, linting, and Claude-powered fixes on every file edit via hooks.                                                                                                       |
+| **python-patterns**                | Pythonic idioms, PEP 8 standards, type hints, and best practices for building robust, efficient, and maintainable Python applications.                                                                                                      |
+| **python-testing**                 | Python testing strategies using pytest, TDD methodology, fixtures, mocking, parametrization, and coverage requirements.                                                                                                                     |
+| **rust-patterns**                  | Idiomatic Rust patterns, ownership, error handling, traits, concurrency, and best practices for building safe, performant applications.                                                                                                     |
+| **rust-testing**                   | Rust testing patterns including unit tests, integration tests, async testing, property-based testing, mocking, and coverage. Follows TDD methodology.                                                                                       |
+| **springboot-patterns**            | Spring Boot architecture patterns, REST API design, layered services, data access, caching, async processing, and logging. Use for Java Spring Boot backend work.                                                                           |
+| **springboot-tdd**                 | Test-driven development for Spring Boot using JUnit 5, Mockito, MockMvc, Testcontainers, and JaCoCo. Use when adding features, fixing bugs, or refactoring.                                                                                 |
+| **springboot-verification**        | Verification loop for Spring Boot projects: build, static analysis, tests with coverage, security scans, and diff review before release or PR.                                                                                              |
+| **strategic-compact**              | Suggests manual context compaction at logical intervals to preserve context through task phases rather than arbitrary auto-compaction.                                                                                                      |
+| **tdd-workflow**                   | Use this skill when writing new features, fixing bugs, or refactoring code. Enforces test-driven development with 80%+ coverage including unit, integration, and E2E tests.                                                                 |
+| **verification-loop**              | A comprehensive verification system for Claude Code sessions.                                                                                                                                                                               |
 
-**Document & File Processing**
-- **docx** *(Proprietary)* - Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction. Use when OpenCode needs to work with professional documents (.docx files) for: (1) Creating new documents, (2) Modifying or editing content, (3) Working with tracked changes, (4) Adding comments, or any other document tasks
-- **xlsx** *(Proprietary)* - Comprehensive spreadsheet creation, editing, and analysis with support for formulas, formatting, data analysis, and visualization. Use when OpenCode needs to work with spreadsheets (.xlsx, .xlsm, .csv, .tsv, etc.) for: (1) Creating new spreadsheets with formulas and formatting, (2) Reading or analyzing data, (3) Modifying existing spreadsheets while preserving formulas, (4) Data analysis and visualization in spreadsheets, or (5) Recalculating formulas
-- **pdf** *(Proprietary)* - Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. Use when OpenCode needs to fill in a PDF form or programmatically process, generate, or analyze PDF documents at scale
-- **pptx** *(Proprietary)* - Presentation creation, editing, and analysis. When OpenCode needs to work with presentations (.pptx files) for: (1) Creating new presentations, (2) Modifying or editing content, (3) Working with layouts, (4) Adding comments or speaker notes, or any other presentation tasks
+### Anthropic Skills
 
-**Development Workflow**
-- **receiving-code-review** - Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation
-- **requesting-code-review** - Use when completing tasks, implementing major features, or before merging to verify work meets requirements
-- **simplify** - Simplify and refine recently modified code for clarity and consistency. Use after writing code to improve readability without changing functionality
+| Skill Name          | Description                                                                                                                                                                                                                         |
+|:--------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **algorithmic-art** | Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems.          |
+| **docx**            | Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction. Use when OpenCode needs to work with professional documents (.docx files).         |
+| **frontend-design** | Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications.                                           |
+| **pdf**             | Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. Use when OpenCode needs to fill in a PDF form or programmatically process PDF documents. |
+| **pptx**            | Presentation creation, editing, and analysis. When OpenCode needs to work with presentations (.pptx files) for creating, modifying, or adding content.                                                                              |
+| **skill-creator**   | Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends OpenCode's capabilities with specialized knowledge.                                 |
+| **xlsx**            | Comprehensive spreadsheet creation, editing, and analysis with support for formulas, formatting, data analysis, and visualization. Use when OpenCode needs to work with spreadsheets (.xlsx, .csv, .tsv, etc.).                     |
 
-**Skill & Command Management**
-- **find-skills** - Helps users discover and install agent skills when they ask questions like "how do I do X", "find a skill for X", "is there a skill that can...", or express interest in extending capabilities. Use when the user is looking for functionality that might exist as an installable skill
-- **skill-creator** *(Proprietary)* - Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends OpenCode's capabilities with specialized knowledge, workflows, or tool integrations
-- **command-creator** - Guide for creating effective OpenCode slash commands. Use when users ask to "create a command", "make a slash command", "add a command", or want to document a workflow as a reusable command. Essential for creating optimized, agent-executable slash commands with proper structure and best practices
+### Other Skills
 
-**Frontend & Design**
-- **frontend-design** *(Proprietary)* - Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples include websites, landing pages, dashboards, React components, HTML/CSS layouts, or when styling/beautifying any web UI)
-- **web-design-guidelines** - Review UI code for Web Interface Guidelines compliance. Use when asked to "review my UI", "check accessibility", "audit design", "review UX", or "check my site against best practices"
-
-**Automation & Integration**
-- **agent-browser** - Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task
-
-**Creative & Other**
-- **algorithmic-art** *(Proprietary)* - Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems. Create original algorithmic art rather than copying existing artists' work to avoid copyright violations
+| Skill Name                          | Source                         | Description                                                                                                                                                                                                                                  |
+|:------------------------------------|:-------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **rust-best-practices**             | apollographql/skills           | Guide for writing idiomatic Rust code based on Apollo GraphQL's best practices handbook.                                                                                                                                                     |
+| **simplify**                        | brianlovin/claude-config       | Simplify and refine recently modified code for clarity and consistency. Use after writing code to improve readability without changing functionality.                                                                                        |
+| **golang-pro**                      | jeffallan/claude-skills        | Implements concurrent Go patterns using goroutines and channels, designs and builds microservices with gRPC or REST, optimizes Go application performance.                                                                                   |
+| **laravel-specialist**              | jeffallan/claude-skills        | Build and configure Laravel 10+ applications, including creating Eloquent models, implementing Sanctum authentication, configuring Horizon queues, and building Livewire components.                                                         |
+| **javascript-testing-patterns**     | microck/ordinary-claude-skills | Implement comprehensive testing strategies using Jest, Vitest, and Testing Library for unit tests, integration tests, and end-to-end testing.                                                                                                |
+| **receiving-code-review**           | obra/superpowers               | Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable.                                                                                                  |
+| **requesting-code-review**          | obra/superpowers               | Use when completing tasks, implementing major features, or before merging to verify work meets requirements.                                                                                                                                 |
+| **remotion-best-practices**         | remotion-dev/skills            | Best practices for Remotion - Video creation in React.                                                                                                                                                                                       |
+| **lesson-learned**                  | softaworks/agent-toolkit       | Analyze recent code changes via git history and extract software engineering lessons.                                                                                                                                                        |
+| **agent-browser**                   | vercel-labs/agent-toolkit      | Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task. |
+| **vercel-react-best-practices**     | vercel-labs/agent-skills       | React and Next.js performance optimization guidelines from Vercel Engineering. Use when writing, reviewing, or refactoring React/Next.js code.                                                                                               |
+| **web-design-guidelines**           | vercel-labs/agent-skills       | Review UI code for Web Interface Guidelines compliance. Use when asked to "review my UI", "check accessibility", "audit design", "review UX", or "check my site against best practices".                                                     |
+| **find-skills**                     | vercel-labs/skills             | Helps users discover and install agent skills when they ask questions like "how do I do X", "find a skill for X", "is there a skill that can...".                                                                                            |
+| **modern-javascript-patterns**      | wshobson/agents                | Master ES6+ features including async/await, destructuring, spread operators, arrow functions, promises, modules, iterators, generators, and functional programming patterns.                                                                 |
+| **python-packaging**                | wshobson/agents                | Create distributable Python packages with proper project structure, setup.py/pyproject.toml, and publishing to PyPI.                                                                                                                         |
+| **python-performance-optimization** | wshobson/agents                | Profile and optimize Python code using cProfile, memory profilers, and performance best practices.                                                                                                                                           |
+| **python-testing-patterns**         | wshobson/agents                | Implement comprehensive testing strategies with pytest, fixtures, mocking, and test-driven development.                                                                                                                                      |
+| **typescript-advanced-types**       | wshobson/agents                | Master TypeScript's advanced type system including generics, conditional types, mapped types, template literals, and utility types.                                                                                                          |
 
 ---
 
@@ -398,7 +461,7 @@ The following resources provide additional information about skills, plugins, an
 - **Type-Inject Plugin**: https://github.com/nick-vi/opencode-type-inject - Advanced type inference and injection capabilities for OpenCode, enhancing type system understanding across programming languages.
 - **Historian Plugin**: https://github.com/5kahoisaac/opencode-historian - Persistent memory management for OpenCode, enabling context retention and compounded engineering practices across sessions.
 - **Worktree Plugin**: https://github.com/5kahoisaac/opencode-worktree - Advanced Git worktree management for parallel development workflows and efficient branch switching.
-- **Figma Desktop MCP**: https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server - Official MCP server for Figma integration, enabling design context retrieval and UI code generation.
+- **Figma MCP**: https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server - Official MCP server for Figma integration, enabling design context retrieval and UI code generation.
 - **GitHub MCP**: https://github.com/github/github-mcp-server - Official MCP server for GitHub API integration, enabling repository operations and issue management.
 - **Jira MCP**: https://github.com/sooperset/mcp-atlassian - Official MCP server for Atlassian Jira and Confluence integration, enabling project management workflows.
 - **Serena MCP**: https://github.com/oraios/serena - Advanced code intelligence MCP providing precise symbol navigation and AST-aware operations.
