@@ -257,9 +257,9 @@ The GitHub MCP provides comprehensive integration with GitHub for repository ope
 pull request management, issue tracking, and code search.
 This MCP enables OpenCode to interact with GitHub's API for various development workflows directly from the conversation interface. Currently disabled in configuration.
 
-**jira** *(disabled)*
+**atlassian** *(disabled)*
 
-The Jira MCP integrates with Atlassian Jira for project management operations including issue tracking,
+The Atlassian MCP integrates with Atlassian Jira for project management operations including issue tracking,
 sprint management, and workflow automation. This MCP connects to both Jira and Confluence,
 enabling seamless access to project management data. Currently disabled in configuration.
 
