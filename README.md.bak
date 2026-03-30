@@ -275,7 +275,7 @@ The oh-my-opencode plugin includes three pre-configured MCP servers that provide
 
 - **grep_app** - Enables ultra-fast code search across millions of public GitHub repositories. This MCP allows agents to search for code patterns, find real-world implementation examples, and discover how others have solved similar problems.
 
-These pre-installed MCPs are automatically available when the oh-my-opencode plugin is enabled. MCP access is controlled via per-agent permissions in the configuration. See the [official documentation](https://github.com/code-yeongyu/oh-my-openagent/blob/master/docs/quick-reference.md) for details on MCP assignment syntax and configuration options.
+These pre-installed MCPs are automatically available when the oh-my-opencode plugin is enabled. MCP access is controlled via per-agent permissions in the configuration. See the [official documentation](https://github.com/alvinunreal/oh-my-opencode/blob/master/docs/quick-reference.md) for details on MCP assignment syntax and configuration options.
 
 ---
 
@@ -457,7 +457,7 @@ The following resources provide additional information about skills, plugins, an
 
 - **Vercel Skills.sh**: https://skills.sh - The official skills installation and management system for OpenCode, providing community-maintained skills for various development tasks and domains.
 - **OpenCode Documentation**: https://opencode.ai/docs - Official documentation for OpenCode configuration, plugin development, and usage guides.
-- **Oh-My-Opencode Plugin**: https://github.com/code-yeongyu/oh-my-openagent - A comprehensive agent collection providing a full suite of specialized agents for complex development tasks, available through the OpenCode plugin registry.
+- **Oh-My-Opencode Plugin**: https://github.com/alvinunreal/oh-my-opencode - A comprehensive agent collection providing a full suite of specialized agents for complex development tasks, available through the OpenCode plugin registry.
 - **Type-Inject Plugin**: https://github.com/nick-vi/opencode-type-inject - Advanced type inference and injection capabilities for OpenCode, enhancing type system understanding across programming languages.
 - **Historian Plugin**: https://github.com/5kahoisaac/opencode-historian - Persistent memory management for OpenCode, enabling context retention and compounded engineering practices across sessions.
 - **Worktree Plugin**: https://github.com/5kahoisaac/opencode-worktree - Advanced Git worktree management for parallel development workflows and efficient branch switching.

@@ -88,8 +88,7 @@
       "fallback_models": [
         "github-copilot/grok-code-fast-1",
         "github-copilot/claude-haiku-4-5",
-        "opencode/gpt-5-nano",
-        "github-copilot/gpt-5-nano"
+        "opencode/gpt-5-nano"
       ]
     },
     "librarian": {
@@ -104,8 +103,7 @@
       "fallback_models": [
         "kimi-for-coding/k2p5",
         "zai-coding-plan/glm-4.6v",
-        "opencode/gpt-5-nano",
-        "github-copilot/gpt-5-nano"
+        "opencode/gpt-5-nano"
       ]
     },
     "sisyphus-junior": {
