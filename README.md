@@ -53,9 +53,9 @@ The Makefile provides essential commands to manage the OpenCode configuration:
 
 This configuration integrates multiple AI model providers to offer a diverse range of capabilities, from lightweight fast responses to deep reasoning tasks. The provider setup is designed to balance cost-effectiveness with performance, utilizing both free and premium models across different use cases.
 
-**Default Model:** `zai-coding-plan/glm-5` (configured as a primary model in `opencode.json`)
+**Default Model:** `github-copilot/claude-opus-4.6` (configured as a primary model in `opencode.json`)
 
-**Small Model:** `zai-coding-plan/glm-4.5` (configured for quick tasks in `opencode.json`)
+**Small Model:** `github-copilot/claude-sonnet-4.6` (configured for quick tasks in `opencode.json`)
 
 #### Provider List
 
