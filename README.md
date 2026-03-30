@@ -33,15 +33,16 @@ OpenCode serves as a powerful alternative to traditional IDE-based AI assistants
 
 The Makefile provides essential commands to manage the OpenCode configuration:
 
-| Command            | Description                                                                                                                                |
-|:-------------------|:-------------------------------------------------------------------------------------------------------------------------------------------|
-| `make sync`        | Sync OpenCode configuration (`~/.config/opencode/`) and skills (`~/.agents/skills/`). Copies all configuration files, agents, and commands |
-| `make sync-skills` | Sync skills from `skills.csv` to global scope. Removes obsolete skills, installs missing ones, and updates all installed skills            |
-| `make help`        | Display available targets and their descriptions                                                                                           |
+| Command                       | Description                                                                                                                                |
+|:------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------|
+| `make sync`                   | Sync OpenCode configuration (`~/.config/opencode/`) and skills (`~/.agents/skills/`). Copies all configuration files, agents, and commands |
+| `make sync SKIP_SKILLS=1`     | Sync configuration only, skipping the skills sync step                                                                                     |
+| `make sync-skills`            | Sync skills from `skills.csv` to global scope. Removes obsolete skills, installs missing ones, and updates all installed skills            |
+| `make help`                   | Display available targets and their descriptions                                                                                           |
 
 **Workflow:**
 1. Run `make sync` to copy configuration files, agents, and commands to system locations
-2. The `sync` command automatically calls `sync-skills` to manage skills installation
+2. The `sync` command automatically calls `sync-skills` to manage skills installation — pass `SKIP_SKILLS=1` to skip this step
 3. Use `make help` to see all available commands
 
 ---

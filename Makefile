@@ -4,6 +4,8 @@ FILES := AGENTS.md opencode-historian.json oh-my-opencode.json opencode.json tui
 DIRECTORIES := agents commands
 SKILLS_CSV := skills.csv
 
+SKIP_SKILLS ?= 0
+
 .PHONY: sync sync-skills help
 
 sync:
@@ -21,7 +23,11 @@ sync:
 	@cp -r ./agents/* ~/.config/opencode/agents/ 2>/dev/null || true
 	@rm -rf ~/.config/opencode/commands/*
 	@cp -r ./commands/* ~/.config/opencode/commands/ 2>/dev/null || true
-	@$(MAKE) sync-skills
+	@if [ "$(SKIP_SKILLS)" = "1" ]; then \
+		echo "⏭️  Skipping skills sync (SKIP_SKILLS=1)"; \
+	else \
+		$(MAKE) sync-skills; \
+	fi
 	@echo "🎉 Sync complete!"
 
 sync-skills:
@@ -61,6 +67,7 @@ sync-skills:
 	rm -f /tmp/installed_skills.json
 
 help:
-	@echo "  make sync          - Sync configuration and skills"
-	@echo "  make sync-skills   - Sync skills from CSV"
-	@echo "  make help          - Show this message"
+	@echo "  make sync                  - Sync configuration and skills"
+	@echo "  make sync SKIP_SKILLS=1   - Sync configuration, skip skills"
+	@echo "  make sync-skills           - Sync skills from CSV"
+	@echo "  make help                  - Show this message"
