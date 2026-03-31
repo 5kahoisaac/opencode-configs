@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/oh-my-opencode.schema.json",
   "agents": {
     "sisyphus": {
-      "model":  "kimi-for-coding/k2p5",
+      "model": "kimi-for-coding/k2p5",
       "ultrawork": {
         "model": "github-copilot/claude-opus-4.6",
         "variant": "max"
@@ -17,15 +17,17 @@
       ]
     },
     "metis": {
-      "model": "github-copilot/claude-opus-4.6",
-      "variant": "max",
+      "model": "zai-coding-plan/glm-5-turbo",
+      "ultrawork": {
+        "model": "github-copilot/claude-opus-4.6",
+        "variant": "max"
+      },
       "fallback_models": [
         {
           "model": "github-copilot/gpt-5.4",
           "variant": "high"
         },
-        "github-copilot/gemini-3.1-pro-preview",
-        "zai-coding-plan/glm-5.1"
+        "github-copilot/gemini-3.1-pro-preview"
       ]
     },
     "prometheus": {
@@ -58,8 +60,11 @@
       "fallback_models": []
     },
     "oracle": {
-      "model": "github-copilot/gpt-5.4",
-      "variant": "high",
+      "model": "zai-coding-plan/glm-5",
+      "ultrawork": {
+        "model": "github-copilot/gpt-5.4",
+        "variant": "high"
+      },
       "fallback_models": [
         {
           "model": "github-copilot/gemini-3.1-pro-preview",
@@ -68,13 +73,15 @@
         {
           "model": "github-copilot/claude-opus-4.6",
           "variant": "max"
-        },
-        "zai-coding-plan/glm-5.1"
+        }
       ]
     },
     "momus": {
-      "model": "github-copilot/gpt-5.4",
-      "variant": "xhigh",
+      "model": "zai-coding-plan/glm-5",
+      "ultrawork": {
+        "model": "github-copilot/gpt-5.4",
+        "variant": "xhigh"
+      },
       "fallback_models": [
         {
           "model": "github-copilot/claude-opus-4.6",
@@ -83,8 +90,7 @@
         {
           "model": "github-copilot/gemini-3.1-pro-preview",
           "variant": "high"
-        },
-        "zai-coding-plan/glm-5.1"
+        }
       ]
     },
     "explore": {
@@ -103,18 +109,22 @@
       ]
     },
     "multimodal-looker": {
-      "model": "github-copilot/gpt-5.4",
-      "variant": "medium",
+      "model": "kimi-for-coding/k2p5",
+      "ultrawork": {
+        "model": "github-copilot/gpt-5.4",
+        "variant": "medium"
+      },
       "fallback_models": [
-        "kimi-for-coding/k2p5",
         "zai-coding-plan/glm-4.6v",
         "opencode/gpt-5-nano"
       ]
     },
     "sisyphus-junior": {
-      "model": "github-copilot/claude-sonnet-4.6",
+      "model": "kimi-for-coding/k2p5",
+      "ultrawork": {
+        "model": "github-copilot/claude-opus-4.6"
+      },
       "fallback_models": [
-        "kimi-for-coding/k2p5",
         {
           "model": "github-copilot/gpt-5.4",
           "variant": "medium"
