@@ -237,6 +237,18 @@
       "prompt_append": "Focus on atomic commits, clear messages, and safe operations."
     }
   },
+  "claude_code": {
+    "plugins_override": {
+      "serena@claude-plugins-official": false,
+      "context7@claude-plugins-official": false,
+      "figma@claude-plugins-official": false,
+      "atlassian@claude-plugins-official": false
+    }
+  },
+  "git_master": {
+    "commit_footer": false,
+    "include_co_authored_by": false
+  },
   "background_task": {
     "defaultConcurrency": 5,
     "staleTimeoutMs": 60000,
