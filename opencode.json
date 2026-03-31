@@ -34,11 +34,11 @@
     "oh-my-opencode@latest"
   ],
   "enabled_providers": [
-    "github-copilot",
-    "zai-coding-plan",
-    "kimi-for-coding",
+    "xai",
     "opencode",
-    "xai"
+    "kimi-for-coding",
+    "zai-coding-plan",
+    "github-copilot"
   ],
   "mcp": {
     "vision": {

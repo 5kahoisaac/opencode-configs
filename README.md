@@ -91,20 +91,20 @@ The `oh-my-opencode.json` file contains a sophisticated model assignment system 
 
 Individual agents from the oh-my-opencode plugin receive specialized model assignments optimized for their specific functions:
 
-| Source                 | Agent Name          | Role                      | Model                              | Variant  | Fallback Models                                                                                             | Description                                                                                       |
-|:-----------------------|:--------------------|:--------------------------|:-----------------------------------|:---------|:------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------|
-| **oh-my-opencode**     | `sisyphus`          | Orchestrator              | `github-copilot/claude-opus-4-6`   | `max`    | `kimi-for-coding/k2p5`, `github-copilot/gpt-5.4` (medium), `zai-coding-plan/glm-5.1`, `opencode/big-pickle` | Primary orchestrator for complex, multi-step tasks and agent coordination                         |
-| **oh-my-opencode**     | `metis`             | Scope Analysis            | `github-copilot/claude-opus-4-6`   | `max`    | `github-copilot/gpt-5.4` (high), `zai-coding-plan/glm-4.5`, `github-copilot/gemini-3.1-pro`                 | Analyzes task scope, identifies ambiguities, and provides pre-planning consultation               |
-| **oh-my-opencode**     | `prometheus`        | Planning Specialist       | `github-copilot/claude-opus-4-6`   | `max`    | `github-copilot/gpt-5.4` (high), `zai-coding-plan/glm-4.5`, `github-copilot/gemini-3.1-pro`                 | Creates detailed plans and work breakdowns for complex projects and feature implementations       |
-| **oh-my-opencode**     | `atlas`             | Knowledge Specialist      | `github-copilot/claude-sonnet-4-6` | —        | `kimi-for-coding/k2p5`, `github-copilot/gpt-5.4` (medium)                                                   | Manages and retrieves contextual knowledge, architectural decisions, and project conventions      |
-| **oh-my-opencode**     | `sisyphus-junior`   | Lightweight Orchestrator  | `github-copilot/claude-sonnet-4-6` | —        | `kimi-for-coding/k2p5`, `github-copilot/gpt-5.4` (medium), `opencode/big-pickle`                            | Lightweight orchestrator for category-optimized task delegation via the task() system             |
-| **oh-my-opencode**     | `hephaestus`        | Implementation Specialist | `github-copilot/gpt-5.4`           | `medium` | —                                                                                                           | Executes implementation tasks with balanced capability and efficiency                             |
-| **oh-my-opencode**     | `oracle`            | Strategic Advisor         | `github-copilot/gpt-5.4`           | `high`   | `github-copilot/gemini-3.1-pro` (high), `github-copilot/claude-opus-4-6` (max), `zai-coding-plan/glm-5.1`   | Provides high-level architectural guidance and complex reasoning for critical decisions           |
-| **oh-my-opencode**     | `momus`             | Quality Review            | `github-copilot/gpt-5.4`           | `xhigh`  | `github-copilot/claude-opus-4-6` (max), `github-copilot/gemini-3.1-pro` (high), `zai-coding-plan/glm-5.1`   | Reviews work plans and implementations for quality, completeness, and adherence to best practices |
-| **oh-my-opencode**     | `multimodal-looker` | Visual Analysis           | `github-copilot/gpt-5.4`           | `medium` | `kimi-for-coding/k2p5`, `zai-coding-plan/glm-4.6v`, `opencode/gpt-5-nano`                                   | Analyzes visual content, images, and multimodal inputs for comprehensive understanding            |
-| **oh-my-opencode**     | `explore`           | Codebase Analysis         | `xai/grok-code-fast-1`             | —        | `github-copilot/grok-code-fast-1`, `github-copilot/claude-haiku-4-5`, `opencode/gpt-5-nano`                 | Performs rapid codebase navigation, pattern detection, and symbol exploration                     |
-| **oh-my-opencode**     | `librarian`         | Research Specialist       | `github-copilot/claude-haiku-4-5`  | —        | `opencode/gpt-5-nano`                                                                                       | Handles documentation lookup, external research, and information retrieval tasks                  |
-| **opencode-historian** | `historian`         | Memory Management         | `kimi-for-coding/k2p5`             | —        | —                                                                                                           | Manages persistent memories, context retention, and semantic search across project knowledge base |
+| Source                 | Agent Name          | Role                      | Model                              | Variant  | Ultrawork                              | Fallback Models                                                                                                   | Description                                                                                       |
+|:-----------------------|:--------------------|:--------------------------|:-----------------------------------|:---------|:---------------------------------------|:------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------|
+| **oh-my-opencode**     | `sisyphus`          | Orchestrator              | `kimi-for-coding/k2p5`             | —        | `github-copilot/claude-opus-4.6` (max) | `github-copilot/gpt-5.4` (medium), `zai-coding-plan/glm-5.1`, `opencode/big-pickle`                               | Primary orchestrator for complex, multi-step tasks and agent coordination                         |
+| **oh-my-opencode**     | `metis`             | Scope Analysis            | `github-copilot/claude-opus-4.6`   | `max`    | —                                      | `github-copilot/gpt-5.4` (high), `zai-coding-plan/glm-4.5`, `github-copilot/gemini-3.1-pro-preview`               | Analyzes task scope, identifies ambiguities, and provides pre-planning consultation               |
+| **oh-my-opencode**     | `prometheus`        | Planning Specialist       | `zai-coding-plan/glm-5.1`          | —        | `github-copilot/claude-opus-4.6` (max) | `github-copilot/gpt-5.4` (high), `github-copilot/gemini-3.1-pro-preview`                                          | Creates detailed plans and work breakdowns for complex projects and feature implementations       |
+| **oh-my-opencode**     | `atlas`             | Knowledge Specialist      | `github-copilot/claude-sonnet-4.6` | —        | —                                      | `kimi-for-coding/k2p5`, `github-copilot/gpt-5.4` (medium)                                                         | Manages and retrieves contextual knowledge, architectural decisions, and project conventions      |
+| **oh-my-opencode**     | `sisyphus-junior`   | Lightweight Orchestrator  | `github-copilot/claude-sonnet-4.6` | —        | —                                      | `kimi-for-coding/k2p5`, `github-copilot/gpt-5.4` (medium), `opencode/big-pickle`                                  | Lightweight orchestrator for category-optimized task delegation via the task() system             |
+| **oh-my-opencode**     | `hephaestus`        | Implementation Specialist | `github-copilot/gpt-5.4`           | `medium` | —                                      | —                                                                                                                 | Executes implementation tasks with balanced capability and efficiency                             |
+| **oh-my-opencode**     | `oracle`            | Strategic Advisor         | `github-copilot/gpt-5.4`           | `high`   | —                                      | `github-copilot/gemini-3.1-pro-preview` (high), `github-copilot/claude-opus-4.6` (max), `zai-coding-plan/glm-5.1` | Provides high-level architectural guidance and complex reasoning for critical decisions           |
+| **oh-my-opencode**     | `momus`             | Quality Review            | `github-copilot/gpt-5.4`           | `xhigh`  | —                                      | `github-copilot/claude-opus-4.6` (max), `github-copilot/gemini-3.1-pro-preview` (high), `zai-coding-plan/glm-5.1` | Reviews work plans and implementations for quality, completeness, and adherence to best practices |
+| **oh-my-opencode**     | `multimodal-looker` | Visual Analysis           | `github-copilot/gpt-5.4`           | `medium` | —                                      | `kimi-for-coding/k2p5`, `zai-coding-plan/glm-4.6v`, `opencode/gpt-5-nano`                                         | Analyzes visual content, images, and multimodal inputs for comprehensive understanding            |
+| **oh-my-opencode**     | `explore`           | Codebase Analysis         | `xai/grok-code-fast-1`             | —        | —                                      | `github-copilot/grok-code-fast-1`, `github-copilot/claude-haiku-4.5`, `opencode/gpt-5-nano`                       | Performs rapid codebase navigation, pattern detection, and symbol exploration                     |
+| **oh-my-opencode**     | `librarian`         | Research Specialist       | `opencode/gemini-3-flash`          | —        | —                                      | `github-copilot/claude-haiku-4.5`, `opencode/gpt-5-nano`                                                          | Handles documentation lookup, external research, and information retrieval tasks                  |
+| **opencode-historian** | `historian`         | Memory Management         | `kimi-for-coding/k2p5`             | —        | —                                      | —                                                                                                                 | Manages persistent memories, context retention, and semantic search across project knowledge base |
 
 **Currency API Rate Limits and Suggested Setup**
 
@@ -140,17 +140,17 @@ This configuration represents a personalized setup balancing performance, cost, 
 
 The `oh-my-opencode.json` configuration also defines task category model assignments that automatically route tasks to appropriate models based on their category:
 
-| Category             | Model                              | Variant  | Fallback Models                                                                                                              | Description                                                         |
-|:---------------------|:-----------------------------------|:---------|:-----------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------|
-| `visual-engineering` | `github-copilot/gemini-3.1-pro`    | `high`   | `zai-coding-plan/glm-5.1`, `github-copilot/claude-opus-4-6` (max), `kimi-for-coding/k2p5`                                    | Frontend, UI/UX, design, styling, and animation tasks               |
-| `ultrabrain`         | `github-copilot/gpt-5.4`           | `xhigh`  | `github-copilot/gemini-3.1-pro` (high), `github-copilot/claude-opus-4-6` (max), `zai-coding-plan/glm-5.1`                    | Hard logic-heavy tasks requiring deep reasoning                     |
-| `deep`               | `github-copilot/gpt-5.3-codex`     | `medium` | `github-copilot/claude-opus-4-6` (max), `github-copilot/gemini-3.1-pro` (high)                                               | Goal-oriented autonomous problem-solving with thorough research     |
-| `artistry`           | `github-copilot/gemini-3.1-pro`    | `high`   | `github-copilot/claude-opus-4-6` (max), `github-copilot/gpt-5.4`                                                             | Complex problem-solving with unconventional, creative approaches    |
-| `quick`              | `opencode/gpt-5-nano`              | —        | `opencode/gemini-3-flash`, `github-copilot/gpt-5.4-mini`, `github-copilot/claude-haiku-4-5`, `github-copilot/gemini-3-flash` | Trivial tasks, single file changes, typo fixes                      |
-| `unspecified-low`    | `github-copilot/claude-sonnet-4-6` | —        | `github-copilot/gpt-5.3-codex` (medium), `kimi-for-coding/k2p5`, `opencode/gemini-3-flash`, `github-copilot/gemini-3-flash`  | Low-effort tasks that don't fit other categories                    |
-| `unspecified-high`   | `github-copilot/claude-opus-4-6`   | `max`    | `github-copilot/gpt-5.4` (high), `zai-coding-plan/glm-5.1`, `kimi-for-coding/k2p5`                                           | High-effort tasks that don't fit other categories                   |
-| `writing`            | `opencode/gemini-3-flash`          | —        | `github-copilot/gemini-3-flash`, `kimi-for-coding/k2p5`, `github-copilot/claude-sonnet-4-6`                                  | Documentation, prose, and technical writing tasks                   |
-| `git`                | `opencode/gpt-5-nano`              | —        | `opencode/big-pickle`, `zai-coding-plan/glm-4.5-air`                                                                         | All git operations with focus on atomic commits and safe operations |
+| Category             | Model                                   | Variant  | Fallback Models                                                                                                                      | Description                                                         |
+|:---------------------|:----------------------------------------|:---------|:-------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------|
+| `visual-engineering` | `github-copilot/gemini-3.1-pro-preview` | `high`   | `zai-coding-plan/glm-5.1`, `github-copilot/claude-opus-4.6` (max), `kimi-for-coding/k2p5`                                            | Frontend, UI/UX, design, styling, and animation tasks               |
+| `ultrabrain`         | `github-copilot/gpt-5.4`                | `xhigh`  | `github-copilot/gemini-3.1-pro-preview` (high), `github-copilot/claude-opus-4.6` (max), `zai-coding-plan/glm-5.1`                    | Hard logic-heavy tasks requiring deep reasoning                     |
+| `deep`               | `github-copilot/gpt-5.3-codex`          | `medium` | `github-copilot/claude-opus-4.6` (max), `github-copilot/gemini-3.1-pro-preview` (high)                                               | Goal-oriented autonomous problem-solving with thorough research     |
+| `artistry`           | `github-copilot/gemini-3.1-pro-preview` | `high`   | `github-copilot/claude-opus-4.6` (max), `github-copilot/gpt-5.4`                                                                     | Complex problem-solving with unconventional, creative approaches    |
+| `quick`              | `opencode/gpt-5-nano`                   | —        | `opencode/gemini-3-flash`, `github-copilot/gpt-5.4-mini`, `github-copilot/claude-haiku-4.5`, `github-copilot/gemini-3-flash-preview` | Trivial tasks, single file changes, typo fixes                      |
+| `unspecified-low`    | `github-copilot/claude-sonnet-4.6`      | —        | `github-copilot/gpt-5.3-codex` (medium), `kimi-for-coding/k2p5`, `opencode/gemini-3-flash`, `github-copilot/gemini-3-flash-preview`  | Low-effort tasks that don't fit other categories                    |
+| `unspecified-high`   | `github-copilot/claude-opus-4.6`        | `max`    | `github-copilot/gpt-5.4` (high), `zai-coding-plan/glm-5.1`, `kimi-for-coding/k2p5`                                                   | High-effort tasks that don't fit other categories                   |
+| `writing`            | `opencode/gemini-3-flash`               | —        | `github-copilot/gemini-3-flash-preview`, `kimi-for-coding/k2p5`, `github-copilot/claude-sonnet-4.6`                                  | Documentation, prose, and technical writing tasks                   |
+| `git`                | `opencode/gpt-5-nano`                   | —        | `opencode/big-pickle`, `zai-coding-plan/glm-4.5-air`                                                                                 | All git operations with focus on atomic commits and safe operations |
 
 These category assignments enable intelligent task routing, ensuring each type of work is handled by the most suitable model for optimal results.
 
@@ -158,44 +158,46 @@ These category assignments enable intelligent task routing, ensuring each type o
 
 The `oh-my-opencode.json` file includes sophisticated background task management settings:
 
-| Setting                            | Value | Description                                               |
-|:-----------------------------------|:------|:----------------------------------------------------------|
-| `defaultConcurrency`               | 5     | Default number of concurrent background tasks             |
-| `staleTimeoutMs`                   | 60000 | Timeout in milliseconds before a task is considered stale |
-| **Provider Concurrency**           |       | Per-provider task limits for rate limit management        |
-| `xai`                              | 5     | Maximum concurrent tasks for xAI provider                 |
-| `opencode`                         | 10    | Maximum concurrent tasks for OpenCode provider            |
-| `kimi-for-coding`                  | 3     | Maximum concurrent tasks for Kimi provider                |
-| `zai-coding-plan`                  | 10    | Maximum concurrent tasks for Z.ai provider                |
-| `github-copilot`                   | 3     | Maximum concurrent tasks for GitHub Copilot provider      |
-| **Model Concurrency**              |       | Per-model fine-grained concurrency limits                 |
-| `kimi-for-coding/k2p5`             | 3     | Concurrency limit for K2.5 model                          |
-| `zai-coding-plan/glm-5`            | 2     | Concurrency limit for GLM-5 model                         |
-| `zai-coding-plan/glm-5-turbo`      | 1     | Concurrency limit for GLM-5-turbo model                   |
-| `zai-coding-plan/glm-5.1`          | 1     | Concurrency limit for GLM-5.1 model                       |
-| `zai-coding-plan/glm-4.7`          | 2     | Concurrency limit for GLM-4.7 model                       |
-| `zai-coding-plan/glm-4.7-flash`    | 1     | Concurrency limit for GLM-4.7-flash                       |
-| `zai-coding-plan/glm-4.7-flashx`   | 3     | Concurrency limit for GLM-4.7-flashx                      |
-| `zai-coding-plan/glm-4.6`          | 3     | Concurrency limit for GLM-4.6 model                       |
-| `zai-coding-plan/glm-4.6v`         | 10    | Concurrency limit for GLM-4.6v model                      |
-| `zai-coding-plan/glm-4.5`          | 10    | Concurrency limit for GLM-4.5 model                       |
-| `zai-coding-plan/glm-4.5v`         | 10    | Concurrency limit for GLM-4.5v model                      |
-| `zai-coding-plan/glm-4.5-air`      | 5     | Concurrency limit for GLM-4.5-air model                   |
-| `zai-coding-plan/glm-4.5-flash`    | 2     | Concurrency limit for GLM-4.5-flash model                 |
-| `github-copilot/claude-opus-4.6`   | 2     | Concurrency limit for Claude Opus 4.6                     |
-| `github-copilot/claude-opus-4.5`   | 2     | Concurrency limit for Claude Opus 4.5                     |
-| `github-copilot/claude-opus-41`    | 2     | Concurrency limit for Claude Opus 4.1                     |
-| `github-copilot/claude-sonnet-4.6` | 3     | Concurrency limit for Claude Sonnet 4.6                   |
-| `github-copilot/claude-sonnet-4.5` | 3     | Concurrency limit for Claude Sonnet 4.5                   |
-| `github-copilot/claude-haiku-4.5`  | 5     | Concurrency limit for Claude Haiku 4.5                    |
-| `github-copilot/gpt-5.4`           | 3     | Concurrency limit for GPT-5.4                             |
-| `github-copilot/gpt-5.3-codex`     | 3     | Concurrency limit for GPT-5.3-codex                       |
-| `github-copilot/gpt-5.4-mini`      | 5     | Concurrency limit for GPT-5.4-mini                        |
-| `github-copilot/gpt-5-mini`        | 5     | Concurrency limit for GPT-5-mini                          |
-| `github-copilot/gpt-4o`            | 4     | Concurrency limit for GPT-4o                              |
-| `github-copilot/gemini-3-flash`    | 6     | Concurrency limit for Gemini 3 Flash                      |
-| `github-copilot/gemini-3.1-pro`    | 3     | Concurrency limit for Gemini 3.1 Pro                      |
-| `github-copilot/grok-code-fast-1`  | 4     | Concurrency limit for Grok Code Fast 1                    |
+| Setting                                 | Value | Description                                               |
+|:----------------------------------------|:------|:----------------------------------------------------------|
+| `defaultConcurrency`                    | 5     | Default number of concurrent background tasks             |
+| `staleTimeoutMs`                        | 60000 | Timeout in milliseconds before a task is considered stale |
+| **Provider Concurrency**                |       | Per-provider task limits for rate limit management        |
+| `xai`                                   | 5     | Maximum concurrent tasks for xAI provider                 |
+| `opencode`                              | 10    | Maximum concurrent tasks for OpenCode provider            |
+| `kimi-for-coding`                       | 3     | Maximum concurrent tasks for Kimi provider                |
+| `zai-coding-plan`                       | 10    | Maximum concurrent tasks for Z.ai provider                |
+| `github-copilot`                        | 3     | Maximum concurrent tasks for GitHub Copilot provider      |
+| **Model Concurrency**                   |       | Per-model fine-grained concurrency limits                 |
+| `kimi-for-coding/k2p5`                  | 3     | Concurrency limit for K2.5 model                          |
+| `zai-coding-plan/glm-5`                 | 2     | Concurrency limit for GLM-5 model                         |
+| `zai-coding-plan/glm-5-turbo`           | 1     | Concurrency limit for GLM-5-turbo model                   |
+| `zai-coding-plan/glm-5.1`               | 1     | Concurrency limit for GLM-5.1 model                       |
+| `zai-coding-plan/glm-4.7`               | 2     | Concurrency limit for GLM-4.7 model                       |
+| `zai-coding-plan/glm-4.7-flash`         | 1     | Concurrency limit for GLM-4.7-flash                       |
+| `zai-coding-plan/glm-4.7-flashx`        | 3     | Concurrency limit for GLM-4.7-flashx                      |
+| `zai-coding-plan/glm-4.6`               | 3     | Concurrency limit for GLM-4.6 model                       |
+| `zai-coding-plan/glm-4.6v`              | 10    | Concurrency limit for GLM-4.6v model                      |
+| `zai-coding-plan/glm-4.5`               | 10    | Concurrency limit for GLM-4.5 model                       |
+| `zai-coding-plan/glm-4.5v`              | 10    | Concurrency limit for GLM-4.5v model                      |
+| `zai-coding-plan/glm-4.5-air`           | 5     | Concurrency limit for GLM-4.5-air model                   |
+| `zai-coding-plan/glm-4.5-flash`         | 2     | Concurrency limit for GLM-4.5-flash model                 |
+| `github-copilot/claude-opus-4.6`        | 2     | Concurrency limit for Claude Opus 4.6                     |
+| `github-copilot/claude-opus-4.5`        | 2     | Concurrency limit for Claude Opus 4.5                     |
+| `github-copilot/claude-opus-41`         | 2     | Concurrency limit for Claude Opus 4.1                     |
+| `github-copilot/claude-sonnet-4.6`      | 3     | Concurrency limit for Claude Sonnet 4.6                   |
+| `github-copilot/claude-sonnet-4.5`      | 3     | Concurrency limit for Claude Sonnet 4.5                   |
+| `github-copilot/claude-haiku-4.5`       | 5     | Concurrency limit for Claude Haiku 4.5                    |
+| `github-copilot/gpt-5.4`                | 3     | Concurrency limit for GPT-5.4                             |
+| `github-copilot/gpt-5.3-codex`          | 3     | Concurrency limit for GPT-5.3-codex                       |
+| `github-copilot/gpt-5.4-mini`           | 5     | Concurrency limit for GPT-5.4-mini                        |
+| `github-copilot/gpt-5-mini`             | 5     | Concurrency limit for GPT-5-mini                          |
+| `github-copilot/gpt-4o`                 | 4     | Concurrency limit for GPT-4o                              |
+| `github-copilot/gemini-3-flash-preview` | 6     | Concurrency limit for Gemini 3 Flash                      |
+| `github-copilot/gemini-3.1-pro-preview` | 3     | Concurrency limit for Gemini 3.1 Pro                      |
+| `github-copilot/grok-code-fast-1`       | 4     | Concurrency limit for Grok Code Fast 1                    |
+| `opencode/gemini-3-flash`               | 5     | Concurrency limit for OpenCode Gemini 3 Flash             |
+| `opencode/gpt-5-nano`                   | 20    | Concurrency limit for OpenCode GPT-5 Nano                 |
 
 **Runtime Fallback Configuration**
 

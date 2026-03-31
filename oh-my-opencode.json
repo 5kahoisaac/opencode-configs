@@ -2,10 +2,12 @@
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/oh-my-opencode.schema.json",
   "agents": {
     "sisyphus": {
-      "model": "github-copilot/claude-opus-4-6",
-      "variant": "max",
+      "model":  "kimi-for-coding/k2p5",
+      "ultrawork": {
+        "model": "github-copilot/claude-opus-4.6",
+        "variant": "max"
+      },
       "fallback_models": [
-        "kimi-for-coding/k2p5",
         {
           "model": "github-copilot/gpt-5.4",
           "variant": "medium"
@@ -15,31 +17,33 @@
       ]
     },
     "metis": {
-      "model": "github-copilot/claude-opus-4-6",
+      "model": "github-copilot/claude-opus-4.6",
       "variant": "max",
       "fallback_models": [
         {
           "model": "github-copilot/gpt-5.4",
           "variant": "high"
         },
-        "zai-coding-plan/glm-4.5",
-        "github-copilot/gemini-3.1-pro"
+        "github-copilot/gemini-3.1-pro-preview",
+        "zai-coding-plan/glm-5.1"
       ]
     },
     "prometheus": {
-      "model": "github-copilot/claude-opus-4-6",
-      "variant": "max",
+      "model": "zai-coding-plan/glm-5.1",
+      "ultrawork": {
+        "model": "github-copilot/claude-opus-4.6",
+        "variant": "max"
+      },
       "fallback_models": [
         {
           "model": "github-copilot/gpt-5.4",
           "variant": "high"
         },
-        "zai-coding-plan/glm-4.5",
-        "github-copilot/gemini-3.1-pro"
+        "github-copilot/gemini-3.1-pro-preview"
       ]
     },
     "atlas": {
-      "model": "github-copilot/claude-sonnet-4-6",
+      "model": "github-copilot/claude-sonnet-4.6",
       "fallback_models": [
         "kimi-for-coding/k2p5",
         {
@@ -58,11 +62,11 @@
       "variant": "high",
       "fallback_models": [
         {
-          "model": "github-copilot/gemini-3.1-pro",
+          "model": "github-copilot/gemini-3.1-pro-preview",
           "variant": "high"
         },
         {
-          "model": "github-copilot/claude-opus-4-6",
+          "model": "github-copilot/claude-opus-4.6",
           "variant": "max"
         },
         "zai-coding-plan/glm-5.1"
@@ -73,11 +77,11 @@
       "variant": "xhigh",
       "fallback_models": [
         {
-          "model": "github-copilot/claude-opus-4-6",
+          "model": "github-copilot/claude-opus-4.6",
           "variant": "max"
         },
         {
-          "model": "github-copilot/gemini-3.1-pro",
+          "model": "github-copilot/gemini-3.1-pro-preview",
           "variant": "high"
         },
         "zai-coding-plan/glm-5.1"
@@ -87,13 +91,14 @@
       "model": "xai/grok-code-fast-1",
       "fallback_models": [
         "github-copilot/grok-code-fast-1",
-        "github-copilot/claude-haiku-4-5",
+        "github-copilot/claude-haiku-4.5",
         "opencode/gpt-5-nano"
       ]
     },
     "librarian": {
-      "model": "github-copilot/claude-haiku-4-5",
+      "model": "opencode/gemini-3-flash",
       "fallback_models": [
+        "github-copilot/claude-haiku-4.5",
         "opencode/gpt-5-nano"
       ]
     },
@@ -107,7 +112,7 @@
       ]
     },
     "sisyphus-junior": {
-      "model": "github-copilot/claude-sonnet-4-6",
+      "model": "github-copilot/claude-sonnet-4.6",
       "fallback_models": [
         "kimi-for-coding/k2p5",
         {
@@ -120,12 +125,12 @@
   },
   "categories": {
     "visual-engineering": {
-      "model": "github-copilot/gemini-3.1-pro",
+      "model": "github-copilot/gemini-3.1-pro-preview",
       "variant": "high",
       "fallback_models": [
         "zai-coding-plan/glm-5.1",
         {
-          "model": "github-copilot/claude-opus-4-6",
+          "model": "github-copilot/claude-opus-4.6",
           "variant": "max"
         },
         "kimi-for-coding/k2p5"
@@ -136,11 +141,11 @@
       "variant": "xhigh",
       "fallback_models": [
         {
-          "model": "github-copilot/gemini-3.1-pro",
+          "model": "github-copilot/gemini-3.1-pro-preview",
           "variant": "high"
         },
         {
-          "model": "github-copilot/claude-opus-4-6",
+          "model": "github-copilot/claude-opus-4.6",
           "variant": "max"
         },
         "zai-coding-plan/glm-5.1"
@@ -151,28 +156,28 @@
       "variant": "medium",
       "fallback_models": [
         {
-          "model": "github-copilot/claude-opus-4-6",
+          "model": "github-copilot/claude-opus-4.6",
           "variant": "max"
         },
         {
-          "model": "github-copilot/gemini-3.1-pro",
+          "model": "github-copilot/gemini-3.1-pro-preview",
           "variant": "high"
         }
       ]
     },
     "artistry": {
-      "model": "github-copilot/gemini-3.1-pro",
+      "model": "github-copilot/gemini-3.1-pro-preview",
       "variant": "high",
       "fallback_models": [
         {
-          "model": "github-copilot/claude-opus-4-6",
+          "model": "github-copilot/claude-opus-4.6",
           "variant": "max"
         },
         "github-copilot/gpt-5.4"
       ]
     },
     "unspecified-high": {
-      "model": "github-copilot/claude-opus-4-6",
+      "model": "github-copilot/claude-opus-4.6",
       "variant": "max",
       "fallback_models": [
         {
@@ -184,7 +189,7 @@
       ]
     },
     "unspecified-low": {
-      "model": "github-copilot/claude-sonnet-4-6",
+      "model": "github-copilot/claude-sonnet-4.6",
       "fallback_models": [
         {
           "model": "github-copilot/gpt-5.3-codex",
@@ -192,15 +197,15 @@
         },
         "kimi-for-coding/k2p5",
         "opencode/gemini-3-flash",
-        "github-copilot/gemini-3-flash"
+        "github-copilot/gemini-3-flash-preview"
       ]
     },
     "writing": {
       "model": "opencode/gemini-3-flash",
       "fallback_models": [
-        "github-copilot/gemini-3-flash",
+        "github-copilot/gemini-3-flash-preview",
         "kimi-for-coding/k2p5",
-        "github-copilot/claude-sonnet-4-6"
+        "github-copilot/claude-sonnet-4.6"
       ]
     },
     "quick": {
@@ -208,8 +213,8 @@
       "fallback_models": [
         "opencode/gemini-3-flash",
         "github-copilot/gpt-5.4-mini",
-        "github-copilot/claude-haiku-4-5",
-        "github-copilot/gemini-3-flash"
+        "github-copilot/claude-haiku-4.5",
+        "github-copilot/gemini-3-flash-preview"
       ]
     },
     "git": {
@@ -233,6 +238,8 @@
       "github-copilot": 3
     },
     "modelConcurrency": {
+      "opencode/gemini-3-flash": 5,
+      "opencode/gpt-5-nano": 20,
       "kimi-for-coding/k2p5": 3,
       "zai-coding-plan/glm-4.5": 10,
       "zai-coding-plan/glm-4.5v": 10,
@@ -257,8 +264,8 @@
       "github-copilot/gpt-5.4-mini": 5,
       "github-copilot/gpt-5-mini": 5,
       "github-copilot/gpt-4o": 4,
-      "github-copilot/gemini-3-flash": 6,
-      "github-copilot/gemini-3.1-pro": 3,
+      "github-copilot/gemini-3-flash-preview": 6,
+      "github-copilot/gemini-3.1-pro-preview": 3,
       "github-copilot/grok-code-fast-1": 4
     }
   },
