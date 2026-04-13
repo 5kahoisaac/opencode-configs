@@ -63,6 +63,11 @@ github/awesome-copilot,git-commit,opencode
 github/awesome-copilot,create-readme,opencode
 github/awesome-copilot,documentation-writer,opencode
 gracefullight/stock-checker,stock-analysis,opencode
+JuliusBrussee/caveman,caveman-commit,opencode
+JuliusBrussee/caveman,caveman-help,opencode
+JuliusBrussee/caveman,caveman-review,opencode
+JuliusBrussee/caveman,caveman,opencode
+JuliusBrussee/caveman,caveman-compress,opencode
 jeffallan/claude-skills,golang-pro,opencode
 jeffallan/claude-skills,laravel-specialist,opencode
 microck/ordinary-claude-skills,javascript-testing-patterns,opencode

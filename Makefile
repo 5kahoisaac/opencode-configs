@@ -1,6 +1,6 @@
 # Makefile for OpenCode configuration
 
-FILES := AGENTS.md opencode-historian.json oh-my-opencode.json opencode.json tui.json
+FILES := AGENTS.md opencode-historian.json oh-my-openagent.json opencode.json tui.json
 DIRECTORIES := agents commands
 SKILLS_CSV := skills.csv
 

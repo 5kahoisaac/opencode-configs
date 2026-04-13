@@ -104,28 +104,28 @@ technical implementation tasks.
 
 #### Models Configuration
 
-The `oh-my-opencode.json` file contains a sophisticated model assignment system that maps specialized agents to
+The `oh-my-openagent.json` file contains a sophisticated model assignment system that maps specialized agents to
 appropriate models based on their specific functions. This configuration represents a carefully tuned balance between
 API rate limits, response quality, and cost management.
 
 **Agent-Specific Model Assignments**
 
-Individual agents from the oh-my-opencode plugin receive specialized model assignments optimized for their specific
+Individual agents from the oh-my-openagent plugin receive specialized model assignments optimized for their specific
 functions:
 
 | Source                 | Agent Name          | Role                      | Model                              | Variant  | Ultrawork                              | Fallback Models                                                                             | Description                                                                                       |
 |:-----------------------|:--------------------|:--------------------------|:-----------------------------------|:---------|:---------------------------------------|:--------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------|
-| **oh-my-opencode**     | `sisyphus`          | Orchestrator              | `kimi-for-coding/k2p5`             | —        | `github-copilot/claude-opus-4.6` (max) | `github-copilot/gpt-5.4` (medium), `zai-coding-plan/glm-5.1`, `opencode/big-pickle`         | Primary orchestrator for complex, multi-step tasks and agent coordination                         |
-| **oh-my-opencode**     | `metis`             | Scope Analysis            | `zai-coding-plan/glm-5-turbo`      | —        | `github-copilot/claude-opus-4.6` (max) | `github-copilot/gpt-5.4` (high), `github-copilot/gemini-3.1-pro-preview`                    | Analyzes task scope, identifies ambiguities, and provides pre-planning consultation               |
-| **oh-my-opencode**     | `prometheus`        | Planning Specialist       | `zai-coding-plan/glm-5.1`          | —        | `github-copilot/claude-opus-4.6` (max) | `github-copilot/gpt-5.4` (high), `github-copilot/gemini-3.1-pro-preview`                    | Creates detailed plans and work breakdowns for complex projects and feature implementations       |
-| **oh-my-opencode**     | `atlas`             | Knowledge Specialist      | `github-copilot/claude-sonnet-4.6` | —        | —                                      | `kimi-for-coding/k2p5`, `github-copilot/gpt-5.4` (medium)                                   | Manages and retrieves contextual knowledge, architectural decisions, and project conventions      |
-| **oh-my-opencode**     | `sisyphus-junior`   | Lightweight Orchestrator  | `kimi-for-coding/k2p5`             | —        | `github-copilot/claude-opus-4.6`       | `github-copilot/gpt-5.4` (medium), `opencode/big-pickle`                                    | Lightweight orchestrator for category-optimized task delegation via the task() system             |
-| **oh-my-opencode**     | `hephaestus`        | Implementation Specialist | `github-copilot/gpt-5.4`           | `medium` | —                                      | —                                                                                           | Executes implementation tasks with balanced capability and efficiency                             |
-| **oh-my-opencode**     | `oracle`            | Strategic Advisor         | `zai-coding-plan/glm-5`            | —        | `github-copilot/gpt-5.4` (high)        | `github-copilot/gemini-3.1-pro-preview` (high), `github-copilot/claude-opus-4.6` (max)      | Provides high-level architectural guidance and complex reasoning for critical decisions           |
-| **oh-my-opencode**     | `momus`             | Quality Review            | `zai-coding-plan/glm-5`            | —        | `github-copilot/gpt-5.4` (xhigh)       | `github-copilot/claude-opus-4.6` (max), `github-copilot/gemini-3.1-pro-preview` (high)      | Reviews work plans and implementations for quality, completeness, and adherence to best practices |
-| **oh-my-opencode**     | `multimodal-looker` | Visual Analysis           | `kimi-for-coding/k2p5`             | —        | `github-copilot/gpt-5.4` (medium)      | `zai-coding-plan/glm-4.6v`, `opencode/gpt-5-nano`                                           | Analyzes visual content, images, and multimodal inputs for comprehensive understanding            |
-| **oh-my-opencode**     | `explore`           | Codebase Analysis         | `xai/grok-code-fast-1`             | —        | —                                      | `github-copilot/grok-code-fast-1`, `github-copilot/claude-haiku-4.5`, `opencode/gpt-5-nano` | Performs rapid codebase navigation, pattern detection, and symbol exploration                     |
-| **oh-my-opencode**     | `librarian`         | Research Specialist       | `opencode/gemini-3-flash`          | —        | —                                      | `github-copilot/claude-haiku-4.5`, `opencode/gpt-5-nano`                                    | Handles documentation lookup, external research, and information retrieval tasks                  |
+| **oh-my-openagent**    | `sisyphus`          | Orchestrator              | `kimi-for-coding/k2p5`             | —        | `github-copilot/claude-opus-4.6` (max) | `github-copilot/gpt-5.4` (medium), `zai-coding-plan/glm-5.1`, `opencode/big-pickle`         | Primary orchestrator for complex, multi-step tasks and agent coordination                         |
+| **oh-my-openagent**    | `metis`             | Scope Analysis            | `zai-coding-plan/glm-5-turbo`      | —        | `github-copilot/claude-opus-4.6` (max) | `github-copilot/gpt-5.4` (high), `github-copilot/gemini-3.1-pro-preview`                    | Analyzes task scope, identifies ambiguities, and provides pre-planning consultation               |
+| **oh-my-openagent**    | `prometheus`        | Planning Specialist       | `zai-coding-plan/glm-5.1`          | —        | `github-copilot/claude-opus-4.6` (max) | `github-copilot/gpt-5.4` (high), `github-copilot/gemini-3.1-pro-preview`                    | Creates detailed plans and work breakdowns for complex projects and feature implementations       |
+| **oh-my-openagent**    | `atlas`             | Knowledge Specialist      | `github-copilot/claude-sonnet-4.6` | —        | —                                      | `kimi-for-coding/k2p5`, `github-copilot/gpt-5.4` (medium)                                   | Manages and retrieves contextual knowledge, architectural decisions, and project conventions      |
+| **oh-my-openagent**    | `sisyphus-junior`   | Lightweight Orchestrator  | `kimi-for-coding/k2p5`             | —        | `github-copilot/claude-opus-4.6`       | `github-copilot/gpt-5.4` (medium), `opencode/big-pickle`                                    | Lightweight orchestrator for category-optimized task delegation via the task() system             |
+| **oh-my-openagent**    | `hephaestus`        | Implementation Specialist | `github-copilot/gpt-5.4`           | `medium` | —                                      | —                                                                                           | Executes implementation tasks with balanced capability and efficiency                             |
+| **oh-my-openagent**    | `oracle`            | Strategic Advisor         | `zai-coding-plan/glm-5`            | —        | `github-copilot/gpt-5.4` (high)        | `github-copilot/gemini-3.1-pro-preview` (high), `github-copilot/claude-opus-4.6` (max)      | Provides high-level architectural guidance and complex reasoning for critical decisions           |
+| **oh-my-openagent**    | `momus`             | Quality Review            | `zai-coding-plan/glm-5`            | —        | `github-copilot/gpt-5.4` (xhigh)       | `github-copilot/claude-opus-4.6` (max), `github-copilot/gemini-3.1-pro-preview` (high)      | Reviews work plans and implementations for quality, completeness, and adherence to best practices |
+| **oh-my-openagent**    | `multimodal-looker` | Visual Analysis           | `kimi-for-coding/k2p5`             | —        | `github-copilot/gpt-5.4` (medium)      | `zai-coding-plan/glm-4.6v`, `opencode/gpt-5-nano`                                           | Analyzes visual content, images, and multimodal inputs for comprehensive understanding            |
+| **oh-my-openagent**    | `explore`           | Codebase Analysis         | `xai/grok-code-fast-1`             | —        | —                                      | `github-copilot/grok-code-fast-1`, `github-copilot/claude-haiku-4.5`, `opencode/gpt-5-nano` | Performs rapid codebase navigation, pattern detection, and symbol exploration                     |
+| **oh-my-openagent**    | `librarian`         | Research Specialist       | `opencode/gemini-3-flash`          | —        | —                                      | `github-copilot/claude-haiku-4.5`, `opencode/gpt-5-nano`                                    | Handles documentation lookup, external research, and information retrieval tasks                  |
 | **opencode-historian** | `historian`         | Memory Management         | `kimi-for-coding/k2p5`             | —        | —                                      | —                                                                                           | Manages persistent memories, context retention, and semantic search across project knowledge base |
 
 **Currency API Rate Limits and Suggested Setup**
@@ -163,7 +163,7 @@ usage patterns and provider strengths.
 
 **Task Category Model Assignments**
 
-The `oh-my-opencode.json` configuration also defines task category model assignments that automatically route tasks to
+The `oh-my-openagent.json` configuration also defines task category model assignments that automatically route tasks to
 appropriate models based on their category:
 
 | Category             | Model                                   | Variant  | Fallback Models                                                                                                                      | Description                                                         |
@@ -183,7 +183,7 @@ model for optimal results.
 
 **Background Task Configuration**
 
-The `oh-my-opencode.json` file includes sophisticated background task management settings:
+The `oh-my-openagent.json` file includes sophisticated background task management settings:
 
 | Setting                                 | Value | Description                                               |
 |:----------------------------------------|:------|:----------------------------------------------------------|
@@ -248,11 +248,11 @@ rate limits or service issues, maintaining workflow continuity without manual in
 The OpenCode configuration utilizes several plugins to extend its core functionality. These plugins are defined in
 `opencode.json` configuration file and provide integration with external services and additional features.
 
-**oh-my-opencode@latest**
+**oh-my-openagent@latest**
 
-The oh-my-opencode plugin is a comprehensive agent collection for OpenCode that provides a full suite of specialized
+The oh-my-openagent plugin is a comprehensive agent collection for OpenCode that provides a full suite of specialized
 agents for various development tasks. This plugin delivers a robust set of agents optimized for efficient task
-delegation, complex problem solving, and comprehensive development workflows. The oh-my-opencode suite includes agents
+delegation, complex problem solving, and comprehensive development workflows. The oh-my-openagent suite includes agents
 for orchestration, exploration, strategic decision-making, visual engineering, research, and more, providing
 enterprise-grade capabilities for demanding development scenarios.
 
@@ -276,7 +276,7 @@ creating a knowledge base that persists beyond individual conversations.
 ## MCPs
 
 Model Context Protocol (MCP) servers extend OpenCode's capabilities by providing specialized tools and integrations.
-This configuration includes manually configured MCPs and pre-installed MCPs from the oh-my-opencode and
+This configuration includes manually configured MCPs and pre-installed MCPs from the oh-my-openagent and
 opencode-historian plugins.
 
 ### Manually Configured MCPs
@@ -319,9 +319,9 @@ semantic search, and AST-aware code operations. This MCP is essential for code s
 enables token-efficient code retrieval and modifications. It is automatically available when the
 opencode-historian plugin is enabled.
 
-### Pre-installed MCPs from Oh-My-Opencode
+### Pre-installed MCPs from Oh-My-OpenAgent
 
-The oh-my-opencode plugin includes three pre-configured MCP servers that provide essential development tools:
+The oh-my-openagent plugin includes three pre-configured MCP servers that provide essential development tools:
 
 | MCP         | Purpose                         | Default Assignment                    |
 |-------------|---------------------------------|---------------------------------------|
@@ -342,7 +342,7 @@ The oh-my-opencode plugin includes three pre-configured MCP servers that provide
   search for code patterns, find real-world implementation examples, and discover how others have solved similar
   problems.
 
-These pre-installed MCPs are automatically available when the oh-my-opencode plugin is enabled. MCP access is controlled
+These pre-installed MCPs are automatically available when the oh-my-openagent plugin is enabled. MCP access is controlled
 via per-agent permissions in the configuration. See
 the [official documentation](https://github.com/code-yeongyu/oh-my-openagent/blob/master/docs/quick-reference.md) for
 details on MCP assignment syntax and configuration options.
@@ -488,9 +488,9 @@ OpenCode employs a sophisticated agent system where specialized AI agents handle
 architecture enables parallel task execution, context-aware processing, and delegation based on task complexity and
 requirements.
 
-#### Oh-My-Opencode Agents
+#### Oh-My-OpenAgent Agents
 
-The oh-my-opencode plugin provides a comprehensive suite of specialized agents designed for various development tasks:
+The oh-my-openagent plugin provides a comprehensive suite of specialized agents designed for various development tasks:
 
 **Core Agents:**
 

@@ -30,7 +30,7 @@
   "plugin": [
     "@nick-vi/opencode-type-inject@latest",
     "opencode-historian@latest",
-    "oh-my-opencode@latest"
+    "oh-my-openagent@latest"
   ],
   "enabled_providers": [
     "xai",

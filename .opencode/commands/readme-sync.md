@@ -16,7 +16,7 @@ You must analyze the project structure to identify what needs synchronization:
 
 **Primary Configuration Files to Monitor:**
 - `*.json` files in project root
-  - Specifically: `opencode.json`, `oh-my-opencode.json`
+  - Specifically: `opencode.json`, `oh-my-openagent.json`
   - Any additional JSON files
 
 **Component Directories to Scan:**
@@ -33,7 +33,7 @@ Use the **Task tool** to orchestrate parallel scanning and analysis:
    - Task: Scan `opencode.json` "plugins" section and detect changes
    - Task: Scan `opencode.json` "mcp" section and detect changes
    - Task: Scan `opencode.json` "enabled_providers" section and detect changes
-   - Task: Scan `oh-my-opencode.json` for model configuration changes of agents
+   - Task: Scan `oh-my-openagent.json` for model configuration changes of agents
 
 2. Wait for all exploration tasks to complete and collect their findings
 
@@ -97,7 +97,7 @@ Custom Commands Documentation:
 - Update documentation as needed
 
 **Models Configuration:**
-- Scan `./oh-my-opencode.json` and compare against Models Configuration section
+- Scan `./oh-my-openagent.json` and compare against Models Configuration section
 - Verify all agent-specific model assignments match
 - Verify all task category model configurations match
 - Check model variant specifications are accurate
@@ -149,7 +149,7 @@ When analyzing and updating documentation:
 
 Detected Changes:
   ✓ opencode.json (MCPs section updated)
-  ✓ oh-my-opencode.json (agents modified)
+  ✓ oh-my-openagent.json (agents modified)
   ✓ skills/ (new skills detected)
 
 Documentation Sections Updated:
