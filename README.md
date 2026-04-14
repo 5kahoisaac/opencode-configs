@@ -144,7 +144,7 @@ The provider configuration considers several factors for optimal performance:
     - **High/Max Variants**: Enhanced capability for complex reasoning tasks
 
 4. **Suggested Usage Pattern**:
-    - Use **@sisyphus** for complex, multi-step tasks requiring coordination and agent delegation
+    - Use **@sisyphus** for complex, multistep tasks requiring coordination and agent delegation
     - Use **@sisyphus-junior** for category-optimized task delegation via the task() system
     - Use **@prometheus** for detailed project planning and work breakdowns
     - Use **@explore** for codebase navigation, pattern detection, and symbol lookup
@@ -252,7 +252,7 @@ The OpenCode configuration utilizes several plugins to extend its core functiona
 
 The oh-my-openagent plugin is a comprehensive agent collection for OpenCode that provides a full suite of specialized
 agents for various development tasks. This plugin delivers a robust set of agents optimized for efficient task
-delegation, complex problem solving, and comprehensive development workflows. The oh-my-openagent suite includes agents
+delegation, complex problem-solving, and comprehensive development workflows. The oh-my-openagent suite includes agents
 for orchestration, exploration, strategic decision-making, visual engineering, research, and more, providing
 enterprise-grade capabilities for demanding development scenarios.
 
@@ -356,7 +356,7 @@ and workflows. This configuration includes skills installed via Vercel's officia
 skills from the opencode-historian plugin. Note that skills are installed to `~/.agents/skills/` via the skills.sh
 system, not in the local `skills/` directory of this repository.
 
-The following **83 skills** are available in this configuration, organized by category:
+The following **88 skills** are available in this configuration, organized by category:
 
 ### Custom Skills
 
@@ -442,6 +442,11 @@ The following **83 skills** are available in this configuration, organized by ca
 | **seo-audit**                        | coreyhaines31/marketingskills  | Audit and diagnose SEO issues including technical SEO, on-page optimization, meta tags, page speed, and indexing problems.                                                                                                                   |
 | **simplify**                         | brianlovin/claude-config       | Simplify and refine recently modified code for clarity and consistency. Use after writing code to improve readability without changing functionality.                                                                                        |
 | **stock-analysis**                   | gracefullight/stock-checker    | Analyze stocks and cryptocurrencies using Yahoo Finance data. Supports portfolio management, crypto analysis, and periodic performance reports. *(custom skill by Isaac Ng)*                                                                 |
+| **caveman**                          | JuliusBrussee/caveman          | A comprehensive CLI toolkit for working with Claude Code configurations and custom commands.                                                                                                                                                 |
+| **caveman-commit**                   | JuliusBrussee/caveman          | Execute git commits with conventional commit message analysis and intelligent staging for Claude Code workflows.                                                                                                                             |
+| **caveman-compress**                 | JuliusBrussee/caveman          | Compress and optimize Claude Code conversation contexts for better token efficiency and performance.                                                                                                                                         |
+| **caveman-help**                     | JuliusBrussee/caveman          | Display help information and usage guides for caveman commands and Claude Code configurations.                                                                                                                                               |
+| **caveman-review**                   | JuliusBrussee/caveman          | Review code changes and provide feedback on Claude Code generated code and modifications.                                                                                                                                                    |
 | **golang-pro**                       | jeffallan/claude-skills        | Implements concurrent Go patterns using goroutines and channels, designs and builds microservices with gRPC or REST, optimizes Go application performance.                                                                                   |
 | **laravel-specialist**               | jeffallan/claude-skills        | Build and configure Laravel 10+ applications, including creating Eloquent models, implementing Sanctum authentication, configuring Horizon queues, and building Livewire components.                                                         |
 | **javascript-testing-patterns**      | microck/ordinary-claude-skills | Implement comprehensive testing strategies using Jest, Vitest, and Testing Library for unit tests, integration tests, and end-to-end testing.                                                                                                |
