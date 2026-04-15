@@ -29,8 +29,8 @@
   },
   "plugin": [
     "@nick-vi/opencode-type-inject@latest",
+    "opencode-with-claude@latest",
     "opencode-historian@latest",
-    "opencode-with-claude",
     "oh-my-openagent@latest"
   ],
   "enabled_providers": [
