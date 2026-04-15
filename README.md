@@ -441,7 +441,7 @@ The following **88 skills** are available in this configuration, organized by ca
 | **rust-best-practices**              | apollographql/skills           | Guide for writing idiomatic Rust code based on Apollo GraphQL's best practices handbook.                                                                                                                                                     |
 | **seo-audit**                        | coreyhaines31/marketingskills  | Audit and diagnose SEO issues including technical SEO, on-page optimization, meta tags, page speed, and indexing problems.                                                                                                                   |
 | **simplify**                         | brianlovin/claude-config       | Simplify and refine recently modified code for clarity and consistency. Use after writing code to improve readability without changing functionality.                                                                                        |
-| **stock-analysis**                   | gracefullight/stock-checker    | Analyze stocks and cryptocurrencies using Yahoo Finance data. Supports portfolio management, crypto analysis, and periodic performance reports. *(custom skill by Isaac Ng)*                                                                 |
+| **stock-analysis**                   | gracefullight/stock-checker    | Analyze stocks and cryptocurrencies using Yahoo Finance data. Supports portfolio management, crypto analysis, and periodic performance reports.                                                                                              |
 | **caveman**                          | JuliusBrussee/caveman          | A comprehensive CLI toolkit for working with Claude Code configurations and custom commands.                                                                                                                                                 |
 | **caveman-commit**                   | JuliusBrussee/caveman          | Execute git commits with conventional commit message analysis and intelligent staging for Claude Code workflows.                                                                                                                             |
 | **caveman-compress**                 | JuliusBrussee/caveman          | Compress and optimize Claude Code conversation contexts for better token efficiency and performance.                                                                                                                                         |
@@ -470,9 +470,17 @@ The following **88 skills** are available in this configuration, organized by ca
 
 ## Commands
 
-The commands directory is available for custom slash commands that extend OpenCode's interaction capabilities.
-Currently, no custom commands are configured in this setup. Commands can be added to the `./commands/` directory and
-will be migrated along with other configuration files during the build process.
+The `./commands/` directory is available for custom slash commands that extend OpenCode's interaction capabilities.
+Currently, no custom commands are configured in this directory. Commands added here will be migrated along with other
+configuration files during the sync process.
+
+This repository also defines the following **project-scope** OpenCode commands under `.opencode/commands/`. These
+commands are available only when working inside this repository:
+
+- **`/zen-blacklist-sync`** — Dynamically synchronizes the OpenCode Zen Blacklist by fetching the latest paid models
+  and excluding any with accessible free tiers.
+- **`/readme-sync`** — Synchronizes `README.md` documentation with actual project configuration to prevent documentation
+  drift.
 
 ### TUI Configuration
 
@@ -589,5 +597,5 @@ in this configuration:
   integration, enabling project management workflows.
 - **Serena MCP**: https://github.com/oraios/serena - Advanced code intelligence MCP providing precise symbol navigation
   and AST-aware operations.
-- **Vision MCP**: https://github.com/z-ai-org/mcp-server - Visual analysis MCP powered by Z.ai vision models for image
-  understanding and visual content analysis.
+- **Vision MCP**: https://www.npmjs.com/package/@z_ai/mcp-server - Visual analysis MCP powered by Z.ai vision models
+  for image understanding and visual content analysis.
