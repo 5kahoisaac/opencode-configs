@@ -7,7 +7,6 @@
 - [Configuration](#configuration)
     - [Providers](#providers)
         - [Provider List](#provider-list)
-        - [Provider Blacklist Strategy](#provider-blacklist-strategy)
         - [Models Configuration](#models-configuration)
     - [Plugins](#plugins)
     - [MCPs](#mcps)
@@ -102,22 +101,6 @@ agent. These models excel at fast code understanding and pattern recognition.
 Kimi for Coding provides the K2.5 model optimized specifically for coding tasks. The `kimi-for-coding/k2p5` model is
 used as a fallback across multiple agents and categories, delivering strong performance for code generation and
 technical implementation tasks.
-
-#### Provider Blacklist Strategy
-
-The provider configuration also uses blacklist rules to keep model selection focused and predictable.
-
-**OpenCode Zen blacklist (`provider.opencode.blacklist`)**
-
-This blacklist is maintained to filter out paid OpenCode Zen models from the general OpenCode provider roster while
-keeping free-tier models available. In practice, it helps avoid accidental routing to paid Zen models during routine
-workflows and preserves the free models as the default low-cost path.
-
-**xAI blacklist (`provider.xai.blacklist`)**
-
-This blacklist is maintained to keep the xAI model list simple by excluding non-LLM or multimodal entries and older
-outdated Grok families. Coding-focused models are intentionally preserved so the xAI provider remains useful for code
-analysis workflows without exposing legacy or non-text models.
 
 #### Models Configuration
 
@@ -287,12 +270,6 @@ compounded engineering practices across sessions. This plugin allows agents to s
 including architectural decisions, design patterns, learnings, preferences, issues, and contextual information. The
 historian system automatically classifies memory types and manages circular references between related memories,
 creating a knowledge base that persists beyond individual conversations.
-
-**opencode-with-claude**
-
-The `opencode-with-claude` plugin integrates Claude Max/Pro subscription access into OpenCode through a local proxy.
-This allows the Anthropic provider in `opencode.json` to route through a locally managed bridge instead of a direct API
-key workflow, making Claude subscription-backed usage available inside the OpenCode runtime.
 
 ---
 
@@ -502,8 +479,6 @@ commands are available only when working inside this repository:
 
 - **`/zen-blacklist-sync`** — Dynamically synchronizes the OpenCode Zen Blacklist by fetching the latest paid models
   and excluding any with accessible free tiers.
-- **`/xai-blacklist-sync`** — Dynamically synchronizes the OpenCode xAI Blacklist by removing non-LLM models and older
-  outdated Grok families while preserving coding-focused models.
 - **`/readme-sync`** — Synchronizes `README.md` documentation with actual project configuration to prevent documentation
   drift.
 
@@ -614,8 +589,6 @@ in this configuration:
   capabilities for OpenCode, enhancing type system understanding across programming languages.
 - **Historian Plugin**: https://github.com/5kahoisaac/opencode-historian - Persistent memory management for OpenCode,
   enabling context retention and compounded engineering practices across sessions.
-- **OpenCode with Claude Plugin**: https://github.com/ianjwhite99/opencode-with-claude - OpenCode plugin for using a
-  Claude Max/Pro subscription through a local proxy-managed Anthropic bridge.
 - **Figma MCP**: https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server - Official MCP
   server for Figma integration, enabling design context retrieval and UI code generation.
 - **GitHub MCP**: https://github.com/github/github-mcp-server - Official MCP server for GitHub API integration, enabling

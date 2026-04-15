@@ -1,0 +1,1 @@
+OpenCode configuration repository for syncing global OpenCode setup. Main files: opencode.json, oh-my-openagent.json, opencode-historian.json, tui.json, Makefile, README.md. Repo documents providers, plugins, MCPs, commands, and agent/category model routing.

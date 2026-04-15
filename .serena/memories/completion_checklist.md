@@ -1,0 +1,1 @@
+After config/doc updates: verify README sections against opencode.json, oh-my-openagent.json, Makefile, and .opencode/commands; validate links when possible; report any unverifiable links or pre-existing mismatches.
