@@ -4,7 +4,7 @@
     "sisyphus": {
       "model": "kimi-for-coding/k2p5",
       "ultrawork": {
-        "model": "github-copilot/claude-opus-4.6",
+        "model": "github-copilot/claude-opus-4.7",
         "variant": "max"
       },
       "fallback_models": [
@@ -19,7 +19,7 @@
     "metis": {
       "model": "zai-coding-plan/glm-5-turbo",
       "ultrawork": {
-        "model": "github-copilot/claude-opus-4.6",
+        "model": "github-copilot/claude-opus-4.7",
         "variant": "max"
       },
       "fallback_models": [
@@ -27,13 +27,13 @@
           "model": "github-copilot/gpt-5.4",
           "variant": "high"
         },
-        "github-copilot/gemini-3.1-pro-preview"
+        "kimi-for-coding/k2p5"
       ]
     },
     "prometheus": {
       "model": "zai-coding-plan/glm-5.1",
       "ultrawork": {
-        "model": "github-copilot/claude-opus-4.6",
+        "model": "github-copilot/claude-opus-4.7",
         "variant": "max"
       },
       "fallback_models": [
@@ -71,7 +71,7 @@
           "variant": "high"
         },
         {
-          "model": "github-copilot/claude-opus-4.6",
+          "model": "github-copilot/claude-opus-4.7",
           "variant": "max"
         }
       ]
@@ -84,7 +84,7 @@
       },
       "fallback_models": [
         {
-          "model": "github-copilot/claude-opus-4.6",
+          "model": "github-copilot/claude-opus-4.7",
           "variant": "max"
         },
         {
@@ -120,11 +120,9 @@
       ]
     },
     "sisyphus-junior": {
-      "model": "kimi-for-coding/k2p5",
-      "ultrawork": {
-        "model": "github-copilot/claude-opus-4.6"
-      },
+      "model": "github-copilot/claude-opus-4.6",
       "fallback_models": [
+        "kimi-for-coding/k2p5",
         {
           "model": "github-copilot/gpt-5.4",
           "variant": "medium"
@@ -140,7 +138,7 @@
       "fallback_models": [
         "zai-coding-plan/glm-5.1",
         {
-          "model": "github-copilot/claude-opus-4.6",
+          "model": "github-copilot/claude-opus-4.7",
           "variant": "max"
         },
         "kimi-for-coding/k2p5"
@@ -155,18 +153,18 @@
           "variant": "high"
         },
         {
-          "model": "github-copilot/claude-opus-4.6",
+          "model": "github-copilot/claude-opus-4.7",
           "variant": "max"
         },
         "zai-coding-plan/glm-5.1"
       ]
     },
     "deep": {
-      "model": "github-copilot/gpt-5.3-codex",
+      "model": "github-copilot/gpt-5.4",
       "variant": "medium",
       "fallback_models": [
         {
-          "model": "github-copilot/claude-opus-4.6",
+          "model": "github-copilot/claude-opus-4.7",
           "variant": "max"
         },
         {
@@ -180,14 +178,23 @@
       "variant": "high",
       "fallback_models": [
         {
-          "model": "github-copilot/claude-opus-4.6",
+          "model": "github-copilot/claude-opus-4.7",
           "variant": "max"
         },
         "github-copilot/gpt-5.4"
       ]
     },
+    "quick": {
+      "model": "github-copilot/gpt-5.4-mini",
+      "fallback_models": [
+        "github-copilot/claude-haiku-4.5",
+        "opencode/gemini-3-flash",
+        "github-copilot/gemini-3-flash-preview",
+        "opencode/gpt-5-nano"
+      ]
+    },
     "unspecified-high": {
-      "model": "github-copilot/claude-opus-4.6",
+      "model": "github-copilot/claude-opus-4.7",
       "variant": "max",
       "fallback_models": [
         {
@@ -218,15 +225,6 @@
         "github-copilot/claude-sonnet-4.6"
       ]
     },
-    "quick": {
-      "model": "opencode/gpt-5-nano",
-      "fallback_models": [
-        "opencode/gemini-3-flash",
-        "github-copilot/gpt-5.4-mini",
-        "github-copilot/claude-haiku-4.5",
-        "github-copilot/gemini-3-flash-preview"
-      ]
-    },
     "git": {
       "model": "opencode/gpt-5-nano",
       "fallback_models": [
@@ -247,7 +245,8 @@
   },
   "git_master": {
     "commit_footer": false,
-    "include_co_authored_by": false
+    "include_co_authored_by": false,
+    "git_env_prefix": "GIT_MASTER=1"
   },
   "background_task": {
     "defaultConcurrency": 5,
@@ -275,8 +274,9 @@
       "zai-coding-plan/glm-5": 2,
       "zai-coding-plan/glm-5-turbo": 1,
       "zai-coding-plan/glm-5.1": 1,
+      "github-copilot/claude-opus-4.7": 2,
       "github-copilot/claude-opus-4.6": 2,
-      "github-copilot/claude-opus-4.5": 2,
+      "github-copilot/claude-opus-4.5": 1,
       "github-copilot/claude-opus-41": 2,
       "github-copilot/claude-sonnet-4.6": 3,
       "github-copilot/claude-sonnet-4.5": 3,
