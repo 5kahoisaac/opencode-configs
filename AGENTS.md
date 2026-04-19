@@ -1,4 +1,4 @@
-# AGENTS.md - Agents' Basic Accomplishments and Rules
+# Agents' Basic Accomplishments and Rules
 
 ---
 
