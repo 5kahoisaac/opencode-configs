@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/oh-my-opencode.schema.json",
   "agents": {
     "sisyphus": {
-      "model": "kimi-for-coding/k2p5",
+      "model": "kimi-for-coding/k2p6",
       "ultrawork": {
         "model": "github-copilot/claude-opus-4.7",
         "variant": "max"
@@ -27,7 +27,7 @@
           "model": "github-copilot/gpt-5.4",
           "variant": "high"
         },
-        "kimi-for-coding/k2p5"
+        "kimi-for-coding/k2p6"
       ]
     },
     "prometheus": {
@@ -47,7 +47,7 @@
     "atlas": {
       "model": "github-copilot/claude-sonnet-4.6",
       "fallback_models": [
-        "kimi-for-coding/k2p5",
+        "kimi-for-coding/k2p6",
         {
           "model": "github-copilot/gpt-5.4",
           "variant": "medium"
@@ -94,9 +94,8 @@
       ]
     },
     "explore": {
-      "model": "xai/grok-code-fast-1",
+      "model": "github-copilot/grok-code-fast-1",
       "fallback_models": [
-        "github-copilot/grok-code-fast-1",
         "github-copilot/claude-haiku-4.5",
         "opencode/gpt-5-nano"
       ]
@@ -109,7 +108,7 @@
       ]
     },
     "multimodal-looker": {
-      "model": "kimi-for-coding/k2p5",
+      "model": "kimi-for-coding/k2p6",
       "ultrawork": {
         "model": "github-copilot/gpt-5.4",
         "variant": "medium"
@@ -122,7 +121,7 @@
     "sisyphus-junior": {
       "model": "github-copilot/claude-sonnet-4.6",
       "fallback_models": [
-        "kimi-for-coding/k2p5",
+        "kimi-for-coding/k2p6",
         {
           "model": "github-copilot/gpt-5.4",
           "variant": "medium"
@@ -141,7 +140,7 @@
           "model": "github-copilot/claude-opus-4.6",
           "variant": "max"
         },
-        "kimi-for-coding/k2p5"
+        "kimi-for-coding/k2p6"
       ]
     },
     "ultrabrain": {
@@ -202,7 +201,7 @@
           "variant": "high"
         },
         "zai-coding-plan/glm-5.1",
-        "kimi-for-coding/k2p5"
+        "kimi-for-coding/k2p6"
       ]
     },
     "unspecified-low": {
@@ -212,7 +211,7 @@
           "model": "github-copilot/gpt-5.3-codex",
           "variant": "medium"
         },
-        "kimi-for-coding/k2p5",
+        "kimi-for-coding/k2p6",
         "opencode/gemini-3-flash",
         "github-copilot/gemini-3-flash-preview"
       ]
@@ -221,7 +220,7 @@
       "model": "opencode/gemini-3-flash",
       "fallback_models": [
         "github-copilot/gemini-3-flash-preview",
-        "kimi-for-coding/k2p5",
+        "kimi-for-coding/k2p6",
         "github-copilot/claude-sonnet-4.6"
       ]
     },
@@ -261,7 +260,7 @@
     "modelConcurrency": {
       "opencode/gemini-3-flash": 5,
       "opencode/gpt-5-nano": 20,
-      "kimi-for-coding/k2p5": 3,
+      "kimi-for-coding/k2p6": 3,
       "zai-coding-plan/glm-4.5": 10,
       "zai-coding-plan/glm-4.5v": 10,
       "zai-coding-plan/glm-4.5-air": 5,
