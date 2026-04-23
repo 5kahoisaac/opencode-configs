@@ -133,7 +133,6 @@ When analyzing and updating documentation:
 
 **Use Write Tool for File Modifications:**
 - Writing updated README.md
-- Creating backup files
 - Writing any new configuration files
 
 **Error Handling:**
@@ -174,9 +173,8 @@ Reference Links Validation:
 3. **Respect Existing Content**: Preserve explanatory text and usage notes
 4. **Validation First**: Always validate reference links before considering complete
 5. **Atomic Updates**: Group related changes into single updates when possible
-6. **Backup Before Changes**: Always create a README.md backup before modifications
-7. **Read Carefully**: Always read the whole README.md, ensure no changes un-sync and duplicate content after modifications
-8. **Tidy and Valid**: Make sure the table is correctly formatted, no spelling mistakes
+6. **Read Carefully**: Always read the whole README.md, ensure no changes un-sync and duplicate content after modifications
+7. **Tidy and Valid**: Make sure the table is correctly formatted, no spelling mistakes
 
 ## Quality Checklist
 

@@ -31,7 +31,7 @@ The blacklist is for **paid-only** models. Free-tier models must remain availabl
 
 ### Phase 2: Free Tier Verification (MANDATORY)
 
-**For every provider family in the Zen model list, you MUST cross-check official pricing to identify free-tier models.**
+**Zen support BYOK, you MUST cross-check provider's official pricing to identify free-tier models.**
 
 **Process:**
 1. Take each Zen model ID from your candidate list
@@ -42,12 +42,12 @@ The blacklist is for **paid-only** models. Free-tier models must remain availabl
 
 **Critical provider checks:**
 
-- **Google Gemini**: `https://ai.google.dev/gemini-api/docs/pricing`
+- **Google Gemini**: `https://ai.google.dev/gemini-api/docs/pricing` (MUST get the data!!!, DO NOT SKIP this step)
     - Look for models marked "Free of charge" in the pricing table
     - Be careful with variant names: `gemini-3-flash` vs `gemini-3-flash-preview` vs `gemini-3.1-flash-lite-preview`
     - If uncertain about a variant, check if the base model name has a free tier
 
-**Rule:** If ANY model ID (or close variant) has a free tier on the official pricing page, **REMOVE it from the blacklist candidate list**.
+**Rule:** If ANY model ID (or close variant) has a free tier on the provider pricing page, **REMOVE it from the blacklist candidate list**.
 
 **When uncertain:** Default to **REMOVE** from blacklist. It is better to accidentally allow a paid model than to block a free one.
 
