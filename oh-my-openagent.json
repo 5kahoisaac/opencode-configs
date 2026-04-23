@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/oh-my-opencode.schema.json",
   "agents": {
     "sisyphus": {
-      "model": "kimi-for-coding/k2p6",
+      "model": "nvidia/moonshotai/kimi-k2.5",
       "ultrawork": {
         "model": "github-copilot/claude-opus-4.7",
         "variant": "max"
@@ -13,45 +13,44 @@
           "variant": "medium"
         },
         "zai-coding-plan/glm-5.1",
+        "nvidia/z-ai/glm-5.1",
         "opencode/big-pickle"
       ]
     },
     "metis": {
-      "model": "zai-coding-plan/glm-5-turbo",
+      "model": "github-copilot/gpt-5.4",
+      "variant": "high",
       "ultrawork": {
-        "model": "github-copilot/claude-opus-4.6",
+        "model": "github-copilot/claude-opus-4.7",
         "variant": "max"
       },
       "fallback_models": [
-        {
-          "model": "github-copilot/gpt-5.4",
-          "variant": "high"
-        },
-        "kimi-for-coding/k2p6"
+        "zai-coding-plan/glm-5-turbo",
+        "nvidia/moonshotai/kimi-k2.5"
       ]
     },
     "prometheus": {
-      "model": "zai-coding-plan/glm-5.1",
+      "model": "github-copilot/gpt-5.4",
+      "variant": "high",
       "ultrawork": {
-        "model": "github-copilot/claude-opus-4.6",
+        "model": "github-copilot/claude-opus-4.7",
         "variant": "max"
       },
       "fallback_models": [
-        {
-          "model": "github-copilot/gpt-5.4",
-          "variant": "high"
-        },
+        "zai-coding-plan/glm-5.1",
+        "nvidia/z-ai/glm-5.1",
         "github-copilot/gemini-3.1-pro-preview"
       ]
     },
     "atlas": {
       "model": "github-copilot/claude-sonnet-4.6",
       "fallback_models": [
-        "kimi-for-coding/k2p6",
+        "nvidia/moonshotai/kimi-k2.5",
         {
           "model": "github-copilot/gpt-5.4",
           "variant": "medium"
-        }
+        },
+        "nvidia/minimaxai/minimax-m2.7"
       ]
     },
     "hephaestus": {
@@ -60,60 +59,60 @@
       "fallback_models": []
     },
     "oracle": {
-      "model": "zai-coding-plan/glm-5",
-      "ultrawork": {
-        "model": "github-copilot/gpt-5.4",
-        "variant": "high"
-      },
+      "model": "github-copilot/gpt-5.4",
+      "variant": "high",
       "fallback_models": [
         {
           "model": "github-copilot/gemini-3.1-pro-preview",
           "variant": "high"
         },
         {
-          "model": "github-copilot/claude-opus-4.6",
+          "model": "github-copilot/claude-opus-4.7",
           "variant": "max"
-        }
+        },
+        "nvidia/z-ai/glm5",
+        "zai-coding-plan/glm-5"
       ]
     },
     "momus": {
-      "model": "zai-coding-plan/glm-5",
-      "ultrawork": {
-        "model": "github-copilot/gpt-5.4",
-        "variant": "xhigh"
-      },
+      "model": "github-copilot/gpt-5.4",
+      "variant": "xhigh",
       "fallback_models": [
         {
-          "model": "github-copilot/claude-opus-4.6",
+          "model": "github-copilot/claude-opus-4.7",
           "variant": "max"
         },
         {
           "model": "github-copilot/gemini-3.1-pro-preview",
           "variant": "high"
-        }
+        },
+        "zai-coding-plan/glm-5",
+        "nvidia/z-ai/glm5"
       ]
     },
     "explore": {
-      "model": "github-copilot/grok-code-fast-1",
+      "model": "nvidia/minimaxai/minimax-m2.7",
       "fallback_models": [
+        "xai/grok-code-fast-1",
+        "github-copilot/grok-code-fast-1",
+        "github-copilot/gpt-5.4-mini",
         "github-copilot/claude-haiku-4.5",
-        "opencode/gpt-5-nano"
+        "github-copilot/gpt-5.4-nano"
       ]
     },
     "librarian": {
       "model": "opencode/gemini-3-flash",
       "fallback_models": [
+        "nvidia/minimaxai/minimax-m2.7",
         "github-copilot/claude-haiku-4.5",
-        "opencode/gpt-5-nano"
+        "github-copilot/gpt-5.4-nano"
       ]
     },
     "multimodal-looker": {
-      "model": "kimi-for-coding/k2p6",
-      "ultrawork": {
-        "model": "github-copilot/gpt-5.4",
-        "variant": "medium"
-      },
+      "model": "github-copilot/gpt-5.4",
+      "variant": "medium",
       "fallback_models": [
+        "nvidia/moonshotai/kimi-k2.5",
         "zai-coding-plan/glm-4.6v",
         "opencode/gpt-5-nano"
       ]
@@ -121,11 +120,12 @@
     "sisyphus-junior": {
       "model": "github-copilot/claude-sonnet-4.6",
       "fallback_models": [
-        "kimi-for-coding/k2p6",
+        "nvidia/moonshotai/kimi-k2.5",
         {
           "model": "github-copilot/gpt-5.4",
           "variant": "medium"
         },
+        "nvidia/minimaxai/minimax-m2.7",
         "opencode/big-pickle"
       ]
     }
@@ -135,12 +135,13 @@
       "model": "github-copilot/gemini-3.1-pro-preview",
       "variant": "high",
       "fallback_models": [
-        "zai-coding-plan/glm-5.1",
+        "zai-coding-plan/glm-5",
+        "nvidia/z-ai/glm5",
         {
-          "model": "github-copilot/claude-opus-4.6",
+          "model": "github-copilot/claude-opus-4.7",
           "variant": "max"
         },
-        "kimi-for-coding/k2p6"
+        "nvidia/moonshotai/kimi-k2.5"
       ]
     },
     "ultrabrain": {
@@ -152,7 +153,7 @@
           "variant": "high"
         },
         {
-          "model": "github-copilot/claude-opus-4.6",
+          "model": "github-copilot/claude-opus-4.7",
           "variant": "max"
         },
         "zai-coding-plan/glm-5.1"
@@ -163,7 +164,7 @@
       "variant": "medium",
       "fallback_models": [
         {
-          "model": "github-copilot/claude-opus-4.6",
+          "model": "github-copilot/claude-opus-4.7",
           "variant": "max"
         },
         {
@@ -177,7 +178,7 @@
       "variant": "high",
       "fallback_models": [
         {
-          "model": "github-copilot/claude-opus-4.6",
+          "model": "github-copilot/claude-opus-4.7",
           "variant": "max"
         },
         "github-copilot/gpt-5.4"
@@ -189,11 +190,12 @@
         "github-copilot/claude-haiku-4.5",
         "opencode/gemini-3-flash",
         "github-copilot/gemini-3-flash-preview",
+        "nvidia/minimaxai/minimax-m2.7",
         "opencode/gpt-5-nano"
       ]
     },
     "unspecified-high": {
-      "model": "github-copilot/claude-opus-4.6",
+      "model": "github-copilot/claude-opus-4.7",
       "variant": "max",
       "fallback_models": [
         {
@@ -201,7 +203,8 @@
           "variant": "high"
         },
         "zai-coding-plan/glm-5.1",
-        "kimi-for-coding/k2p6"
+        "nvidia/z-ai/glm-5.1",
+        "nvidia/moonshotai/kimi-k2.5"
       ]
     },
     "unspecified-low": {
@@ -211,7 +214,7 @@
           "model": "github-copilot/gpt-5.3-codex",
           "variant": "medium"
         },
-        "kimi-for-coding/k2p6",
+        "nvidia/moonshotai/kimi-k2.5",
         "opencode/gemini-3-flash",
         "github-copilot/gemini-3-flash-preview"
       ]
@@ -220,7 +223,7 @@
       "model": "opencode/gemini-3-flash",
       "fallback_models": [
         "github-copilot/gemini-3-flash-preview",
-        "kimi-for-coding/k2p6",
+        "nvidia/moonshotai/kimi-k2.5",
         "github-copilot/claude-sonnet-4.6"
       ]
     },
@@ -252,15 +255,14 @@
     "staleTimeoutMs": 60000,
     "providerConcurrency": {
       "xai": 5,
+      "nvidia": 5,
       "opencode": 10,
-      "kimi-for-coding": 3,
       "zai-coding-plan": 10,
       "github-copilot": 3
     },
     "modelConcurrency": {
       "opencode/gemini-3-flash": 5,
-      "opencode/gpt-5-nano": 20,
-      "kimi-for-coding/k2p6": 3,
+      "opencode/gpt-5-nano": 10,
       "zai-coding-plan/glm-4.5": 10,
       "zai-coding-plan/glm-4.5v": 10,
       "zai-coding-plan/glm-4.5-air": 5,
@@ -283,6 +285,7 @@
       "github-copilot/gpt-5.4": 3,
       "github-copilot/gpt-5.3-codex": 3,
       "github-copilot/gpt-5.4-mini": 5,
+      "github-copilot/gpt-5.4-nano": 8,
       "github-copilot/gpt-5-mini": 10,
       "github-copilot/gpt-4o": 10,
       "github-copilot/gemini-3-flash-preview": 6,

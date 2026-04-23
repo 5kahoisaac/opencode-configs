@@ -35,8 +35,8 @@
   ],
   "enabled_providers": [
     "xai",
+    "nvidia",
     "opencode",
-    "kimi-for-coding",
     "zai-coding-plan",
     "github-copilot"
   ],

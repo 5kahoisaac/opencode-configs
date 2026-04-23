@@ -1,5 +1,5 @@
 {
-  "model": "kimi-for-coding/k2p6",
+  "model": "github-copilot/claude-sonnet-4.6",
   "disabledMcps": [],
   "autoCompound": true,
   "debug": false
