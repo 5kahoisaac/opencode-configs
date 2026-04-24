@@ -96,7 +96,7 @@ Custom Commands Documentation:
 - Verify all custom commands are documented
 - Update documentation as needed
 
-**Models Configuration:**
+**Models & Background Task Configuration:**
 - Scan `./oh-my-openagent.json` and compare against Models Configuration section
 - Verify all agent-specific model assignments match
 - Verify all task category model configurations match

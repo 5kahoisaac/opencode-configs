@@ -172,7 +172,7 @@
       ]
     },
     "deep": {
-      "model": "github-copilot/gpt-5.5",
+      "model": "github-copilot/gpt-5.4",
       "variant": "medium",
       "fallback_models": [
         {
