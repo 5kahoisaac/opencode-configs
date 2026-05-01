@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/oh-my-opencode.schema.json",
   "agents": {
     "sisyphus": {
-      "model": "nvidia/moonshotai/kimi-k2.5",
+      "model": "zai-coding-plan/glm-5.1",
       "ultrawork": {
         "model": "github-copilot/claude-opus-4.7",
         "variant": "max"
@@ -12,40 +12,35 @@
           "model": "github-copilot/gpt-5.4",
           "variant": "medium"
         },
-        "zai-coding-plan/glm-5.1",
-        "nvidia/z-ai/glm-5.1",
         "opencode/big-pickle"
       ]
     },
     "metis": {
-      "model": "github-copilot/gpt-5.4",
-      "variant": "high",
-      "ultrawork": {
-        "model": "github-copilot/claude-opus-4.7",
-        "variant": "max"
-      },
+      "model": "github-copilot/claude-opus-4.7",
+      "variant": "max",
       "fallback_models": [
-        "zai-coding-plan/glm-5-turbo",
-        "nvidia/moonshotai/kimi-k2.5"
+        {
+          "model": "github-copilot/gpt-5.4",
+          "variant": "high"
+        },
+        "zai-coding-plan/glm-5-turbo"
       ]
     },
     "prometheus": {
-      "model": "github-copilot/gpt-5.4",
-      "variant": "high",
-      "ultrawork": {
-        "model": "github-copilot/claude-opus-4.7",
-        "variant": "max"
-      },
+      "model": "github-copilot/claude-opus-4.7",
+      "variant": "max",
       "fallback_models": [
+        {
+          "model": "github-copilot/gpt-5.4",
+          "variant": "high"
+        },
         "zai-coding-plan/glm-5.1",
-        "nvidia/z-ai/glm-5.1",
         "github-copilot/gemini-3.1-pro-preview"
       ]
     },
     "atlas": {
       "model": "github-copilot/claude-sonnet-4.6",
       "fallback_models": [
-        "nvidia/moonshotai/kimi-k2.5",
         {
           "model": "github-copilot/gpt-5.4",
           "variant": "medium"
@@ -78,7 +73,6 @@
           "model": "github-copilot/claude-opus-4.7",
           "variant": "max"
         },
-        "nvidia/z-ai/glm5",
         "zai-coding-plan/glm-5"
       ]
     },
@@ -98,8 +92,7 @@
           "model": "github-copilot/gemini-3.1-pro-preview",
           "variant": "high"
         },
-        "zai-coding-plan/glm-5",
-        "nvidia/z-ai/glm5"
+        "zai-coding-plan/glm-5"
       ]
     },
     "explore": {
@@ -113,7 +106,7 @@
       ]
     },
     "librarian": {
-      "model": "opencode/gemini-3-flash",
+      "model": "github-copilot/gpt-5.4-mini",
       "fallback_models": [
         "nvidia/minimaxai/minimax-m2.7",
         "github-copilot/claude-haiku-4.5",
@@ -124,7 +117,6 @@
       "model": "github-copilot/gpt-5.4",
       "variant": "medium",
       "fallback_models": [
-        "nvidia/moonshotai/kimi-k2.5",
         "zai-coding-plan/glm-4.6v",
         "opencode/gpt-5-nano"
       ]
@@ -132,7 +124,6 @@
     "sisyphus-junior": {
       "model": "github-copilot/claude-sonnet-4.6",
       "fallback_models": [
-        "nvidia/moonshotai/kimi-k2.5",
         {
           "model": "github-copilot/gpt-5.4",
           "variant": "medium"
@@ -148,12 +139,10 @@
       "variant": "high",
       "fallback_models": [
         "zai-coding-plan/glm-5",
-        "nvidia/z-ai/glm5",
         {
           "model": "github-copilot/claude-opus-4.7",
           "variant": "max"
-        },
-        "nvidia/moonshotai/kimi-k2.5"
+        }
       ]
     },
     "ultrabrain": {
@@ -214,9 +203,7 @@
           "model": "github-copilot/gpt-5.5",
           "variant": "high"
         },
-        "zai-coding-plan/glm-5.1",
-        "nvidia/z-ai/glm-5.1",
-        "nvidia/moonshotai/kimi-k2.5"
+        "zai-coding-plan/glm-5.1"
       ]
     },
     "unspecified-low": {
@@ -226,7 +213,6 @@
           "model": "github-copilot/gpt-5.3-codex",
           "variant": "medium"
         },
-        "nvidia/moonshotai/kimi-k2.5",
         "opencode/gemini-3-flash",
         "github-copilot/gemini-3-flash-preview"
       ]
@@ -235,7 +221,6 @@
       "model": "opencode/gemini-3-flash",
       "fallback_models": [
         "github-copilot/gemini-3-flash-preview",
-        "nvidia/moonshotai/kimi-k2.5",
         "github-copilot/claude-sonnet-4.6"
       ]
     },
