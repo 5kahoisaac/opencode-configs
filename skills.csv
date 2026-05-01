@@ -54,6 +54,15 @@ anthropics/skills,pptx,opencode
 anthropics/skills,skill-creator,opencode
 anthropics/skills,xlsx,opencode
 apollographql/skills,rust-best-practices,opencode
+avdlee/swift-testing-agent-skill,swift-testing-expert,opencode
+avdlee/swiftui-agent-skill,swiftui-expert-skill,opencode
+avdlee/swiftui-agent-skill,update-swiftui-apis,opencode
+avdlee/xcode-build-optimization-agent-skill,spm-build-analysis,opencode
+avdlee/xcode-build-optimization-agent-skill,xcode-build-benchmark,opencode
+avdlee/xcode-build-optimization-agent-skill,xcode-build-fixer,opencode
+avdlee/xcode-build-optimization-agent-skill,xcode-build-orchestrator,opencode
+avdlee/xcode-build-optimization-agent-skill,xcode-compilation-analyzer,opencode
+avdlee/xcode-build-optimization-agent-skill,xcode-project-analyzer,opencode
 brianlovin/claude-config,simplify,opencode
 coreyhaines31/marketingskills,copywriting,opencode
 coreyhaines31/marketingskills,seo-audit,opencode
