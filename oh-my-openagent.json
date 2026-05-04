@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/oh-my-opencode.schema.json",
   "agents": {
     "sisyphus": {
-      "model": "zai-coding-plan/glm-5.1",
+      "model": "nvidia/moonshotai/kimi-k2.6",
       "ultrawork": {
         "model": "github-copilot/claude-opus-4.7",
         "variant": "max"
@@ -12,6 +12,7 @@
           "model": "github-copilot/gpt-5.4",
           "variant": "medium"
         },
+        "zai-coding-plan/glm-5.1",
         "opencode/big-pickle"
       ]
     },
@@ -23,6 +24,7 @@
           "model": "github-copilot/gpt-5.4",
           "variant": "high"
         },
+        "nvidia/moonshotai/kimi-k2.6",
         "zai-coding-plan/glm-5-turbo"
       ]
     },
@@ -41,6 +43,7 @@
     "atlas": {
       "model": "github-copilot/claude-sonnet-4.6",
       "fallback_models": [
+        "nvidia/moonshotai/kimi-k2.6",
         {
           "model": "github-copilot/gpt-5.4",
           "variant": "medium"
@@ -117,6 +120,7 @@
       "model": "github-copilot/gpt-5.4",
       "variant": "medium",
       "fallback_models": [
+        "nvidia/moonshotai/kimi-k2.6",
         "zai-coding-plan/glm-4.6v",
         "opencode/gpt-5-nano"
       ]
@@ -124,6 +128,7 @@
     "sisyphus-junior": {
       "model": "github-copilot/claude-sonnet-4.6",
       "fallback_models": [
+        "nvidia/moonshotai/kimi-k2.6",
         {
           "model": "github-copilot/gpt-5.4",
           "variant": "medium"
