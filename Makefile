@@ -72,6 +72,6 @@ sync-skills:
 
 help:
 	@echo "  make sync                  - Sync configuration and skills"
-	@echo "  make sync SKIP_SKILLS=1   - Sync configuration, skip skills"
+	@echo "  make sync SKIP_SKILLS=1    - Sync configuration, skip skills"
 	@echo "  make sync-skills           - Sync skills from CSV"
 	@echo "  make help                  - Show this message"
