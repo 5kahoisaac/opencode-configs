@@ -55,7 +55,11 @@ sync-skills:
 			agents=$$(grep ",$$skill," $(SKILLS_CSV) | head -1 | cut -d',' -f3); \
 			if [ -n "$$repo" ]; then \
 				echo "   → Installing: $$skill"; \
-				npx skills add "$$repo" --skill "$$skill" -g -a "$$agents" -y; \
+				agent_args=""; \
+				for agent in $$agents; do \
+					agent_args="$$agent_args -a $$agent"; \
+				done; \
+				npx skills add "$$repo" --skill "$$skill" -g $$agent_args -y; \
 			fi; \
 		fi; \
 	done; \

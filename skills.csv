@@ -1,99 +1,99 @@
 repo,skill_name,agents
-https://github.com/5kahoisaac/opencode-historian/tree/main/src,mnemonics,opencode
-affaan-m/everything-claude-code,ai-regression-testing,opencode
-affaan-m/everything-claude-code,android-clean-architecture,opencode
-affaan-m/everything-claude-code,api-design,opencode
-affaan-m/everything-claude-code,backend-patterns,opencode
-affaan-m/everything-claude-code,coding-standards,opencode
-affaan-m/everything-claude-code,compose-multiplatform-patterns,opencode
-affaan-m/everything-claude-code,configure-ecc,opencode
-affaan-m/everything-claude-code,continuous-learning,opencode
-affaan-m/everything-claude-code,continuous-learning-v2,opencode
-affaan-m/everything-claude-code,cpp-coding-standards,opencode
-affaan-m/everything-claude-code,cpp-testing,opencode
-affaan-m/everything-claude-code,django-patterns,opencode
-affaan-m/everything-claude-code,django-tdd,opencode
-affaan-m/everything-claude-code,django-verification,opencode
-affaan-m/everything-claude-code,e2e-testing,opencode
-affaan-m/everything-claude-code,eval-harness,opencode
-affaan-m/everything-claude-code,frontend-patterns,opencode
-affaan-m/everything-claude-code,frontend-slides,opencode
-affaan-m/everything-claude-code,golang-patterns,opencode
-affaan-m/everything-claude-code,golang-testing,opencode
-affaan-m/everything-claude-code,iterative-retrieval,opencode
-affaan-m/everything-claude-code,java-coding-standards,opencode
-affaan-m/everything-claude-code,kotlin-coroutines-flows,opencode
-affaan-m/everything-claude-code,kotlin-exposed-patterns,opencode
-affaan-m/everything-claude-code,kotlin-ktor-patterns,opencode
-affaan-m/everything-claude-code,kotlin-patterns,opencode
-affaan-m/everything-claude-code,kotlin-testing,opencode
-affaan-m/everything-claude-code,laravel-plugin-discovery,opencode
-affaan-m/everything-claude-code,laravel-verification,opencode
-affaan-m/everything-claude-code,laravel-patterns,opencode
-affaan-m/everything-claude-code,laravel-tdd,opencode
-affaan-m/everything-claude-code,mcp-server-patterns,opencode
-affaan-m/everything-claude-code,perl-patterns,opencode
-affaan-m/everything-claude-code,perl-testing,opencode
-affaan-m/everything-claude-code,plankton-code-quality,opencode
-affaan-m/everything-claude-code,project-guidelines-example,opencode
-affaan-m/everything-claude-code,python-patterns,opencode
-affaan-m/everything-claude-code,python-testing,opencode
-affaan-m/everything-claude-code,rust-patterns,opencode
-affaan-m/everything-claude-code,rust-testing,opencode
-affaan-m/everything-claude-code,springboot-patterns,opencode
-affaan-m/everything-claude-code,springboot-tdd,opencode
-affaan-m/everything-claude-code,springboot-verification,opencode
-affaan-m/everything-claude-code,strategic-compact,opencode
-affaan-m/everything-claude-code,tdd-workflow,opencode
-affaan-m/everything-claude-code,verification-loop,opencode
-anthropics/skills,algorithmic-art,opencode
-anthropics/skills,docx,opencode
-anthropics/skills,frontend-design,opencode
-anthropics/skills,pdf,opencode
-anthropics/skills,pptx,opencode
-anthropics/skills,skill-creator,opencode
-anthropics/skills,xlsx,opencode
-apollographql/skills,rust-best-practices,opencode
-avdlee/swift-testing-agent-skill,swift-testing-expert,opencode
-avdlee/swiftui-agent-skill,swiftui-expert-skill,opencode
-avdlee/swiftui-agent-skill,update-swiftui-apis,opencode
-avdlee/xcode-build-optimization-agent-skill,spm-build-analysis,opencode
-avdlee/xcode-build-optimization-agent-skill,xcode-build-benchmark,opencode
-avdlee/xcode-build-optimization-agent-skill,xcode-build-fixer,opencode
-avdlee/xcode-build-optimization-agent-skill,xcode-build-orchestrator,opencode
-avdlee/xcode-build-optimization-agent-skill,xcode-compilation-analyzer,opencode
-avdlee/xcode-build-optimization-agent-skill,xcode-project-analyzer,opencode
-brianlovin/claude-config,simplify,opencode
-coreyhaines31/marketingskills,copywriting,opencode
-coreyhaines31/marketingskills,seo-audit,opencode
-davila7/claude-code-templates,markitdown,opencode
-figma/mcp-server-guide,figma-implement-design,opencode
-figma/mcp-server-guide,figma-create-design-system-rules,opencode
-github/awesome-copilot,git-commit,opencode
-github/awesome-copilot,create-readme,opencode
-github/awesome-copilot,documentation-writer,opencode
-gracefullight/stock-checker,stock-analysis,opencode
-JuliusBrussee/caveman,caveman-commit,opencode
-JuliusBrussee/caveman,caveman-help,opencode
-JuliusBrussee/caveman,caveman-review,opencode
-JuliusBrussee/caveman,caveman,opencode
-JuliusBrussee/caveman,caveman-compress,opencode
-jeffallan/claude-skills,golang-pro,opencode
-jeffallan/claude-skills,laravel-specialist,opencode
-microck/ordinary-claude-skills,javascript-testing-patterns,opencode
-obra/superpowers,receiving-code-review,opencode
-obra/superpowers,requesting-code-review,opencode
-remotion-dev/skills,remotion-best-practices,opencode
-softaworks/agent-toolkit,lesson-learned,opencode
-vercel-labs/agent-browser,agent-browser,opencode
-vercel-labs/next-skills,next-best-practices,opencode
-vercel-labs/agent-skills,vercel-react-native-skills,opencode
-vercel-labs/agent-skills,vercel-react-best-practices,opencode
-vercel-labs/agent-skills,web-design-guidelines,opencode
-vercel-labs/skills,find-skills,opencode
-wshobson/agents,async-python-patterns,opencode
-wshobson/agents,modern-javascript-patterns,opencode
-wshobson/agents,python-packaging,opencode
-wshobson/agents,python-performance-optimization,opencode
-wshobson/agents,python-testing-patterns,opencode
-wshobson/agents,typescript-advanced-types,opencode
+https://github.com/5kahoisaac/opencode-historian/tree/main/src,mnemonics,opencode claude-code codex
+affaan-m/everything-claude-code,ai-regression-testing,opencode claude-code codex
+affaan-m/everything-claude-code,android-clean-architecture,opencode claude-code codex
+affaan-m/everything-claude-code,api-design,opencode claude-code codex
+affaan-m/everything-claude-code,backend-patterns,opencode claude-code codex
+affaan-m/everything-claude-code,coding-standards,opencode claude-code codex
+affaan-m/everything-claude-code,compose-multiplatform-patterns,opencode claude-code codex
+affaan-m/everything-claude-code,configure-ecc,opencode claude-code codex
+affaan-m/everything-claude-code,continuous-learning,opencode claude-code codex
+affaan-m/everything-claude-code,continuous-learning-v2,opencode claude-code codex
+affaan-m/everything-claude-code,cpp-coding-standards,opencode claude-code codex
+affaan-m/everything-claude-code,cpp-testing,opencode claude-code codex
+affaan-m/everything-claude-code,django-patterns,opencode claude-code codex
+affaan-m/everything-claude-code,django-tdd,opencode claude-code codex
+affaan-m/everything-claude-code,django-verification,opencode claude-code codex
+affaan-m/everything-claude-code,e2e-testing,opencode claude-code codex
+affaan-m/everything-claude-code,eval-harness,opencode claude-code codex
+affaan-m/everything-claude-code,frontend-patterns,opencode claude-code codex
+affaan-m/everything-claude-code,frontend-slides,opencode claude-code codex
+affaan-m/everything-claude-code,golang-patterns,opencode claude-code codex
+affaan-m/everything-claude-code,golang-testing,opencode claude-code codex
+affaan-m/everything-claude-code,iterative-retrieval,opencode claude-code codex
+affaan-m/everything-claude-code,java-coding-standards,opencode claude-code codex
+affaan-m/everything-claude-code,kotlin-coroutines-flows,opencode claude-code codex
+affaan-m/everything-claude-code,kotlin-exposed-patterns,opencode claude-code codex
+affaan-m/everything-claude-code,kotlin-ktor-patterns,opencode claude-code codex
+affaan-m/everything-claude-code,kotlin-patterns,opencode claude-code codex
+affaan-m/everything-claude-code,kotlin-testing,opencode claude-code codex
+affaan-m/everything-claude-code,laravel-plugin-discovery,opencode claude-code codex
+affaan-m/everything-claude-code,laravel-verification,opencode claude-code codex
+affaan-m/everything-claude-code,laravel-patterns,opencode claude-code codex
+affaan-m/everything-claude-code,laravel-tdd,opencode claude-code codex
+affaan-m/everything-claude-code,mcp-server-patterns,opencode claude-code codex
+affaan-m/everything-claude-code,perl-patterns,opencode claude-code codex
+affaan-m/everything-claude-code,perl-testing,opencode claude-code codex
+affaan-m/everything-claude-code,plankton-code-quality,opencode claude-code codex
+affaan-m/everything-claude-code,project-guidelines-example,opencode claude-code codex
+affaan-m/everything-claude-code,python-patterns,opencode claude-code codex
+affaan-m/everything-claude-code,python-testing,opencode claude-code codex
+affaan-m/everything-claude-code,rust-patterns,opencode claude-code codex
+affaan-m/everything-claude-code,rust-testing,opencode claude-code codex
+affaan-m/everything-claude-code,springboot-patterns,opencode claude-code codex
+affaan-m/everything-claude-code,springboot-tdd,opencode claude-code codex
+affaan-m/everything-claude-code,springboot-verification,opencode claude-code codex
+affaan-m/everything-claude-code,strategic-compact,opencode claude-code codex
+affaan-m/everything-claude-code,tdd-workflow,opencode claude-code codex
+affaan-m/everything-claude-code,verification-loop,opencode claude-code codex
+anthropics/skills,algorithmic-art,opencode claude-code codex
+anthropics/skills,docx,opencode claude-code codex
+anthropics/skills,frontend-design,opencode claude-code codex
+anthropics/skills,pdf,opencode claude-code codex
+anthropics/skills,pptx,opencode claude-code codex
+anthropics/skills,skill-creator,opencode claude-code codex
+anthropics/skills,xlsx,opencode claude-code codex
+apollographql/skills,rust-best-practices,opencode claude-code codex
+avdlee/swift-testing-agent-skill,swift-testing-expert,opencode claude-code codex
+avdlee/swiftui-agent-skill,swiftui-expert-skill,opencode claude-code codex
+avdlee/swiftui-agent-skill,update-swiftui-apis,opencode claude-code codex
+avdlee/xcode-build-optimization-agent-skill,spm-build-analysis,opencode claude-code codex
+avdlee/xcode-build-optimization-agent-skill,xcode-build-benchmark,opencode claude-code codex
+avdlee/xcode-build-optimization-agent-skill,xcode-build-fixer,opencode claude-code codex
+avdlee/xcode-build-optimization-agent-skill,xcode-build-orchestrator,opencode claude-code codex
+avdlee/xcode-build-optimization-agent-skill,xcode-compilation-analyzer,opencode claude-code codex
+avdlee/xcode-build-optimization-agent-skill,xcode-project-analyzer,opencode claude-code codex
+brianlovin/claude-config,simplify,opencode claude-code codex
+coreyhaines31/marketingskills,copywriting,opencode claude-code codex
+coreyhaines31/marketingskills,seo-audit,opencode claude-code codex
+davila7/claude-code-templates,markitdown,opencode claude-code codex
+figma/mcp-server-guide,figma-implement-design,opencode claude-code codex
+figma/mcp-server-guide,figma-create-design-system-rules,opencode claude-code codex
+github/awesome-copilot,git-commit,opencode claude-code codex
+github/awesome-copilot,create-readme,opencode claude-code codex
+github/awesome-copilot,documentation-writer,opencode claude-code codex
+gracefullight/stock-checker,stock-analysis,opencode claude-code codex
+JuliusBrussee/caveman,caveman-commit,opencode claude-code codex
+JuliusBrussee/caveman,caveman-help,opencode claude-code codex
+JuliusBrussee/caveman,caveman-review,opencode claude-code codex
+JuliusBrussee/caveman,caveman,opencode claude-code codex
+JuliusBrussee/caveman,caveman-compress,opencode claude-code codex
+jeffallan/claude-skills,golang-pro,opencode claude-code codex
+jeffallan/claude-skills,laravel-specialist,opencode claude-code codex
+microck/ordinary-claude-skills,javascript-testing-patterns,opencode claude-code codex
+obra/superpowers,receiving-code-review,opencode claude-code codex
+obra/superpowers,requesting-code-review,opencode claude-code codex
+remotion-dev/skills,remotion-best-practices,opencode claude-code codex
+softaworks/agent-toolkit,lesson-learned,opencode claude-code codex
+vercel-labs/agent-browser,agent-browser,opencode claude-code codex
+vercel-labs/next-skills,next-best-practices,opencode claude-code codex
+vercel-labs/agent-skills,vercel-react-native-skills,opencode claude-code codex
+vercel-labs/agent-skills,vercel-react-best-practices,opencode claude-code codex
+vercel-labs/agent-skills,web-design-guidelines,opencode claude-code codex
+vercel-labs/skills,find-skills,opencode claude-code codex
+wshobson/agents,async-python-patterns,opencode claude-code codex
+wshobson/agents,modern-javascript-patterns,opencode claude-code codex
+wshobson/agents,python-packaging,opencode claude-code codex
+wshobson/agents,python-performance-optimization,opencode claude-code codex
+wshobson/agents,python-testing-patterns,opencode claude-code codex
+wshobson/agents,typescript-advanced-types,opencode claude-code codex
