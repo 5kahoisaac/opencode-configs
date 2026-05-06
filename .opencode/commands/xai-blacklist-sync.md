@@ -46,7 +46,7 @@ Apply the following filters to the full list of models:
     - Never blacklist models that are clearly coding-focused (e.g. `grok-code-fast-1` or future equivalents).
 
 4. **Keep current flagship models**
-    - All models belonging to the latest families (Grok-4.20*, Grok-4.1*, Grok-4*, etc.) are **excluded** from the blacklist.
+    - All models belonging to the latest families (Grok-4.20*, Grok-4.1*, Grok-4*, Grok-Beta, etc.) are **excluded** from the blacklist.
 
 ### Phase 4: Update opencode.json
 

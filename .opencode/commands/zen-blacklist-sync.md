@@ -29,29 +29,7 @@ The blacklist is for **paid-only** models. Free-tier models must remain availabl
 
 **Always cross-reference with official provider pricing** - do not rely solely on Zen's classification.
 
-### Phase 2: Free Tier Verification (MANDATORY)
-
-**Zen support BYOK, you MUST cross-check provider's official pricing to identify free-tier models.**
-
-**Process:**
-1. Take each Zen model ID from your candidate list
-2. Map it to the official provider's model naming (e.g., `gemini-3.1-pro` → Google Gemini)
-3. Check the official pricing page for that provider
-4. Look for "Free" tier, "Free of charge", or "$0.00" pricing
-5. If found → **REMOVE from blacklist candidate list**
-
-**Critical provider checks:**
-
-- **Google Gemini**: `https://ai.google.dev/gemini-api/docs/pricing` (MUST get the data!!!, DO NOT SKIP this step)
-    - Look for models marked "Free of charge" in the pricing table
-    - Be careful with variant names: `gemini-3-flash` vs `gemini-3-flash-preview` vs `gemini-3.1-flash-lite-preview`
-    - If uncertain about a variant, check if the base model name has a free tier
-
-**Rule:** If ANY model ID (or close variant) has a free tier on the provider pricing page, **REMOVE it from the blacklist candidate list**.
-
-**When uncertain:** Default to **REMOVE** from blacklist. It is better to accidentally allow a paid model than to block a free one.
-
-### Phase 3: Update opencode.json
+### Phase 2: Update opencode.json
 
 1. Read `./opencode.json`
 2. Update `provider.opencode.blacklist`
@@ -87,11 +65,3 @@ After updating:
   }
 }
 ```
-
-## Historical Incident
-
-**Date:** 2026-04-19
-**Issue:** `gemini-3-flash` was incorrectly added to blacklist
-**Root Cause:** Trusted incomplete librarian result showing only paid pricing rows, missed free tier
-**Fix:** Removed `gemini-3-flash`, created this documentation
-**Lesson:** Always verify official pricing. When uncertain, remove from blacklist.
