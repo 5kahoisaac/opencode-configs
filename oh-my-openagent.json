@@ -278,10 +278,12 @@
   },
   "claude_code": {
     "plugins_override": {
+      "everything-claude-code@everything-claude-code": false,
       "serena@claude-plugins-official": false,
       "context7@claude-plugins-official": false,
       "figma@claude-plugins-official": false,
-      "atlassian@claude-plugins-official": false
+      "atlassian@claude-plugins-official": false,
+      "codex@openai-codex": false
     }
   },
   "git_master": {
