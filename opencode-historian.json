@@ -1,5 +1,5 @@
 {
-  "model": "github-copilot/claude-sonnet-4.6",
+  "model": "openai/gpt-5.4-mini",
   "disabledMcps": [],
   "autoCompound": true,
   "debug": false

@@ -166,7 +166,7 @@ functions:
 | **oh-my-openagent**    | `multimodal-looker` | Visual Analysis           | `openai/gpt-5.5`                   | `medium` | `github-copilot/gpt-5.5`, `nvidia/moonshotai/kimi-k2.6`, `zai-coding-plan/glm-4.6v`, `opencode/gpt-5-nano`                                                                        | Analyzes visual content, images, and multimodal inputs for comprehensive understanding            |
 | **oh-my-openagent**    | `explore`           | Codebase Analysis         | `nvidia/minimaxai/minimax-m2.7`    | —        | `github-copilot/gpt-5.4-mini`, `openai/gpt-5.4-mini`, `anthropic/claude-haiku-4-5`, `openai/gpt-5.4-nano` | Performs rapid codebase navigation, pattern detection, and symbol exploration                     |
 | **oh-my-openagent**    | `librarian`         | Research Specialist       | `nvidia/minimaxai/minimax-m2.7`    | —        | `github-copilot/gpt-5.4-mini`, `openai/gpt-5.4-mini`, `anthropic/claude-haiku-4-5`, `openai/gpt-5.4-nano` | Handles documentation lookup, external research, and information retrieval tasks                  |
-| **opencode-historian** | `historian`         | Memory Management         | `github-copilot/claude-sonnet-4.6` | —        | —                                                                                                                                                                                | Manages persistent memories, context retention, and semantic search across project knowledge base |
+| **opencode-historian** | `historian`         | Memory Management         | `openai/gpt-5.4-mini`              | —        | —                                                                                                                                                                                | Manages persistent memories, context retention, and semantic search across project knowledge base |
 
 **Currency API Rate Limits and Suggested Setup**
 
@@ -616,7 +616,7 @@ learnings, preferences, issues, and contextual information.
   preferences, context)
 - **Cross-Reference Management**: Handles circular references between related memories
 
-The historian agent uses the `github-copilot/claude-sonnet-4.6` model configured in `opencode-historian.json` for fast,
+The historian agent uses the `openai/gpt-5.4-mini` model configured in `opencode-historian.json` for fast,
 efficient memory operations.
 
 
