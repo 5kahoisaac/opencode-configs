@@ -74,11 +74,10 @@ The following AI providers are **enabled** in this setup (configured in `opencod
 
 **GitHub Copilot**
 
-GitHub Copilot provides access to a broad range of frontier models including Claude (Anthropic), GPT-5 (OpenAI),
-Gemini (Google), and Grok (xAI) through a unified API. This provider serves as the primary model source in this
-configuration, with `github-copilot/gpt-5.4` used as the default model and `github-copilot/claude-haiku-4.5` as
-the small model for quick tasks. The `explore` agent is assigned `github-copilot/grok-code-fast-1` for fast code
-understanding and pattern recognition.
+GitHub Copilot provides access to a broad range of frontier models including GPT-5 (OpenAI), Gemini (Google), and
+Grok (xAI) through a unified API. This provider serves as the primary model source in this configuration, with
+`github-copilot/gpt-5.4` used as the default model and `github-copilot/claude-haiku-4.5` as the small model for
+quick tasks.
 
 GitHub Copilot's multi-model access enables flexible routing across different model families based on task requirements.
 
@@ -116,6 +115,15 @@ MiniMax models (M2.7, M2.5). This provider is used in this configuration for cos
 models like `nvidia/moonshotai/kimi-k2.6` and `nvidia/minimaxai/minimax-m2.7`, which serve as primary and fallback
 models for several agents including `explore`, `librarian`, `sisyphus-junior`, and `atlas`.
 
+**Anthropic**
+
+The Anthropic provider is configured via the `opencode-with-claude` plugin, which routes requests through a local
+proxy at `http://127.0.0.1:3456` instead of a direct API key. This enables Claude Max/Pro subscription-backed model
+access inside the OpenCode runtime. Models including `anthropic/claude-opus-4-7`, `anthropic/claude-sonnet-4-6`, and
+`anthropic/claude-haiku-4-5` serve as primary models for several agents including `sisyphus`, `metis`, and
+`prometheus` (claude-opus-4-7 max), `atlas` and `sisyphus-junior` (claude-sonnet-4-6), and as fallbacks in the
+`quick` and `unspecified-high` categories.
+
 #### Provider Blacklist Strategy
 
 The provider configuration also uses blacklist rules to keep model selection focused and predictable.
@@ -147,17 +155,17 @@ functions:
 
 | Source                 | Agent Name          | Role                      | Model                              | Variant  | Fallback Models                                                                                                                                                                  | Description                                                                                       |
 |:-----------------------|:--------------------|:--------------------------|:-----------------------------------|:---------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------|
-| **oh-my-openagent**    | `sisyphus`          | Orchestrator              | `github-copilot/claude-opus-4.7`   | `max`    | `nvidia/moonshotai/kimi-k2.6`, `openai/gpt-5.5` (medium), `github-copilot/gpt-5.4` (medium), `zai-coding-plan/glm-5-turbo`, `opencode/big-pickle`                                  | Primary orchestrator for complex, multi-step tasks and agent coordination                         |
-| **oh-my-openagent**    | `metis`             | Scope Analysis            | `github-copilot/claude-opus-4.7`   | `max`    | `openai/gpt-5.5` (high), `github-copilot/gpt-5.5` (high), `zai-coding-plan/glm-5.1`, `nvidia/moonshotai/kimi-k2.6`                                                               | Analyzes task scope, identifies ambiguities, and provides pre-planning consultation               |
-| **oh-my-openagent**    | `prometheus`        | Planning Specialist       | `github-copilot/claude-opus-4.7`   | `max`    | `openai/gpt-5.5` (high), `github-copilot/gpt-5.5` (high), `zai-coding-plan/glm-5.1`, `github-copilot/gemini-3.1-pro-preview`                                                      | Creates detailed plans and work breakdowns for complex projects and feature implementations       |
-| **oh-my-openagent**    | `atlas`             | Knowledge Specialist      | `github-copilot/claude-sonnet-4.6` | —        | `nvidia/moonshotai/kimi-k2.6`, `openai/gpt-5.5` (medium), `github-copilot/gpt-5.5` (medium), `nvidia/minimaxai/minimax-m2.7`                                                       | Manages and retrieves contextual knowledge, architectural decisions, and project conventions      |
-| **oh-my-openagent**    | `sisyphus-junior`   | Lightweight Orchestrator  | `github-copilot/claude-sonnet-4.6` | —        | `nvidia/moonshotai/kimi-k2.6`, `openai/gpt-5.5` (medium), `github-copilot/gpt-5.5` (medium), `nvidia/minimaxai/minimax-m2.7`, `opencode/big-pickle`                               | Lightweight orchestrator for category-optimized task delegation via the task() system             |
+| **oh-my-openagent**    | `sisyphus`          | Orchestrator              | `anthropic/claude-opus-4-7`        | `max`    | `nvidia/moonshotai/kimi-k2.6`, `openai/gpt-5.5` (medium), `github-copilot/gpt-5.4` (medium), `zai-coding-plan/glm-5-turbo`, `opencode/big-pickle`                                  | Primary orchestrator for complex, multi-step tasks and agent coordination                         |
+| **oh-my-openagent**    | `metis`             | Scope Analysis            | `anthropic/claude-opus-4-7`        | `max`    | `openai/gpt-5.5` (high), `github-copilot/gpt-5.5` (high), `zai-coding-plan/glm-5.1`, `nvidia/moonshotai/kimi-k2.6`                                                               | Analyzes task scope, identifies ambiguities, and provides pre-planning consultation               |
+| **oh-my-openagent**    | `prometheus`        | Planning Specialist       | `anthropic/claude-opus-4-7`        | `max`    | `openai/gpt-5.5` (high), `github-copilot/gpt-5.5` (high), `zai-coding-plan/glm-5.1`, `github-copilot/gemini-3.1-pro-preview`                                                      | Creates detailed plans and work breakdowns for complex projects and feature implementations       |
+| **oh-my-openagent**    | `atlas`             | Knowledge Specialist      | `anthropic/claude-sonnet-4-6`      | —        | `nvidia/moonshotai/kimi-k2.6`, `openai/gpt-5.5` (medium), `github-copilot/gpt-5.5` (medium), `nvidia/minimaxai/minimax-m2.7`                                                       | Manages and retrieves contextual knowledge, architectural decisions, and project conventions      |
+| **oh-my-openagent**    | `sisyphus-junior`   | Lightweight Orchestrator  | `anthropic/claude-sonnet-4-6`      | —        | `nvidia/moonshotai/kimi-k2.6`, `openai/gpt-5.5` (medium), `github-copilot/gpt-5.5` (medium), `nvidia/minimaxai/minimax-m2.7`, `opencode/big-pickle`                               | Lightweight orchestrator for category-optimized task delegation via the task() system             |
 | **oh-my-openagent**    | `hephaestus`        | Implementation Specialist | `openai/gpt-5.5`                   | `medium` | `github-copilot/gpt-5.5` (medium)                                                                                                                                                | Executes implementation tasks with balanced capability and efficiency                             |
-| **oh-my-openagent**    | `oracle`            | Strategic Advisor         | `openai/gpt-5.5`                   | `high`   | `github-copilot/gpt-5.5` (high), `github-copilot/gemini-3.1-pro-preview` (high), `github-copilot/claude-opus-4.7` (max), `zai-coding-plan/glm-5.1`                                | Provides high-level architectural guidance and complex reasoning for critical decisions           |
-| **oh-my-openagent**    | `momus`             | Quality Review            | `openai/gpt-5.5`                   | `xhigh`  | `github-copilot/gpt-5.5` (xhigh), `github-copilot/claude-opus-4.7` (max), `github-copilot/gemini-3.1-pro-preview` (high), `zai-coding-plan/glm-5.1`                               | Reviews work plans and implementations for quality, completeness, and adherence to best practices |
+| **oh-my-openagent**    | `oracle`            | Strategic Advisor         | `openai/gpt-5.5`                   | `high`   | `github-copilot/gpt-5.5` (high), `github-copilot/gemini-3.1-pro-preview` (high), `anthropic/claude-opus-4-7` (max), `zai-coding-plan/glm-5.1`                                | Provides high-level architectural guidance and complex reasoning for critical decisions           |
+| **oh-my-openagent**    | `momus`             | Quality Review            | `openai/gpt-5.5`                   | `xhigh`  | `github-copilot/gpt-5.5` (xhigh), `anthropic/claude-opus-4-7` (max), `github-copilot/gemini-3.1-pro-preview` (high), `zai-coding-plan/glm-5.1`                               | Reviews work plans and implementations for quality, completeness, and adherence to best practices |
 | **oh-my-openagent**    | `multimodal-looker` | Visual Analysis           | `openai/gpt-5.5`                   | `medium` | `github-copilot/gpt-5.5`, `nvidia/moonshotai/kimi-k2.6`, `zai-coding-plan/glm-4.6v`, `opencode/gpt-5-nano`                                                                        | Analyzes visual content, images, and multimodal inputs for comprehensive understanding            |
-| **oh-my-openagent**    | `explore`           | Codebase Analysis         | `nvidia/minimaxai/minimax-m2.7`    | —        | `github-copilot/grok-code-fast-1`, `xai/grok-code-fast-1`, `github-copilot/gpt-5.4-mini`, `openai/gpt-5.4-mini`, `github-copilot/claude-haiku-4.5`, `openai/gpt-5.4-nano`, `github-copilot/gpt-5.4-nano` | Performs rapid codebase navigation, pattern detection, and symbol exploration                     |
-| **oh-my-openagent**    | `librarian`         | Research Specialist       | `nvidia/minimaxai/minimax-m2.7`    | —        | `github-copilot/grok-code-fast-1`, `xai/grok-code-fast-1`, `github-copilot/gpt-5.4-mini`, `openai/gpt-5.4-mini`, `github-copilot/claude-haiku-4.5`, `openai/gpt-5.4-nano`, `github-copilot/gpt-5.4-nano` | Handles documentation lookup, external research, and information retrieval tasks                  |
+| **oh-my-openagent**    | `explore`           | Codebase Analysis         | `nvidia/minimaxai/minimax-m2.7`    | —        | `github-copilot/gpt-5.4-mini`, `openai/gpt-5.4-mini`, `anthropic/claude-haiku-4-5`, `openai/gpt-5.4-nano` | Performs rapid codebase navigation, pattern detection, and symbol exploration                     |
+| **oh-my-openagent**    | `librarian`         | Research Specialist       | `nvidia/minimaxai/minimax-m2.7`    | —        | `github-copilot/gpt-5.4-mini`, `openai/gpt-5.4-mini`, `anthropic/claude-haiku-4-5`, `openai/gpt-5.4-nano` | Handles documentation lookup, external research, and information retrieval tasks                  |
 | **opencode-historian** | `historian`         | Memory Management         | `github-copilot/claude-sonnet-4.6` | —        | —                                                                                                                                                                                | Manages persistent memories, context retention, and semantic search across project knowledge base |
 
 **Currency API Rate Limits and Suggested Setup**
@@ -200,14 +208,14 @@ appropriate models based on their category:
 
 | Category             | Model                                   | Variant  | Fallback Models                                                                                                                                                                                              | Description                                                         |
 |:---------------------|:----------------------------------------|:---------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------|
-| `visual-engineering` | `github-copilot/gemini-3.1-pro-preview` | `high`   | `zai-coding-plan/glm-5`, `github-copilot/claude-opus-4.7` (max), `zai-coding-plan/glm-5.1`, `nvidia/moonshotai/kimi-k2.6`                                                                                     | Frontend, UI/UX, design, styling, and animation tasks               |
-| `ultrabrain`         | `openai/gpt-5.5`                        | `xhigh`  | `github-copilot/gpt-5.5` (xhigh), `github-copilot/gemini-3.1-pro-preview` (high), `github-copilot/claude-opus-4.7` (max), `zai-coding-plan/glm-5.1`                                                           | Hard logic-heavy tasks requiring deep reasoning                     |
-| `deep`               | `github-copilot/gpt-5.5`                | `medium` | `github-copilot/claude-opus-4.7` (max), `github-copilot/gemini-3.1-pro-preview` (high)                                                                                                                       | Goal-oriented autonomous problem-solving with thorough research     |
-| `artistry`           | `github-copilot/gemini-3.1-pro-preview` | `high`   | `github-copilot/claude-opus-4.7` (max), `openai/gpt-5.5`, `github-copilot/gpt-5.5`                                                                                                                           | Complex problem-solving with unconventional, creative approaches    |
-| `quick`              | `github-copilot/gpt-5.4-mini`           | —        | `openai/gpt-5.4-mini`, `github-copilot/claude-haiku-4.5`, `github-copilot/gemini-3-flash-preview`, `nvidia/minimaxai/minimax-m2.7`, `opencode/gpt-5-nano`                                                     | Trivial tasks, single file changes, typo fixes                      |
-| `unspecified-low`    | `github-copilot/claude-sonnet-4.6`      | —        | `github-copilot/gpt-5.3-codex` (medium), `openai/gpt-5.3-codex` (medium), `github-copilot/gemini-3-flash-preview`, `nvidia/minimaxai/minimax-m2.7`                                                            | Low-effort tasks that don't fit other categories                    |
-| `unspecified-high`   | `github-copilot/claude-opus-4.7`        | `max`    | `openai/gpt-5.5` (high), `github-copilot/gpt-5.5` (high), `nvidia/moonshotai/kimi-k2.6`, `zai-coding-plan/glm-5.1`                                                                                           | High-effort tasks that don't fit other categories                   |
-| `writing`            | `nvidia/moonshotai/kimi-k2.6`           | —        | `github-copilot/gemini-3-flash-preview`, `github-copilot/claude-sonnet-4.6`, `nvidia/minimaxai/minimax-m2.7`                                                                                                  | Documentation, prose, and technical writing tasks                   |
+| `visual-engineering` | `github-copilot/gemini-3.1-pro-preview` | `high`   | `zai-coding-plan/glm-5`, `anthropic/claude-opus-4-7` (max), `zai-coding-plan/glm-5.1`, `nvidia/moonshotai/kimi-k2.6`                                                                                     | Frontend, UI/UX, design, styling, and animation tasks               |
+| `ultrabrain`         | `openai/gpt-5.5`                        | `xhigh`  | `github-copilot/gpt-5.5` (xhigh), `github-copilot/gemini-3.1-pro-preview` (high), `anthropic/claude-opus-4-7` (max), `zai-coding-plan/glm-5.1`                                                           | Hard logic-heavy tasks requiring deep reasoning                     |
+| `deep`               | `github-copilot/gpt-5.5`                | `medium` | `anthropic/claude-opus-4-7` (max), `github-copilot/gemini-3.1-pro-preview` (high)                                                                                                                       | Goal-oriented autonomous problem-solving with thorough research     |
+| `artistry`           | `github-copilot/gemini-3.1-pro-preview` | `high`   | `anthropic/claude-opus-4-7` (max), `openai/gpt-5.5`, `github-copilot/gpt-5.5`                                                                                                                           | Complex problem-solving with unconventional, creative approaches    |
+| `quick`              | `github-copilot/gpt-5.4-mini`           | —        | `openai/gpt-5.4-mini`, `anthropic/claude-haiku-4-5`, `github-copilot/gemini-3-flash-preview`, `nvidia/minimaxai/minimax-m2.7`, `opencode/gpt-5-nano`                                                     | Trivial tasks, single file changes, typo fixes                      |
+| `unspecified-low`    | `anthropic/claude-sonnet-4-6`      | —        | `github-copilot/gpt-5.3-codex` (medium), `openai/gpt-5.3-codex` (medium), `github-copilot/gemini-3-flash-preview`, `nvidia/minimaxai/minimax-m2.7`                                                            | Low-effort tasks that don't fit other categories                    |
+| `unspecified-high`   | `anthropic/claude-opus-4-7`        | `max`    | `openai/gpt-5.5` (high), `github-copilot/gpt-5.5` (high), `nvidia/moonshotai/kimi-k2.6`, `zai-coding-plan/glm-5.1`                                                                                           | High-effort tasks that don't fit other categories                   |
+| `writing`            | `nvidia/moonshotai/kimi-k2.6`           | —        | `github-copilot/gemini-3-flash-preview`, `anthropic/claude-sonnet-4-6`, `nvidia/minimaxai/minimax-m2.7`                                                                                                  | Documentation, prose, and technical writing tasks                   |
 | `git`                | `opencode/gpt-5-nano`                   | —        | `opencode/big-pickle`, `zai-coding-plan/glm-4.5-air`                                                                                                                                                         | All git operations with focus on atomic commits and safe operations |
 
 These category assignments enable intelligent task routing, ensuring each type of work is handled by the most suitable
@@ -227,34 +235,25 @@ The `oh-my-openagent.json` file includes sophisticated background task managemen
 | `openai`                                | 5     | Maximum concurrent tasks for OpenAI provider              |
 | `opencode`                              | 10    | Maximum concurrent tasks for OpenCode provider            |
 | `zai-coding-plan`                       | 10    | Maximum concurrent tasks for Z.ai provider                |
-| `github-copilot`                        | 3     | Maximum concurrent tasks for GitHub Copilot provider      |
+| `anthropic`                             | 5     | Maximum concurrent tasks for Anthropic provider           |
+| `github-copilot`                        | 5     | Maximum concurrent tasks for GitHub Copilot provider      |
 | **Model Concurrency**                   |       | Per-model fine-grained concurrency limits                 |
-| `openai/gpt-5.5`                        | 3     | Concurrency limit for OpenAI GPT-5.5                      |
-| `openai/gpt-5.4`                        | 3     | Concurrency limit for OpenAI GPT-5.4                      |
+| `openai/gpt-5.5`                        | 1     | Concurrency limit for OpenAI GPT-5.5                      |
+| `openai/gpt-5.4`                        | 2     | Concurrency limit for OpenAI GPT-5.4                      |
 | `openai/gpt-5.3-codex`                  | 3     | Concurrency limit for OpenAI GPT-5.3-codex                |
 | `openai/gpt-5.4-mini`                   | 5     | Concurrency limit for OpenAI GPT-5.4-mini                 |
 | `openai/gpt-5.4-nano`                   | 8     | Concurrency limit for OpenAI GPT-5.4-nano                 |
-| `opencode/big-pickle`                   | 10    | Concurrency limit for OpenCode Big Pickle                 |
-| `opencode/gpt-5-nano`                   | 10    | Concurrency limit for OpenCode GPT-5 Nano                 |
+| `anthropic/claude-opus-4-7`             | 1     | Concurrency limit for Claude Opus 4.7                     |
+| `anthropic/claude-opus-4-6`             | 2     | Concurrency limit for Claude Opus 4.6                     |
+| `anthropic/claude-opus-4-5`             | 2     | Concurrency limit for Claude Opus 4.5                     |
+| `anthropic/claude-sonnet-4-6`           | 3     | Concurrency limit for Claude Sonnet 4.6                   |
+| `anthropic/claude-sonnet-4-5`           | 3     | Concurrency limit for Claude Sonnet 4.5                   |
+| `anthropic/claude-haiku-4-5`            | 6     | Concurrency limit for Claude Haiku 4.5                    |
 | `zai-coding-plan/glm-4.5-air`           | 5     | Concurrency limit for GLM-4.5-air model                   |
 | `zai-coding-plan/glm-4.7`               | 2     | Concurrency limit for GLM-4.7 model                       |
 | `zai-coding-plan/glm-5`                 | 2     | Concurrency limit for GLM-5 model                         |
 | `zai-coding-plan/glm-5-turbo`           | 1     | Concurrency limit for GLM-5-turbo model                   |
 | `zai-coding-plan/glm-5.1`               | 10    | Concurrency limit for GLM-5.1 model                       |
-| `github-copilot/claude-opus-4.7`        | 1     | Concurrency limit for Claude Opus 4.7                     |
-| `github-copilot/claude-opus-4.6`        | 2     | Concurrency limit for Claude Opus 4.6                     |
-| `github-copilot/claude-opus-4.5`        | 2     | Concurrency limit for Claude Opus 4.5                     |
-| `github-copilot/claude-sonnet-4.6`      | 3     | Concurrency limit for Claude Sonnet 4.6                   |
-| `github-copilot/claude-sonnet-4.5`      | 3     | Concurrency limit for Claude Sonnet 4.5                   |
-| `github-copilot/claude-haiku-4.5`       | 6     | Concurrency limit for Claude Haiku 4.5                    |
-| `github-copilot/gpt-5.5`                | 2     | Concurrency limit for GPT-5.5                             |
-| `github-copilot/gpt-5.4`                | 3     | Concurrency limit for GPT-5.4                             |
-| `github-copilot/gpt-5.3-codex`          | 3     | Concurrency limit for GPT-5.3-codex                       |
-| `github-copilot/gpt-5.4-mini`           | 5     | Concurrency limit for GPT-5.4-mini                        |
-| `github-copilot/gpt-5.4-nano`           | 8     | Concurrency limit for GPT-5.4-nano                        |
-| `github-copilot/gemini-3-flash-preview` | 6     | Concurrency limit for Gemini 3 Flash                      |
-| `github-copilot/gemini-3.1-pro-preview` | 3     | Concurrency limit for Gemini 3.1 Pro                      |
-| `github-copilot/grok-code-fast-1`       | 8     | Concurrency limit for Grok Code Fast 1                    |
 
 **Runtime Fallback Configuration**
 

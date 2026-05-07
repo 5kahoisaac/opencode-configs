@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/oh-my-opencode.schema.json",
   "agents": {
     "sisyphus": {
-      "model": "github-copilot/claude-opus-4.7",
+      "model": "anthropic/claude-opus-4-7",
       "variant": "max",
       "fallback_models": [
         "nvidia/moonshotai/kimi-k2.6",
@@ -19,7 +19,7 @@
       ]
     },
     "metis": {
-      "model": "github-copilot/claude-opus-4.7",
+      "model": "anthropic/claude-opus-4-7",
       "variant": "max",
       "fallback_models": [
         {
@@ -35,7 +35,7 @@
       ]
     },
     "prometheus": {
-      "model": "github-copilot/claude-opus-4.7",
+      "model": "anthropic/claude-opus-4-7",
       "variant": "max",
       "fallback_models": [
         {
@@ -51,7 +51,7 @@
       ]
     },
     "atlas": {
-      "model": "github-copilot/claude-sonnet-4.6",
+      "model": "anthropic/claude-sonnet-4-6",
       "fallback_models": [
         "nvidia/moonshotai/kimi-k2.6",
         {
@@ -88,7 +88,7 @@
           "variant": "high"
         },
         {
-          "model": "github-copilot/claude-opus-4.7",
+          "model": "anthropic/claude-opus-4-7",
           "variant": "max"
         },
         "zai-coding-plan/glm-5.1"
@@ -103,7 +103,7 @@
           "variant": "xhigh"
         },
         {
-          "model": "github-copilot/claude-opus-4.7",
+          "model": "anthropic/claude-opus-4-7",
           "variant": "max"
         },
         {
@@ -116,25 +116,19 @@
     "explore": {
       "model": "nvidia/minimaxai/minimax-m2.7",
       "fallback_models": [
-        "github-copilot/grok-code-fast-1",
-        "xai/grok-code-fast-1",
         "github-copilot/gpt-5.4-mini",
         "openai/gpt-5.4-mini",
-        "github-copilot/claude-haiku-4.5",
-        "openai/gpt-5.4-nano",
-        "github-copilot/gpt-5.4-nano"
+        "anthropic/claude-haiku-4-5",
+        "openai/gpt-5.4-nano"
       ]
     },
     "librarian": {
       "model": "nvidia/minimaxai/minimax-m2.7",
       "fallback_models": [
-        "github-copilot/grok-code-fast-1",
-        "xai/grok-code-fast-1",
         "github-copilot/gpt-5.4-mini",
         "openai/gpt-5.4-mini",
-        "github-copilot/claude-haiku-4.5",
-        "openai/gpt-5.4-nano",
-        "github-copilot/gpt-5.4-nano"
+        "anthropic/claude-haiku-4-5",
+        "openai/gpt-5.4-nano"
       ]
     },
     "multimodal-looker": {
@@ -148,7 +142,7 @@
       ]
     },
     "sisyphus-junior": {
-      "model": "github-copilot/claude-sonnet-4.6",
+      "model": "anthropic/claude-sonnet-4-6",
       "fallback_models": [
         "nvidia/moonshotai/kimi-k2.6",
         {
@@ -171,7 +165,7 @@
       "fallback_models": [
         "zai-coding-plan/glm-5",
         {
-          "model": "github-copilot/claude-opus-4.7",
+          "model": "anthropic/claude-opus-4-7",
           "variant": "max"
         },
         "zai-coding-plan/glm-5.1",
@@ -183,7 +177,7 @@
       "variant": "high",
       "fallback_models": [
         {
-          "model": "github-copilot/claude-opus-4.7",
+          "model": "anthropic/claude-opus-4-7",
           "variant": "max"
         },
         "openai/gpt-5.5",
@@ -203,7 +197,7 @@
           "variant": "high"
         },
         {
-          "model": "github-copilot/claude-opus-4.7",
+          "model": "anthropic/claude-opus-4-7",
           "variant": "max"
         },
         "zai-coding-plan/glm-5.1"
@@ -214,7 +208,7 @@
       "variant": "medium",
       "fallback_models": [
         {
-          "model": "github-copilot/claude-opus-4.7",
+          "model": "anthropic/claude-opus-4-7",
           "variant": "max"
         },
         {
@@ -227,14 +221,14 @@
       "model": "github-copilot/gpt-5.4-mini",
       "fallback_models": [
         "openai/gpt-5.4-mini",
-        "github-copilot/claude-haiku-4.5",
+        "anthropic/claude-haiku-4-5",
         "github-copilot/gemini-3-flash-preview",
         "nvidia/minimaxai/minimax-m2.7",
         "opencode/gpt-5-nano"
       ]
     },
     "unspecified-high": {
-      "model": "github-copilot/claude-opus-4.7",
+      "model": "anthropic/claude-opus-4-7",
       "variant": "max",
       "fallback_models": [
         {
@@ -250,7 +244,7 @@
       ]
     },
     "unspecified-low": {
-      "model": "github-copilot/claude-sonnet-4.6",
+      "model": "anthropic/claude-sonnet-4-6",
       "fallback_models": [
         {
           "model": "github-copilot/gpt-5.3-codex",
@@ -268,7 +262,7 @@
       "model": "nvidia/moonshotai/kimi-k2.6",
       "fallback_models": [
         "github-copilot/gemini-3-flash-preview",
-        "github-copilot/claude-sonnet-4.6",
+        "anthropic/claude-sonnet-4-6",
         "nvidia/minimaxai/minimax-m2.7"
       ]
     },
@@ -303,36 +297,27 @@
       "nvidia": 5,
       "openai": 5,
       "opencode": 10,
-      "zai-coding-plan": 10,
-      "github-copilot": 3
+      "anthropic": 5,
+      "github-copilot": 5,
+      "zai-coding-plan": 10
     },
     "modelConcurrency": {
-      "openai/gpt-5.5": 3,
-      "openai/gpt-5.4": 3,
+      "openai/gpt-5.5": 1,
+      "openai/gpt-5.4": 2,
       "openai/gpt-5.3-codex": 3,
       "openai/gpt-5.4-mini": 5,
       "openai/gpt-5.4-nano": 8,
-      "opencode/big-pickle": 10,
-      "opencode/gpt-5-nano": 10,
+      "anthropic/claude-opus-4-7": 1,
+      "anthropic/claude-opus-4-6": 2,
+      "anthropic/claude-opus-4-5": 2,
+      "anthropic/claude-sonnet-4.6": 3,
+      "anthropic/claude-sonnet-4-5": 3,
+      "anthropic/claude-haiku-4-5": 6,
       "zai-coding-plan/glm-4.5-air": 5,
       "zai-coding-plan/glm-4.7": 2,
       "zai-coding-plan/glm-5": 2,
       "zai-coding-plan/glm-5-turbo": 1,
-      "zai-coding-plan/glm-5.1": 10,
-      "github-copilot/claude-opus-4.7": 1,
-      "github-copilot/claude-opus-4.6": 2,
-      "github-copilot/claude-opus-4.5": 2,
-      "github-copilot/claude-sonnet-4.6": 3,
-      "github-copilot/claude-sonnet-4.5": 3,
-      "github-copilot/claude-haiku-4.5": 6,
-      "github-copilot/gpt-5.5": 2,
-      "github-copilot/gpt-5.4": 3,
-      "github-copilot/gpt-5.3-codex": 3,
-      "github-copilot/gpt-5.4-mini": 5,
-      "github-copilot/gpt-5.4-nano": 8,
-      "github-copilot/gemini-3-flash-preview": 6,
-      "github-copilot/gemini-3.1-pro-preview": 3,
-      "github-copilot/grok-code-fast-1": 8
+      "zai-coding-plan/glm-5.1": 10
     }
   },
   "runtime_fallback": {
