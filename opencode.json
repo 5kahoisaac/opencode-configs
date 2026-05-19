@@ -40,6 +40,7 @@
     "openai",
     "opencode",
     "anthropic",
+    "digitalocean",
     "zai-coding-plan",
     "github-copilot"
   ],
@@ -52,6 +53,7 @@
     },
     "opencode": {
       "blacklist": [
+        "claude-3-5-haiku",
         "claude-opus-4-7",
         "claude-opus-4-6",
         "claude-opus-4-5",
@@ -78,6 +80,7 @@
         "gpt-5.1-codex-mini",
         "gpt-5",
         "gpt-5-codex",
+        "gpt-5-nano",
         "glm-5.1",
         "glm-5",
         "minimax-m2.7",
@@ -104,10 +107,14 @@
         "grok-3-mini-fast",
         "grok-3-mini-fast-latest",
         "grok-3-mini-latest",
+        "grok-4",
         "grok-4-1-fast",
         "grok-4-1-fast-non-reasoning",
         "grok-4-fast",
         "grok-4-fast-non-reasoning",
+        "grok-imagine-image",
+        "grok-imagine-image-quality",
+        "grok-imagine-video",
         "grok-vision-beta"
       ]
     }
@@ -127,7 +134,7 @@
       "type": "local"
     },
     "github": {
-      "enabled": false,
+      "enabled": true,
       "headers": {
         "Authorization": "Bearer {env:GITHUB_PAT_TOKEN}"
       },
