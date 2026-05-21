@@ -42,14 +42,14 @@ The Makefile provides essential commands to manage the OpenCode configuration:
 
 | Command                   | Description                                                                                                                                |
 |:--------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------|
-| `make sync`               | Sync OpenCode configuration (`~/.config/opencode/`) and skills (`~/.agents/skills/`). Copies all configuration files, agents, and commands |
+| `make sync`               | Sync OpenCode configuration (`~/.config/opencode/`) and skills (`~/.agents/skills/`). Copies configuration files and any local agents/commands |
 | `make sync SKIP_SKILLS=1` | Sync configuration only, skipping the skills sync step                                                                                     |
 | `make sync-skills`        | Sync skills from `skills.csv` to global scope. Removes obsolete skills, installs missing ones, and updates all installed skills            |
 | `make help`               | Display available targets and their descriptions                                                                                           |
 
 **Workflow:**
 
-1. Run `make sync` to copy configuration files, agents, and commands to system locations
+1. Run `make sync` to copy configuration files and any local agents/commands to system locations
 2. The `sync` command automatically calls `sync-skills` to manage skills installation — pass `SKIP_SKILLS=1` to skip
    this step
 3. Use `make help` to see all available commands
@@ -91,8 +91,8 @@ high-frequency workflows.
 **Z.ai Coding Plan**
 
 Z.ai provides access to advanced GLM models. In this configuration, the GLM family is used for strategic reasoning,
-planning, visual fallback coverage, and multimodal fallback coverage, with `zai-coding-plan/glm-5`,
-`zai-coding-plan/glm-5.1`, `zai-coding-plan/glm-5v-turbo`, and lightweight 4.x variants such as
+planning, visual fallback coverage, and multimodal fallback coverage, with `zai-coding-plan/glm-5.1`,
+`zai-coding-plan/glm-5v-turbo`, and lightweight 4.x variants such as
 `zai-coding-plan/glm-4.5-air` assigned across specialist agents and task categories.
 
 **xAI (Grok)**
@@ -170,7 +170,7 @@ functions:
 
 | Source                 | Agent Name          | Role                      | Model                           | Variant  | Fallback Models                                                                                                                                                 | Description                                                                                       |
 |:-----------------------|:--------------------|:--------------------------|:--------------------------------|:---------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------|
-| **oh-my-openagent**    | `sisyphus`          | Orchestrator              | `digitalocean/kimi-k2.6`        | —        | `digitalocean/kimi-k2.5`, `openai/gpt-5.5` (medium), `zai-coding-plan/glm-5`, `digitalocean/glm-5`, `opencode/big-pickle` | Primary orchestrator for complex, multi-step tasks. Ultrawork: `anthropic/claude-opus-4-7` (max) |
+| **oh-my-openagent**    | `sisyphus`          | Orchestrator              | `digitalocean/kimi-k2.6`        | —        | `digitalocean/kimi-k2.5`, `openai/gpt-5.5` (medium), `digitalocean/glm-5`, `opencode/big-pickle` | Primary orchestrator for complex, multi-step tasks. Ultrawork: `anthropic/claude-opus-4-7` (max) |
 | **oh-my-openagent**    | `metis`             | Scope Analysis            | `openai/gpt-5.5`                | `high`   | `zai-coding-plan/glm-5.1`, `digitalocean/kimi-k2.5`                                                                                         | Pre-planning consultation and scope analysis. Ultrawork: `anthropic/claude-sonnet-4-6`            |
 | **oh-my-openagent**    | `prometheus`        | Planning Specialist       | `openai/gpt-5.5`                | `high`   | `zai-coding-plan/glm-5.1`, `github-copilot/gemini-3.1-pro-preview`                                                                          | Detailed plans and work breakdowns. Ultrawork: `anthropic/claude-opus-4-7` (max)                 |
 | **oh-my-openagent**    | `atlas`             | Knowledge Specialist      | `digitalocean/kimi-k2.6`        | —        | `openai/gpt-5.5` (medium), `nvidia/minimaxai/minimax-m2.7`                                                                                  | Knowledge retrieval and architectural context. Ultrawork: `anthropic/claude-sonnet-4-6`           |
@@ -224,13 +224,13 @@ appropriate models based on their category:
 
 | Category             | Model                                   | Variant  | Fallback Models                                                                                                                                                     | Description                                                         |
 |:---------------------|:----------------------------------------|:---------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------|
-| `visual-engineering` | `github-copilot/gemini-3.1-pro-preview` | `high`   | `zai-coding-plan/glm-5`, `digitalocean/glm-5`, `zai-coding-plan/glm-5.1`, `nvidia/models/z-ai/glm-5.1`, `digitalocean/kimi-k2.5` | Frontend, UI/UX, design, styling, and animation tasks               |
+| `visual-engineering` | `github-copilot/gemini-3.1-pro-preview` | `high`   | `digitalocean/glm-5`, `zai-coding-plan/glm-5.1`, `nvidia/models/z-ai/glm-5.1`, `digitalocean/kimi-k2.5` | Frontend, UI/UX, design, styling, and animation tasks               |
 | `artistry`           | `github-copilot/gemini-3.1-pro-preview` | `high`   | `openai/gpt-5.5`                                                                                                                                                    | Complex problem-solving with unconventional, creative approaches    |
 | `ultrabrain`         | `openai/gpt-5.5`                        | `xhigh`  | `github-copilot/gemini-3.1-pro-preview` (high), `anthropic/claude-opus-4-7` (max), `zai-coding-plan/glm-5.1`, `nvidia/models/z-ai/glm-5.1` | Hard logic-heavy tasks requiring deep reasoning                     |
 | `deep`               | `openai/gpt-5.5`                        | `medium` | `anthropic/claude-opus-4-7` (max), `github-copilot/gemini-3.1-pro-preview` (high)                                                                                   | Goal-oriented autonomous problem-solving with thorough research     |
 | `quick`              | `openai/gpt-5.4-mini`                   | —        | `github-copilot/gemini-3-flash-preview`, `nvidia/minimaxai/minimax-m2.7`, `opencode/big-pickle`                                                                     | Trivial tasks, single file changes, typo fixes                      |
 | `unspecified-low`    | `digitalocean/kimi-k2.6`                | —        | `openai/gpt-5.3-codex` (medium), `github-copilot/gemini-3-flash-preview`, `nvidia/minimaxai/minimax-m2.7`                                                          | Low-effort tasks that don't fit other categories                    |
-| `unspecified-high`   | `openai/gpt-5.5`                        | `high`   | `anthropic/claude-opus-4-7` (max), `zai-coding-plan/glm-5`, `digitalocean/glm-5`, `digitalocean/kimi-k2.5`                                                          | High-effort tasks that don't fit other categories                   |
+| `unspecified-high`   | `openai/gpt-5.5`                        | `high`   | `anthropic/claude-opus-4-7` (max), `digitalocean/glm-5`, `digitalocean/kimi-k2.5`                                                          | High-effort tasks that don't fit other categories                   |
 | `writing`            | `digitalocean/kimi-k2.5`                | —        | `github-copilot/gemini-3-flash-preview`, `digitalocean/kimi-k2.6`, `nvidia/minimaxai/minimax-m2.7`                                                                  | Documentation, prose, and technical writing tasks                   |
 | `git`                | `github-copilot/gpt-5-mini`             | —        | `opencode/big-pickle`, `zai-coding-plan/glm-4.5-air`                                                                                                               | All git operations with focus on atomic commits and safe operations |
 
@@ -268,7 +268,6 @@ The `oh-my-openagent.json` file includes sophisticated background task managemen
 | `anthropic/claude-haiku-4-5`            | 6     | Concurrency limit for Claude Haiku 4.5                    |
 | `zai-coding-plan/glm-4.5-air`           | 5     | Concurrency limit for GLM-4.5-air model                   |
 | `zai-coding-plan/glm-4.7`               | 2     | Concurrency limit for GLM-4.7 model                       |
-| `zai-coding-plan/glm-5`                 | 2     | Concurrency limit for GLM-5 model                         |
 | `zai-coding-plan/glm-5-turbo`           | 1     | Concurrency limit for GLM-5-turbo model                   |
 | `zai-coding-plan/glm-5v-turbo`          | 1     | Concurrency limit for GLM-5v-turbo model                  |
 | `zai-coding-plan/glm-5.1`               | 10    | Concurrency limit for GLM-5.1 model                       |
@@ -687,7 +686,7 @@ Comprehensive reference mapping for plugins, MCPs, external services, and relate
 | **GitHub Copilot Docs**    | https://docs.github.com/en/copilot                                     | Official GitHub Copilot setup and usage documentation                     |
 | **GitHub Models Catalog**  | https://docs.github.com/en/rest/models/catalog                         | Canonical API reference for GitHub-hosted model catalog metadata          |
 | **NVIDIA NIM Docs**        | https://docs.nvidia.com/nim/large-language-models/latest/introduction.html | Official NVIDIA NIM documentation for hosted LLM access and model serving |
-| **OpenAI Platform**        | https://platform.openai.com/docs/models                               | Official OpenAI model documentation for GPT-5 family and API reference   |
+| **OpenAI Platform**        | https://developers.openai.com/api/docs/models                         | Official OpenAI model documentation for GPT-5 family and API reference   |
 | **Kimi API Platform**      | https://platform.kimi.ai/docs/models                                   | Official model documentation for Kimi K2.6, K2.5, and related families    |
 | **Z.ai Developer Docs**    | https://docs.z.ai/guides                                               | Official Z.ai documentation for GLM model families and APIs               |
 | **xAI Developer Docs**     | https://docs.x.ai/developers/models                                    | Official xAI model catalog and pricing overview                           |

@@ -13,7 +13,6 @@
           "model": "openai/gpt-5.5",
           "variant": "medium"
         },
-        "zai-coding-plan/glm-5",
         "digitalocean/glm-5",
         "opencode/big-pickle"
       ]
@@ -127,7 +126,6 @@
       "model": "github-copilot/gemini-3.1-pro-preview",
       "variant": "high",
       "fallback_models": [
-        "zai-coding-plan/glm-5",
         "digitalocean/glm-5",
         "zai-coding-plan/glm-5.1",
         "nvidia/models/z-ai/glm-5.1",
@@ -187,7 +185,6 @@
           "model": "anthropic/claude-opus-4-7",
           "variant": "max"
         },
-        "zai-coding-plan/glm-5",
         "digitalocean/glm-5",
         "digitalocean/kimi-k2.5"
       ]
@@ -263,7 +260,6 @@
       "anthropic/claude-haiku-4-5": 6,
       "zai-coding-plan/glm-4.5-air": 5,
       "zai-coding-plan/glm-4.7": 2,
-      "zai-coding-plan/glm-5": 2,
       "zai-coding-plan/glm-5-turbo": 1,
       "zai-coding-plan/glm-5v-turbo": 1,
       "zai-coding-plan/glm-5.1": 10
