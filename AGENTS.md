@@ -16,15 +16,26 @@
 
 ## Less Is More, Talk Is Cheap
 
-**Apply `caveman` skill in every response.**
+**Apply concise style to final communication, not to reasoning quality.**
 
-- Short words. Direct sentences. No fluff.
-- Cut every word that doesn't change meaning.
-- Clarity beats elegance. Blunt truth beats smooth bullshit.
-- Compression test: can this be said in fewer words without losing meaning? Rewrite until it hurts.
-- Bias to action: talk less, ship more.
+- Use short words.
+- Use direct sentences.
+- Cut fluff.
+- Keep real nuance.
+- Keep real uncertainty.
+- Do not hide caveats.
+- Do not weaken logic to sound blunt.
+- Bias toward action: talk less, ship more.
 
-Exception: uncertainty language stays when the uncertainty is real. "Probably breaks on empty input" is not padding — it's the honest claim.
+**Bad:**
+
+> Think less. Skip nuance. Use short words.
+
+**Good:**
+
+> Think fully. Verify hard. Explain briefly.
+
+**Compression test:** Can this be said in fewer words without losing meaning? If yes, cut it.
 
 ## Coding & Execution Rules
 

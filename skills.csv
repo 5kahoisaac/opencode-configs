@@ -1,5 +1,6 @@
 repo,skill_name,agents
-https://github.com/5kahoisaac/opencode-historian/tree/main/src,mnemonics,opencode claude-code codex
+https://github.com/5kahoisaac/opencode-historian/tree/main/src,mnemonics,opencode
+https://github.com/5kahoisaac/opencode-historian/tree/main/src,heuristics,opencode
 affaan-m/everything-claude-code,ai-regression-testing,opencode claude-code codex
 affaan-m/everything-claude-code,android-clean-architecture,opencode claude-code codex
 affaan-m/everything-claude-code,api-design,opencode claude-code codex
@@ -73,11 +74,6 @@ github/awesome-copilot,git-commit,opencode claude-code codex
 github/awesome-copilot,create-readme,opencode claude-code codex
 github/awesome-copilot,documentation-writer,opencode claude-code codex
 gracefullight/stock-checker,stock-analysis,opencode claude-code codex
-JuliusBrussee/caveman,caveman-commit,opencode claude-code codex
-JuliusBrussee/caveman,caveman-help,opencode claude-code codex
-JuliusBrussee/caveman,caveman-review,opencode claude-code codex
-JuliusBrussee/caveman,caveman,opencode claude-code codex
-JuliusBrussee/caveman,caveman-compress,opencode claude-code codex
 jeffallan/claude-skills,golang-pro,opencode claude-code codex
 jeffallan/claude-skills,laravel-specialist,opencode claude-code codex
 microck/ordinary-claude-skills,javascript-testing-patterns,opencode claude-code codex
