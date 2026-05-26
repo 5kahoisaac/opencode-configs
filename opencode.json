@@ -13,6 +13,7 @@
     "auto": true,
     "prune": true
   },
+  "lsp": true,
   "watcher": {
     "ignore": [
       "node_modules/**",
