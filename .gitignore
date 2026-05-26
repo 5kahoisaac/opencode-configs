@@ -8,6 +8,7 @@
 
 # plan
 .sisyphus/
+.omo/
 .archive/
 
 # ide

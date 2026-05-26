@@ -220,6 +220,7 @@
   },
   "claude_code": {
     "plugins_override": {
+      "ecc@ecc": false,
       "everything-claude-code@everything-claude-code": false,
       "serena@claude-plugins-official": false,
       "context7@claude-plugins-official": false,

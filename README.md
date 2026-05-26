@@ -100,6 +100,12 @@ planning, visual fallback coverage, and multimodal fallback coverage, with `zai-
 xAI provides the Grok family of models. In this configuration, non-LLM Grok Imagine image and video generation models
 are filtered via `provider.xai.blacklist` so text and coding workflows only see suitable LLM choices.
 
+**oMLX**
+
+oMLX is configured as a local OpenAI-compatible provider served from `http://127.0.0.1:8080/v1`. It exposes two
+manually named MLX-hosted Qwen variants in `provider.omlx.models`, giving this setup a local inference path alongside
+hosted providers.
+
 **OpenAI**
 
 OpenAI provides direct API access to GPT-5 family models including `openai/gpt-5.5`, `openai/gpt-5.4-mini`,
@@ -663,7 +669,7 @@ Comprehensive reference mapping for plugins, MCPs, external services, and relate
 | MCP Name      | Purpose                        | Service Provider | Documentation/Source                                                                             |
 |:--------------|:-------------------------------|:-----------------|:-------------------------------------------------------------------------------------------------|
 | **websearch** | Real-time web search           | Exa AI           | https://docs.exa.ai/reference/exa-mcp - Official Exa MCP documentation                           |
-| **context7**  | Official library documentation | Upstash          | https://context7.com/docs - Official Context7 documentation and MCP reference                    |
+| **context7**  | Official library documentation | Upstash          | https://context7.com/docs/ - Official Context7 documentation and MCP reference                    |
 | **grep_app**  | GitHub code search             | grep.app         | https://vercel.com/blog/grep-a-million-github-repositories-via-mcp - Grep MCP overview and setup |
 
 ### Pre-installed MCPs (opencode-historian)
@@ -686,9 +692,9 @@ Comprehensive reference mapping for plugins, MCPs, external services, and relate
 | **Kimi API Platform**      | https://platform.kimi.ai/docs/models                                       | Official model documentation for Kimi K2.6, K2.5, and related families    |
 | **Z.ai Developer Docs**    | https://docs.z.ai/guides                                                   | Official Z.ai documentation for GLM model families and APIs               |
 | **xAI Developer Docs**     | https://docs.x.ai/developers/models                                        | Official xAI model catalog and pricing overview                           |
-| **Vercel Skills.sh**       | https://skills.sh                                                          | Community skill distribution and management system                        |
-| **Model Context Protocol** | https://modelcontextprotocol.io                                            | Open standard for AI-LLM context and tool integration (Anthropic)         |
-| **Claude Code Skills Dir** | https://www.gradually.ai/en/claude-code-skills                             | Aggregated skills directory with indexed Claude Code skills               |
+| **Vercel Skills.sh**       | https://skills.sh/                                                          | Community skill distribution and management system                        |
+| **Model Context Protocol** | https://modelcontextprotocol.io/                                            | Open standard for AI-LLM context and tool integration (Anthropic)         |
+| **Claude Code Skills Dir** | https://www.gradually.ai/en/claude-code-skills/                             | Aggregated skills directory with indexed Claude Code skills               |
 | **Everything Claude Code** | https://github.com/affaan-m/everything-claude-code                         | Comprehensive ECC skills collection                                       |
 
 ### Notes
