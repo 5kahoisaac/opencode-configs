@@ -55,11 +55,11 @@
         "apiKey": "sk_live_dummy"
       },
       "models": {
-        "Huihui-Qwen3.6-35B-A3B-Claude-4.7-Opus-abliterated-vmlx-mxfp4": {
-          "name": "Qwen3.6V 35B A3B (Opus 4.7)"
+        "Qwen3.6-35B-A3B-UD-MLX-4bit": {
+          "name": "Qwen3.6 35B-A3B 4bit"
         },
-        "Qwen3.6-35B-A3B-Claude-4.7-Opus-Reasoning-Distilled-MLX-oQ4-MTP": {
-          "name": "Qwen3.6 35B A3B (Opus 4.7)"
+        "gemma-4-26B-A4B-it-MLX-8bit": {
+          "name": "Gemma4 26B A4B 8bit"
         }
       }
     },

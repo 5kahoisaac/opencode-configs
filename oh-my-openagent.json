@@ -238,12 +238,13 @@
     "defaultConcurrency": 5,
     "staleTimeoutMs": 60000,
     "providerConcurrency": {
+      "omlx": 1,
       "xai": 5,
       "nvidia": 3,
       "openai": 5,
       "opencode": 10,
       "anthropic": 5,
-      "digitalocean": 5,
+      "digitalocean": 3,
       "github-copilot": 5,
       "zai-coding-plan": 10
     },

@@ -252,13 +252,14 @@ The `oh-my-openagent.json` file includes sophisticated background task managemen
 | `defaultConcurrency`                    | 5     | Default number of concurrent background tasks             |
 | `staleTimeoutMs`                        | 60000 | Timeout in milliseconds before a task is considered stale |
 | **Provider Concurrency**                |       | Per-provider task limits for rate limit management        |
+| `omlx`                                  | 1     | Maximum concurrent tasks for oMLX provider                |
 | `xai`                                   | 5     | Maximum concurrent tasks for xAI provider                 |
 | `nvidia`                                | 3     | Maximum concurrent tasks for NVIDIA provider              |
 | `openai`                                | 5     | Maximum concurrent tasks for OpenAI provider              |
 | `opencode`                              | 10    | Maximum concurrent tasks for OpenCode provider            |
 | `zai-coding-plan`                       | 10    | Maximum concurrent tasks for Z.ai provider                |
 | `anthropic`                             | 5     | Maximum concurrent tasks for Anthropic provider           |
-| `digitalocean`                          | 5     | Maximum concurrent tasks for DigitalOcean provider        |
+| `digitalocean`                          | 3     | Maximum concurrent tasks for DigitalOcean provider        |
 | `github-copilot`                        | 5     | Maximum concurrent tasks for GitHub Copilot provider      |
 | **Model Concurrency**                   |       | Per-model fine-grained concurrency limits                 |
 | `openai/gpt-5.5`                        | 1     | Concurrency limit for OpenAI GPT-5.5                      |
