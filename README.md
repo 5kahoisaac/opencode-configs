@@ -176,9 +176,9 @@ functions:
 
 | Source                 | Agent Name          | Role                      | Model                           | Variant  | Fallback Models                                                                                         | Description                                                                                       |
 |:-----------------------|:--------------------|:--------------------------|:--------------------------------|:---------|:--------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------|
-| **oh-my-openagent**    | `sisyphus`          | Orchestrator              | `digitalocean/kimi-k2.6`        | —        | `digitalocean/kimi-k2.5`, `openai/gpt-5.5` (medium), `digitalocean/glm-5`, `opencode/big-pickle`        | Primary orchestrator for complex, multi-step tasks. Ultrawork: `anthropic/claude-opus-4-7` (max)  |
+| **oh-my-openagent**    | `sisyphus`          | Orchestrator              | `digitalocean/kimi-k2.6`        | —        | `digitalocean/kimi-k2.5`, `openai/gpt-5.5` (medium), `digitalocean/glm-5`, `opencode/big-pickle`        | Primary orchestrator for complex, multi-step tasks. Ultrawork: `anthropic/claude-opus-4-8` (max)  |
 | **oh-my-openagent**    | `metis`             | Scope Analysis            | `openai/gpt-5.5`                | `high`   | `zai-coding-plan/glm-5.1`, `digitalocean/kimi-k2.5`                                                     | Pre-planning consultation and scope analysis. Ultrawork: `anthropic/claude-sonnet-4-6`            |
-| **oh-my-openagent**    | `prometheus`        | Planning Specialist       | `openai/gpt-5.5`                | `high`   | `zai-coding-plan/glm-5.1`, `github-copilot/gemini-3.1-pro-preview`                                      | Detailed plans and work breakdowns. Ultrawork: `anthropic/claude-opus-4-7` (max)                  |
+| **oh-my-openagent**    | `prometheus`        | Planning Specialist       | `openai/gpt-5.5`                | `high`   | `zai-coding-plan/glm-5.1`, `github-copilot/gemini-3.1-pro-preview`                                      | Detailed plans and work breakdowns. Ultrawork: `anthropic/claude-opus-4-8` (max)                  |
 | **oh-my-openagent**    | `atlas`             | Knowledge Specialist      | `digitalocean/kimi-k2.6`        | —        | `openai/gpt-5.5` (medium), `nvidia/minimaxai/minimax-m2.7`                                              | Knowledge retrieval and architectural context. Ultrawork: `anthropic/claude-sonnet-4-6`           |
 | **oh-my-openagent**    | `sisyphus-junior`   | Lightweight Orchestrator  | `digitalocean/kimi-k2.6`        | —        | `openai/gpt-5.5` (medium), `nvidia/minimaxai/minimax-m2.7`, `opencode/big-pickle`                       | Category-optimized task delegation. Ultrawork: `anthropic/claude-sonnet-4-6`                      |
 | **oh-my-openagent**    | `hephaestus`        | Implementation Specialist | `openai/gpt-5.5`                | `medium` | —                                                                                                       | Executes implementation tasks with balanced capability and efficiency                             |
@@ -232,11 +232,11 @@ appropriate models based on their category:
 |:---------------------|:----------------------------------------|:---------|:-------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------|
 | `visual-engineering` | `github-copilot/gemini-3.1-pro-preview` | `high`   | `digitalocean/glm-5`, `zai-coding-plan/glm-5.1`, `nvidia/models/z-ai/glm-5.1`, `digitalocean/kimi-k2.5`                                    | Frontend, UI/UX, design, styling, and animation tasks               |
 | `artistry`           | `github-copilot/gemini-3.1-pro-preview` | `high`   | `openai/gpt-5.5`                                                                                                                           | Complex problem-solving with unconventional, creative approaches    |
-| `ultrabrain`         | `openai/gpt-5.5`                        | `xhigh`  | `github-copilot/gemini-3.1-pro-preview` (high), `anthropic/claude-opus-4-7` (max), `zai-coding-plan/glm-5.1`, `nvidia/models/z-ai/glm-5.1` | Hard logic-heavy tasks requiring deep reasoning                     |
-| `deep`               | `openai/gpt-5.5`                        | `medium` | `anthropic/claude-opus-4-7` (max), `github-copilot/gemini-3.1-pro-preview` (high)                                                          | Goal-oriented autonomous problem-solving with thorough research     |
+| `ultrabrain`         | `openai/gpt-5.5`                        | `xhigh`  | `github-copilot/gemini-3.1-pro-preview` (high), `anthropic/claude-opus-4-8` (max), `zai-coding-plan/glm-5.1`, `nvidia/models/z-ai/glm-5.1` | Hard logic-heavy tasks requiring deep reasoning                     |
+| `deep`               | `openai/gpt-5.5`                        | `medium` | `anthropic/claude-opus-4-8` (max), `github-copilot/gemini-3.1-pro-preview` (high)                                                          | Goal-oriented autonomous problem-solving with thorough research     |
 | `quick`              | `openai/gpt-5.4-mini`                   | —        | `github-copilot/gemini-3-flash-preview`, `nvidia/minimaxai/minimax-m2.7`, `opencode/big-pickle`                                            | Trivial tasks, single file changes, typo fixes                      |
 | `unspecified-low`    | `digitalocean/kimi-k2.6`                | —        | `openai/gpt-5.3-codex` (medium), `github-copilot/gemini-3-flash-preview`, `nvidia/minimaxai/minimax-m2.7`                                  | Low-effort tasks that don't fit other categories                    |
-| `unspecified-high`   | `openai/gpt-5.5`                        | `high`   | `anthropic/claude-opus-4-7` (max), `digitalocean/glm-5`, `digitalocean/kimi-k2.5`                                                          | High-effort tasks that don't fit other categories                   |
+| `unspecified-high`   | `openai/gpt-5.5`                        | `high`   | `anthropic/claude-opus-4-8` (max), `digitalocean/glm-5`, `digitalocean/kimi-k2.5`                                                          | High-effort tasks that don't fit other categories                   |
 | `writing`            | `digitalocean/kimi-k2.5`                | —        | `github-copilot/gemini-3-flash-preview`, `digitalocean/kimi-k2.6`, `nvidia/minimaxai/minimax-m2.7`                                         | Documentation, prose, and technical writing tasks                   |
 | `git`                | `github-copilot/gpt-5-mini`             | —        | `opencode/big-pickle`, `zai-coding-plan/glm-4.5-air`                                                                                       | All git operations with focus on atomic commits and safe operations |
 
@@ -267,6 +267,7 @@ The `oh-my-openagent.json` file includes sophisticated background task managemen
 | `openai/gpt-5.3-codex`                  | 3     | Concurrency limit for OpenAI GPT-5.3-codex                |
 | `openai/gpt-5.4-mini`                   | 5     | Concurrency limit for OpenAI GPT-5.4-mini                 |
 | `openai/gpt-5.4-nano`                   | 8     | Concurrency limit for OpenAI GPT-5.4-nano                 |
+| `anthropic/claude-opus-4-8`             | 1     | Concurrency limit for Claude Opus 4.8                     |
 | `anthropic/claude-opus-4-7`             | 1     | Concurrency limit for Claude Opus 4.7                     |
 | `anthropic/claude-opus-4-6`             | 2     | Concurrency limit for Claude Opus 4.6                     |
 | `anthropic/claude-opus-4-5`             | 2     | Concurrency limit for Claude Opus 4.5                     |
@@ -359,7 +360,7 @@ UI code generation, and design system exploration directly from Figma files. Cur
 
 The GitHub MCP provides comprehensive integration with GitHub for repository operations,
 pull request management, issue tracking, and code search.
-This MCP enables OpenCode to interact with GitHub's API for various development workflows directly from the conversation
+This MCP enables OpenCode to interact with GitHub's API (`https://api.github.com`) for various development workflows directly from the conversation
 interface.
 
 **atlassian** *(disabled)*
