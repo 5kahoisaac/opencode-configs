@@ -71,6 +71,7 @@
     },
     "opencode": {
       "blacklist": [
+        "claude-opus-4-8",
         "claude-opus-4-7",
         "claude-opus-4-6",
         "claude-opus-4-5",
@@ -132,6 +133,7 @@
         "anthropic-claude-opus-4.5",
         "anthropic-claude-opus-4.6",
         "anthropic-claude-opus-4.7",
+        "anthropic-claude-opus-4.8",
         "anthropic-claude-sonnet-4",
         "openai-gpt-4.1",
         "openai-gpt-4o",

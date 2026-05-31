@@ -108,11 +108,12 @@ hosted providers.
 
 **OpenAI**
 
-OpenAI provides direct API access to GPT-5 family models including `openai/gpt-5.5`, `openai/gpt-5.4-mini`,
-`openai/gpt-5.4-nano`, and `openai/gpt-5.3-codex`. These models serve as primary and fallback models for several agents
-including `hephaestus` (primary: `openai/gpt-5.5` medium), `oracle` (primary: `openai/gpt-5.5` high), `momus` (primary:
-`openai/gpt-5.5` xhigh), and `multimodal-looker` (primary: `openai/gpt-5.5` medium). Authentication is handled via the
-`opencode-openai-codex-auth` plugin.
+OpenAI provides direct API access to GPT-5 family models including `openai/gpt-5.5`, `openai/gpt-5.4`,
+`openai/gpt-5.4-mini`, `openai/gpt-5.4-nano`, and `openai/gpt-5.3-codex`. These models serve as primary and fallback
+models for several agents including `hephaestus` (primary: `openai/gpt-5.4` medium, ultrawork: `openai/gpt-5.5`
+medium), `oracle` (primary: `openai/gpt-5.5` high), `momus` (primary: `openai/gpt-5.5` xhigh), and
+`multimodal-looker` (primary: `openai/gpt-5.5` medium). Authentication is handled via the `opencode-openai-codex-auth`
+plugin.
 
 **NVIDIA**
 
@@ -125,7 +126,7 @@ NVIDIA provides access to models hosted on the NVIDIA AI platform. This configur
 
 The Anthropic provider is configured via the `opencode-with-claude` plugin, which routes requests through a local
 proxy at `http://127.0.0.1:3456` instead of a direct API key. This enables Claude Max/Pro subscription-backed model
-access inside the OpenCode runtime. Models including `anthropic/claude-opus-4-7` and
+access inside the OpenCode runtime. Models including `anthropic/claude-opus-4-8` and
 `anthropic/claude-sonnet-4-6` are reserved for ultrawork and fallback routes, including enhanced modes for
 `sisyphus`, `metis`, `prometheus`, `atlas`, and `sisyphus-junior` plus high-complexity task categories.
 
@@ -145,7 +146,7 @@ The provider configuration also uses blacklist rules to keep model selection foc
 **OpenCode Zen blacklist (`provider.opencode.blacklist`)**
 
 This blacklist is maintained to filter paid OpenCode Zen models from the general OpenCode provider roster while keeping
-free-tier models available. It is synchronized via `/blacklist-sync` and currently filters 37 paid Zen models across
+free-tier models available. It is synchronized via `/blacklist-sync` and currently filters 38 paid Zen models across
 families including Claude (Opus, Sonnet, Haiku 4.x), GPT (5.x, Codex, Nano), Gemini (3.1 Pro, 3 Flash), Grok Build,
 GLM 5.x, MiniMax M2.x, Kimi K2.x, and Qwen 3.x so routine workflows stay on the free/default OpenCode path.
 
@@ -159,7 +160,7 @@ catalog sources.
 **DigitalOcean blacklist (`provider.digitalocean.blacklist`)**
 
 This blacklist filters premium models that require higher account tiers on DigitalOcean's AI platform. It is
-synchronized via `/blacklist-sync` and currently blocks 35 models: 14 `anthropic-*` Claude variants and 21 `openai-*`
+synchronized via `/blacklist-sync` and currently blocks 36 models: 15 `anthropic-*` Claude variants and 21 `openai-*`
 models. Open-source `openai-gpt-oss-*` variants are preserved through the `oss` substring rule, and open or partner
 models from Qwen, DeepSeek, Llama, Mistral, Kimi, GLM, and similar families remain available.
 
@@ -174,20 +175,20 @@ configuration represents a carefully tuned balance between API rate limits, resp
 Individual agents from the oh-my-openagent plugin receive specialized model assignments optimized for their specific
 functions:
 
-| Source                 | Agent Name          | Role                      | Model                           | Variant  | Fallback Models                                                                                         | Description                                                                                       |
-|:-----------------------|:--------------------|:--------------------------|:--------------------------------|:---------|:--------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------|
-| **oh-my-openagent**    | `sisyphus`          | Orchestrator              | `digitalocean/kimi-k2.6`        | —        | `digitalocean/kimi-k2.5`, `openai/gpt-5.5` (medium), `digitalocean/glm-5`, `opencode/big-pickle`        | Primary orchestrator for complex, multi-step tasks. Ultrawork: `anthropic/claude-opus-4-8` (max)  |
-| **oh-my-openagent**    | `metis`             | Scope Analysis            | `openai/gpt-5.5`                | `high`   | `zai-coding-plan/glm-5.1`, `digitalocean/kimi-k2.5`                                                     | Pre-planning consultation and scope analysis. Ultrawork: `anthropic/claude-sonnet-4-6`            |
-| **oh-my-openagent**    | `prometheus`        | Planning Specialist       | `openai/gpt-5.5`                | `high`   | `zai-coding-plan/glm-5.1`, `github-copilot/gemini-3.1-pro-preview`                                      | Detailed plans and work breakdowns. Ultrawork: `anthropic/claude-opus-4-8` (max)                  |
-| **oh-my-openagent**    | `atlas`             | Knowledge Specialist      | `digitalocean/kimi-k2.6`        | —        | `openai/gpt-5.5` (medium), `nvidia/minimaxai/minimax-m2.7`                                              | Knowledge retrieval and architectural context. Ultrawork: `anthropic/claude-sonnet-4-6`           |
-| **oh-my-openagent**    | `sisyphus-junior`   | Lightweight Orchestrator  | `digitalocean/kimi-k2.6`        | —        | `openai/gpt-5.5` (medium), `nvidia/minimaxai/minimax-m2.7`, `opencode/big-pickle`                       | Category-optimized task delegation. Ultrawork: `anthropic/claude-sonnet-4-6`                      |
-| **oh-my-openagent**    | `hephaestus`        | Implementation Specialist | `openai/gpt-5.5`                | `medium` | —                                                                                                       | Executes implementation tasks with balanced capability and efficiency                             |
-| **oh-my-openagent**    | `oracle`            | Strategic Advisor         | `openai/gpt-5.5`                | `high`   | `github-copilot/gemini-3.1-pro-preview` (high), `zai-coding-plan/glm-5.1`, `nvidia/models/z-ai/glm-5.1` | Provides high-level architectural guidance and complex reasoning for critical decisions           |
-| **oh-my-openagent**    | `momus`             | Quality Review            | `openai/gpt-5.5`                | `xhigh`  | `github-copilot/gemini-3.1-pro-preview` (high), `zai-coding-plan/glm-5.1`, `nvidia/models/z-ai/glm-5.1` | Reviews work plans and implementations for quality, completeness, and adherence to best practices |
-| **oh-my-openagent**    | `multimodal-looker` | Visual Analysis           | `openai/gpt-5.5`                | `medium` | `digitalocean/kimi-k2.6`, `zai-coding-plan/glm-5v-turbo`                                                | Analyzes visual content, images, and multimodal inputs for comprehensive understanding            |
-| **oh-my-openagent**    | `explore`           | Codebase Analysis         | `nvidia/minimaxai/minimax-m2.7` | —        | `digitalocean/deepseek-3.2`, `openai/gpt-5.4-mini`, `openai/gpt-5.4-nano`                               | Performs rapid codebase navigation, pattern detection, and symbol exploration                     |
-| **oh-my-openagent**    | `librarian`         | Research Specialist       | `nvidia/minimaxai/minimax-m2.7` | —        | `digitalocean/deepseek-3.2`, `openai/gpt-5.4-mini`, `openai/gpt-5.4-nano`                               | Handles documentation lookup, external research, and information retrieval tasks                  |
-| **opencode-historian** | `historian`         | Memory Management         | `openai/gpt-5.4-mini`           | —        | —                                                                                                       | Manages persistent memories, context retention, and semantic search across project knowledge base |
+| Source                 | Agent Name          | Role                      | Model                           | Variant  | Fallback Models                                                                                         | Description                                                                                                 |
+|:-----------------------|:--------------------|:--------------------------|:--------------------------------|:---------|:--------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------|
+| **oh-my-openagent**    | `sisyphus`          | Orchestrator              | `digitalocean/kimi-k2.6`        | —        | `digitalocean/kimi-k2.5`, `openai/gpt-5.5` (medium), `digitalocean/glm-5`, `opencode/big-pickle`        | Primary orchestrator for complex, multi-step tasks. Ultrawork: `anthropic/claude-opus-4-8` (max)            |
+| **oh-my-openagent**    | `metis`             | Scope Analysis            | `openai/gpt-5.5`                | `high`   | `zai-coding-plan/glm-5.1`, `digitalocean/kimi-k2.5`                                                     | Pre-planning consultation and scope analysis. Ultrawork: `anthropic/claude-sonnet-4-6`                      |
+| **oh-my-openagent**    | `prometheus`        | Planning Specialist       | `openai/gpt-5.5`                | `high`   | `zai-coding-plan/glm-5.1`, `github-copilot/gemini-3.1-pro-preview`                                      | Detailed plans and work breakdowns. Ultrawork: `anthropic/claude-opus-4-8` (max)                            |
+| **oh-my-openagent**    | `atlas`             | Knowledge Specialist      | `digitalocean/kimi-k2.6`        | —        | `openai/gpt-5.5` (medium), `nvidia/minimaxai/minimax-m2.7`                                              | Knowledge retrieval and architectural context. Ultrawork: `anthropic/claude-sonnet-4-6`                     |
+| **oh-my-openagent**    | `sisyphus-junior`   | Lightweight Orchestrator  | `digitalocean/kimi-k2.6`        | —        | `openai/gpt-5.5` (medium), `nvidia/minimaxai/minimax-m2.7`, `opencode/big-pickle`                       | Category-optimized task delegation. Ultrawork: `anthropic/claude-sonnet-4-6`                                |
+| **oh-my-openagent**    | `hephaestus`        | Implementation Specialist | `openai/gpt-5.4`                | `medium` | —                                                                                                       | Executes implementation tasks with balanced capability and efficiency. Ultrawork: `openai/gpt-5.5` (medium) |
+| **oh-my-openagent**    | `oracle`            | Strategic Advisor         | `openai/gpt-5.5`                | `high`   | `github-copilot/gemini-3.1-pro-preview` (high), `zai-coding-plan/glm-5.1`, `nvidia/models/z-ai/glm-5.1` | Provides high-level architectural guidance and complex reasoning for critical decisions                     |
+| **oh-my-openagent**    | `momus`             | Quality Review            | `openai/gpt-5.5`                | `xhigh`  | `github-copilot/gemini-3.1-pro-preview` (high), `zai-coding-plan/glm-5.1`, `nvidia/models/z-ai/glm-5.1` | Reviews work plans and implementations for quality, completeness, and adherence to best practices           |
+| **oh-my-openagent**    | `multimodal-looker` | Visual Analysis           | `openai/gpt-5.5`                | `medium` | `digitalocean/kimi-k2.6`, `zai-coding-plan/glm-5v-turbo`                                                | Analyzes visual content, images, and multimodal inputs for comprehensive understanding                      |
+| **oh-my-openagent**    | `explore`           | Codebase Analysis         | `nvidia/minimaxai/minimax-m2.7` | —        | `digitalocean/deepseek-3.2`, `openai/gpt-5.4-mini`, `openai/gpt-5.4-nano`                               | Performs rapid codebase navigation, pattern detection, and symbol exploration                               |
+| **oh-my-openagent**    | `librarian`         | Research Specialist       | `nvidia/minimaxai/minimax-m2.7` | —        | `digitalocean/deepseek-3.2`, `openai/gpt-5.4-mini`, `openai/gpt-5.4-nano`                               | Handles documentation lookup, external research, and information retrieval tasks                            |
+| **opencode-historian** | `historian`         | Memory Management         | `openai/gpt-5.4-mini`           | —        | —                                                                                                       | Manages persistent memories, context retention, and semantic search across project knowledge base           |
 
 **Current API Rate Limits and Suggested Setup**
 
@@ -247,38 +248,38 @@ model for optimal results.
 
 The `oh-my-openagent.json` file includes sophisticated background task management settings:
 
-| Setting                                 | Value | Description                                               |
-|:----------------------------------------|:------|:----------------------------------------------------------|
-| `defaultConcurrency`                    | 5     | Default number of concurrent background tasks             |
-| `staleTimeoutMs`                        | 60000 | Timeout in milliseconds before a task is considered stale |
-| **Provider Concurrency**                |       | Per-provider task limits for rate limit management        |
-| `omlx`                                  | 1     | Maximum concurrent tasks for oMLX provider                |
-| `xai`                                   | 5     | Maximum concurrent tasks for xAI provider                 |
-| `nvidia`                                | 3     | Maximum concurrent tasks for NVIDIA provider              |
-| `openai`                                | 5     | Maximum concurrent tasks for OpenAI provider              |
-| `opencode`                              | 10    | Maximum concurrent tasks for OpenCode provider            |
-| `zai-coding-plan`                       | 10    | Maximum concurrent tasks for Z.ai provider                |
-| `anthropic`                             | 5     | Maximum concurrent tasks for Anthropic provider           |
-| `digitalocean`                          | 3     | Maximum concurrent tasks for DigitalOcean provider        |
-| `github-copilot`                        | 5     | Maximum concurrent tasks for GitHub Copilot provider      |
-| **Model Concurrency**                   |       | Per-model fine-grained concurrency limits                 |
-| `openai/gpt-5.5`                        | 1     | Concurrency limit for OpenAI GPT-5.5                      |
-| `openai/gpt-5.4`                        | 2     | Concurrency limit for OpenAI GPT-5.4                      |
-| `openai/gpt-5.3-codex`                  | 3     | Concurrency limit for OpenAI GPT-5.3-codex                |
-| `openai/gpt-5.4-mini`                   | 5     | Concurrency limit for OpenAI GPT-5.4-mini                 |
-| `openai/gpt-5.4-nano`                   | 8     | Concurrency limit for OpenAI GPT-5.4-nano                 |
-| `anthropic/claude-opus-4-8`             | 1     | Concurrency limit for Claude Opus 4.8                     |
-| `anthropic/claude-opus-4-7`             | 1     | Concurrency limit for Claude Opus 4.7                     |
-| `anthropic/claude-opus-4-6`             | 2     | Concurrency limit for Claude Opus 4.6                     |
-| `anthropic/claude-opus-4-5`             | 2     | Concurrency limit for Claude Opus 4.5                     |
-| `anthropic/claude-sonnet-4.6`           | 3     | Concurrency limit for Claude Sonnet 4.6                   |
-| `anthropic/claude-sonnet-4-5`           | 3     | Concurrency limit for Claude Sonnet 4.5                   |
-| `anthropic/claude-haiku-4-5`            | 6     | Concurrency limit for Claude Haiku 4.5                    |
-| `zai-coding-plan/glm-4.5-air`           | 5     | Concurrency limit for GLM-4.5-air model                   |
-| `zai-coding-plan/glm-4.7`               | 2     | Concurrency limit for GLM-4.7 model                       |
-| `zai-coding-plan/glm-5-turbo`           | 1     | Concurrency limit for GLM-5-turbo model                   |
-| `zai-coding-plan/glm-5v-turbo`          | 1     | Concurrency limit for GLM-5v-turbo model                  |
-| `zai-coding-plan/glm-5.1`               | 10    | Concurrency limit for GLM-5.1 model                       |
+| Setting                        | Value | Description                                               |
+|:-------------------------------|:------|:----------------------------------------------------------|
+| `defaultConcurrency`           | 5     | Default number of concurrent background tasks             |
+| `staleTimeoutMs`               | 60000 | Timeout in milliseconds before a task is considered stale |
+| **Provider Concurrency**       |       | Per-provider task limits for rate limit management        |
+| `omlx`                         | 1     | Maximum concurrent tasks for oMLX provider                |
+| `xai`                          | 5     | Maximum concurrent tasks for xAI provider                 |
+| `nvidia`                       | 3     | Maximum concurrent tasks for NVIDIA provider              |
+| `openai`                       | 5     | Maximum concurrent tasks for OpenAI provider              |
+| `opencode`                     | 10    | Maximum concurrent tasks for OpenCode provider            |
+| `zai-coding-plan`              | 10    | Maximum concurrent tasks for Z.ai provider                |
+| `anthropic`                    | 5     | Maximum concurrent tasks for Anthropic provider           |
+| `digitalocean`                 | 3     | Maximum concurrent tasks for DigitalOcean provider        |
+| `github-copilot`               | 5     | Maximum concurrent tasks for GitHub Copilot provider      |
+| **Model Concurrency**          |       | Per-model fine-grained concurrency limits                 |
+| `openai/gpt-5.5`               | 1     | Concurrency limit for OpenAI GPT-5.5                      |
+| `openai/gpt-5.4`               | 2     | Concurrency limit for OpenAI GPT-5.4                      |
+| `openai/gpt-5.3-codex`         | 3     | Concurrency limit for OpenAI GPT-5.3-codex                |
+| `openai/gpt-5.4-mini`          | 5     | Concurrency limit for OpenAI GPT-5.4-mini                 |
+| `openai/gpt-5.4-nano`          | 8     | Concurrency limit for OpenAI GPT-5.4-nano                 |
+| `anthropic/claude-opus-4-8`    | 1     | Concurrency limit for Claude Opus 4.8                     |
+| `anthropic/claude-opus-4-7`    | 1     | Concurrency limit for Claude Opus 4.7                     |
+| `anthropic/claude-opus-4-6`    | 2     | Concurrency limit for Claude Opus 4.6                     |
+| `anthropic/claude-opus-4-5`    | 2     | Concurrency limit for Claude Opus 4.5                     |
+| `anthropic/claude-sonnet-4.6`  | 3     | Concurrency limit for Claude Sonnet 4.6                   |
+| `anthropic/claude-sonnet-4-5`  | 3     | Concurrency limit for Claude Sonnet 4.5                   |
+| `anthropic/claude-haiku-4-5`   | 6     | Concurrency limit for Claude Haiku 4.5                    |
+| `zai-coding-plan/glm-4.5-air`  | 5     | Concurrency limit for GLM-4.5-air model                   |
+| `zai-coding-plan/glm-4.7`      | 2     | Concurrency limit for GLM-4.7 model                       |
+| `zai-coding-plan/glm-5-turbo`  | 1     | Concurrency limit for GLM-5-turbo model                   |
+| `zai-coding-plan/glm-5v-turbo` | 1     | Concurrency limit for GLM-5v-turbo model                  |
+| `zai-coding-plan/glm-5.1`      | 10    | Concurrency limit for GLM-5.1 model                       |
 
 **Runtime Fallback Configuration**
 
@@ -360,7 +361,8 @@ UI code generation, and design system exploration directly from Figma files. Cur
 
 The GitHub MCP provides comprehensive integration with GitHub for repository operations,
 pull request management, issue tracking, and code search.
-This MCP enables OpenCode to interact with GitHub's API (`https://api.github.com`) for various development workflows directly from the conversation
+This MCP enables OpenCode to interact with GitHub's API (`https://api.github.com`) for various development workflows
+directly from the conversation
 interface.
 
 **atlassian** *(disabled)*
@@ -409,7 +411,8 @@ The oh-my-openagent plugin includes three pre-configured MCP servers that provid
   search for code patterns, find real-world implementation examples, and discover how others have solved similar
   problems.
 
-These pre-installed MCPs are automatically available when the oh-my-openagent plugin is enabled. MCP access is controlled
+These pre-installed MCPs are automatically available when the oh-my-openagent plugin is enabled. MCP access is
+controlled
 via per-agent permissions in the configuration. See
 the [official documentation](https://github.com/code-yeongyu/oh-my-openagent/blob/master/docs/configurations.md) for
 details on MCP assignment syntax and configuration options.
@@ -427,9 +430,9 @@ The following **94 skills** are available in this configuration, organized by ca
 
 ### Custom Skills
 
-| Skill Name    | Source                        | Description                                                                                                                                                                                                                                                                                                         |
-|:--------------|:------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **mnemonics** | 5kahoisaac/opencode-historian | Memory management by using the historian subagent to store, recall, and manage persistent memories across conversations. Use when you need to remember decisions, preferences, learnings, or retrieve stored context. Compatible with opencode, opencode-historian plugin and qmd CLI. *(custom skill by Isaac Ng)* |
+| Skill Name     | Source                        | Description                                                                                                                                                                                                                                                                                                                               |
+|:---------------|:------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **mnemonics**  | 5kahoisaac/opencode-historian | Memory management by using the historian subagent to store, recall, and manage persistent memories across conversations. Use when you need to remember decisions, preferences, learnings, or retrieve stored context. Compatible with opencode, opencode-historian plugin and qmd CLI. *(custom skill by Isaac Ng)*                       |
 | **heuristics** | 5kahoisaac/opencode-historian | Ingest user-provided files or folders into historian memories by extracting content, classifying it against available memory types, and storing useful knowledge through @historian. Use when the user wants to turn documents, screenshots, notes, code, or mixed source folders into persistent mnemonics. *(custom skill by Isaac Ng)* |
 
 ### Everything Claude Code Skills
@@ -548,11 +551,9 @@ The following **94 skills** are available in this configuration, organized by ca
 
 ## Commands
 
-The `./commands/` directory is available for custom slash commands that extend OpenCode's interaction capabilities.
-Currently, no custom commands are configured in this directory. Commands added here will be migrated along with other
-configuration files during the sync process.
-
-No project-scope OpenCode commands are currently stored in this repository.
+Project-local custom slash commands can be stored in `./commands/` to extend OpenCode's interaction capabilities.
+There is currently no local `commands/` directory and no project-scope OpenCode command file stored in this repository.
+If command files are added later, `make sync` will migrate them with the other configuration files.
 
 ### TUI Configuration
 
@@ -645,17 +646,18 @@ efficient memory operations.
 
 ## Reference Links
 
-Comprehensive reference mapping for plugins, MCPs, external services, and related resources used in this OpenCode configuration.
+Comprehensive reference mapping for plugins, MCPs, external services, and related resources used in this OpenCode
+configuration.
 
 ### Plugins
 
-| Plugin Name                       | Status | Official Repository                                 | Version | Purpose                                                                   |
-|:----------------------------------|:-------|:----------------------------------------------------|:--------|:--------------------------------------------------------------------------|
-| **oh-my-openagent**               | Active | https://github.com/code-yeongyu/oh-my-openagent     | Latest  | Multi-agent orchestration suite for task delegation and complex workflows |
-| **@nick-vi/opencode-type-inject** | Active | https://github.com/nick-vi/type-inject              | Latest  | Advanced type inference and language-aware code completion                |
-| **opencode-openai-codex-auth**    | Active | —                                                   | Latest  | OpenAI provider authentication for direct API access                      |
-| **opencode-historian**            | Active | https://github.com/5kahoisaac/opencode-historian    | Latest  | Persistent memory management and semantic search across project knowledge |
-| **opencode-with-claude**          | Active | https://github.com/ianjwhite99/opencode-with-claude | Latest  | Claude Max/Pro integration through local proxy bridge                     |
+| Plugin Name                       | Status | Official Repository                                      | Version | Purpose                                                                   |
+|:----------------------------------|:-------|:---------------------------------------------------------|:--------|:--------------------------------------------------------------------------|
+| **oh-my-openagent**               | Active | https://github.com/code-yeongyu/oh-my-openagent          | Latest  | Multi-agent orchestration suite for task delegation and complex workflows |
+| **@nick-vi/opencode-type-inject** | Active | https://github.com/nick-vi/type-inject                   | Latest  | Advanced type inference and language-aware code completion                |
+| **opencode-openai-codex-auth**    | Active | https://github.com/numman-ali/opencode-openai-codex-auth | Latest  | OpenAI provider authentication for direct API access                      |
+| **opencode-historian**            | Active | https://github.com/5kahoisaac/opencode-historian         | Latest  | Persistent memory management and semantic search across project knowledge |
+| **opencode-with-claude**          | Active | https://github.com/ianjwhite99/opencode-with-claude      | Latest  | Claude Max/Pro integration through local proxy bridge                     |
 
 ### Manually Configured MCPs
 
@@ -670,8 +672,8 @@ Comprehensive reference mapping for plugins, MCPs, external services, and relate
 
 | MCP Name      | Purpose                        | Service Provider | Documentation/Source                                                                             |
 |:--------------|:-------------------------------|:-----------------|:-------------------------------------------------------------------------------------------------|
-| **websearch** | Real-time web search           | Exa AI           | https://docs.exa.ai/reference/exa-mcp - Official Exa MCP documentation                           |
-| **context7**  | Official library documentation | Upstash          | https://context7.com/docs/ - Official Context7 documentation and MCP reference                    |
+| **websearch** | Real-time web search           | Exa AI           | https://exa.ai/docs/reference/exa-mcp - Official Exa MCP documentation                           |
+| **context7**  | Official library documentation | Upstash          | https://context7.com/docs  - Official Context7 documentation and MCP reference                   |
 | **grep_app**  | GitHub code search             | grep.app         | https://vercel.com/blog/grep-a-million-github-repositories-via-mcp - Grep MCP overview and setup |
 
 ### Pre-installed MCPs (opencode-historian)
@@ -692,18 +694,20 @@ Comprehensive reference mapping for plugins, MCPs, external services, and relate
 | **NVIDIA NIM Docs**        | https://docs.nvidia.com/nim/large-language-models/latest/introduction.html | Official NVIDIA NIM documentation for hosted LLM access and model serving |
 | **OpenAI Platform**        | https://developers.openai.com/api/docs/models                              | Official OpenAI model documentation for GPT-5 family and API reference    |
 | **Kimi API Platform**      | https://platform.kimi.ai/docs/models                                       | Official model documentation for Kimi K2.6, K2.5, and related families    |
-| **Z.ai Developer Docs**    | https://docs.z.ai/guides                                                   | Official Z.ai documentation for GLM model families and APIs               |
+| **Z.ai Developer Docs**    | https://docs.z.ai/guides/overview/quick-start                              | Official Z.ai documentation for GLM model families and APIs               |
 | **xAI Developer Docs**     | https://docs.x.ai/developers/models                                        | Official xAI model catalog and pricing overview                           |
-| **Vercel Skills.sh**       | https://skills.sh/                                                          | Community skill distribution and management system                        |
-| **Model Context Protocol** | https://modelcontextprotocol.io/                                            | Open standard for AI-LLM context and tool integration (Anthropic)         |
-| **Claude Code Skills Dir** | https://www.gradually.ai/en/claude-code-skills/                             | Aggregated skills directory with indexed Claude Code skills               |
-| **Everything Claude Code** | https://github.com/affaan-m/everything-claude-code                         | Comprehensive ECC skills collection                                       |
+| **Vercel Skills.sh**       | https://www.skills.sh/                                                     | Community skill distribution and management system                        |
+| **Model Context Protocol** | https://modelcontextprotocol.io/docs/getting-started/intro                 | Open standard for AI-LLM context and tool integration (Anthropic)         |
+| **Claude Code Skills Dir** | https://www.gradually.ai/en/claude-code-skills/                            | Aggregated skills directory with indexed Claude Code skills               |
+| **Everything Claude Code** | https://github.com/affaan-m/ECC                                            | Comprehensive ECC skills collection                                       |
 
 ### Notes
 
 - **Figma MCP**: No public implementation repository exists; reference is official Figma documentation only
-- **GitHub MCP**: `opencode.json` currently points at the remote GitHub Copilot MCP endpoint `https://api.githubcopilot.com/mcp`
+- **GitHub MCP**: `opencode.json` currently points at the remote GitHub Copilot MCP endpoint
+  `https://api.githubcopilot.com/mcp`
 - **Atlassian MCP**: Community fork maintained by sooperset; official Atlassian server exists but uses remote HTTP
 - **Vision MCP**: Connects directly to Z.ai vision API endpoints for image analysis
 
-All URLs verified as of May 2026. Refer to individual repository documentation for latest API changes and version compatibility.
+All URLs verified as of May 2026. Refer to individual repository documentation for latest API changes and version
+compatibility.
