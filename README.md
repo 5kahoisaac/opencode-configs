@@ -177,7 +177,7 @@ functions:
 
 | Source                 | Agent Name          | Role                      | Model                           | Variant  | Fallback Models                                                                                         | Description                                                                                                 |
 |:-----------------------|:--------------------|:--------------------------|:--------------------------------|:---------|:--------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------|
-| **oh-my-openagent**    | `sisyphus`          | Orchestrator              | `digitalocean/kimi-k2.6`        | —        | `digitalocean/kimi-k2.5`, `openai/gpt-5.5` (medium), `digitalocean/glm-5`, `opencode/big-pickle`        | Primary orchestrator for complex, multi-step tasks. Ultrawork: `anthropic/claude-opus-4-8` (max)            |
+| **oh-my-openagent**    | `sisyphus`          | Orchestrator              | `digitalocean/kimi-k2.6`        | —        | `openai/gpt-5.5` (medium), `digitalocean/glm-5`, `opencode/big-pickle`                                  | Primary orchestrator for complex, multi-step tasks. Ultrawork: `anthropic/claude-opus-4-8` (max)            |
 | **oh-my-openagent**    | `metis`             | Scope Analysis            | `openai/gpt-5.5`                | `high`   | `zai-coding-plan/glm-5.1`, `digitalocean/kimi-k2.5`                                                     | Pre-planning consultation and scope analysis. Ultrawork: `anthropic/claude-sonnet-4-6`                      |
 | **oh-my-openagent**    | `prometheus`        | Planning Specialist       | `openai/gpt-5.5`                | `high`   | `zai-coding-plan/glm-5.1`, `github-copilot/gemini-3.1-pro-preview`                                      | Detailed plans and work breakdowns. Ultrawork: `anthropic/claude-opus-4-8` (max)                            |
 | **oh-my-openagent**    | `atlas`             | Knowledge Specialist      | `digitalocean/kimi-k2.6`        | —        | `openai/gpt-5.5` (medium), `nvidia/minimaxai/minimax-m2.7`                                              | Knowledge retrieval and architectural context. Ultrawork: `anthropic/claude-sonnet-4-6`                     |
@@ -551,9 +551,36 @@ The following **94 skills** are available in this configuration, organized by ca
 
 ## Commands
 
-Project-local custom slash commands can be stored in `./commands/` to extend OpenCode's interaction capabilities.
-There is currently no local `commands/` directory and no project-scope OpenCode command file stored in this repository.
-If command files are added later, `make sync` will migrate them with the other configuration files.
+Project-scoped custom slash commands live in `.opencode/commands/`. The `make sync` command also copies any files from
+`./commands/` to the system config directory for globally available commands.
+
+### /blacklist-sync
+
+The `/blacklist-sync` command dynamically synchronizes the OpenCode provider blacklists for xAI, OpenCode Zen, and
+DigitalOcean. On each run it re-derives flagship status, pricing, and model membership from official sources so the
+blacklist stays accurate as providers ship new models without requiring manual updates.
+
+| Provider       | Blacklist Criteria                                                                                                 |
+|:---------------|:-------------------------------------------------------------------------------------------------------------------|
+| `xai`          | Non-LLM/multimodal models + models from outdated families (coding models always preserved)                         |
+| `opencode`     | Paid Zen models (free-tier models always preserved)                                                                |
+| `digitalocean` | Premium Anthropic Claude + premium OpenAI GPT/o-series models (open-source `gpt-oss-*` variants always preserved)  |
+
+**Source:** `.opencode/commands/blacklist-sync.md`
+
+### /readme-sync
+
+The `/readme-sync` command keeps `README.md` perpetually synchronized with the actual project configuration. It scans
+all configuration files (`opencode.json`, `oh-my-openagent.json`, `skills.csv`, `Makefile`) and project directories
+(`.opencode/commands/`, `./agents/`) then updates the corresponding README sections when drift is detected.
+
+| Phase   | Action                                                                                         |
+|:--------|:-----------------------------------------------------------------------------------------------|
+| Analyze | Parallel scan of all config files and directories to detect what has changed                   |
+| Sync    | Update only the sections that are out of date — plugins, MCPs, providers, skills, agents, commands, model assignments |
+| Validate | Confirm table formatting, link validity, and no duplicate or orphaned content                 |
+
+**Source:** `.opencode/commands/readme-sync.md`
 
 ### TUI Configuration
 

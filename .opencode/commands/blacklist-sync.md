@@ -49,7 +49,7 @@ Walk every model from Phase 2 and **add it to the blacklist** if any of these ar
 1. It is a non-LLM / multimodal model — ID contains `vision`, `imagine`, `image`, `video`, `voice`, `audio`, or `tts`. Examples: `grok-*-vision*`, `grok-vision-beta`, `grok-imagine-*`. **OR**
 2. It belongs to a family that is **not** in the current flagship set from Phase 1.
 
-**Exception — always preserve coding models.** Any model that is clearly coding-focused (e.g. `grok-code-fast-1` and future equivalents) is excluded from the blacklist regardless of its family's flagship status. Coding models still get blacklisted if they're multimodal, but that's a rare combination.
+**Exception — always preserve coding models.** Any model that is clearly coding-focused (e.g. `grok-code-fast-1`, `grok-build-0.1` and future equivalents) is excluded from the blacklist regardless of its family's flagship status. Coding models still get blacklisted if they're multimodal, but that's a rare combination.
 
 ### Phase 4 — Write to `opencode.json`
 
