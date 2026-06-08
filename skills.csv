@@ -36,7 +36,6 @@ affaan-m/everything-claude-code,mcp-server-patterns,opencode claude-code codex
 affaan-m/everything-claude-code,perl-patterns,opencode claude-code codex
 affaan-m/everything-claude-code,perl-testing,opencode claude-code codex
 affaan-m/everything-claude-code,plankton-code-quality,opencode claude-code codex
-affaan-m/everything-claude-code,project-guidelines-example,opencode claude-code codex
 affaan-m/everything-claude-code,python-patterns,opencode claude-code codex
 affaan-m/everything-claude-code,python-testing,opencode claude-code codex
 affaan-m/everything-claude-code,rust-patterns,opencode claude-code codex
@@ -68,8 +67,14 @@ brianlovin/claude-config,simplify,opencode claude-code codex
 coreyhaines31/marketingskills,copywriting,opencode claude-code codex
 coreyhaines31/marketingskills,seo-audit,opencode claude-code codex
 davila7/claude-code-templates,markitdown,opencode claude-code codex
-figma/mcp-server-guide,figma-implement-design,opencode claude-code codex
-figma/mcp-server-guide,figma-create-design-system-rules,opencode claude-code codex
+figma/mcp-server-guide,figma-code-connect,opencode claude-code codex
+figma/mcp-server-guide,figma-create-new-file,opencode claude-code codex
+figma/mcp-server-guide,figma-generate-design,opencode claude-code codex
+figma/mcp-server-guide,figma-generate-diagram,opencode claude-code codex
+figma/mcp-server-guide,figma-generate-library,opencode claude-code codex
+figma/mcp-server-guide,figma-use,opencode claude-code codex
+figma/mcp-server-guide,figma-use-figjam,opencode claude-code codex
+figma/mcp-server-guide,figma-use-slides,opencode claude-code codex
 github/awesome-copilot,git-commit,opencode claude-code codex
 github/awesome-copilot,create-readme,opencode claude-code codex
 github/awesome-copilot,documentation-writer,opencode claude-code codex
