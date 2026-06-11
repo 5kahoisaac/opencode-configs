@@ -85,6 +85,7 @@ microck/ordinary-claude-skills,javascript-testing-patterns,opencode claude-code 
 obra/superpowers,receiving-code-review,opencode claude-code codex
 obra/superpowers,requesting-code-review,opencode claude-code codex
 remotion-dev/skills,remotion-best-practices,opencode claude-code codex
+shadcn/improve,improve,opencode claude-code codex
 softaworks/agent-toolkit,lesson-learned,opencode claude-code codex
 vercel-labs/agent-browser,agent-browser,opencode claude-code codex
 vercel-labs/next-skills,next-best-practices,opencode claude-code codex

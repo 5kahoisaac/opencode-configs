@@ -427,7 +427,7 @@ and workflows. This configuration includes skills installed via Vercel's officia
 skills from the opencode-historian plugin. Note that skills are installed to `~/.agents/skills/` via the skills.sh
 system, not in the local `skills/` directory of this repository.
 
-The following **99 skills** are available in this configuration, organized by category:
+The following **100 skills** are available in this configuration, organized by category:
 
 ### Custom Skills
 
