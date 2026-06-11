@@ -71,6 +71,7 @@
     },
     "opencode": {
       "blacklist": [
+        "claude-fable-5",
         "claude-opus-4-8",
         "claude-opus-4-7",
         "claude-opus-4-6",
@@ -101,6 +102,8 @@
         "gpt-5-codex",
         "gpt-5-nano",
         "grok-build-0.1",
+        "deepseek-v4-pro",
+        "deepseek-v4-flash",
         "glm-5.1",
         "glm-5",
         "minimax-m2.7",

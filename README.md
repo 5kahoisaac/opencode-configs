@@ -146,9 +146,10 @@ The provider configuration also uses blacklist rules to keep model selection foc
 **OpenCode Zen blacklist (`provider.opencode.blacklist`)**
 
 This blacklist is maintained to filter paid OpenCode Zen models from the general OpenCode provider roster while keeping
-free-tier models available. It is synchronized via `/blacklist-sync` and currently filters 38 paid Zen models across
-families including Claude (Opus, Sonnet, Haiku 4.x), GPT (5.x, Codex, Nano), Gemini (3.1 Pro, 3 Flash), Grok Build,
-GLM 5.x, MiniMax M2.x, Kimi K2.x, and Qwen 3.x so routine workflows stay on the free/default OpenCode path.
+free-tier models available. It is synchronized via `/blacklist-sync` and currently filters 41 paid Zen models across
+families including Claude (Fable, Opus, Sonnet, Haiku 4.x), GPT (5.x, Codex, Nano), Gemini (3.1 Pro, 3 Flash), Grok
+Build, DeepSeek V4, GLM 5.x, MiniMax M2.x, Kimi K2.x, and Qwen 3.x so routine workflows stay on the free/default
+OpenCode path.
 
 **xAI blacklist (`provider.xai.blacklist`)**
 
