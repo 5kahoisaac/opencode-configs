@@ -11,8 +11,8 @@
         - [Models Configuration](#models-configuration)
     - [Plugins](#plugins)
     - [MCPs](#mcps)
-    - [Skills](#skills)
     - [Commands](#commands)
+        - [TUI Configuration](#tui-configuration)
     - [Agents](#agents)
 - [Reference Links](#reference-links)
 
@@ -24,7 +24,7 @@ This project contains a comprehensive OpenCode configuration setup designed to e
 workflows. OpenCode is an open-source AI coding assistant that provides intelligent code completion, refactoring
 capabilities, and seamless integration with various development tools and platforms.
 
-The configuration includes carefully selected plugins, skills, commands, and agents that extend OpenCode's functionality
+The configuration includes carefully selected plugins, commands, and agents that extend OpenCode's functionality
 to support complex development tasks, improve code quality, and streamline development workflows. This setup is
 particularly focused on providing enterprise-grade features while maintaining flexibility for personal and team use
 cases.
@@ -40,19 +40,18 @@ specific workflow requirements and preferences.
 
 The Makefile provides essential commands to manage the OpenCode configuration:
 
-| Command                   | Description                                                                                                                                    |
-|:--------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------|
-| `make sync`               | Sync OpenCode configuration (`~/.config/opencode/`) and skills (`~/.agents/skills/`). Copies configuration files and any local agents/commands |
-| `make sync SKIP_SKILLS=1` | Sync configuration only, skipping the skills sync step                                                                                         |
-| `make sync-skills`        | Sync skills from `skills.csv` to global scope. Removes obsolete skills, installs missing ones, and updates all installed skills                |
-| `make help`               | Display available targets and their descriptions                                                                                               |
+| Command     | Description                                                                                                                                                                  |
+|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `make sync` | Sync OpenCode configuration into `~/.config/opencode/`. Copies `AGENTS.md`, JSON config files, and mirrors root `./agents/` and `./commands/` directories if they are present |
+| `make help` | Display available targets and their descriptions                                                                                                                             |
 
 **Workflow:**
 
-1. Run `make sync` to copy configuration files and any local agents/commands to system locations
-2. The `sync` command automatically calls `sync-skills` to manage skills installation — pass `SKIP_SKILLS=1` to skip
-   this step
-3. Use `make help` to see all available commands
+1. Run `make sync` to copy configuration files and any root-level `agents/` or `commands/` files to system locations
+2. Use `make help` to see all available commands
+
+The current repository stores project-scoped commands under `.opencode/commands/`; there are no root-level `agents/` or
+`commands/` directories at the moment.
 
 ---
 
@@ -70,16 +69,16 @@ utilizing both free and premium models across different use cases.
 
 #### Provider List
 
-The following AI providers are **enabled** in this setup (configured in `opencode.json`):
+The following AI providers are documented for this setup because they are used by model routing or explicit provider
+configuration:
 
 **GitHub Copilot**
 
-GitHub Copilot provides access to a broad range of frontier models including GPT-5 (OpenAI), Gemini (Google), and
-Grok (xAI) through a unified API. This provider serves as a key model source in this configuration, with
-`github-copilot/gpt-5.5`, `github-copilot/gpt-5.4`, and `github-copilot/gemini-3.1-pro-preview` used across
-various agents and task categories.
+GitHub Copilot is used as a routed model provider for selected task categories and fallbacks. The current
+`oh-my-openagent.json` configuration references `github-copilot/gemini-3.1-pro-preview`,
+`github-copilot/gemini-3-flash-preview`, and `github-copilot/gpt-5-mini`.
 
-GitHub Copilot's multi-model access enables flexible routing across different model families based on task requirements.
+These routes give the setup Gemini-backed high-effort coverage plus a lightweight Git-focused model path.
 
 **OpenCode**
 
@@ -121,14 +120,6 @@ NVIDIA provides access to models hosted on the NVIDIA AI platform. This configur
 `nvidia/minimaxai/minimax-m2.7` as the primary model for `explore` and `librarian`, with additional fallback use in
 `atlas`, `sisyphus-junior`, `quick`, `unspecified-low`, and `writing` routes. It also uses
 `nvidia/models/z-ai/glm-5.1` as a reasoning fallback for `oracle`, `momus`, and `ultrabrain`.
-
-**Anthropic**
-
-The Anthropic provider is configured via the `opencode-with-claude` plugin, which routes requests through a local
-proxy at `http://127.0.0.1:3456` instead of a direct API key. This enables Claude Max/Pro subscription-backed model
-access inside the OpenCode runtime. Models including `anthropic/claude-opus-4-8` and
-`anthropic/claude-sonnet-4-6` are reserved for ultrawork and fallback routes, including enhanced modes for
-`sisyphus`, `metis`, `prometheus`, `atlas`, and `sisyphus-junior` plus high-complexity task categories.
 
 **DigitalOcean**
 
@@ -178,11 +169,11 @@ functions:
 
 | Source                 | Agent Name          | Role                      | Model                           | Variant  | Fallback Models                                                                                         | Description                                                                                                 |
 |:-----------------------|:--------------------|:--------------------------|:--------------------------------|:---------|:--------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------|
-| **oh-my-openagent**    | `sisyphus`          | Orchestrator              | `digitalocean/kimi-k2.6`        | —        | `openai/gpt-5.5` (medium), `digitalocean/glm-5`, `opencode/big-pickle`                                  | Primary orchestrator for complex, multi-step tasks. Ultrawork: `anthropic/claude-opus-4-8` (max)            |
-| **oh-my-openagent**    | `metis`             | Scope Analysis            | `openai/gpt-5.5`                | `high`   | `zai-coding-plan/glm-5.1`, `digitalocean/kimi-k2.5`                                                     | Pre-planning consultation and scope analysis. Ultrawork: `anthropic/claude-sonnet-4-6`                      |
-| **oh-my-openagent**    | `prometheus`        | Planning Specialist       | `openai/gpt-5.5`                | `high`   | `zai-coding-plan/glm-5.1`, `github-copilot/gemini-3.1-pro-preview`                                      | Detailed plans and work breakdowns. Ultrawork: `anthropic/claude-opus-4-8` (max)                            |
-| **oh-my-openagent**    | `atlas`             | Knowledge Specialist      | `digitalocean/kimi-k2.6`        | —        | `openai/gpt-5.5` (medium), `nvidia/minimaxai/minimax-m2.7`                                              | Knowledge retrieval and architectural context. Ultrawork: `anthropic/claude-sonnet-4-6`                     |
-| **oh-my-openagent**    | `sisyphus-junior`   | Lightweight Orchestrator  | `digitalocean/kimi-k2.6`        | —        | `openai/gpt-5.5` (medium), `nvidia/minimaxai/minimax-m2.7`, `opencode/big-pickle`                       | Category-optimized task delegation. Ultrawork: `anthropic/claude-sonnet-4-6`                                |
+| **oh-my-openagent**    | `sisyphus`          | Orchestrator              | `digitalocean/kimi-k2.6`        | —        | `openai/gpt-5.5` (medium), `digitalocean/glm-5`, `opencode/big-pickle`                                  | Primary orchestrator for complex, multi-step tasks                                                          |
+| **oh-my-openagent**    | `metis`             | Scope Analysis            | `openai/gpt-5.5`                | `high`   | `zai-coding-plan/glm-5.1`, `digitalocean/kimi-k2.5`                                                     | Pre-planning consultation and scope analysis                                                                |
+| **oh-my-openagent**    | `prometheus`        | Planning Specialist       | `openai/gpt-5.5`                | `high`   | `zai-coding-plan/glm-5.1`, `github-copilot/gemini-3.1-pro-preview`                                      | Detailed plans and work breakdowns                                                                         |
+| **oh-my-openagent**    | `atlas`             | Knowledge Specialist      | `digitalocean/kimi-k2.6`        | —        | `openai/gpt-5.5` (medium), `nvidia/minimaxai/minimax-m2.7`                                              | Knowledge retrieval and architectural context                                                               |
+| **oh-my-openagent**    | `sisyphus-junior`   | Lightweight Orchestrator  | `digitalocean/kimi-k2.6`        | —        | `openai/gpt-5.5` (medium), `nvidia/minimaxai/minimax-m2.7`, `opencode/big-pickle`                       | Category-optimized task delegation                                                                         |
 | **oh-my-openagent**    | `hephaestus`        | Implementation Specialist | `openai/gpt-5.4`                | `medium` | —                                                                                                       | Executes implementation tasks with balanced capability and efficiency. Ultrawork: `openai/gpt-5.5` (medium) |
 | **oh-my-openagent**    | `oracle`            | Strategic Advisor         | `openai/gpt-5.5`                | `high`   | `github-copilot/gemini-3.1-pro-preview` (high), `zai-coding-plan/glm-5.1`, `nvidia/models/z-ai/glm-5.1` | Provides high-level architectural guidance and complex reasoning for critical decisions                     |
 | **oh-my-openagent**    | `momus`             | Quality Review            | `openai/gpt-5.5`                | `xhigh`  | `github-copilot/gemini-3.1-pro-preview` (high), `zai-coding-plan/glm-5.1`, `nvidia/models/z-ai/glm-5.1` | Reviews work plans and implementations for quality, completeness, and adherence to best practices           |
@@ -197,7 +188,7 @@ The provider configuration considers several factors for optimal performance:
 
 1. **Rate Limit Management**: Different providers have varying rate limits. Higher-concurrency providers such as
    DigitalOcean, OpenCode, and Z.ai handle broader fallback coverage, while tighter limits protect heavier OpenAI,
-   Anthropic, NVIDIA, and GitHub Copilot routes.
+   NVIDIA, and GitHub Copilot routes.
 
 2. **Cost Optimization**: The configuration keeps free OpenCode models available, uses DigitalOcean open and partner
    models heavily, and blacklists paid Zen plus premium DigitalOcean models that should not be selected routinely.
@@ -234,11 +225,11 @@ appropriate models based on their category:
 |:---------------------|:----------------------------------------|:---------|:-------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------|
 | `visual-engineering` | `github-copilot/gemini-3.1-pro-preview` | `high`   | `digitalocean/glm-5`, `zai-coding-plan/glm-5.1`, `nvidia/models/z-ai/glm-5.1`, `digitalocean/kimi-k2.5`                                    | Frontend, UI/UX, design, styling, and animation tasks               |
 | `artistry`           | `github-copilot/gemini-3.1-pro-preview` | `high`   | `openai/gpt-5.5`                                                                                                                           | Complex problem-solving with unconventional, creative approaches    |
-| `ultrabrain`         | `openai/gpt-5.5`                        | `xhigh`  | `github-copilot/gemini-3.1-pro-preview` (high), `anthropic/claude-opus-4-8` (max), `zai-coding-plan/glm-5.1`, `nvidia/models/z-ai/glm-5.1` | Hard logic-heavy tasks requiring deep reasoning                     |
-| `deep`               | `openai/gpt-5.5`                        | `medium` | `anthropic/claude-opus-4-8` (max), `github-copilot/gemini-3.1-pro-preview` (high)                                                          | Goal-oriented autonomous problem-solving with thorough research     |
+| `ultrabrain`         | `openai/gpt-5.5`                        | `xhigh`  | `github-copilot/gemini-3.1-pro-preview` (high), `zai-coding-plan/glm-5.1`, `nvidia/models/z-ai/glm-5.1`                                    | Hard logic-heavy tasks requiring deep reasoning                     |
+| `deep`               | `openai/gpt-5.5`                        | `medium` | `github-copilot/gemini-3.1-pro-preview` (high)                                                                                             | Goal-oriented autonomous problem-solving with thorough research     |
 | `quick`              | `openai/gpt-5.4-mini`                   | —        | `github-copilot/gemini-3-flash-preview`, `nvidia/minimaxai/minimax-m2.7`, `opencode/big-pickle`                                            | Trivial tasks, single file changes, typo fixes                      |
 | `unspecified-low`    | `digitalocean/kimi-k2.6`                | —        | `openai/gpt-5.3-codex` (medium), `github-copilot/gemini-3-flash-preview`, `nvidia/minimaxai/minimax-m2.7`                                  | Low-effort tasks that don't fit other categories                    |
-| `unspecified-high`   | `openai/gpt-5.5`                        | `high`   | `anthropic/claude-opus-4-8` (max), `digitalocean/glm-5`, `digitalocean/kimi-k2.5`                                                          | High-effort tasks that don't fit other categories                   |
+| `unspecified-high`   | `openai/gpt-5.5`                        | `high`   | `digitalocean/glm-5`, `digitalocean/kimi-k2.5`                                                                                              | High-effort tasks that don't fit other categories                   |
 | `writing`            | `digitalocean/kimi-k2.5`                | —        | `github-copilot/gemini-3-flash-preview`, `digitalocean/kimi-k2.6`, `nvidia/minimaxai/minimax-m2.7`                                         | Documentation, prose, and technical writing tasks                   |
 | `git`                | `github-copilot/gpt-5-mini`             | —        | `opencode/big-pickle`, `zai-coding-plan/glm-4.5-air`                                                                                       | All git operations with focus on atomic commits and safe operations |
 
@@ -260,7 +251,6 @@ The `oh-my-openagent.json` file includes sophisticated background task managemen
 | `openai`                       | 5     | Maximum concurrent tasks for OpenAI provider              |
 | `opencode`                     | 10    | Maximum concurrent tasks for OpenCode provider            |
 | `zai-coding-plan`              | 10    | Maximum concurrent tasks for Z.ai provider                |
-| `anthropic`                    | 5     | Maximum concurrent tasks for Anthropic provider           |
 | `digitalocean`                 | 3     | Maximum concurrent tasks for DigitalOcean provider        |
 | `github-copilot`               | 5     | Maximum concurrent tasks for GitHub Copilot provider      |
 | **Model Concurrency**          |       | Per-model fine-grained concurrency limits                 |
@@ -269,13 +259,6 @@ The `oh-my-openagent.json` file includes sophisticated background task managemen
 | `openai/gpt-5.3-codex`         | 3     | Concurrency limit for OpenAI GPT-5.3-codex                |
 | `openai/gpt-5.4-mini`          | 5     | Concurrency limit for OpenAI GPT-5.4-mini                 |
 | `openai/gpt-5.4-nano`          | 8     | Concurrency limit for OpenAI GPT-5.4-nano                 |
-| `anthropic/claude-opus-4-8`    | 1     | Concurrency limit for Claude Opus 4.8                     |
-| `anthropic/claude-opus-4-7`    | 1     | Concurrency limit for Claude Opus 4.7                     |
-| `anthropic/claude-opus-4-6`    | 2     | Concurrency limit for Claude Opus 4.6                     |
-| `anthropic/claude-opus-4-5`    | 2     | Concurrency limit for Claude Opus 4.5                     |
-| `anthropic/claude-sonnet-4.6`  | 3     | Concurrency limit for Claude Sonnet 4.6                   |
-| `anthropic/claude-sonnet-4-5`  | 3     | Concurrency limit for Claude Sonnet 4.5                   |
-| `anthropic/claude-haiku-4-5`   | 6     | Concurrency limit for Claude Haiku 4.5                    |
 | `zai-coding-plan/glm-4.5-air`  | 5     | Concurrency limit for GLM-4.5-air model                   |
 | `zai-coding-plan/glm-4.7`      | 2     | Concurrency limit for GLM-4.7 model                       |
 | `zai-coding-plan/glm-5-turbo`  | 1     | Concurrency limit for GLM-5-turbo model                   |
@@ -334,12 +317,6 @@ including architectural decisions, design patterns, learnings, preferences, issu
 historian system automatically classifies memory types and manages circular references between related memories,
 creating a knowledge base that persists beyond individual conversations.
 
-**opencode-with-claude@latest**
-
-The `opencode-with-claude` plugin integrates Claude Max/Pro subscription access into OpenCode through a local proxy.
-This allows the Anthropic provider in `opencode.json` to route through a locally managed bridge instead of a direct API
-key workflow, making Claude subscription-backed usage available inside the OpenCode runtime.
-
 ---
 
 ## MCPs
@@ -362,8 +339,8 @@ UI code generation, and design system exploration directly from Figma files. Cur
 
 The GitHub MCP provides comprehensive integration with GitHub for repository operations,
 pull request management, issue tracking, and code search.
-This MCP enables OpenCode to interact with GitHub's API (`https://api.github.com`) for various development workflows
-directly from the conversation
+This MCP enables OpenCode to interact with GitHub through the GitHub Copilot MCP remote endpoint
+(`https://api.githubcopilot.com/mcp`) for repository and development workflows directly from the conversation
 interface.
 
 **atlassian** *(disabled)*
@@ -420,145 +397,11 @@ details on MCP assignment syntax and configuration options.
 
 ---
 
-## Skills
-
-The skills system in OpenCode provides a modular way to extend the assistant's capabilities with specialized knowledge
-and workflows. This configuration includes skills installed via Vercel's official skills.sh system and pre-installed
-skills from the opencode-historian plugin. Note that skills are installed to `~/.agents/skills/` via the skills.sh
-system, not in the local `skills/` directory of this repository.
-
-The following **100 skills** are available in this configuration, organized by category:
-
-### Custom Skills
-
-| Skill Name     | Source                        | Description                                                                                                                                                                                                                                                                                                                               |
-|:---------------|:------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **mnemonics**  | 5kahoisaac/opencode-historian | Memory management by using the historian subagent to store, recall, and manage persistent memories across conversations. Use when you need to remember decisions, preferences, learnings, or retrieve stored context. Compatible with opencode, opencode-historian plugin and qmd CLI. *(custom skill by Isaac Ng)*                       |
-| **heuristics** | 5kahoisaac/opencode-historian | Ingest user-provided files or folders into historian memories by extracting content, classifying it against available memory types, and storing useful knowledge through @historian. Use when the user wants to turn documents, screenshots, notes, code, or mixed source folders into persistent mnemonics. *(custom skill by Isaac Ng)* |
-
-### Everything Claude Code Skills
-
-| Skill Name                         | Description                                                                                                                                                                                                                                 |
-|:-----------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **ai-regression-testing**          | Regression testing strategies for AI-assisted development. Sandbox-mode API testing without database dependencies, automated bug-check workflows, and patterns to catch AI blind spots where the same model writes and reviews code.        |
-| **android-clean-architecture**     | Clean Architecture patterns for Android and Kotlin Multiplatform projects — module structure, dependency rules, UseCases, Repositories, and data layer patterns.                                                                            |
-| **api-design**                     | REST API design patterns including resource naming, status codes, pagination, filtering, error responses, versioning, and rate limiting for production APIs.                                                                                |
-| **backend-patterns**               | Backend architecture patterns, API design, database optimization, and server-side best practices for Node.js, Express, and Next.js API routes.                                                                                              |
-| **coding-standards**               | Universal coding standards, best practices, and patterns for TypeScript, JavaScript, React, and Node.js development.                                                                                                                        |
-| **compose-multiplatform-patterns** | Compose Multiplatform and Jetpack Compose patterns for KMP projects — state management, navigation, theming, performance, and platform-specific UI.                                                                                         |
-| **configure-ecc**                  | Interactive installer for Everything Claude Code — guides users through selecting and installing skills and rules to user-level or project-level directories, verifies paths, and optionally optimizes installed files.                     |
-| **continuous-learning**            | Automatically extract reusable patterns from Claude Code sessions and save them as learned skills for future use.                                                                                                                           |
-| **continuous-learning-v2**         | Instinct-based learning system that observes sessions via hooks, creates atomic instincts with confidence scoring, and evolves them into skills/commands/agents. v2.1 adds project-scoped instincts to prevent cross-project contamination. |
-| **cpp-coding-standards**           | C++ coding standards based on the C++ Core Guidelines (isocpp.github.io). Use when writing, reviewing, or refactoring C++ code to enforce modern, safe, and idiomatic practices.                                                            |
-| **cpp-testing**                    | Use only when writing/updating/fixing C++ tests, configuring GoogleTest/CTest, diagnosing failing or flaky tests, or adding coverage/sanitizers.                                                                                            |
-| **django-patterns**                | Django architecture patterns, REST API design with DRF, ORM best practices, caching, signals, middleware, and production-grade Django apps.                                                                                                 |
-| **django-tdd**                     | Django testing strategies with pytest-django, TDD methodology, factory_boy, mocking, coverage, and testing Django REST Framework APIs.                                                                                                      |
-| **django-verification**            | Verification loop for Django projects: migrations, linting, tests with coverage, security scans, and deployment readiness checks before release or PR.                                                                                      |
-| **e2e-testing**                    | Playwright E2E testing patterns, Page Object Model, configuration, CI/CD integration, artifact management, and flaky test strategies.                                                                                                       |
-| **eval-harness**                   | Formal evaluation framework for Claude Code sessions implementing eval-driven development (EDD) principles.                                                                                                                                 |
-| **frontend-patterns**              | Frontend development patterns for React, Next.js, state management, performance optimization, and UI best practices.                                                                                                                        |
-| **frontend-slides**                | Create stunning, animation-rich HTML presentations from scratch or by converting PowerPoint files. Use when the user wants to build a presentation, convert a PPT/PPTX to web, or create slides for a talk/pitch.                           |
-| **golang-patterns**                | Idiomatic Go patterns, best practices, and conventions for building robust, efficient, and maintainable Go applications.                                                                                                                    |
-| **golang-testing**                 | Go testing patterns including table-driven tests, subtests, benchmarks, fuzzing, and test coverage. Follows TDD methodology with idiomatic Go practices.                                                                                    |
-| **iterative-retrieval**            | Pattern for progressively refining context retrieval to solve the subagent context problem.                                                                                                                                                 |
-| **java-coding-standards**          | Java coding standards for Spring Boot services: naming, immutability, Optional usage, streams, exceptions, generics, and project layout.                                                                                                    |
-| **kotlin-coroutines-flows**        | Kotlin Coroutines and Flow patterns for Android and KMP — structured concurrency, Flow operators, StateFlow, error handling, and testing.                                                                                                   |
-| **kotlin-exposed-patterns**        | JetBrains Exposed ORM patterns including DSL queries, DAO pattern, transactions, HikariCP connection pooling, Flyway migrations, and repository pattern.                                                                                    |
-| **kotlin-ktor-patterns**           | Ktor server patterns including routing DSL, plugins, authentication, Koin DI, kotlinx.serialization, WebSockets, and testApplication testing.                                                                                               |
-| **kotlin-patterns**                | Idiomatic Kotlin patterns, best practices, and conventions for building robust, efficient, and maintainable Kotlin applications with coroutines, null safety, and DSL builders.                                                             |
-| **kotlin-testing**                 | Kotlin testing patterns with Kotest, MockK, coroutine testing, property-based testing, and Kover coverage. Follows TDD methodology with idiomatic Kotlin practices.                                                                         |
-| **laravel-patterns**               | Laravel architecture patterns, routing/controllers, Eloquent ORM, service layers, queues, events, caching, and API resources for production apps.                                                                                           |
-| **laravel-plugin-discovery**       | Discover and evaluate Laravel packages via LaraPlugins.io MCP. Use when the user wants to find plugins, check package health, or assess Laravel/PHP compatibility.                                                                          |
-| **laravel-tdd**                    | Test-driven development for Laravel with PHPUnit and Pest, factories, database testing, fakes, and coverage targets.                                                                                                                        |
-| **laravel-verification**           | Verification loop for Laravel projects: env checks, linting, static analysis, tests with coverage, security scans, and deployment readiness.                                                                                                |
-| **mcp-server-patterns**            | Build MCP servers with Node/TypeScript SDK — tools, resources, prompts, Zod validation, stdio vs Streamable HTTP. Use Context7 or official MCP docs for latest API.                                                                         |
-| **perl-patterns**                  | Modern Perl 5.36+ idioms, best practices, and conventions for building robust, maintainable Perl applications.                                                                                                                              |
-| **perl-testing**                   | Perl testing patterns using Test2::V0, Test::More, prove runner, mocking, coverage with Devel::Cover, and TDD methodology.                                                                                                                  |
-| **plankton-code-quality**          | Write-time code quality enforcement using Plankton — auto-formatting, linting, and Claude-powered fixes on every file edit via hooks.                                                                                                       |
-| **python-patterns**                | Pythonic idioms, PEP 8 standards, type hints, and best practices for building robust, efficient, and maintainable Python applications.                                                                                                      |
-| **python-testing**                 | Python testing strategies using pytest, TDD methodology, fixtures, mocking, parametrization, and coverage requirements.                                                                                                                     |
-| **rust-patterns**                  | Idiomatic Rust patterns, ownership, error handling, traits, concurrency, and best practices for building safe, performant applications.                                                                                                     |
-| **rust-testing**                   | Rust testing patterns including unit tests, integration tests, async testing, property-based testing, mocking, and coverage. Follows TDD methodology.                                                                                       |
-| **springboot-patterns**            | Spring Boot architecture patterns, REST API design, layered services, data access, caching, async processing, and logging. Use for Java Spring Boot backend work.                                                                           |
-| **springboot-tdd**                 | Test-driven development for Spring Boot using JUnit 5, Mockito, MockMvc, Testcontainers, and JaCoCo. Use when adding features, fixing bugs, or refactoring.                                                                                 |
-| **springboot-verification**        | Verification loop for Spring Boot projects: build, static analysis, tests with coverage, security scans, and diff review before release or PR.                                                                                              |
-| **strategic-compact**              | Suggests manual context compaction at logical intervals to preserve context through task phases rather than arbitrary auto-compaction.                                                                                                      |
-| **tdd-workflow**                   | Use this skill when writing new features, fixing bugs, or refactoring code. Enforces test-driven development with 80%+ coverage including unit, integration, and E2E tests.                                                                 |
-| **verification-loop**              | A comprehensive verification system for Claude Code sessions.                                                                                                                                                                               |
-
-### Anthropic Skills
-
-| Skill Name          | Description                                                                                                                                                                                                                         |
-|:--------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **algorithmic-art** | Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems.          |
-| **docx**            | Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction. Use when OpenCode needs to work with professional documents (.docx files).         |
-| **frontend-design** | Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications.                                           |
-| **pdf**             | Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. Use when OpenCode needs to fill in a PDF form or programmatically process PDF documents. |
-| **pptx**            | Presentation creation, editing, and analysis. When OpenCode needs to work with presentations (.pptx files) for creating, modifying, or adding content.                                                                              |
-| **skill-creator**   | Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends OpenCode's capabilities with specialized knowledge.                                 |
-| **xlsx**            | Comprehensive spreadsheet creation, editing, and analysis with support for formulas, formatting, data analysis, and visualization. Use when OpenCode needs to work with spreadsheets (.xlsx, .csv, .tsv, etc.).                     |
-
-### Other Skills
-
-| Skill Name                          | Source                         | Description                                                                                                                                                                                                                                  |
-|:------------------------------------|:-------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **async-python-patterns**           | wshobson/agents                | Master Python asyncio, concurrent programming, and async/await patterns for high-performance applications. Use when building async APIs, concurrent systems, or I/O-bound applications.                                                      |
-| **copywriting**                     | coreyhaines31/marketingskills  | Write, rewrite, or improve marketing copy for homepages, landing pages, pricing pages, feature pages, about pages, or product pages.                                                                                                         |
-| **create-readme**                   | github/awesome-copilot         | Create comprehensive and well-structured README.md files with clear formatting and informative content.                                                                                                                                      |
-| **documentation-writer**            | github/awesome-copilot         | Create high-quality software documentation using Diátaxis framework with tutorials, how-to guides, references, and explanations.                                                                                                             |
-| **figma-code-connect**              | figma/mcp-server-guide         | Creates and maintains Figma Code Connect template files that map Figma components to code snippets. *(requires Figma MCP)*                                                                                                                   |
-| **figma-create-new-file**           | figma/mcp-server-guide         | Prerequisite skill for creating new blank Figma files (design, FigJam, or Slides) before using the Figma MCP. *(requires Figma MCP)*                                                                                                         |
-| **figma-generate-design**           | figma/mcp-server-guide         | Translates application pages and multi-section layouts into Figma using design system components and tokens. *(requires Figma MCP)*                                                                                                          |
-| **figma-generate-diagram**          | figma/mcp-server-guide         | Creates flowcharts, architecture diagrams, sequence diagrams, ERDs, and state diagrams in FigJam via Mermaid-based generation. *(requires Figma MCP)*                                                                                        |
-| **figma-generate-library**          | figma/mcp-server-guide         | Builds professional-grade design systems in Figma from a codebase including variables, tokens, components, and theming. *(requires Figma MCP)*                                                                                               |
-| **figma-use**                       | figma/mcp-server-guide         | Core prerequisite for Figma MCP write operations — create/edit/delete nodes, variables, components, and inspect file structure programmatically. *(requires Figma MCP)*                                                                      |
-| **figma-use-figjam**                | figma/mcp-server-guide         | Figma MCP skill for FigJam context — whiteboards, diagrams, and collaborative sessions. *(requires Figma MCP)*                                                                                                                               |
-| **figma-use-slides**                | figma/mcp-server-guide         | Figma MCP skill for Slides context — presentations and slide decks. *(requires Figma MCP)*                                                                                                                                                   |
-| **git-commit**                      | github/awesome-copilot         | Execute git commits with conventional commit message analysis, intelligent staging, and automatic message generation.                                                                                                                        |
-| **markitdown**                      | davila7/claude-code-templates  | Convert files and office documents to Markdown. Supports PDF, DOCX, PPTX, XLSX, images (with OCR), audio (with transcription), HTML, CSV, JSON, XML, ZIP, YouTube URLs, EPubs and more.                                                      |
-| **rust-best-practices**             | apollographql/skills           | Guide for writing idiomatic Rust code based on Apollo GraphQL's best practices handbook.                                                                                                                                                     |
-| **seo-audit**                       | coreyhaines31/marketingskills  | Audit and diagnose SEO issues including technical SEO, on-page optimization, meta tags, page speed, and indexing problems.                                                                                                                   |
-| **simplify**                        | brianlovin/claude-config       | Simplify and refine recently modified code for clarity and consistency. Use after writing code to improve readability without changing functionality.                                                                                        |
-| **stock-analysis**                  | gracefullight/stock-checker    | Analyze stocks and cryptocurrencies using Yahoo Finance data. Supports portfolio management, crypto analysis, and periodic performance reports.                                                                                              |
-| **golang-pro**                      | jeffallan/claude-skills        | Implements concurrent Go patterns using goroutines and channels, designs and builds microservices with gRPC or REST, optimizes Go application performance.                                                                                   |
-| **laravel-specialist**              | jeffallan/claude-skills        | Build and configure Laravel 10+ applications, including creating Eloquent models, implementing Sanctum authentication, configuring Horizon queues, and building Livewire components.                                                         |
-| **javascript-testing-patterns**     | microck/ordinary-claude-skills | Implement comprehensive testing strategies using Jest, Vitest, and Testing Library for unit tests, integration tests, and end-to-end testing.                                                                                                |
-| **next-best-practices**             | vercel-labs/next-skills        | Next.js best practices including file conventions, RSC boundaries, data patterns, async APIs, metadata, error handling, route handlers, and optimization.                                                                                    |
-| **receiving-code-review**           | obra/superpowers               | Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable.                                                                                                  |
-| **requesting-code-review**          | obra/superpowers               | Use when completing tasks, implementing major features, or before merging to verify work meets requirements.                                                                                                                                 |
-| **remotion-best-practices**         | remotion-dev/skills            | Best practices for Remotion - Video creation in React.                                                                                                                                                                                       |
-| **lesson-learned**                  | softaworks/agent-toolkit       | Analyze recent code changes via git history and extract software engineering lessons.                                                                                                                                                        |
-| **agent-browser**                   | vercel-labs/agent-toolkit      | Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task. |
-| **vercel-react-best-practices**     | vercel-labs/agent-skills       | React and Next.js performance optimization guidelines from Vercel Engineering. Use when writing, reviewing, or refactoring React/Next.js code.                                                                                               |
-| **vercel-react-native-skills**      | vercel-labs/agent-skills       | React Native and Expo best practices for building performant mobile apps including list performance, animations, and native module integration.                                                                                              |
-| **web-design-guidelines**           | vercel-labs/agent-skills       | Review UI code for Web Interface Guidelines compliance. Use when asked to "review my UI", "check accessibility", "audit design", "review UX", or "check my site against best practices".                                                     |
-| **find-skills**                     | vercel-labs/skills             | Helps users discover and install agent skills when they ask questions like "how do I do X", "find a skill for X", "is there a skill that can...".                                                                                            |
-| **modern-javascript-patterns**      | wshobson/agents                | Master ES6+ features including async/await, destructuring, spread operators, arrow functions, promises, modules, iterators, generators, and functional programming patterns.                                                                 |
-| **python-packaging**                | wshobson/agents                | Create distributable Python packages with proper project structure, setup.py/pyproject.toml, and publishing to PyPI.                                                                                                                         |
-| **python-performance-optimization** | wshobson/agents                | Profile and optimize Python code using cProfile, memory profilers, and performance best practices.                                                                                                                                           |
-| **python-testing-patterns**         | wshobson/agents                | Implement comprehensive testing strategies with pytest, fixtures, mocking, and test-driven development.                                                                                                                                      |
-| **typescript-advanced-types**       | wshobson/agents                | Master TypeScript's advanced type system including generics, conditional types, mapped types, template literals, and utility types.                                                                                                          |
-
-### Apple & Xcode Skills
-
-| Skill Name                     | Source                                      | Description                                                                                                                                                                                               |
-|:-------------------------------|:--------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **swift-testing-expert**       | avdlee/swift-testing-agent-skill            | Expert guidance for Swift Testing: test structure, #expect/#require macros, traits and tags, parameterized tests, test plans, parallel execution, async waiting patterns, and XCTest migration.           |
-| **swiftui-expert-skill**       | avdlee/swiftui-agent-skill                  | Write, review, or improve SwiftUI code following best practices for state management, view composition, performance, macOS-specific APIs, and iOS 26+ Liquid Glass adoption.                              |
-| **update-swiftui-apis**        | avdlee/swiftui-agent-skill                  | Scan Apple's SwiftUI documentation for deprecated APIs and update the SwiftUI Expert Skill with modern replacements. Requires the Sosumi MCP to be available.                                             |
-| **spm-build-analysis**         | avdlee/xcode-build-optimization-agent-skill | Analyze Swift Package Manager dependencies, package plugins, module variants, and CI-oriented build overhead that slow Xcode builds.                                                                      |
-| **xcode-build-benchmark**      | avdlee/xcode-build-optimization-agent-skill | Benchmark Xcode clean and incremental builds with repeatable inputs, timing summaries, and timestamped `.build-benchmark/` artifacts.                                                                     |
-| **xcode-build-fixer**          | avdlee/xcode-build-optimization-agent-skill | Apply approved Xcode build optimization changes following best practices, then re-benchmark to verify improvement.                                                                                        |
-| **xcode-build-orchestrator**   | avdlee/xcode-build-optimization-agent-skill | Orchestrate Xcode build optimization by benchmarking first, running specialist analysis skills, prioritizing findings, requesting explicit approval, delegating fixes, and re-benchmarking after changes. |
-| **xcode-compilation-analyzer** | avdlee/xcode-build-optimization-agent-skill | Analyze Swift and mixed-language compile hotspots using build timing summaries and Swift frontend diagnostics, then produce a recommend-first source-level optimization plan.                             |
-| **xcode-project-analyzer**     | avdlee/xcode-build-optimization-agent-skill | Audit Xcode project configuration, build settings, scheme behavior, and script phases to find build-time improvements with explicit approval gates.                                                       |
-
----
-
 ## Commands
 
-Project-scoped custom slash commands live in `.opencode/commands/`. The `make sync` command also copies any files from
-`./commands/` to the system config directory for globally available commands.
+Project-scoped custom slash commands live in `.opencode/commands/`. The current repository has two project-scoped
+commands and no root-level `./commands/` directory. The `make sync` command will still mirror a root `./commands/`
+directory into the system config if one is added later.
 
 ### /blacklist-sync
 
@@ -576,15 +419,9 @@ blacklist stays accurate as providers ship new models without requiring manual u
 
 ### /readme-sync
 
-The `/readme-sync` command keeps `README.md` perpetually synchronized with the actual project configuration. It scans
-all configuration files (`opencode.json`, `oh-my-openagent.json`, `skills.csv`, `Makefile`) and project directories
-(`.opencode/commands/`, `./agents/`) then updates the corresponding README sections when drift is detected.
-
-| Phase    | Action                                                                                                                |
-|:---------|:----------------------------------------------------------------------------------------------------------------------|
-| Analyze  | Parallel scan of all config files and directories to detect what has changed                                          |
-| Sync     | Update only the sections that are out of date — plugins, MCPs, providers, skills, agents, commands, model assignments |
-| Validate | Confirm table formatting, link validity, and no duplicate or orphaned content                                         |
+The `/readme-sync` command synchronizes this README with the current OpenCode configuration files. It scans
+`opencode.json`, `oh-my-openagent.json`, root JSON files, the Makefile, and local command or agent directories, then
+updates only the README sections that drift from the actual configuration.
 
 **Source:** `.opencode/commands/readme-sync.md`
 
@@ -606,6 +443,9 @@ added to this file as needed.
 OpenCode employs a sophisticated agent system where specialized AI agents handle different types of tasks. The agent
 architecture enables parallel task execution, context-aware processing, and delegation based on task complexity and
 requirements.
+
+There are no repo-local `agents/` or `.opencode/agents/` files in this project at the moment. The agents documented
+below are provided by configured plugins.
 
 #### Oh-My-OpenAgent Agents
 
@@ -690,7 +530,6 @@ configuration.
 | **@nick-vi/opencode-type-inject** | Active | https://github.com/nick-vi/type-inject                   | Latest  | Advanced type inference and language-aware code completion                |
 | **opencode-openai-codex-auth**    | Active | https://github.com/numman-ali/opencode-openai-codex-auth | Latest  | OpenAI provider authentication for direct API access                      |
 | **opencode-historian**            | Active | https://github.com/5kahoisaac/opencode-historian         | Latest  | Persistent memory management and semantic search across project knowledge |
-| **opencode-with-claude**          | Active | https://github.com/ianjwhite99/opencode-with-claude      | Latest  | Claude Max/Pro integration through local proxy bridge                     |
 
 ### Manually Configured MCPs
 
@@ -729,10 +568,7 @@ configuration.
 | **Kimi API Platform**      | https://platform.kimi.ai/docs/models                                       | Official model documentation for Kimi K2.6, K2.5, and related families    |
 | **Z.ai Developer Docs**    | https://docs.z.ai/guides/overview/quick-start                              | Official Z.ai documentation for GLM model families and APIs               |
 | **xAI Developer Docs**     | https://docs.x.ai/developers/models                                        | Official xAI model catalog and pricing overview                           |
-| **Vercel Skills.sh**       | https://www.skills.sh/                                                     | Community skill distribution and management system                        |
 | **Model Context Protocol** | https://modelcontextprotocol.io/docs/getting-started/intro                 | Open standard for AI-LLM context and tool integration (Anthropic)         |
-| **Claude Code Skills Dir** | https://www.gradually.ai/en/claude-code-skills/                            | Aggregated skills directory with indexed Claude Code skills               |
-| **Everything Claude Code** | https://github.com/affaan-m/ECC                                            | Comprehensive ECC skills collection                                       |
 
 ### Notes
 
@@ -742,5 +578,5 @@ configuration.
 - **Atlassian MCP**: Community fork maintained by sooperset; official Atlassian server exists but uses remote HTTP
 - **Vision MCP**: Connects directly to Z.ai vision API endpoints for image analysis
 
-All URLs verified as of May 2026. Refer to individual repository documentation for latest API changes and version
+All URLs verified as of June 2026. Refer to individual repository documentation for latest API changes and version
 compatibility.
