@@ -38,8 +38,23 @@ specific workflow requirements and preferences.
 
 ## Project Scope
 
-> **Note:** The original sync skills feature has been moved to a dedicated repository: [skillless](https://github.com/5kahoisaac/skillless).
-> This repository only retains the OpenCode-specific configurations.
+This project scope reminder applies after `v0.5.0`.
+
+The original sync skills feature has been removed from this repository because it has been split into a dedicated
+repository: [skillless](https://github.com/5kahoisaac/skillless). This repository only retains OpenCode-specific
+configuration files and commands.
+
+The `anthropic` provider and `opencode-with-claude` plugin are increasingly out of scope. **Claude** access is shifting away
+from SDK-based integrations, and workflows tend to be more effective when run through **Everything Claude Code (ECC)**
+rather than the **Oh-My-OpenAgent** + **Claude** integration.
+
+**Claude** models perform best with a lighter control layer and minimal orchestration. They handle open-ended reasoning well
+without heavy prompt scaffolding, and additional orchestration can introduce unnecessary token overhead. In contrast,
+**Oh-My-OpenAgent**’s more complex prompt and routing stack may be excessive for **Claude**-centric workflows.
+
+**GPT**-family models remain better suited for structured, bounded tasks where explicit routing, delegation, and tighter
+control loops provide clear benefits. Their behavior aligns well with systems that rely on defined task decomposition
+and orchestration layers.
 
 ---
 
