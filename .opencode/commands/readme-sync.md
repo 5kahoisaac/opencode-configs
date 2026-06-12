@@ -4,7 +4,7 @@ description: Synchronizes README.md with configuration files
 
 # OpenCode Command: README Synchronizer
 
-This command ensures that `README.md` documentation remains perpetually synchronized with actual project configuration. As your OpenCode setup evolves—with new plugins, MCPs, providers, skills, agents, and model configurations—this command automatically detects changes and updates corresponding documentation sections to maintain accuracy and prevent documentation drift.
+This command ensures that `README.md` documentation remains perpetually synchronized with actual project configuration. As your OpenCode setup evolves—with new plugins, MCPs, providers, agents, and model configurations—this command automatically detects changes and updates corresponding documentation sections to maintain accuracy and prevent documentation drift.
 
 ## Command Execution Strategy
 
@@ -22,7 +22,6 @@ You must analyze the project structure to identify what needs synchronization:
 **Component Directories to Scan:**
 - `agents/` directory for custom agent configurations
 - `commands/` directory for custom command files
-- `skills.csv` list of skills (for installing skills via skills.sh)
 
 **For `opencode.json` Changes:**
 
@@ -38,7 +37,6 @@ Use the **Task tool** to orchestrate parallel scanning and analysis:
 2. Wait for all exploration tasks to complete and collect their findings
 
 3. Launch parallel directory scanning tasks:
-   - Task: Scan `skills.csv` directory and enumerate all skills
    - Task: Scan `agents/` directory and enumerate all custom agents
    - Task: Scan `commands/` directory and enumerate all custom commands
 
@@ -76,13 +74,6 @@ Based on detected changes, update or remove legacy content in appropriate sectio
 - Document provider details: API endpoints, authentication, models, capabilities
 
 **For Directory Synchronization:**
-
-Skills Documentation:
-- Compare skills found in `skills.csv` with Skills section in README.md
-- Identify missing skills (installed but not documented)
-- Identify outdated skills (documented but missing or with wrong descriptions)
-- Update Skills section to reflect complete, current state
-- If author is Isaac Ng, please point out it is a custom skill
 
 Custom Agents Documentation:
 - Compare agents found in `./agents/` directory with Custom Agents section
@@ -149,13 +140,11 @@ When analyzing and updating documentation:
 Detected Changes:
   ✓ opencode.json (MCPs section updated)
   ✓ oh-my-openagent.json (agents modified)
-  ✓ skills/ (new skills detected)
 
 Documentation Sections Updated:
   → Plugins: Added 1 plugin, updated 2
   → MCPs: Added 1 MCP configurations, updated 3 MCP configurations
   → Provider List: Synchronized with 5 providers
-  → Skills: Added 2 missing skills
   → Custom Agents: Updated 1 agent configuration, removed 1 legacy agent
   → Models Configuration: Synchronized agent and task category assignments
 
