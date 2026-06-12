@@ -31,7 +31,6 @@
   "plugin": [
     "@nick-vi/opencode-type-inject@latest",
     "opencode-openai-codex-auth@latest",
-    "opencode-with-claude@latest",
     "opencode-historian@latest",
     "oh-my-openagent@latest"
   ],
@@ -41,7 +40,6 @@
     "nvidia",
     "openai",
     "opencode",
-    "anthropic",
     "digitalocean",
     "zai-coding-plan",
     "github-copilot"
@@ -61,12 +59,6 @@
         "gemma-4-26B-A4B-it-MLX-8bit": {
           "name": "Gemma4 26B A4B 8bit"
         }
-      }
-    },
-    "anthropic": {
-      "options": {
-        "baseURL": "http://127.0.0.1:3456",
-        "apiKey": "sk-ant-api-dummy"
       }
     },
     "opencode": {

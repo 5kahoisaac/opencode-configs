@@ -3,10 +3,6 @@
   "agents": {
     "sisyphus": {
       "model": "digitalocean/kimi-k2.6",
-      "ultrawork": {
-        "model": "anthropic/claude-opus-4-8",
-        "variant": "max"
-      },
       "fallback_models": [
         {
           "model": "openai/gpt-5.5",
@@ -17,11 +13,9 @@
       ]
     },
     "metis": {
+
       "model": "openai/gpt-5.5",
       "variant": "high",
-      "ultrawork": {
-        "model": "anthropic/claude-sonnet-4-6"
-      },
       "fallback_models": [
         "zai-coding-plan/glm-5.1",
         "digitalocean/kimi-k2.5"
@@ -30,10 +24,6 @@
     "prometheus": {
       "model": "openai/gpt-5.5",
       "variant": "high",
-      "ultrawork": {
-        "model": "anthropic/claude-opus-4-8",
-        "variant": "max"
-      },
       "fallback_models": [
         "zai-coding-plan/glm-5.1",
         "github-copilot/gemini-3.1-pro-preview"
@@ -41,9 +31,6 @@
     },
     "atlas": {
       "model": "digitalocean/kimi-k2.6",
-      "ultrawork": {
-        "model": "anthropic/claude-sonnet-4-6"
-      },
       "fallback_models": [
         {
           "model": "openai/gpt-5.5",
@@ -111,9 +98,6 @@
     },
     "sisyphus-junior": {
       "model": "digitalocean/kimi-k2.6",
-      "ultrawork": {
-        "model": "anthropic/claude-sonnet-4-6"
-      },
       "fallback_models": [
         {
           "model": "openai/gpt-5.5",
@@ -150,10 +134,6 @@
           "model": "github-copilot/gemini-3.1-pro-preview",
           "variant": "high"
         },
-        {
-          "model": "anthropic/claude-opus-4-8",
-          "variant": "max"
-        },
         "zai-coding-plan/glm-5.1",
         "nvidia/models/z-ai/glm-5.1"
       ]
@@ -162,10 +142,6 @@
       "model": "openai/gpt-5.5",
       "variant": "medium",
       "fallback_models": [
-        {
-          "model": "anthropic/claude-opus-4-8",
-          "variant": "max"
-        },
         {
           "model": "github-copilot/gemini-3.1-pro-preview",
           "variant": "high"
@@ -184,10 +160,6 @@
       "model": "openai/gpt-5.5",
       "variant": "high",
       "fallback_models": [
-        {
-          "model": "anthropic/claude-opus-4-8",
-          "variant": "max"
-        },
         "digitalocean/glm-5",
         "digitalocean/kimi-k2.5"
       ]
@@ -222,14 +194,12 @@
     }
   },
   "claude_code": {
-    "plugins_override": {
-      "ecc@ecc": false,
-      "serena@claude-plugins-official": false,
-      "context7@claude-plugins-official": false,
-      "figma@claude-plugins-official": false,
-      "atlassian@claude-plugins-official": false,
-      "codex@openai-codex": false
-    }
+    "mcp": false,
+    "commands": false,
+    "skills": false,
+    "agents": true,
+    "hooks": false,
+    "plugins": false
   },
   "git_master": {
     "commit_footer": false,
@@ -245,7 +215,6 @@
       "nvidia": 3,
       "openai": 5,
       "opencode": 10,
-      "anthropic": 5,
       "digitalocean": 3,
       "github-copilot": 5,
       "zai-coding-plan": 10
@@ -256,13 +225,6 @@
       "openai/gpt-5.3-codex": 3,
       "openai/gpt-5.4-mini": 5,
       "openai/gpt-5.4-nano": 8,
-      "anthropic/claude-opus-4-8": 1,
-      "anthropic/claude-opus-4-7": 1,
-      "anthropic/claude-opus-4-6": 2,
-      "anthropic/claude-opus-4-5": 2,
-      "anthropic/claude-sonnet-4.6": 3,
-      "anthropic/claude-sonnet-4-5": 3,
-      "anthropic/claude-haiku-4-5": 6,
       "zai-coding-plan/glm-4.5-air": 5,
       "zai-coding-plan/glm-4.7": 2,
       "zai-coding-plan/glm-5-turbo": 1,
