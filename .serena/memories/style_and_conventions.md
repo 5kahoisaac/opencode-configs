@@ -1,1 +1,0 @@
-Repository is configuration/documentation heavy. Source of truth is JSON config files and command markdown files under .opencode/commands. README should stay synchronized with config facts. Prefer surgical edits, preserve Markdown structure/tables, and avoid changing skills section unless skills.csv or installed skills actually changed.

@@ -36,6 +36,13 @@ specific workflow requirements and preferences.
 
 ---
 
+## Project Scope
+
+> **Note:** The original sync skills feature has been moved to a dedicated repository: [skillless](https://github.com/5kahoisaac/skillless).
+> This repository only retains the OpenCode-specific configurations.
+
+---
+
 ## Available Makefile Commands
 
 The Makefile provides essential commands to manage the OpenCode configuration:
