@@ -11,16 +11,16 @@
           "model": "openai/gpt-5.5",
           "variant": "medium"
         },
+        "zai-coding-plan/glm-5.1",
         "digitalocean/glm-5",
         "opencode/big-pickle"
       ]
     },
     "metis": {
-
       "model": "openai/gpt-5.5",
       "variant": "high",
       "fallback_models": [
-        "zai-coding-plan/glm-5.1",
+        "zai-coding-plan/glm-5.2",
         "digitalocean/kimi-k2.5"
       ]
     },
@@ -28,7 +28,7 @@
       "model": "openai/gpt-5.5",
       "variant": "high",
       "fallback_models": [
-        "zai-coding-plan/glm-5.1",
+        "zai-coding-plan/glm-5.2",
         "github-copilot/gemini-3.1-pro-preview"
       ]
     },
@@ -59,8 +59,8 @@
           "model": "github-copilot/gemini-3.1-pro-preview",
           "variant": "high"
         },
-        "zai-coding-plan/glm-5.1",
-        "nvidia/models/z-ai/glm-5.1"
+        "zai-coding-plan/glm-5.2",
+        "zai-coding-plan/glm-5.1"
       ]
     },
     "momus": {
@@ -71,8 +71,8 @@
           "model": "github-copilot/gemini-3.1-pro-preview",
           "variant": "high"
         },
-        "zai-coding-plan/glm-5.1",
-        "nvidia/models/z-ai/glm-5.1"
+        "zai-coding-plan/glm-5.2",
+        "zai-coding-plan/glm-5.1"
       ]
     },
     "explore": {
@@ -117,8 +117,8 @@
       "variant": "high",
       "fallback_models": [
         "digitalocean/glm-5",
+        "zai-coding-plan/glm-5.2",
         "zai-coding-plan/glm-5.1",
-        "nvidia/models/z-ai/glm-5.1",
         "digitalocean/kimi-k2.5"
       ]
     },
@@ -137,8 +137,8 @@
           "model": "github-copilot/gemini-3.1-pro-preview",
           "variant": "high"
         },
-        "zai-coding-plan/glm-5.1",
-        "nvidia/models/z-ai/glm-5.1"
+        "zai-coding-plan/glm-5.2",
+        "zai-coding-plan/glm-5.1"
       ]
     },
     "deep": {
@@ -234,7 +234,8 @@
       "zai-coding-plan/glm-4.7": 2,
       "zai-coding-plan/glm-5-turbo": 1,
       "zai-coding-plan/glm-5v-turbo": 1,
-      "zai-coding-plan/glm-5.1": 10
+      "zai-coding-plan/glm-5.1": 10,
+      "zai-coding-plan/glm-5.2": 5
     }
   },
   "runtime_fallback": {
