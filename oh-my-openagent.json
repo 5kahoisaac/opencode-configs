@@ -3,6 +3,12 @@
   "sisyphus_agent": {
     "default_builder_enabled": true
   },
+  "disabled_mcps": [
+    "context7",
+    "websearch",
+    "ast_grep",
+    "grep_app"
+  ],
   "agents": {
     "sisyphus": {
       "model": "digitalocean/kimi-k2.6",
@@ -14,7 +20,8 @@
         "zai-coding-plan/glm-5.1",
         "digitalocean/glm-5",
         "opencode/big-pickle"
-      ]
+      ],
+      "prompt_append": "Delegate heavily to hephaestus for implementation. Parallelize exploration."
     },
     "metis": {
       "model": "openai/gpt-5.5",
@@ -30,7 +37,8 @@
       "fallback_models": [
         "zai-coding-plan/glm-5.2",
         "github-copilot/gemini-3.1-pro-preview"
-      ]
+      ],
+      "prompt_append": "Keep plans concise. Focus on file structure and key decisions."
     },
     "atlas": {
       "model": "digitalocean/kimi-k2.6",
@@ -49,7 +57,8 @@
         "model": "openai/gpt-5.5",
         "variant": "medium"
       },
-      "fallback_models": []
+      "fallback_models": [],
+      "prompt_append": "You are the primary implementation agent. Own the codebase. Explore, decide, execute. Use LSP and AST-grep aggressively."
     },
     "oracle": {
       "model": "openai/gpt-5.5",
@@ -199,10 +208,6 @@
   "claude_code": {
     "plugins_override": {
       "ecc@ecc": false,
-      "serena@claude-plugins-official": false,
-      "context7@claude-plugins-official": false,
-      "figma@claude-plugins-official": false,
-      "atlassian@claude-plugins-official": false,
       "codex@openai-codex": false
     }
   },

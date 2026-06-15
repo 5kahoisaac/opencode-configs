@@ -156,47 +156,10 @@
     }
   },
   "mcp": {
-    "vision": {
-      "command": [
-        "npx",
-        "-y",
-        "@z_ai/mcp-server"
-      ],
+    "mcp-proxy": {
       "enabled": true,
-      "environment": {
-        "ZAI_API_KEY": "{env:ZAI_API_KEY}",
-        "Z_AI_MODE": "ZAI"
-      },
-      "type": "local"
-    },
-    "github": {
-      "enabled": true,
-      "headers": {
-        "Authorization": "Bearer {env:GITHUB_PAT_TOKEN}"
-      },
       "type": "remote",
-      "url": "https://api.githubcopilot.com/mcp"
-    },
-    "atlassian": {
-      "command": [
-        "uvx",
-        "mcp-atlassian"
-      ],
-      "enabled": false,
-      "environment": {
-        "CONFLUENCE_API_TOKEN": "{env:CONFLUENCE_API_TOKEN}",
-        "CONFLUENCE_URL": "{env:CONFLUENCE_URL}",
-        "CONFLUENCE_USERNAME": "{env:JIRA_USERNAME}",
-        "JIRA_API_TOKEN": "{env:JIRA_API_TOKEN}",
-        "JIRA_URL": "{env:JIRA_URL}",
-        "JIRA_USERNAME": "{env:JIRA_USERNAME}"
-      },
-      "type": "local"
-    },
-    "figma": {
-      "enabled": false,
-      "type": "remote",
-      "url": "http://127.0.0.1:3845/mcp"
+      "url": "http://127.0.0.1:8081/mcp"
     }
   }
 }
