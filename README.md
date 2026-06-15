@@ -36,27 +36,25 @@ specific workflow requirements and preferences.
 
 ---
 
-## Project Scope
+## Roadmap
 
-This project scope reminder applies after `v0.5.0`.
+This repository is being simplified around three directions:
 
-The original sync skills feature has been removed from this repository because it has been split into a dedicated
-repository: [skillless](https://github.com/5kahoisaac/skillless). This repository only retains OpenCode-specific
-configuration files and commands.
+1. **Move skills into Skillless.** Skills and skill presets are moving to
+   [skillless](https://github.com/5kahoisaac/skillless), so this repository can stay focused on OpenCode configuration
+   instead of becoming a mixed skill/config bundle.
 
-The `anthropic` provider and `opencode-with-claude` plugin are increasingly out of scope. **Claude** access is shifting
-away
-from SDK-based integrations, and workflows tend to be more effective when run through **Everything Claude Code (ECC)**
-rather than the **Oh-My-OpenAgent** + **Claude** integration.
+2. **Remove Anthropic-specific OpenCode paths.** The `anthropic` provider and `opencode-with-claude` plugin are being
+   removed from this setup as a personal workflow decision. Claude models currently run better in Claude Code than in
+   OpenCode with Oh-My-OpenAgent, and Claude Code gives smoother control for Claude-centric work.
 
-**Claude** models perform best with a lighter control layer and minimal orchestration. They handle open-ended reasoning
-well
-without heavy prompt scaffolding, and additional orchestration can introduce unnecessary token overhead. In contrast,
-**Oh-My-OpenAgent**’s more complex prompt and routing stack may be excessive for **Claude**-centric workflows.
-
-**GPT**-family models remain better suited for structured, bounded tasks where explicit routing, delegation, and tighter
-control loops provide clear benefits. Their behavior aligns well with systems that rely on defined task decomposition
-and orchestration layers.
+3. **Centralize MCPs through MCPProxy and prefer CLIs where possible.** Most direct MCP configuration is being removed so
+   multiple coding agents do not each maintain their own MCP setup. Shared MCPs now live behind MCPProxy, using the
+   `retrieve_tools` routing mode to search tools on demand and lazy-load only the tools matching the current keyword or
+   task instead of injecting every MCP tool into context. Over time, some MCPs are also being replaced with CLI-based
+   presets from Skillless, such as the
+   [CLI preset list](https://github.com/5kahoisaac/skillless/blob/main/lists/cli.csv). The goal is to replace high-token
+   MCP flows such as Exa `websearch` and Context7 with CLI workflows where they save tokens and perform better.
 
 ---
 
@@ -346,78 +344,51 @@ creating a knowledge base that persists beyond individual conversations.
 ## MCPs
 
 Model Context Protocol (MCP) servers extend OpenCode's capabilities by providing specialized tools and integrations.
-This configuration includes manually configured MCPs and pre-installed MCPs from the oh-my-openagent and
-opencode-historian plugins.
+This repository now keeps OpenCode's local MCP surface intentionally small. OpenCode connects to one local
+`mcp-proxy` endpoint for shared MCP servers used across OpenCode, Claude Code, Codex, and other AI agents. The one
+intentional exception is Oh-My-OpenAgent's custom `lsp` MCP, which remains plugin-managed because it does not have a
+public standalone MCPProxy configuration.
 
 ### Manually Configured MCPs
 
-The following MCPs are explicitly configured in `opencode.json` file:
+The following MCP is explicitly configured in `opencode.json`:
 
-**figma** *(disabled)*
+**mcp-proxy**
 
-The Figma MCP enables seamless integration with Figma for design-related operations.
-This MCP allows OpenCode to interact with Figma's desktop application, enabling design context retrieval,
-UI code generation, and design system exploration directly from Figma files. Currently disabled in configuration.
+OpenCode connects to MCPProxy through the local remote endpoint `http://127.0.0.1:8081/mcp`. MCPProxy is the shared MCP
+control plane for this workstation and exposes the actual upstream MCP servers through one OpenCode entrypoint. This
+avoids duplicating MCP configuration across multiple AI coding tools.
 
-**github**
+The proxy configuration currently includes these upstream MCP servers:
 
-The GitHub MCP provides comprehensive integration with GitHub for repository operations,
-pull request management, issue tracking, and code search.
-This MCP enables OpenCode to interact with GitHub through the GitHub Copilot MCP remote endpoint
-(`https://api.githubcopilot.com/mcp`) for repository and development workflows directly from the conversation
-interface.
+| Upstream MCP | Status   | Protocol | Purpose                                                                   |
+|:-------------|:---------|:---------|:--------------------------------------------------------------------------|
+| `ast_grep`   | Enabled  | stdio    | AST-aware code search and structural matching                             |
+| `atlassian`  | Enabled  | stdio    | Jira and Confluence access through `mcp-atlassian`                        |
+| `figma`      | Disabled | HTTP     | Figma desktop MCP endpoint at `http://127.0.0.1:3845/mcp`                 |
+| `github`     | Enabled  | HTTP     | GitHub Copilot MCP remote endpoint at `https://api.githubcopilot.com/mcp` |
+| `grep_app`   | Enabled  | HTTP     | Public GitHub code search through grep.app                                |
+| `serena`     | Enabled  | stdio    | Code intelligence, symbol navigation, and semantic project operations     |
+| `vision`     | Enabled  | stdio    | Z.ai vision MCP for image and visual-content analysis                     |
 
-**atlassian** *(disabled)*
+MCPProxy also enables management, keyword-based tool search/routing, quarantine, metrics, observability, OAuth support,
+sensitive-data detection, and registry discovery. The search layer acts as a real lazy-load mechanism: agents retrieve
+only the MCP tools needed for the current task instead of loading every available tool into the prompt. Docker isolation
+is configured but disabled globally in the proxy configuration.
 
-The Atlassian MCP integrates with Atlassian Jira for project management operations including issue tracking,
-sprint management, and workflow automation. This MCP connects to both Jira and Confluence,
-enabling seamless access to project management data. Currently disabled in configuration.
+### Plugin-Provided MCP Status
 
-**vision**
+The oh-my-openagent and opencode-historian plugin MCPs have been removed from normal local ownership and moved to
+MCPProxy where possible. The retained exception is Oh-My-OpenAgent's custom `lsp` MCP.
 
-The Vision MCP provides visual analysis capabilities through Z.ai's vision models. This MCP enables image understanding,
-visual content analysis, and image-based reasoning tasks. It connects to Z.ai's vision API to process and analyze
-visual inputs alongside code and text.
+| Source               | Configuration File        | Current Routing                                      |
+|:---------------------|:--------------------------|:-----------------------------------------------------|
+| oh-my-openagent      | `oh-my-openagent.json`    | Use MCPProxy for moved MCPs; keep plugin `lsp` MCP   |
+| opencode-historian   | `opencode-historian.json` | Use MCPProxy-managed `serena` instead                |
+| Claude Code override | `oh-my-openagent.json`    | Avoid duplicate Claude Code plugin bridge activation |
 
-### Pre-installed MCPs from opencode-historian
-
-The opencode-historian plugin includes the Serena MCP server:
-
-**serena**
-
-The Serena MCP server provides advanced code intelligence capabilities including precise symbol navigation,
-semantic search, and AST-aware code operations. This MCP is essential for code symbol manipulation and
-enables token-efficient code retrieval and modifications. It is automatically available when the
-opencode-historian plugin is enabled.
-
-### Pre-installed MCPs from Oh-My-OpenAgent
-
-The oh-my-openagent plugin includes three pre-configured MCP servers that provide essential development tools:
-
-| MCP         | Purpose                         | Default Assignment                    |
-|-------------|---------------------------------|---------------------------------------|
-| `websearch` | Real-time web search via Exa AI | `sisyphus`, `librarian`, `prometheus` |
-| `context7`  | Official library documentation  | `librarian`                           |
-| `grep_app`  | GitHub code search via grep.app | `oracle`                              |
-
-**MCP Descriptions:**
-
-- **websearch** - Provides real-time web search capabilities via Exa AI. This MCP enables agents to search for current
-  information, documentation, and code examples from across the web.
-
-- **context7** - Provides access to up-to-date official documentation and code examples for various libraries and
-  frameworks. This MCP fetches version-specific documentation directly from the source, ensuring accurate and current
-  information for library usage and API references.
-
-- **grep_app** - Enables ultra-fast code search across millions of public GitHub repositories. This MCP allows agents to
-  search for code patterns, find real-world implementation examples, and discover how others have solved similar
-  problems.
-
-These pre-installed MCPs are automatically available when the oh-my-openagent plugin is enabled. MCP access is
-controlled
-via per-agent permissions in the configuration. See
-the [official documentation](https://github.com/code-yeongyu/oh-my-openagent/blob/master/docs/configurations.md) for
-details on MCP assignment syntax and configuration options.
+This means the plugin agents remain available, MCPProxy is the source of truth for shared MCP server configuration, and
+`lsp` remains the only intentionally plugin-managed OMO MCP.
 
 ---
 
@@ -555,52 +526,61 @@ configuration.
 | **opencode-openai-codex-auth**    | Active | https://github.com/numman-ali/opencode-openai-codex-auth | Latest  | OpenAI provider authentication for direct API access                      |
 | **opencode-historian**            | Active | https://github.com/5kahoisaac/opencode-historian         | Latest  | Persistent memory management and semantic search across project knowledge |
 
-### Manually Configured MCPs
+### OpenCode MCP Entrypoint
 
-| MCP Name      | Status   | Source Type     | Source Location                                                                       | Purpose                                                                        |
-|:--------------|:---------|:----------------|:--------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------|
-| **figma**     | Disabled | Official Docs   | https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server | Figma design integration and UI code generation                                |
-| **github**    | Enabled  | Remote Endpoint | api.githubcopilot.com (GitHub Copilot MCP)                                            | GitHub API integration for repository operations, PRs, issues, and code search |
-| **atlassian** | Disabled | Community Fork  | https://github.com/sooperset/mcp-atlassian                                            | Atlassian Jira and Confluence integration (maintained community fork)          |
-| **vision**    | Active   | Official Docs   | https://docs.z.ai/devpack/mcp/vision-mcp-server                                       | Z.ai vision MCP for image understanding and visual analysis                    |
+| MCP Name      | Status  | Source Type    | Source Location             | Documentation              | Purpose                                               |
+|:--------------|:--------|:---------------|:----------------------------|:---------------------------|:------------------------------------------------------|
+| **mcp-proxy** | Enabled | Local HTTP MCP | `http://127.0.0.1:8081/mcp` | https://docs.mcpproxy.app/ | Shared MCPProxy endpoint for OpenCode and other tools |
 
-### Pre-installed MCPs (oh-my-openagent)
+### MCPProxy-Managed Upstreams
 
-| MCP Name      | Purpose                        | Service Provider | Documentation/Source                                                                             |
-|:--------------|:-------------------------------|:-----------------|:-------------------------------------------------------------------------------------------------|
-| **websearch** | Real-time web search           | Exa AI           | https://exa.ai/docs/reference/exa-mcp - Official Exa MCP documentation                           |
-| **context7**  | Official library documentation | Upstash          | https://context7.com/docs  - Official Context7 documentation and MCP reference                   |
-| **grep_app**  | GitHub code search             | grep.app         | https://vercel.com/blog/grep-a-million-github-repositories-via-mcp - Grep MCP overview and setup |
+| MCP Name      | Status   | Source Type         | Documentation/Source                                                                  | Purpose                                                               |
+|:--------------|:---------|:--------------------|:--------------------------------------------------------------------------------------|:----------------------------------------------------------------------|
+| **ast_grep**  | Enabled  | Git repository      | https://github.com/ast-grep/ast-grep-mcp                                              | AST-aware code search and structural matching                         |
+| **atlassian** | Enabled  | Python package      | https://github.com/sooperset/mcp-atlassian                                            | Atlassian Jira and Confluence integration                             |
+| **figma**     | Disabled | Local HTTP endpoint | https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server | Figma design integration and UI code generation                       |
+| **github**    | Enabled  | Remote endpoint     | https://api.githubcopilot.com/mcp                                                     | GitHub repository operations, pull requests, issues, and code search  |
+| **grep_app**  | Enabled  | Remote endpoint     | https://vercel.com/blog/grep-a-million-github-repositories-via-mcp                    | GitHub code search through grep.app                                   |
+| **serena**    | Enabled  | Git repository      | https://github.com/oraios/serena                                                      | Code intelligence, symbol navigation, and semantic project operations |
+| **vision**    | Enabled  | npm package         | https://docs.z.ai/devpack/mcp/vision-mcp-server                                       | Z.ai vision MCP for image understanding and visual analysis           |
 
-### Pre-installed MCPs (opencode-historian)
+### Plugin-Retained MCPs
 
-| MCP Name   | Purpose                                                  | Source Repository                |
-|:-----------|:---------------------------------------------------------|:---------------------------------|
-| **serena** | Advanced code intelligence (LSP, symbol navigation, AST) | https://github.com/oraios/serena |
+| MCP Name | Status  | Source          | Documentation/Source | Purpose                                                                      |
+|:---------|:--------|:----------------|:---------------------|:-----------------------------------------------------------------------------|
+| **lsp**  | Enabled | oh-my-openagent | Internal plugin MCP  | OMO custom LSP MCP retained because no public standalone proxy config exists |
 
 ### External Services & Platforms
 
-| Service                    | URL                                                                        | Purpose                                                                   |
-|:---------------------------|:---------------------------------------------------------------------------|:--------------------------------------------------------------------------|
-| **OpenCode Platform**      | https://opencode.ai                                                        | Main OpenCode AI coding assistant platform                                |
-| **OpenCode Models**        | https://opencode.ai/docs/models                                            | Official reference for model configuration and provider selection         |
-| **OpenCode Zen**           | https://opencode.ai/docs/zen                                               | Official Zen model hub and pricing roster documentation                   |
-| **GitHub Copilot Docs**    | https://docs.github.com/en/copilot                                         | Official GitHub Copilot setup and usage documentation                     |
-| **GitHub Models Catalog**  | https://docs.github.com/en/rest/models/catalog                             | Canonical API reference for GitHub-hosted model catalog metadata          |
-| **NVIDIA NIM Docs**        | https://docs.nvidia.com/nim/large-language-models/latest/introduction.html | Official NVIDIA NIM documentation for hosted LLM access and model serving |
-| **OpenAI Platform**        | https://developers.openai.com/api/docs/models                              | Official OpenAI model documentation for GPT-5 family and API reference    |
-| **Kimi API Platform**      | https://platform.kimi.ai/docs/models                                       | Official model documentation for Kimi K2.6, K2.5, and related families    |
-| **Z.ai Developer Docs**    | https://docs.z.ai/guides/overview/quick-start                              | Official Z.ai documentation for GLM model families and APIs               |
-| **xAI Developer Docs**     | https://docs.x.ai/developers/models                                        | Official xAI model catalog and pricing overview                           |
-| **Model Context Protocol** | https://modelcontextprotocol.io/docs/getting-started/intro                 | Open standard for AI-LLM context and tool integration (Anthropic)         |
+| Service                    | URL                                                                        | Purpose                                                                          |
+|:---------------------------|:---------------------------------------------------------------------------|:---------------------------------------------------------------------------------|
+| **OpenCode Platform**      | https://opencode.ai                                                        | Main OpenCode AI coding assistant platform                                       |
+| **OpenCode Models**        | https://opencode.ai/docs/models                                            | Official reference for model configuration and provider selection                |
+| **OpenCode Zen**           | https://opencode.ai/docs/zen                                               | Official Zen model hub and pricing roster documentation                          |
+| **GitHub Copilot Docs**    | https://docs.github.com/en/copilot                                         | Official GitHub Copilot setup and usage documentation                            |
+| **GitHub Models Catalog**  | https://docs.github.com/en/rest/models/catalog                             | Canonical API reference for GitHub-hosted model catalog metadata                 |
+| **NVIDIA NIM Docs**        | https://docs.nvidia.com/nim/large-language-models/latest/introduction.html | Official NVIDIA NIM documentation for hosted LLM access and model serving        |
+| **OpenAI Platform**        | https://developers.openai.com/api/docs/models                              | Official OpenAI model documentation for GPT-5 family and API reference           |
+| **Kimi API Platform**      | https://platform.kimi.ai/docs/models                                       | Official model documentation for Kimi K2.6, K2.5, and related families           |
+| **Z.ai Developer Docs**    | https://docs.z.ai/guides/overview/quick-start                              | Official Z.ai documentation for GLM model families and APIs                      |
+| **xAI Developer Docs**     | https://docs.x.ai/developers/models                                        | Official xAI model catalog and pricing overview                                  |
+| **Model Context Protocol** | https://modelcontextprotocol.io/docs/getting-started/intro                 | Open standard for AI-LLM context and tool integration (Anthropic)                |
+| **MCPProxy Docs**          | https://docs.mcpproxy.app/                                                 | Official MCPProxy documentation for shared MCP server management and tool search |
+| **MCPProxy Routing Modes** | https://docs.mcpproxy.app/features/routing-modes/                          | `retrieve_tools` routing mode docs for token-saving lazy tool retrieval         |
+| **MCPProxy Config Gist**   | https://gist.github.com/5kahoisaac/319e1eb499fe5902a93dbe3d7cb0bf1a        | User-maintained MCPProxy upstream configuration reference                        |
 
 ### Notes
 
-- **Figma MCP**: No public implementation repository exists; reference is official Figma documentation only
-- **GitHub MCP**: `opencode.json` currently points at the remote GitHub Copilot MCP endpoint
-  `https://api.githubcopilot.com/mcp`
-- **Atlassian MCP**: Community fork maintained by sooperset; official Atlassian server exists but uses remote HTTP
-- **Vision MCP**: Connects directly to Z.ai vision API endpoints for image analysis
+- **MCPProxy**: `opencode.json` points only at the local MCPProxy endpoint. Upstream MCP details live in the proxy
+  configuration, not in OpenCode's local config.
+- **MCPProxy Config Gist**: Reference link only; secret values should stay managed by keyring or local MCPProxy config,
+  not copied into this README.
+- **Figma MCP**: No public implementation repository exists; reference is official Figma documentation only.
+- **GitHub MCP**: MCPProxy points at the remote GitHub Copilot MCP endpoint `https://api.githubcopilot.com/mcp`.
+- **Atlassian MCP**: Community fork maintained by sooperset; official Atlassian server exists but uses remote HTTP.
+- **Vision MCP**: Connects through Z.ai's MCP package for image analysis.
+- **OMO `lsp` MCP**: Retained as a plugin-managed MCP because it is custom to Oh-My-OpenAgent and has no public
+  standalone MCPProxy configuration.
 
 All URLs verified as of June 2026. Refer to individual repository documentation for latest API changes and version
 compatibility.
