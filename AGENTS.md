@@ -2,7 +2,7 @@
 
 ## Required Skill
 
-Load and follow `andrej-karpathy-skills` on initialization.
+Load and follow `karpathy-guidelines` on initialization.
 
 Use it as the default workflow for planning, coding, scope control, and verification. This file adds only the missing rules.
 
