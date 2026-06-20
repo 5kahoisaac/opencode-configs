@@ -221,6 +221,7 @@
     }
   },
   "claude_code": {
+    "mcp": false,
     "plugins_override": {
       "ecc@ecc": false,
       "codex@openai-codex": false,
