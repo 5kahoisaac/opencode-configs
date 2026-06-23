@@ -51,11 +51,29 @@
         "apiKey": "sk_live_dummy"
       },
       "models": {
-        "Qwen3.6-35B-A3B-UD-MLX-4bit": {
-          "name": "Qwen3.6 35B-A3B 4bit"
+        "gemma-4-26b-a4b-it-mlx-8bit": {
+          "name": "Gemma 4 26B A4B IT MLX 8-bit",
+          "limit": {
+            "context": 262144,
+            "input": 160000,
+            "output": 16384
+          }
         },
-        "gemma-4-26B-A4B-it-MLX-8bit": {
-          "name": "Gemma4 26B A4B 8bit"
+        "qwen3.6-35b-a3b-ud-mlx-4bit": {
+          "name": "Qwen3.6 35B A3B UD MLX 4-bit",
+          "limit": {
+            "context": 262144,
+            "input": 160000,
+            "output": 16384
+          }
+        },
+        "qwythos-9b-claude-mythos-5-1m": {
+          "name": "Qwythos 9B Claude Mythos 5 1M",
+          "limit": {
+            "context": 1000000,
+            "input": 160000,
+            "output": 16384
+          }
         }
       }
     },
