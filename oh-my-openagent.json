@@ -225,7 +225,8 @@
     "plugins_override": {
       "ecc@ecc": false,
       "codex@openai-codex": false,
-      "andrej-karpathy-skills@karpathy-skills": false
+      "andrej-karpathy-skills@karpathy-skills": false,
+      "claude-code-setup@claude-plugins-official": false
     }
   },
   "git_master": {
