@@ -1,0 +1,17 @@
+version: "1.0"
+defaults:
+  base_dir: ".pi/worktrees"
+
+hooks:
+  post_create:
+    # Copy gitignored secrets from the main repo into the new worktree
+    - type: command
+      command: |
+        MAIN=$(git worktree list --porcelain | head -1 | awk '{print $2}')
+        for f in $(git -C "$MAIN" ls-files --others --ignored --exclude-standard 2>/dev/null | grep -v '/'); do
+          [ -f "$MAIN/$f" ] && cp "$MAIN/$f" . && echo "Copied $f"
+        done
+
+    # Allow direnv if .envrc is present
+    - type: command
+      command: "[ -f .envrc ] && direnv allow || true"
