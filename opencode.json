@@ -121,6 +121,7 @@
         "grok-build-0.1",
         "deepseek-v4-pro",
         "deepseek-v4-flash",
+        "glm-5.2",
         "glm-5.1",
         "glm-5",
         "minimax-m2.7",

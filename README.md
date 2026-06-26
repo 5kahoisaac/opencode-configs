@@ -138,9 +138,10 @@ selection.
 
 **oMLX**
 
-oMLX is configured as a local OpenAI-compatible provider served from `http://127.0.0.1:8080/v1`. It exposes two
-manually named MLX-hosted Qwen variants in `provider.omlx.models`, giving this setup a local inference path alongside
-hosted providers.
+oMLX is configured as a local OpenAI-compatible provider served from `http://127.0.0.1:8080/v1`. It exposes three
+manually named MLX-hosted models in `provider.omlx.models` — a Gemma variant (`gemma-4-26b-a4b-it-mlx-8bit`), a Qwen
+variant (`qwen3.6-35b-a3b-ud-mlx-4bit`), and a long-context Qwythos build (`qwythos-9b-claude-mythos-5-1m`) — giving
+this setup a local inference path alongside hosted providers.
 
 #### Provider Blacklist Strategy
 
@@ -149,7 +150,7 @@ The provider configuration also uses blacklist rules to keep model selection foc
 **OpenCode Zen blacklist (`provider.opencode.blacklist`)**
 
 This blacklist is maintained to filter paid OpenCode Zen models from the general OpenCode provider roster while keeping
-free-tier models available. It is synchronized via `/blacklist-sync` and currently filters 41 paid Zen models across
+free-tier models available. It is synchronized via `/blacklist-sync` and currently filters 42 paid Zen models across
 families including Claude (Fable, Opus, Sonnet, Haiku 4.x), GPT (5.x, Codex, Nano), Gemini (3.1 Pro, 3 Flash), Grok
 Build, DeepSeek V4, GLM 5.x, MiniMax M2.x, Kimi K2.x, and Qwen 3.x so routine workflows stay on the free/default
 OpenCode path.
