@@ -13,3 +13,6 @@
 
 # ide
 .idea
+
+# loop lock files
+*.lock
