@@ -28,6 +28,40 @@ Use it as the default workflow for planning, coding, scope control, and verifica
 
 ---
 
+## Code Intelligence (mcpproxy, retrieve_tools mode)
+
+Tools are hidden behind `retrieve_tools`. Names are not visible upfront. Search by intent, then call. Never assume a tool name.
+
+**Query by intent — the right backend surfaces via BM25:**
+
+* Exact symbol, references, implementations, rename, safe-delete, diagnostics → query `"symbol references rename diagnostics"` (Serena, LSP-precise).
+* Fuzzy / natural-language / semantic discovery ("where do we send email") → query `"search code graph semantic"` (codebase-memory).
+* Callers, callees, data-flow, cross-service, blast-radius, complexity hot-paths → query `"trace callers impact cyclomatic data-flow"` (codebase-memory).
+* Structural AST pattern, find-by-shape, debug a pattern → query `"ast pattern syntax-tree structural"` (ast-grep).
+* Architecture overview, clusters, ADR → query `"architecture overview ADR"` (codebase-memory).
+
+**Pick the call variant by effect — wrong variant gets blocked by permissions:**
+
+* Reads (find / search / trace / diagnostics / architecture) → `call_tool_read`.
+* Edits (replace_symbol_body, insert_*, rename_symbol) → `call_tool_write`.
+* Destructive (safe_delete_symbol, delete_project) → `call_tool_destructive`.
+
+**Init once per repo before any code-intel query — otherwise results come back empty:**
+
+* Serena: `activate_project`. One project at a time; re-activate on repo switch.
+* codebase-memory: `index_repository`.
+* ast-grep: no init.
+
+**Routing rules:**
+
+* Know the exact symbol → Serena. Don't know the name → codebase-memory search first.
+* Caller/callee only → either. Data-flow, cross-service, or complexity → codebase-memory.
+* Editing code → Serena symbol tools, not regex replace.
+* Structural shape, not a name → ast-grep.
+* If a query returns nothing, re-query with different keywords before falling back to grep/read.
+
+---
+
 <!-- headroom:rtk-instructions -->
 # RTK (Rust Token Killer) - Token-Optimized Commands
 

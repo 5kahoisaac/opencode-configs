@@ -3,12 +3,22 @@
   "sisyphus_agent": {
     "default_builder_enabled": true
   },
+  "codegraph": {
+    "enabled": false,
+    "auto_init": false,
+    "auto_provision": false
+  },
   "disabled_mcps": [
     "context7",
     "websearch",
     "ast_grep",
-    "grep_app"
+    "grep_app",
+    "codegraph"
   ],
+  "team_mode": {
+    "enabled": true,
+    "tmux_visualization": true
+  },
   "agents": {
     "sisyphus": {
       "model": "zai-coding-plan/glm-5.2",

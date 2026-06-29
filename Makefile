@@ -1,6 +1,6 @@
 # Makefile for OpenCode configuration
 
-FILES := AGENTS.md opencode-historian.json oh-my-openagent.json opencode.json tui.json
+FILES := AGENTS.md oh-my-openagent.json opencode.json tui.json
 DIRECTORIES := agents commands
 
 .PHONY: sync help

@@ -1,6 +1,0 @@
-{
-  "model": "openai/gpt-5.4-mini",
-  "disabledMcps": ["serena"],
-  "autoCompound": true,
-  "debug": false
-}

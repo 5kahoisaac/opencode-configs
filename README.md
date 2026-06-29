@@ -3,6 +3,7 @@
 ## Table of Contents
 
 - [Overview](#overview)
+- [Roadmap](#roadmap)
 - [Available Makefile Commands](#available-makefile-commands)
 - [Configuration](#configuration)
     - [Providers](#providers)
@@ -14,6 +15,7 @@
     - [Commands](#commands)
         - [TUI Configuration](#tui-configuration)
     - [Agents](#agents)
+- [Team Mode](#team-mode)
 - [Reference Links](#reference-links)
 
 ---
@@ -44,9 +46,9 @@ This repository is being simplified around three directions:
    [skillless](https://github.com/5kahoisaac/skillless), so this repository can stay focused on OpenCode configuration
    instead of becoming a mixed skill/config bundle.
 
-2. **Remove Anthropic-specific OpenCode paths.** The `anthropic` provider and `opencode-with-claude` plugin are being
-   removed from this setup as a personal workflow decision. Claude models currently run better in Claude Code than in
-   OpenCode with Oh-My-OpenAgent, and Claude Code gives smoother control for Claude-centric work.
+2. **Remove Anthropic-specific OpenCode paths.** The `anthropic` provider and `opencode-with-claude` plugin have
+   been removed from this setup as a personal workflow decision. Claude models currently run better in Claude Code
+   than in OpenCode with Oh-My-OpenAgent, and Claude Code gives smoother control for Claude-centric work.
 
 3. **Centralize MCPs through MCPProxy and prefer CLIs where possible.** Most direct MCP configuration is being removed
    so
@@ -56,6 +58,22 @@ This repository is being simplified around three directions:
    presets from Skillless, such as the
    [CLI preset list](https://github.com/5kahoisaac/skillless/blob/main/lists/cli.csv). The goal is to replace high-token
    MCP flows such as Exa `websearch` and Context7 with CLI workflows where they save tokens and perform better.
+
+### Recent Transitions
+
+The current cycle is removing legacy surfaces and consolidating code intelligence onto faster backends:
+
+- **Removed `opencode-historian`.** The historian plugin and agent have been removed from this setup. The
+  memory-management workflow it provided is no longer used in this configuration, and the plugin does not need to be
+  re-added from another source.
+
+- **Added `codebase-memory-mcp` to MCPProxy.**
+  [`codebase-memory-mcp`](https://github.com/DeusData/codebase-memory-mcp) was added as a new MCPProxy upstream for
+  better performance on semantic code intelligence. It builds a persistent tree-sitter knowledge graph and answers
+  structural queries in under a millisecond. It runs **alongside** `serena` and `ast_grep`, not as a replacement — the
+  three backends are complementary and routed by intent through MCPProxy's `retrieve_tools` mode, with per-tool
+  on/off toggling used to avoid duplicate tool surfaces during a session. See
+  [Code Intelligence](#code-intelligence-mcpproxy-retrieve_tools-mode) for the routing rules.
 
 ---
 
@@ -102,8 +120,7 @@ OpenAI provides direct API access to GPT-5 family models including `openai/gpt-5
 `hephaestus` (primary: `openai/gpt-5.4` medium, ultrawork: `openai/gpt-5.5` medium), `oracle` (primary:
 `openai/gpt-5.5` high), `momus` (primary: `openai/gpt-5.5` xhigh), `prometheus` (primary: `openai/gpt-5.5` high),
 `multimodal-looker` (primary: `openai/gpt-5.5` medium), and `sisyphus-junior` (primary: `openai/gpt-5.5` medium),
-as well as the `quick` and `writing` task categories, and as a fallback for `unspecified-low`. Authentication is
-handled via the `opencode-openai-codex-auth` plugin.
+as well as the `quick` and `writing` task categories, and as a fallback for `unspecified-low`.
 
 **OpenCode**
 
@@ -151,9 +168,9 @@ The provider configuration also uses blacklist rules to keep model selection foc
 
 This blacklist is maintained to filter paid OpenCode Zen models from the general OpenCode provider roster while keeping
 free-tier models available. It is synchronized via `/blacklist-sync` and currently filters 42 paid Zen models across
-families including Claude (Fable, Opus, Sonnet, Haiku 4.x), GPT (5.x, Codex, Nano), Gemini (3.1 Pro, 3 Flash), Grok
-Build, DeepSeek V4, GLM 5.x, MiniMax M2.x, Kimi K2.x, and Qwen 3.x so routine workflows stay on the free/default
-OpenCode path.
+families including Claude (Fable, Opus, Sonnet, Haiku 4.x), GPT (5.x, Codex, Nano), Gemini (3.5 Flash, 3.1 Pro,
+3 Flash), Grok Build, DeepSeek V4, GLM 5.x, MiniMax M2.x, Kimi K2.x, and Qwen 3.x so routine workflows stay on the
+free/default OpenCode path.
 
 #### Models Configuration
 
@@ -166,20 +183,19 @@ configuration represents a carefully tuned balance between API rate limits, resp
 Individual agents from the oh-my-openagent plugin receive specialized model assignments optimized for their specific
 functions:
 
-| Source                 | Agent Name          | Role                      | Model                           | Variant  | Fallback Models                                                                                    | Description                                                                                                 |
-|:-----------------------|:--------------------|:--------------------------|:--------------------------------|:---------|:---------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------|
-| **oh-my-openagent**    | `sisyphus`          | Orchestrator              | `zai-coding-plan/glm-5.2`       | `max`    | `openai/gpt-5.5` (medium), `zai-coding-plan/glm-5.1`, `opencode/big-pickle`                        | Primary orchestrator for complex, multi-step tasks                                                          |
-| **oh-my-openagent**    | `metis`             | Scope Analysis            | `zai-coding-plan/glm-5.2`       | `max`    | `openai/gpt-5.5` (high)                                                                            | Pre-planning consultation and scope analysis                                                                |
-| **oh-my-openagent**    | `prometheus`        | Planning Specialist       | `openai/gpt-5.5`                | `high`   | `zai-coding-plan/glm-5.2` (max), `github-copilot/gemini-3.1-pro` (high)                            | Detailed plans and work breakdowns                                                                          |
-| **oh-my-openagent**    | `atlas`             | Knowledge Specialist      | `zai-coding-plan/glm-5.1`       | `high`   | `openai/gpt-5.5` (medium), `nvidia/minimaxai/minimax-m2.7`                                         | Knowledge retrieval and architectural context                                                               |
-| **oh-my-openagent**    | `hephaestus`        | Implementation Specialist | `openai/gpt-5.4`                | `medium` | —                                                                                                  | Executes implementation tasks with balanced capability and efficiency. Ultrawork: `openai/gpt-5.5` (medium) |
-| **oh-my-openagent**    | `oracle`            | Strategic Advisor         | `openai/gpt-5.5`                | `high`   | `github-copilot/gemini-3.1-pro` (high), `zai-coding-plan/glm-5.2` (max), `zai-coding-plan/glm-5.1` | Provides high-level architectural guidance and complex reasoning for critical decisions                     |
-| **oh-my-openagent**    | `momus`             | Quality Review            | `openai/gpt-5.5`                | `xhigh`  | `github-copilot/gemini-3.1-pro` (high), `zai-coding-plan/glm-5.2` (max), `zai-coding-plan/glm-5.1` | Reviews work plans and implementations for quality, completeness, and adherence to best practices           |
-| **oh-my-openagent**    | `multimodal-looker` | Visual Analysis           | `openai/gpt-5.5`                | `medium` | `zai-coding-plan/glm-5v-turbo`, `github-copilot/gpt-5-mini`                                        | Analyzes visual content, images, and multimodal inputs for comprehensive understanding                      |
-| **oh-my-openagent**    | `explore`           | Codebase Analysis         | `nvidia/minimaxai/minimax-m2.7` | —        | `openai/gpt-5.4-mini`, `github-copilot/gemini-3-flash-preview`                                     | Performs rapid codebase navigation, pattern detection, and symbol exploration                               |
-| **oh-my-openagent**    | `librarian`         | Research Specialist       | `nvidia/minimaxai/minimax-m2.7` | —        | `openai/gpt-5.4-mini`, `github-copilot/gemini-3-flash-preview`                                     | Handles documentation lookup, external research, and information retrieval tasks                            |
-| **oh-my-openagent**    | `sisyphus-junior`   | Lightweight Orchestrator  | `openai/gpt-5.5`                | `medium` | `nvidia/minimaxai/minimax-m2.7`, `opencode/big-pickle`                                             | Category-optimized task delegation                                                                          |
-| **opencode-historian** | `historian`         | Memory Management         | `openai/gpt-5.4-mini`           | —        | —                                                                                                  | Manages persistent memories, context retention, and semantic search across project knowledge base           |
+| Source              | Agent Name          | Role                      | Model                           | Variant  | Fallback Models                                                                                    | Description                                                                                                 |
+|:--------------------|:--------------------|:--------------------------|:--------------------------------|:---------|:---------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------|
+| **oh-my-openagent** | `sisyphus`          | Orchestrator              | `zai-coding-plan/glm-5.2`       | `max`    | `openai/gpt-5.5` (medium), `zai-coding-plan/glm-5.1`, `opencode/big-pickle`                        | Primary orchestrator for complex, multi-step tasks                                                          |
+| **oh-my-openagent** | `metis`             | Scope Analysis            | `zai-coding-plan/glm-5.2`       | `max`    | `openai/gpt-5.5` (high)                                                                            | Pre-planning consultation and scope analysis                                                                |
+| **oh-my-openagent** | `prometheus`        | Planning Specialist       | `openai/gpt-5.5`                | `high`   | `zai-coding-plan/glm-5.2` (max), `github-copilot/gemini-3.1-pro` (high)                            | Detailed plans and work breakdowns                                                                          |
+| **oh-my-openagent** | `atlas`             | Knowledge Specialist      | `zai-coding-plan/glm-5.1`       | `high`   | `openai/gpt-5.5` (medium), `nvidia/minimaxai/minimax-m2.7`                                         | Knowledge retrieval and architectural context                                                               |
+| **oh-my-openagent** | `hephaestus`        | Implementation Specialist | `openai/gpt-5.4`                | `medium` | —                                                                                                  | Executes implementation tasks with balanced capability and efficiency. Ultrawork: `openai/gpt-5.5` (medium) |
+| **oh-my-openagent** | `oracle`            | Strategic Advisor         | `openai/gpt-5.5`                | `high`   | `github-copilot/gemini-3.1-pro` (high), `zai-coding-plan/glm-5.2` (max), `zai-coding-plan/glm-5.1` | Provides high-level architectural guidance and complex reasoning for critical decisions                     |
+| **oh-my-openagent** | `momus`             | Quality Review            | `openai/gpt-5.5`                | `xhigh`  | `github-copilot/gemini-3.1-pro` (high), `zai-coding-plan/glm-5.2` (max), `zai-coding-plan/glm-5.1` | Reviews work plans and implementations for quality, completeness, and adherence to best practices           |
+| **oh-my-openagent** | `multimodal-looker` | Visual Analysis           | `openai/gpt-5.5`                | `medium` | `zai-coding-plan/glm-5v-turbo`, `github-copilot/gpt-5-mini`                                        | Analyzes visual content, images, and multimodal inputs for comprehensive understanding                      |
+| **oh-my-openagent** | `explore`           | Codebase Analysis         | `nvidia/minimaxai/minimax-m2.7` | —        | `openai/gpt-5.4-mini`, `github-copilot/gemini-3-flash-preview`                                     | Performs rapid codebase navigation, pattern detection, and symbol exploration                               |
+| **oh-my-openagent** | `librarian`         | Research Specialist       | `nvidia/minimaxai/minimax-m2.7` | —        | `openai/gpt-5.4-mini`, `github-copilot/gemini-3-flash-preview`                                     | Handles documentation lookup, external research, and information retrieval tasks                            |
+| **oh-my-openagent** | `sisyphus-junior`   | Lightweight Orchestrator  | `openai/gpt-5.5`                | `medium` | `nvidia/minimaxai/minimax-m2.7`, `opencode/big-pickle`                                             | Category-optimized task delegation                                                                          |
 
 **Current API Rate Limits and Suggested Setup**
 
@@ -301,21 +317,6 @@ the AI's understanding of type systems across different programming languages, e
 and type-aware refactoring operations. It integrates with OpenCode's language server protocol to provide real-time type
 information and suggestions.
 
-**opencode-openai-codex-auth@latest**
-
-The `opencode-openai-codex-auth` plugin provides authentication for the OpenAI provider, enabling direct API access to
-OpenAI's GPT-5 family models. This plugin handles API key management and authentication flows required for the `openai`
-provider configured in `opencode.json`, which is used as the primary model source for several agents including
-`hephaestus`, `oracle`, `momus`, and `multimodal-looker`.
-
-**opencode-historian@latest**
-
-The historian plugin provides persistent memory management capabilities for OpenCode, enabling context retention and
-compounded engineering practices across sessions. This plugin allows agents to store, recall, and manage memories
-including architectural decisions, design patterns, learnings, preferences, issues, and contextual information. The
-historian system automatically classifies memory types and manages circular references between related memories,
-creating a knowledge base that persists beyond individual conversations.
-
 ---
 
 ## MCPs
@@ -338,34 +339,75 @@ avoids duplicating MCP configuration across multiple AI coding tools.
 
 The proxy configuration currently includes these upstream MCP servers:
 
-| Upstream MCP | Status   | Protocol | Purpose                                                                   |
-|:-------------|:---------|:---------|:--------------------------------------------------------------------------|
-| `ast_grep`   | Enabled  | stdio    | AST-aware code search and structural matching                             |
-| `atlassian`  | Enabled  | stdio    | Jira and Confluence access through `mcp-atlassian`                        |
-| `figma`      | Disabled | HTTP     | Figma desktop MCP endpoint at `http://127.0.0.1:3845/mcp`                 |
-| `github`     | Enabled  | HTTP     | GitHub Copilot MCP remote endpoint at `https://api.githubcopilot.com/mcp` |
-| `grep_app`   | Enabled  | HTTP     | Public GitHub code search through grep.app                                |
-| `serena`     | Enabled  | stdio    | Code intelligence, symbol navigation, and semantic project operations     |
-| `vision`     | Enabled  | stdio    | Z.ai vision MCP for image and visual-content analysis                     |
+| Upstream MCP      | Status   | Protocol | Purpose                                                                              |
+|:------------------|:---------|:---------|:-------------------------------------------------------------------------------------|
+| `ast_grep`        | Enabled  | stdio    | AST-aware code search and structural matching                                        |
+| `atlassian`       | Enabled  | stdio    | Jira and Confluence access through `mcp-atlassian`                                   |
+| `codebase-memory` | Enabled  | stdio    | Knowledge-graph code intelligence: semantic search, trace, and architecture overview |
+| `figma`           | Disabled | HTTP     | Figma desktop MCP endpoint at `http://127.0.0.1:3845/mcp`                            |
+| `github`          | Enabled  | HTTP     | GitHub Copilot MCP remote endpoint at `https://api.githubcopilot.com/mcp`            |
+| `grep_app`        | Enabled  | HTTP     | Public GitHub code search through grep.app                                           |
+| `serena`          | Enabled  | stdio    | LSP-precise code intelligence: exact symbols, references, rename, diagnostics        |
+| `vision`          | Enabled  | stdio    | Z.ai vision MCP for image and visual-content analysis                                |
 
 MCPProxy also enables management, keyword-based tool search/routing, quarantine, metrics, observability, OAuth support,
 sensitive-data detection, and registry discovery. The search layer acts as a real lazy-load mechanism: agents retrieve
 only the MCP tools needed for the current task instead of loading every available tool into the prompt. Docker isolation
 is configured but disabled globally in the proxy configuration.
 
+#### Code Intelligence (MCPProxy `retrieve_tools` mode)
+
+Three code-intelligence upstreams (`ast_grep`, `serena`, `codebase-memory`) coexist behind MCPProxy. They are
+complementary, not overlapping, and the `retrieve_tools` routing mode surfaces the right backend per query. To avoid
+duplicate tool surfaces during a session, individual tools are toggled on/off as needed. The routing rules below mirror
+`AGENTS.md`:
+
+**Query by intent — the right backend surfaces via BM25:**
+
+| Intent                                                                      | Backend                |
+|:----------------------------------------------------------------------------|:-----------------------|
+| Exact symbol, references, implementations, rename, safe-delete, diagnostics | `serena` (LSP-precise) |
+| Fuzzy / natural-language / semantic discovery                               | `codebase-memory`      |
+| Callers, callees, data-flow, cross-service, blast-radius, complexity        | `codebase-memory`      |
+| Structural AST pattern, find-by-shape, debug a pattern                      | `ast_grep`             |
+| Architecture overview, clusters, ADR                                        | `codebase-memory`      |
+
+**Init once per repo before any code-intel query:**
+
+- `serena`: `activate_project` (one project at a time; re-activate on repo switch)
+- `codebase-memory`: `index_repository`
+- `ast_grep`: no init required
+
+`codebase-memory-mcp` was added to MCPProxy for its persistent tree-sitter knowledge graph and sub-millisecond
+structural queries, giving better performance and token efficiency on semantic and architectural queries while `serena`
+remains the source of truth for LSP-precise symbol edits.
+
 ### Plugin-Provided MCP Status
 
-The oh-my-openagent and opencode-historian plugin MCPs have been removed from normal local ownership and moved to
+The oh-my-openagent plugin MCPs have been removed from normal local ownership and moved to
 MCPProxy where possible. The retained exception is Oh-My-OpenAgent's custom `lsp` MCP.
 
-| Source               | Configuration File        | Current Routing                                      |
-|:---------------------|:--------------------------|:-----------------------------------------------------|
-| oh-my-openagent      | `oh-my-openagent.json`    | Use MCPProxy for moved MCPs; keep plugin `lsp` MCP   |
-| opencode-historian   | `opencode-historian.json` | Use MCPProxy-managed `serena` instead                |
-| Claude Code override | `oh-my-openagent.json`    | Avoid duplicate Claude Code plugin bridge activation |
+| Source               | Configuration File     | Current Routing                                      |
+|:---------------------|:-----------------------|:-----------------------------------------------------|
+| oh-my-openagent      | `oh-my-openagent.json` | Use MCPProxy for moved MCPs; keep plugin `lsp` MCP   |
+| Claude Code override | `oh-my-openagent.json` | Avoid duplicate Claude Code plugin bridge activation |
 
 This means the plugin agents remain available, MCPProxy is the source of truth for shared MCP server configuration, and
 `lsp` remains the only intentionally plugin-managed OMO MCP.
+
+#### Disabled OMO MCPs
+
+The `disabled_mcps` array in `oh-my-openagent.json` explicitly turns off MCPs that Oh-My-OpenAgent would otherwise
+activate internally. Each entry is disabled because the same capability is now provided through MCPProxy or a CLI
+preset, avoiding duplicate tool surfaces across coding agents.
+
+| Disabled MCP | Reason                                                                                      |
+|:-------------|:--------------------------------------------------------------------------------------------|
+| `context7`   | Replaced by CLI-based library documentation lookup (Skillless CLI preset)                   |
+| `websearch`  | Replaced by CLI-based web search workflows (Skillless CLI preset)                           |
+| `ast_grep`   | Provided by MCPProxy upstream `ast_grep`                                                    |
+| `grep_app`   | Provided by MCPProxy upstream `grep_app`                                                    |
+| `codegraph`  | Disabled in favor of the knowledge-graph backend exposed through MCPProxy `codebase-memory` |
 
 ---
 
@@ -463,27 +505,38 @@ The oh-my-openagent plugin provides a comprehensive suite of specialized agents 
 These agents work together to provide comprehensive coverage of development tasks through a sophisticated orchestration
 system that matches tasks to the most appropriate specialist.
 
-#### OpenCode-Historian Agent
+---
 
-The opencode-historian plugin provides a specialized agent for persistent memory management:
+## Team Mode
 
-**@historian - Memory Management Specialist**
+Oh-My-OpenAgent's team mode is **enabled** in `oh-my-openagent.json`, turning on multi-agent team orchestration on top
+of the default `task()` delegation system. When enabled, the `team_*` tool family becomes available and the lead agent
+(including Sisyphus) can spawn named agent teams, assign tasks, exchange messages, and shut members down through a
+structured closure contract.
 
-The historian agent manages persistent memories, enabling context retention and compounded engineering practices across
-sessions. It stores, recalls, and manages project knowledge including architectural decisions, design patterns,
-learnings, preferences, issues, and contextual information.
+**Current Configuration:**
 
-**Key capabilities:**
+| Setting              | Value | Description                                                                          |
+|:---------------------|:------|:-------------------------------------------------------------------------------------|
+| `team_mode.enabled`  | true  | Activates `team_*` orchestration tools (team_create, team_task_*, team_send_message) |
+| `tmux_visualization` | true  | Renders active team state and member activity in a tmux pane for live observability  |
 
-- **Memory Storage**: Stores project decisions, learnings, and context that persist across sessions
-- **Semantic Search**: Retrieves relevant memories using keyword or semantic search
-- **Memory Classification**: Automatically categorizes memories by type (architectural decisions, conventions,
-  preferences, context)
-- **Cross-Reference Management**: Handles circular references between related memories
+**What team mode adds:**
 
-The historian agent uses the `openai/gpt-5.4-mini` model configured in `opencode-historian.json` for fast,
-efficient memory operations.
+- **Named agent teams**: `team_create` spins up a team from a named spec or inline member list, with an optional lead
+  agent and per-member category or `subagent_type` routing.
+- **Task tracking**: `team_task_create`, `team_task_update`, and `team_task_list` manage per-team work items with owner
+  and status fields (`pending`, `claimed`, `in_progress`, `completed`, `deleted`).
+- **Member messaging**: `team_send_message` supports direct messages and broadcasts with optional file references.
+- **Lifecycle control**: `team_shutdown_request`, `team_approve_shutdown`, and `team_reject_shutdown` implement a
+  controlled shutdown flow; `team_delete` tears down completed runs; `team_status` and `team_list` inspect state.
+- **Closure contract**: every team the lead opens must be closed by the lead. After each task reaches a terminal state,
+  the lead re-checks `team_task_list` and, once all tasks are terminal, runs the full closure sequence (shutdown
+  request + approval per active member, then `team_delete`) in the same turn.
 
+Team mode is complementary to the existing `task()` category delegation — category tasks still route through
+Sisyphus-Junior, while team mode is used for explicit multi-member orchestration that needs shared task boards and
+message passing between agents.
 
 ---
 
@@ -494,12 +547,10 @@ configuration.
 
 ### Plugins
 
-| Plugin Name                       | Status | Official Repository                                      | Version | Purpose                                                                   |
-|:----------------------------------|:-------|:---------------------------------------------------------|:--------|:--------------------------------------------------------------------------|
-| **oh-my-openagent**               | Active | https://github.com/code-yeongyu/oh-my-openagent          | Latest  | Multi-agent orchestration suite for task delegation and complex workflows |
-| **@nick-vi/opencode-type-inject** | Active | https://github.com/nick-vi/type-inject                   | Latest  | Advanced type inference and language-aware code completion                |
-| **opencode-openai-codex-auth**    | Active | https://github.com/numman-ali/opencode-openai-codex-auth | Latest  | OpenAI provider authentication for direct API access                      |
-| **opencode-historian**            | Active | https://github.com/5kahoisaac/opencode-historian         | Latest  | Persistent memory management and semantic search across project knowledge |
+| Plugin Name                       | Status | Official Repository                             | Version | Purpose                                                                   |
+|:----------------------------------|:-------|:------------------------------------------------|:--------|:--------------------------------------------------------------------------|
+| **oh-my-openagent**               | Active | https://github.com/code-yeongyu/oh-my-openagent | Latest  | Multi-agent orchestration suite for task delegation and complex workflows |
+| **@nick-vi/opencode-type-inject** | Active | https://github.com/nick-vi/type-inject          | Latest  | Advanced type inference and language-aware code completion                |
 
 ### OpenCode MCP Entrypoint
 
@@ -509,15 +560,16 @@ configuration.
 
 ### MCPProxy-Managed Upstreams
 
-| MCP Name      | Status   | Source Type         | Documentation/Source                                                                  | Purpose                                                               |
-|:--------------|:---------|:--------------------|:--------------------------------------------------------------------------------------|:----------------------------------------------------------------------|
-| **ast_grep**  | Enabled  | Git repository      | https://github.com/ast-grep/ast-grep-mcp                                              | AST-aware code search and structural matching                         |
-| **atlassian** | Enabled  | Python package      | https://github.com/sooperset/mcp-atlassian                                            | Atlassian Jira and Confluence integration                             |
-| **figma**     | Disabled | Local HTTP endpoint | https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server | Figma design integration and UI code generation                       |
-| **github**    | Enabled  | Remote endpoint     | https://api.githubcopilot.com/mcp                                                     | GitHub repository operations, pull requests, issues, and code search  |
-| **grep_app**  | Enabled  | Remote endpoint     | https://vercel.com/blog/grep-a-million-github-repositories-via-mcp                    | GitHub code search through grep.app                                   |
-| **serena**    | Enabled  | Git repository      | https://github.com/oraios/serena                                                      | Code intelligence, symbol navigation, and semantic project operations |
-| **vision**    | Enabled  | npm package         | https://docs.z.ai/devpack/mcp/vision-mcp-server                                       | Z.ai vision MCP for image understanding and visual analysis           |
+| MCP Name            | Status   | Source Type         | Documentation/Source                                                                  | Purpose                                                                       |
+|:--------------------|:---------|:--------------------|:--------------------------------------------------------------------------------------|:------------------------------------------------------------------------------|
+| **ast_grep**        | Enabled  | Git repository      | https://github.com/ast-grep/ast-grep-mcp                                              | AST-aware code search and structural matching                                 |
+| **atlassian**       | Enabled  | Python package      | https://github.com/sooperset/mcp-atlassian                                            | Atlassian Jira and Confluence integration                                     |
+| **codebase-memory** | Enabled  | Static binary (C)   | https://github.com/DeusData/codebase-memory-mcp                                       | Knowledge-graph code intelligence: semantic search, trace, architecture       |
+| **figma**           | Disabled | Local HTTP endpoint | https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server | Figma design integration and UI code generation                               |
+| **github**          | Enabled  | Remote endpoint     | https://api.githubcopilot.com/mcp                                                     | GitHub repository operations, pull requests, issues, and code search          |
+| **grep_app**        | Enabled  | Remote endpoint     | https://vercel.com/blog/grep-a-million-github-repositories-via-mcp                    | GitHub code search through grep.app                                           |
+| **serena**          | Enabled  | Git repository      | https://github.com/oraios/serena                                                      | LSP-precise code intelligence: exact symbols, references, rename, diagnostics |
+| **vision**          | Enabled  | npm package         | https://docs.z.ai/devpack/mcp/vision-mcp-server                                       | Z.ai vision MCP for image understanding and visual analysis                   |
 
 ### Plugin-Retained MCPs
 

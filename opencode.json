@@ -13,7 +13,6 @@
     "auto": true,
     "prune": true
   },
-  "lsp": true,
   "watcher": {
     "ignore": [
       "node_modules/**",
@@ -30,8 +29,6 @@
   },
   "plugin": [
     "@nick-vi/opencode-type-inject@latest",
-    "opencode-openai-codex-auth@latest",
-    "opencode-historian@latest",
     "oh-my-openagent@latest"
   ],
   "enabled_providers": [
