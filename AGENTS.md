@@ -28,7 +28,7 @@ Use it as the default workflow for planning, coding, scope control, and verifica
 
 ---
 
-## Code Intelligence (mcpproxy, retrieve_tools mode)
+## Code Intelligence (mcp-proxy, retrieve_tools mode)
 
 Tools are hidden behind `retrieve_tools`. Names are not visible upfront. Search by intent, then call. Never assume a tool name.
 
