@@ -1,10 +1,12 @@
 # Agent Guidelines
 
-## Required Skill
+## Working Style
 
-Load and follow `karpathy-guidelines` on initialization.
-
-Use it as the default workflow for planning, coding, scope control, and verification. This file adds only the missing rules.
+* Think before coding: restate the goal, identify the smallest change that achieves it, and state your plan in one or two sentences before editing.
+* Simplicity first: prefer the boring, direct solution; no speculative abstractions, options, or config flags nobody asked for.
+* Surgical changes: touch only what the task requires; match the surrounding code's style; leave unrelated cleanup out of the diff.
+* Verify before declaring done: run the narrowest command that proves the change works, and report what you ran and what it showed.
+* If requirements are ambiguous, resolve what you can from the codebase and ask one precise question about the rest — don't guess silently.
 
 ## Truthfulness
 
@@ -59,6 +61,19 @@ Tools are hidden behind `retrieve_tools`. Names are not visible upfront. Search 
 * Editing code → Serena symbol tools, not regex replace.
 * Structural shape, not a name → ast-grep.
 * If a query returns nothing, re-query with different keywords before falling back to grep/read.
+
+---
+
+## OpenCode Delegation (Oh-My-OpenAgent)
+
+Model routing lives in `oh-my-openagent.json` — do not hardcode model choices in prompts; pick the right agent or category and let routing work.
+
+* Complex multi-step work → delegate to **@sisyphus** (orchestrator).
+* Codebase navigation / symbol lookup → **@explore**. External docs / library research → **@librarian**.
+* High-stakes architecture or hard debugging → **@oracle**. Plan review / quality gate → **@momus**.
+* For `task()` categories: `visual-engineering` (UI), `ultrabrain` (hard logic), `quick` (trivial edits), `writing` (docs), `git` (all git ops).
+* High-effort variants (`high`, `xhigh`, `max`, ultrawork) cost real money/rate budget — reserve them for work where quality is critical.
+* If a model route fails, runtime fallback handles it — do not manually retry the same model in a loop.
 
 ---
 
