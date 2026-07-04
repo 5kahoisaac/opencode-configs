@@ -81,11 +81,11 @@ The current cycle is removing legacy surfaces and consolidating code intelligenc
 
 The Makefile provides essential commands to manage the OpenCode configuration:
 
-| Command     | Description                                                                                                                                                                   |
-|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `make sync` | Sync OpenCode configuration into `~/.config/opencode/`. Copies `AGENTS.md`, JSON config files, and mirrors root `./agents/` and `./commands/` directories if they are present |
-| `make help` | Display available targets and their descriptions                                                                                                                              |
-| `make check` | Validate that routed models are reachable through enabled providers and filters, concurrency keys are live, and repo config matches the deployed copy                       |
+| Command      | Description                                                                                                                                                                   |
+|:-------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `make sync`  | Sync OpenCode configuration into `~/.config/opencode/`. Copies `AGENTS.md`, JSON config files, and mirrors root `./agents/` and `./commands/` directories if they are present |
+| `make help`  | Display available targets and their descriptions                                                                                                                              |
+| `make check` | Validate that routed models are reachable through enabled providers and filters, concurrency keys are live, and repo config matches the deployed copy                         |
 
 **Workflow:**
 
@@ -141,13 +141,15 @@ fallback; and lightweight 4.x variants such as `zai-coding-plan/glm-4.5-air` and
 **NVIDIA**
 
 NVIDIA provides access to models hosted on the NVIDIA AI platform. This configuration uses
-`nvidia/minimaxai/minimax-m2.7` as the primary model for `explore` and `librarian`, with additional fallback use in
+`nvidia/minimaxai/minimax-m3` as the primary model for `explore` and `librarian`, with `nvidia/minimaxai/minimax-m2.7`
+as the leading fallback and additional fallback use across
 `atlas`, `sisyphus-junior`, `quick`, `unspecified-low`, and `writing` routes.
 
 **GitHub Copilot**
 
 GitHub Copilot is used as a routed model provider for selected task categories and fallbacks. The current
-`oh-my-openagent.json` configuration references `github-copilot/gemini-3.1-pro` (primary for the `visual-engineering`
+`oh-my-openagent.json` configuration references `github-copilot/gemini-3.1-pro-preview` (primary for the
+`visual-engineering`
 and `artistry` categories, plus high-effort fallbacks for `prometheus`, `oracle`, `momus`, `ultrabrain`, and `deep`),
 `github-copilot/gemini-3-flash-preview` (for `explore` and `librarian` fallbacks), `github-copilot/gpt-5.3-codex`
 (primary for `unspecified-low`), and `github-copilot/gpt-5-mini` (for the `git` category plus `quick` and
@@ -168,10 +170,10 @@ The provider configuration also uses blacklist rules to keep model selection foc
 **OpenCode Zen blacklist (`provider.opencode.blacklist`)**
 
 This blacklist is maintained to filter paid OpenCode Zen models from the general OpenCode provider roster while keeping
-free-tier models available. It is synchronized via `/blacklist-sync` and currently filters 42 paid Zen models across
-families including Claude (Fable, Opus, Sonnet, Haiku 4.x), GPT (5.x, Codex, Nano), Gemini (3.5 Flash, 3.1 Pro,
-3 Flash), Grok Build, DeepSeek V4, GLM 5.x, MiniMax M2.x, Kimi K2.x, and Qwen 3.x so routine workflows stay on the
-free/default OpenCode path.
+free-tier models available. It is synchronized via `/blacklist-sync` and currently filters 45 paid Zen models across
+families including Claude (Fable, Opus, Sonnet 4.x and 5, Haiku 4.x), GPT (5.x, Codex, Nano), Gemini (3.5 Flash,
+3.1 Pro, 3 Flash), Grok Build, DeepSeek V4, GLM 5.x, MiniMax M2.x and M3, Kimi K2.x (including K2.7 Code), and
+Qwen 3.x so routine workflows stay on the free/default OpenCode path.
 
 #### Models Configuration
 
@@ -184,19 +186,19 @@ configuration represents a carefully tuned balance between API rate limits, resp
 Individual agents from the oh-my-openagent plugin receive specialized model assignments optimized for their specific
 functions:
 
-| Source              | Agent Name          | Role                      | Model                           | Variant  | Fallback Models                                                                                    | Description                                                                                                 |
-|:--------------------|:--------------------|:--------------------------|:--------------------------------|:---------|:---------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------|
-| **oh-my-openagent** | `sisyphus`          | Orchestrator              | `zai-coding-plan/glm-5.2`       | `max`    | `openai/gpt-5.5` (medium), `zai-coding-plan/glm-5.1`, `opencode/big-pickle`                        | Primary orchestrator for complex, multi-step tasks                                                          |
-| **oh-my-openagent** | `metis`             | Scope Analysis            | `zai-coding-plan/glm-5.2`       | `max`    | `openai/gpt-5.5` (high)                                                                            | Pre-planning consultation and scope analysis                                                                |
-| **oh-my-openagent** | `prometheus`        | Planning Specialist       | `openai/gpt-5.5`                | `high`   | `zai-coding-plan/glm-5.2` (max), `github-copilot/gemini-3.1-pro` (high)                            | Detailed plans and work breakdowns                                                                          |
-| **oh-my-openagent** | `atlas`             | Knowledge Specialist      | `zai-coding-plan/glm-5.1`       | `high`   | `openai/gpt-5.5` (medium), `nvidia/minimaxai/minimax-m2.7`                                         | Knowledge retrieval and architectural context                                                               |
-| **oh-my-openagent** | `hephaestus`        | Implementation Specialist | `openai/gpt-5.4`                | `medium` | —                                                                                                  | Executes implementation tasks with balanced capability and efficiency. Ultrawork: `openai/gpt-5.5` (medium) |
-| **oh-my-openagent** | `oracle`            | Strategic Advisor         | `openai/gpt-5.5`                | `high`   | `github-copilot/gemini-3.1-pro` (high), `zai-coding-plan/glm-5.2` (max), `zai-coding-plan/glm-5.1` | Provides high-level architectural guidance and complex reasoning for critical decisions                     |
-| **oh-my-openagent** | `momus`             | Quality Review            | `openai/gpt-5.5`                | `xhigh`  | `github-copilot/gemini-3.1-pro` (high), `zai-coding-plan/glm-5.2` (max), `zai-coding-plan/glm-5.1` | Reviews work plans and implementations for quality, completeness, and adherence to best practices           |
-| **oh-my-openagent** | `multimodal-looker` | Visual Analysis           | `openai/gpt-5.5`                | `medium` | `zai-coding-plan/glm-5v-turbo`, `github-copilot/gpt-5-mini`                                        | Analyzes visual content, images, and multimodal inputs for comprehensive understanding                      |
-| **oh-my-openagent** | `explore`           | Codebase Analysis         | `nvidia/minimaxai/minimax-m2.7` | —        | `openai/gpt-5.4-mini`, `github-copilot/gemini-3-flash-preview`                                     | Performs rapid codebase navigation, pattern detection, and symbol exploration                               |
-| **oh-my-openagent** | `librarian`         | Research Specialist       | `nvidia/minimaxai/minimax-m2.7` | —        | `openai/gpt-5.4-mini`, `github-copilot/gemini-3-flash-preview`                                     | Handles documentation lookup, external research, and information retrieval tasks                            |
-| **oh-my-openagent** | `sisyphus-junior`   | Lightweight Orchestrator  | `openai/gpt-5.5`                | `medium` | `nvidia/minimaxai/minimax-m2.7`, `opencode/big-pickle`                                             | Category-optimized task delegation                                                                          |
+| Source              | Agent Name          | Role                      | Model                         | Variant  | Fallback Models                                                                                            | Description                                                                                                 |
+|:--------------------|:--------------------|:--------------------------|:------------------------------|:---------|:-----------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------|
+| **oh-my-openagent** | `sisyphus`          | Orchestrator              | `zai-coding-plan/glm-5.2`     | `max`    | `openai/gpt-5.5` (medium), `zai-coding-plan/glm-5.1`, `opencode/big-pickle`                                | Primary orchestrator for complex, multi-step tasks                                                          |
+| **oh-my-openagent** | `metis`             | Scope Analysis            | `zai-coding-plan/glm-5.2`     | `max`    | `openai/gpt-5.5` (high)                                                                                    | Pre-planning consultation and scope analysis                                                                |
+| **oh-my-openagent** | `prometheus`        | Planning Specialist       | `openai/gpt-5.5`              | `high`   | `zai-coding-plan/glm-5.2` (max), `github-copilot/gemini-3.1-pro-preview` (high)                            | Detailed plans and work breakdowns                                                                          |
+| **oh-my-openagent** | `atlas`             | Knowledge Specialist      | `zai-coding-plan/glm-5.1`     | `high`   | `openai/gpt-5.5` (medium), `nvidia/minimaxai/minimax-m3`, `nvidia/minimaxai/minimax-m2.7`                  | Knowledge retrieval and architectural context                                                               |
+| **oh-my-openagent** | `hephaestus`        | Implementation Specialist | `openai/gpt-5.4`              | `medium` | —                                                                                                          | Executes implementation tasks with balanced capability and efficiency. Ultrawork: `openai/gpt-5.5` (medium) |
+| **oh-my-openagent** | `oracle`            | Strategic Advisor         | `openai/gpt-5.5`              | `high`   | `github-copilot/gemini-3.1-pro-preview` (high), `zai-coding-plan/glm-5.2` (max), `zai-coding-plan/glm-5.1` | Provides high-level architectural guidance and complex reasoning for critical decisions                     |
+| **oh-my-openagent** | `momus`             | Quality Review            | `openai/gpt-5.5`              | `xhigh`  | `github-copilot/gemini-3.1-pro-preview` (high), `zai-coding-plan/glm-5.2` (max), `zai-coding-plan/glm-5.1` | Reviews work plans and implementations for quality, completeness, and adherence to best practices           |
+| **oh-my-openagent** | `multimodal-looker` | Visual Analysis           | `openai/gpt-5.5`              | `medium` | `zai-coding-plan/glm-5v-turbo`, `github-copilot/gpt-5-mini`                                                | Analyzes visual content, images, and multimodal inputs for comprehensive understanding                      |
+| **oh-my-openagent** | `explore`           | Codebase Analysis         | `nvidia/minimaxai/minimax-m3` | —        | `nvidia/minimaxai/minimax-m2.7`, `openai/gpt-5.4-mini`, `github-copilot/gemini-3-flash-preview`            | Performs rapid codebase navigation, pattern detection, and symbol exploration                               |
+| **oh-my-openagent** | `librarian`         | Research Specialist       | `nvidia/minimaxai/minimax-m3` | —        | `nvidia/minimaxai/minimax-m2.7`, `openai/gpt-5.4-mini`, `github-copilot/gemini-3-flash-preview`            | Handles documentation lookup, external research, and information retrieval tasks                            |
+| **oh-my-openagent** | `sisyphus-junior`   | Lightweight Orchestrator  | `openai/gpt-5.5`              | `medium` | `nvidia/minimaxai/minimax-m3`, `nvidia/minimaxai/minimax-m2.7`, `opencode/big-pickle`                      | Category-optimized task delegation                                                                          |
 
 **Current API Rate Limits and Suggested Setup**
 
@@ -237,17 +239,17 @@ usage patterns and provider strengths.
 The `oh-my-openagent.json` configuration also defines task category model assignments that automatically route tasks to
 appropriate models based on their category:
 
-| Category             | Model                           | Variant  | Fallback Models                                                                                    | Description                                                         |
-|:---------------------|:--------------------------------|:---------|:---------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------|
-| `visual-engineering` | `github-copilot/gemini-3.1-pro` | `high`   | `zai-coding-plan/glm-5.2` (max), `zai-coding-plan/glm-5.1`                                         | Frontend, UI/UX, design, styling, and animation tasks               |
-| `artistry`           | `github-copilot/gemini-3.1-pro` | `high`   | `openai/gpt-5.5`                                                                                   | Complex problem-solving with unconventional, creative approaches    |
-| `ultrabrain`         | `openai/gpt-5.5`                | `xhigh`  | `github-copilot/gemini-3.1-pro` (high), `zai-coding-plan/glm-5.2` (max), `zai-coding-plan/glm-5.1` | Hard logic-heavy tasks requiring deep reasoning                     |
-| `deep`               | `openai/gpt-5.5`                | `medium` | `github-copilot/gemini-3.1-pro` (high)                                                             | Goal-oriented autonomous problem-solving with thorough research     |
-| `quick`              | `openai/gpt-5.4-mini`           | —        | `nvidia/minimaxai/minimax-m2.7`, `github-copilot/gpt-5-mini`                                       | Trivial tasks, single file changes, typo fixes                      |
-| `unspecified-low`    | `github-copilot/gpt-5.3-codex`  | —        | `openai/gpt-5.4` (medium), `nvidia/minimaxai/minimax-m2.7`                                         | Low-effort tasks that don't fit other categories                    |
-| `unspecified-high`   | `openai/gpt-5.5`                | `high`   | `zai-coding-plan/glm-5.2` (max), `zai-coding-plan/glm-5.1`                                         | High-effort tasks that don't fit other categories                   |
-| `writing`            | `openai/gpt-5.4-mini`           | —        | `zai-coding-plan/glm-5.1`, `nvidia/minimaxai/minimax-m2.7`                                         | Documentation, prose, and technical writing tasks                   |
-| `git`                | `github-copilot/gpt-5-mini`     | —        | `zai-coding-plan/glm-4.7`, `zai-coding-plan/glm-4.5-air`, `opencode/big-pickle`                    | All git operations with focus on atomic commits and safe operations |
+| Category             | Model                                   | Variant  | Fallback Models                                                                                                                      | Description                                                         |
+|:---------------------|:----------------------------------------|:---------|:-------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------|
+| `visual-engineering` | `github-copilot/gemini-3.1-pro-preview` | `high`   | `zai-coding-plan/glm-5.2` (max), `zai-coding-plan/glm-5.1`                                                                           | Frontend, UI/UX, design, styling, and animation tasks               |
+| `artistry`           | `github-copilot/gemini-3.1-pro-preview` | `high`   | `openai/gpt-5.5`                                                                                                                     | Complex problem-solving with unconventional, creative approaches    |
+| `ultrabrain`         | `openai/gpt-5.5`                        | `xhigh`  | `github-copilot/gemini-3.1-pro-preview` (high), `zai-coding-plan/glm-5.2` (max), `zai-coding-plan/glm-5.1`                           | Hard logic-heavy tasks requiring deep reasoning                     |
+| `deep`               | `openai/gpt-5.5`                        | `medium` | `github-copilot/gemini-3.1-pro-preview` (high)                                                                                       | Goal-oriented autonomous problem-solving with thorough research     |
+| `quick`              | `openai/gpt-5.4-mini`                   | —        | `github-copilot/gemini-3-flash-preview`, `nvidia/minimaxai/minimax-m3`, `nvidia/minimaxai/minimax-m2.7`, `github-copilot/gpt-5-mini` | Trivial tasks, single file changes, typo fixes                      |
+| `unspecified-low`    | `github-copilot/gpt-5.3-codex`          | —        | `openai/gpt-5.4` (medium), `nvidia/minimaxai/minimax-m3`, `nvidia/minimaxai/minimax-m2.7`                                            | Low-effort tasks that don't fit other categories                    |
+| `unspecified-high`   | `openai/gpt-5.5`                        | `high`   | `zai-coding-plan/glm-5.2` (max), `zai-coding-plan/glm-5.1`                                                                           | High-effort tasks that don't fit other categories                   |
+| `writing`            | `openai/gpt-5.4-mini`                   | —        | `zai-coding-plan/glm-5.1`, `nvidia/minimaxai/minimax-m3`, `nvidia/minimaxai/minimax-m2.7`                                            | Documentation, prose, and technical writing tasks                   |
+| `git`                | `github-copilot/gpt-5-mini`             | —        | `zai-coding-plan/glm-4.7`, `zai-coding-plan/glm-4.5-air`, `opencode/big-pickle`                                                      | All git operations with focus on atomic commits and safe operations |
 
 These category assignments enable intelligent task routing, ensuring each type of work is handled by the most suitable
 model for optimal results.
@@ -323,14 +325,15 @@ information and suggestions.
 ## MCPs
 
 Model Context Protocol (MCP) servers extend OpenCode's capabilities by providing specialized tools and integrations.
-This repository now keeps OpenCode's local MCP surface intentionally small. OpenCode connects to one local
-`mcp-proxy` endpoint for shared MCP servers used across OpenCode, Claude Code, Codex, and other AI agents. The one
+This repository now keeps OpenCode's local MCP surface intentionally small. OpenCode connects to two local MCPs:
+the `mcp-proxy` endpoint for shared MCP servers used across OpenCode, Claude Code, Codex, and other AI agents, and a
+`headroom` MCP for content compression that shrinks large tool outputs before they reach the model context. The one
 intentional exception is Oh-My-OpenAgent's custom `lsp` MCP, which remains plugin-managed because it does not have a
 public standalone MCPProxy configuration.
 
 ### Manually Configured MCPs
 
-The following MCP is explicitly configured in `opencode.json`:
+The following MCPs are explicitly configured in `opencode.json`:
 
 **mcp-proxy**
 
@@ -355,6 +358,15 @@ MCPProxy also enables management, keyword-based tool search/routing, quarantine,
 sensitive-data detection, and registry discovery. The search layer acts as a real lazy-load mechanism: agents retrieve
 only the MCP tools needed for the current task instead of loading every available tool into the prompt. Docker isolation
 is configured but disabled globally in the proxy configuration.
+
+**headroom**
+
+OpenCode also runs a local `headroom` MCP (stdio, launched via `headroom mcp serve`) backed by the `headroom-ai`
+Python package. It exposes compression, retrieval, and stats tools that shrink large tool outputs (file contents,
+search results, command logs) into token-optimized summaries before they are injected into the model context, with
+the original content retrievable on demand by hash. This keeps long sessions within context limits without losing
+access to the underlying evidence. Unlike `mcp-proxy`, headroom is a single-purpose local MCP and does not proxy
+upstream MCP servers.
 
 #### Code Intelligence (MCPProxy `retrieve_tools` mode)
 
@@ -555,9 +567,10 @@ configuration.
 
 ### OpenCode MCP Entrypoint
 
-| MCP Name      | Status  | Source Type    | Source Location             | Documentation              | Purpose                                               |
-|:--------------|:--------|:---------------|:----------------------------|:---------------------------|:------------------------------------------------------|
-| **mcp-proxy** | Enabled | Local HTTP MCP | `http://127.0.0.1:8081/mcp` | https://docs.mcpproxy.app/ | Shared MCPProxy endpoint for OpenCode and other tools |
+| MCP Name      | Status  | Source Type     | Source Location             | Documentation                         | Purpose                                                                            |
+|:--------------|:--------|:----------------|:----------------------------|:--------------------------------------|:-----------------------------------------------------------------------------------|
+| **mcp-proxy** | Enabled | Local HTTP MCP  | `http://127.0.0.1:8081/mcp` | https://docs.mcpproxy.app/            | Shared MCPProxy endpoint for OpenCode and other tools                              |
+| **headroom**  | Enabled | Local stdio MCP | `headroom mcp serve`        | https://headroom-docs.vercel.app/docs | Token-optimization MCP for compressing large tool outputs before context injection |
 
 ### MCPProxy-Managed Upstreams
 
