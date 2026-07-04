@@ -64,19 +64,6 @@ Tools are hidden behind `retrieve_tools`. Names are not visible upfront. Search 
 
 ---
 
-## OpenCode Delegation (Oh-My-OpenAgent)
-
-Model routing lives in `oh-my-openagent.json` — do not hardcode model choices in prompts; pick the right agent or category and let routing work.
-
-* Complex multi-step work → delegate to **@sisyphus** (orchestrator).
-* Codebase navigation / symbol lookup → **@explore**. External docs / library research → **@librarian**.
-* High-stakes architecture or hard debugging → **@oracle**. Plan review / quality gate → **@momus**.
-* For `task()` categories: `visual-engineering` (UI), `ultrabrain` (hard logic), `quick` (trivial edits), `writing` (docs), `git` (all git ops).
-* High-effort variants (`high`, `xhigh`, `max`, ultrawork) cost real money/rate budget — reserve them for work where quality is critical.
-* If a model route fails, runtime fallback handles it — do not manually retry the same model in a loop.
-
----
-
 <!-- headroom:rtk-instructions -->
 # RTK (Rust Token Killer) - Token-Optimized Commands
 
