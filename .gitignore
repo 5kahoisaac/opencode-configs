@@ -16,3 +16,6 @@
 
 # loop lock files
 *.lock
+
+# cache
+.tokensave

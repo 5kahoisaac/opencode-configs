@@ -140,7 +140,7 @@
     "headroom": {
       "type": "local",
       "command": [
-        "/Users/isaac_ng/.local/share/mise/installs/python/3.10/bin/headroom",
+        "headroom",
         "mcp",
         "serve"
       ],
