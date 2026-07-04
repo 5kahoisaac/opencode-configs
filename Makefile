@@ -3,7 +3,7 @@
 FILES := AGENTS.md oh-my-openagent.json opencode.json tui.json
 DIRECTORIES := agents commands
 
-.PHONY: sync help
+.PHONY: sync help check
 
 sync:
 	@echo "🚀 Syncing OpenCode configuration..."
@@ -26,6 +26,10 @@ sync:
 	fi
 	@echo "🎉 Sync complete!"
 
+check:
+	@python3 scripts/check-config.py
+
 help:
 	@echo "  make sync    - Sync OpenCode configuration"
 	@echo "  make help    - Show this message"
+	@echo "  make check   - Validate config cross-references and drift"

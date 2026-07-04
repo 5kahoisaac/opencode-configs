@@ -85,6 +85,7 @@ The Makefile provides essential commands to manage the OpenCode configuration:
 |:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `make sync` | Sync OpenCode configuration into `~/.config/opencode/`. Copies `AGENTS.md`, JSON config files, and mirrors root `./agents/` and `./commands/` directories if they are present |
 | `make help` | Display available targets and their descriptions                                                                                                                              |
+| `make check` | Validate that routed models are reachable through enabled providers and filters, concurrency keys are live, and repo config matches the deployed copy                       |
 
 **Workflow:**
 
