@@ -16,10 +16,14 @@ sync:
 			cp -f "$$file" ~/.config/opencode/; \
 		fi; \
 	done
-	@rm -rf ~/.config/opencode/agents/*
-	@cp -r ./agents/* ~/.config/opencode/agents/ 2>/dev/null || true
-	@rm -rf ~/.config/opencode/commands/*
-	@cp -r ./commands/* ~/.config/opencode/commands/ 2>/dev/null || true
+	@if [ -d ./agents ]; then \
+		rm -rf ~/.config/opencode/agents/*; \
+		cp -r ./agents/* ~/.config/opencode/agents/ 2>/dev/null || true; \
+	fi
+	@if [ -d ./commands ]; then \
+		rm -rf ~/.config/opencode/commands/*; \
+		cp -r ./commands/* ~/.config/opencode/commands/ 2>/dev/null || true; \
+	fi
 	@echo "🎉 Sync complete!"
 
 help:
