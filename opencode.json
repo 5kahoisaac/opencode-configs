@@ -135,6 +135,15 @@
       "enabled": true,
       "type": "remote",
       "url": "http://127.0.0.1:8081/mcp"
+    },
+    "headroom": {
+      "type": "local",
+      "command": [
+        "/Users/isaac_ng/.local/share/mise/installs/python/3.10/bin/headroom",
+        "mcp",
+        "serve"
+      ],
+      "enabled": true
     }
   }
 }
