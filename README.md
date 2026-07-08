@@ -121,7 +121,7 @@ OpenAI provides direct API access to GPT-5 family models including `openai/gpt-5
 `hephaestus` (primary: `openai/gpt-5.4` medium, ultrawork: `openai/gpt-5.5` medium), `oracle` (primary:
 `openai/gpt-5.5` high), `momus` (primary: `openai/gpt-5.5` xhigh), `prometheus` (primary: `openai/gpt-5.5` high),
 `multimodal-looker` (primary: `openai/gpt-5.5` medium), and `sisyphus-junior` (primary: `openai/gpt-5.5` medium),
-as well as the `quick` and `writing` task categories, and as a fallback for `unspecified-low`.
+as well as the `quick`, `writing`, and `unspecified-low` (primary: `openai/gpt-5.4` medium) task categories.
 
 **OpenCode**
 
@@ -135,8 +135,8 @@ high-frequency workflows.
 Z.ai provides access to advanced GLM models. In this configuration, the GLM family is the primary strategic reasoning
 and planning backbone: `zai-coding-plan/glm-5.2` leads for `sisyphus` and `metis` and anchors high-effort fallbacks;
 `zai-coding-plan/glm-5.1` backs `atlas` and secondary fallbacks; `zai-coding-plan/glm-5v-turbo` covers multimodal
-fallback; and lightweight 4.x variants such as `zai-coding-plan/glm-4.5-air` and `zai-coding-plan/glm-4.7` back the
-`git` category.
+fallback; and lightweight 4.x variants anchor git workflows, with `zai-coding-plan/glm-4.7` now primary for the
+`git` category and `zai-coding-plan/glm-4.5-air` as its fallback.
 
 **NVIDIA**
 
@@ -151,10 +151,9 @@ GitHub Copilot is used as a routed model provider for selected task categories a
 `oh-my-openagent.json` configuration references `github-copilot/gemini-3.1-pro-preview` (primary for the
 `visual-engineering`
 and `artistry` categories, plus high-effort fallbacks for `prometheus`, `oracle`, `momus`, `ultrabrain`, and `deep`),
-`github-copilot/gemini-3-flash-preview` (for `explore` and `librarian` fallbacks), `github-copilot/gpt-5.3-codex`
-(primary for `unspecified-low`), and `github-copilot/gpt-5-mini` (for the `git` category plus `quick` and
-`multimodal-looker` fallbacks). The `github-copilot` whitelist also enables `gpt-4.1` and `gemini-2.5-pro` for direct
-selection.
+`github-copilot/gemini-3-flash-preview` (for `explore` and `librarian` fallbacks), and `github-copilot/gpt-5-mini`
+(for `quick` and `multimodal-looker` fallbacks). The `github-copilot` whitelist also enables `gpt-4.1`,
+`gpt-5.3-codex`, and `gemini-2.5-pro` for direct selection.
 
 **oMLX**
 
@@ -246,10 +245,10 @@ appropriate models based on their category:
 | `ultrabrain`         | `openai/gpt-5.5`                        | `xhigh`  | `github-copilot/gemini-3.1-pro-preview` (high), `zai-coding-plan/glm-5.2` (max), `zai-coding-plan/glm-5.1`                           | Hard logic-heavy tasks requiring deep reasoning                     |
 | `deep`               | `openai/gpt-5.5`                        | `medium` | `github-copilot/gemini-3.1-pro-preview` (high)                                                                                       | Goal-oriented autonomous problem-solving with thorough research     |
 | `quick`              | `openai/gpt-5.4-mini`                   | —        | `github-copilot/gemini-3-flash-preview`, `nvidia/minimaxai/minimax-m3`, `nvidia/minimaxai/minimax-m2.7`, `github-copilot/gpt-5-mini` | Trivial tasks, single file changes, typo fixes                      |
-| `unspecified-low`    | `github-copilot/gpt-5.3-codex`          | —        | `openai/gpt-5.4` (medium), `nvidia/minimaxai/minimax-m3`, `nvidia/minimaxai/minimax-m2.7`                                            | Low-effort tasks that don't fit other categories                    |
+| `unspecified-low`    | `openai/gpt-5.4`                        | `medium` | `nvidia/minimaxai/minimax-m3`, `nvidia/minimaxai/minimax-m2.7`                                                                       | Low-effort tasks that don't fit other categories                    |
 | `unspecified-high`   | `openai/gpt-5.5`                        | `high`   | `zai-coding-plan/glm-5.2` (max), `zai-coding-plan/glm-5.1`                                                                           | High-effort tasks that don't fit other categories                   |
 | `writing`            | `openai/gpt-5.4-mini`                   | —        | `zai-coding-plan/glm-5.1`, `nvidia/minimaxai/minimax-m3`, `nvidia/minimaxai/minimax-m2.7`                                            | Documentation, prose, and technical writing tasks                   |
-| `git`                | `github-copilot/gpt-5-mini`             | —        | `zai-coding-plan/glm-4.7`, `zai-coding-plan/glm-4.5-air`, `opencode/big-pickle`                                                      | All git operations with focus on atomic commits and safe operations |
+| `git`                | `zai-coding-plan/glm-4.7`               | —        | `zai-coding-plan/glm-4.5-air`, `opencode/big-pickle`                                                                                 | All git operations with focus on atomic commits and safe operations |
 
 These category assignments enable intelligent task routing, ensuring each type of work is handled by the most suitable
 model for optimal results.
@@ -295,7 +294,7 @@ Automatic fallback system for handling API errors and maintaining workflow conti
 | `timeout_seconds`       | 30                 | Request timeout threshold                                  |
 | `notify_on_fallback`    | true               | Notify user when fallback occurs                           |
 | **Retry on Errors**     |                    | HTTP status codes that trigger fallback                    |
-|                         | 400, 429, 503, 529 | Bad Request, Rate Limited, Service Unavailable, Overloaded |
+|                         | 400, 401, 429, 503, 529 | Bad Request, Unauthorized, Rate Limited, Service Unavailable, Overloaded |
 
 This configuration ensures robust operation by automatically switching to fallback models when primary models encounter
 rate limits or service issues, maintaining workflow continuity without manual intervention.
