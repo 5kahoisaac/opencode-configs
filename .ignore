@@ -12,4 +12,5 @@
 # tools
 .idea/
 .serena/
+.tokensave
 .opencode/

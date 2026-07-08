@@ -244,7 +244,8 @@
       "ecc@ecc": false,
       "codex@openai-codex": false,
       "andrej-karpathy-skills@karpathy-skills": false,
-      "claude-code-setup@claude-plugins-official": false
+      "claude-code-setup@claude-plugins-official": false,
+      "understand-anything@understand-anything": false
     }
   },
   "git_master": {
