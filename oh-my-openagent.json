@@ -23,9 +23,13 @@
     "sisyphus": {
       "model": "zai-coding-plan/glm-5.2",
       "variant": "max",
+      "ultrawork": {
+        "model": "openai/gpt-5.6-sol",
+        "variant": "medium"
+      },
       "fallback_models": [
         {
-          "model": "openai/gpt-5.5",
+          "model": "openai/gpt-5.6-terra",
           "variant": "medium"
         },
         "zai-coding-plan/glm-5.1",
@@ -38,13 +42,13 @@
       "variant": "max",
       "fallback_models": [
         {
-          "model": "openai/gpt-5.5",
+          "model": "openai/gpt-5.6-terra",
           "variant": "high"
         }
       ]
     },
     "prometheus": {
-      "model": "openai/gpt-5.5",
+      "model": "openai/gpt-5.6-sol",
       "variant": "high",
       "fallback_models": [
         {
@@ -63,7 +67,7 @@
       "variant": "high",
       "fallback_models": [
         {
-          "model": "openai/gpt-5.5",
+          "model": "openai/gpt-5.6-terra",
           "variant": "medium"
         },
         "nvidia/minimaxai/minimax-m3",
@@ -71,17 +75,17 @@
       ]
     },
     "hephaestus": {
-      "model": "openai/gpt-5.4",
+      "model": "openai/gpt-5.6-terra",
       "variant": "medium",
       "ultrawork": {
-        "model": "openai/gpt-5.5",
+        "model": "openai/gpt-5.6-sol",
         "variant": "medium"
       },
       "fallback_models": [],
       "prompt_append": "You are the primary implementation agent. Own the codebase. Explore, decide, execute. Use LSP and AST-grep aggressively."
     },
     "oracle": {
-      "model": "openai/gpt-5.5",
+      "model": "openai/gpt-5.6-terra",
       "variant": "high",
       "fallback_models": [
         {
@@ -96,7 +100,7 @@
       ]
     },
     "momus": {
-      "model": "openai/gpt-5.5",
+      "model": "openai/gpt-5.6-terra",
       "variant": "xhigh",
       "fallback_models": [
         {
@@ -127,7 +131,7 @@
       ]
     },
     "multimodal-looker": {
-      "model": "openai/gpt-5.5",
+      "model": "openai/gpt-5.6-terra",
       "variant": "medium",
       "fallback_models": [
         "zai-coding-plan/glm-5v-turbo",
@@ -135,7 +139,7 @@
       ]
     },
     "sisyphus-junior": {
-      "model": "openai/gpt-5.5",
+      "model": "openai/gpt-5.6-luna",
       "variant": "medium",
       "fallback_models": [
         "nvidia/minimaxai/minimax-m3",
@@ -160,11 +164,11 @@
       "model": "github-copilot/gemini-3.1-pro-preview",
       "variant": "high",
       "fallback_models": [
-        "openai/gpt-5.5"
+        "openai/gpt-5.6-terra"
       ]
     },
     "ultrabrain": {
-      "model": "openai/gpt-5.5",
+      "model": "openai/gpt-5.6-sol",
       "variant": "xhigh",
       "fallback_models": [
         {
@@ -179,7 +183,7 @@
       ]
     },
     "deep": {
-      "model": "openai/gpt-5.5",
+      "model": "openai/gpt-5.6-terra",
       "variant": "medium",
       "fallback_models": [
         {
@@ -198,7 +202,7 @@
       ]
     },
     "unspecified-high": {
-      "model": "openai/gpt-5.5",
+      "model": "openai/gpt-5.6-sol",
       "variant": "high",
       "fallback_models": [
         {
@@ -209,7 +213,7 @@
       ]
     },
     "unspecified-low": {
-      "model": "openai/gpt-5.4",
+      "model": "openai/gpt-5.6-luna",
       "variant": "medium",
       "fallback_models": [
         "nvidia/minimaxai/minimax-m3",
@@ -261,9 +265,12 @@
       "zai-coding-plan": 10
     },
     "modelConcurrency": {
+      "openai/gpt-5.6-sol": 1,
+      "openai/gpt-5.6-terra": 2,
+      "openai/gpt-5.6-luna": 4,
       "openai/gpt-5.5": 2,
-      "openai/gpt-5.4": 5,
-      "openai/gpt-5.4-mini": 10,
+      "openai/gpt-5.4": 4,
+      "openai/gpt-5.4-mini": 6,
       "github-copilot/gemini-2.5-pro": 2,
       "github-copilot/gemini-3-flash-preview": 5,
       "github-copilot/gemini-3.1-pro-preview": 2,

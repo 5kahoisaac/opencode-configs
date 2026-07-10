@@ -105,7 +105,7 @@ This configuration integrates multiple AI model providers to offer a diverse ran
 fast responses to deep reasoning tasks. The provider setup is designed to balance cost-effectiveness with performance,
 utilizing both free and premium models across different use cases.
 
-**Default Model:** `openai/gpt-5.4` (configured in `opencode.json`)
+**Default Model:** `openai/gpt-5.6-luna` (configured in `opencode.json`)
 
 **Small Model:** `openai/gpt-5.4-mini` (configured in `opencode.json`)
 
@@ -116,12 +116,13 @@ configuration:
 
 **OpenAI**
 
-OpenAI provides direct API access to GPT-5 family models including `openai/gpt-5.5`, `openai/gpt-5.4`, and
-`openai/gpt-5.4-mini`. These models serve as primary and fallback models for several agents including
-`hephaestus` (primary: `openai/gpt-5.4` medium, ultrawork: `openai/gpt-5.5` medium), `oracle` (primary:
-`openai/gpt-5.5` high), `momus` (primary: `openai/gpt-5.5` xhigh), `prometheus` (primary: `openai/gpt-5.5` high),
-`multimodal-looker` (primary: `openai/gpt-5.5` medium), and `sisyphus-junior` (primary: `openai/gpt-5.5` medium),
-as well as the `quick`, `writing`, and `unspecified-low` (primary: `openai/gpt-5.4` medium) task categories.
+OpenAI provides direct API access to GPT-5 family models including `openai/gpt-5.6-sol`, `openai/gpt-5.6-terra`,
+`openai/gpt-5.6-luna`, and `openai/gpt-5.4-mini`. These models serve as primary and fallback models for several
+agents including `hephaestus` (primary: `openai/gpt-5.6-terra` medium, ultrawork: `openai/gpt-5.6-sol` medium),
+`oracle` (primary: `openai/gpt-5.6-terra` high), `momus` (primary: `openai/gpt-5.6-terra` xhigh), `prometheus`
+(primary: `openai/gpt-5.6-sol` high), `multimodal-looker` (primary: `openai/gpt-5.6-terra` medium), and
+`sisyphus-junior` (primary: `openai/gpt-5.6-luna` medium), as well as the `quick` and `writing`
+(`openai/gpt-5.4-mini`) and `unspecified-low` (`openai/gpt-5.6-luna` medium) task categories.
 
 **OpenCode**
 
@@ -169,9 +170,9 @@ The provider configuration also uses blacklist rules to keep model selection foc
 **OpenCode Zen blacklist (`provider.opencode.blacklist`)**
 
 This blacklist is maintained to filter paid OpenCode Zen models from the general OpenCode provider roster while keeping
-free-tier models available. It is synchronized via `/blacklist-sync` and currently filters 45 paid Zen models across
+free-tier models available. It is synchronized via `/blacklist-sync` and currently filters 46 paid Zen models across
 families including Claude (Fable, Opus, Sonnet 4.x and 5, Haiku 4.x), GPT (5.x, Codex, Nano), Gemini (3.5 Flash,
-3.1 Pro, 3 Flash), Grok Build, DeepSeek V4, GLM 5.x, MiniMax M2.x and M3, Kimi K2.x (including K2.7 Code), and
+3.1 Pro, 3 Flash), Grok (4.5 and Build), DeepSeek V4, GLM 5.x, MiniMax M2.x and M3, Kimi K2.x (including K2.7 Code), and
 Qwen 3.x so routine workflows stay on the free/default OpenCode path.
 
 #### Models Configuration
@@ -185,19 +186,19 @@ configuration represents a carefully tuned balance between API rate limits, resp
 Individual agents from the oh-my-openagent plugin receive specialized model assignments optimized for their specific
 functions:
 
-| Source              | Agent Name          | Role                      | Model                         | Variant  | Fallback Models                                                                                            | Description                                                                                                 |
-|:--------------------|:--------------------|:--------------------------|:------------------------------|:---------|:-----------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------|
-| **oh-my-openagent** | `sisyphus`          | Orchestrator              | `zai-coding-plan/glm-5.2`     | `max`    | `openai/gpt-5.5` (medium), `zai-coding-plan/glm-5.1`, `opencode/big-pickle`                                | Primary orchestrator for complex, multi-step tasks                                                          |
-| **oh-my-openagent** | `metis`             | Scope Analysis            | `zai-coding-plan/glm-5.2`     | `max`    | `openai/gpt-5.5` (high)                                                                                    | Pre-planning consultation and scope analysis                                                                |
-| **oh-my-openagent** | `prometheus`        | Planning Specialist       | `openai/gpt-5.5`              | `high`   | `zai-coding-plan/glm-5.2` (max), `github-copilot/gemini-3.1-pro-preview` (high)                            | Detailed plans and work breakdowns                                                                          |
-| **oh-my-openagent** | `atlas`             | Knowledge Specialist      | `zai-coding-plan/glm-5.1`     | `high`   | `openai/gpt-5.5` (medium), `nvidia/minimaxai/minimax-m3`, `nvidia/minimaxai/minimax-m2.7`                  | Knowledge retrieval and architectural context                                                               |
-| **oh-my-openagent** | `hephaestus`        | Implementation Specialist | `openai/gpt-5.4`              | `medium` | —                                                                                                          | Executes implementation tasks with balanced capability and efficiency. Ultrawork: `openai/gpt-5.5` (medium) |
-| **oh-my-openagent** | `oracle`            | Strategic Advisor         | `openai/gpt-5.5`              | `high`   | `github-copilot/gemini-3.1-pro-preview` (high), `zai-coding-plan/glm-5.2` (max), `zai-coding-plan/glm-5.1` | Provides high-level architectural guidance and complex reasoning for critical decisions                     |
-| **oh-my-openagent** | `momus`             | Quality Review            | `openai/gpt-5.5`              | `xhigh`  | `github-copilot/gemini-3.1-pro-preview` (high), `zai-coding-plan/glm-5.2` (max), `zai-coding-plan/glm-5.1` | Reviews work plans and implementations for quality, completeness, and adherence to best practices           |
-| **oh-my-openagent** | `multimodal-looker` | Visual Analysis           | `openai/gpt-5.5`              | `medium` | `zai-coding-plan/glm-5v-turbo`, `github-copilot/gpt-5-mini`                                                | Analyzes visual content, images, and multimodal inputs for comprehensive understanding                      |
-| **oh-my-openagent** | `explore`           | Codebase Analysis         | `nvidia/minimaxai/minimax-m3` | —        | `nvidia/minimaxai/minimax-m2.7`, `openai/gpt-5.4-mini`, `github-copilot/gemini-3-flash-preview`            | Performs rapid codebase navigation, pattern detection, and symbol exploration                               |
-| **oh-my-openagent** | `librarian`         | Research Specialist       | `nvidia/minimaxai/minimax-m3` | —        | `nvidia/minimaxai/minimax-m2.7`, `openai/gpt-5.4-mini`, `github-copilot/gemini-3-flash-preview`            | Handles documentation lookup, external research, and information retrieval tasks                            |
-| **oh-my-openagent** | `sisyphus-junior`   | Lightweight Orchestrator  | `openai/gpt-5.5`              | `medium` | `nvidia/minimaxai/minimax-m3`, `nvidia/minimaxai/minimax-m2.7`, `opencode/big-pickle`                      | Category-optimized task delegation                                                                          |
+| Source              | Agent Name          | Role                      | Model                         | Variant  | Fallback Models                                                                                            | Description                                                                                                     |
+|:--------------------|:--------------------|:--------------------------|:------------------------------|:---------|:-----------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------|
+| **oh-my-openagent** | `sisyphus`          | Orchestrator              | `zai-coding-plan/glm-5.2`     | `max`    | `openai/gpt-5.6-terra` (medium), `zai-coding-plan/glm-5.1`, `opencode/big-pickle`                          | Primary orchestrator for complex, multi-step tasks                                                              |
+| **oh-my-openagent** | `metis`             | Scope Analysis            | `zai-coding-plan/glm-5.2`     | `max`    | `openai/gpt-5.6-terra` (high)                                                                              | Pre-planning consultation and scope analysis                                                                    |
+| **oh-my-openagent** | `prometheus`        | Planning Specialist       | `openai/gpt-5.6-sol`          | `high`   | `zai-coding-plan/glm-5.2` (max), `github-copilot/gemini-3.1-pro-preview` (high)                            | Detailed plans and work breakdowns                                                                              |
+| **oh-my-openagent** | `atlas`             | Knowledge Specialist      | `zai-coding-plan/glm-5.1`     | `high`   | `openai/gpt-5.6-terra` (medium), `nvidia/minimaxai/minimax-m3`, `nvidia/minimaxai/minimax-m2.7`            | Knowledge retrieval and architectural context                                                                   |
+| **oh-my-openagent** | `hephaestus`        | Implementation Specialist | `openai/gpt-5.6-terra`        | `medium` | —                                                                                                          | Executes implementation tasks with balanced capability and efficiency. Ultrawork: `openai/gpt-5.6-sol` (medium) |
+| **oh-my-openagent** | `oracle`            | Strategic Advisor         | `openai/gpt-5.6-terra`        | `high`   | `github-copilot/gemini-3.1-pro-preview` (high), `zai-coding-plan/glm-5.2` (max), `zai-coding-plan/glm-5.1` | Provides high-level architectural guidance and complex reasoning for critical decisions                         |
+| **oh-my-openagent** | `momus`             | Quality Review            | `openai/gpt-5.6-terra`        | `xhigh`  | `github-copilot/gemini-3.1-pro-preview` (high), `zai-coding-plan/glm-5.2` (max), `zai-coding-plan/glm-5.1` | Reviews work plans and implementations for quality, completeness, and adherence to best practices               |
+| **oh-my-openagent** | `multimodal-looker` | Visual Analysis           | `openai/gpt-5.6-terra`        | `medium` | `zai-coding-plan/glm-5v-turbo`, `github-copilot/gpt-5-mini`                                                | Analyzes visual content, images, and multimodal inputs for comprehensive understanding                          |
+| **oh-my-openagent** | `explore`           | Codebase Analysis         | `nvidia/minimaxai/minimax-m3` | —        | `nvidia/minimaxai/minimax-m2.7`, `openai/gpt-5.4-mini`, `github-copilot/gemini-3-flash-preview`            | Performs rapid codebase navigation, pattern detection, and symbol exploration                                   |
+| **oh-my-openagent** | `librarian`         | Research Specialist       | `nvidia/minimaxai/minimax-m3` | —        | `nvidia/minimaxai/minimax-m2.7`, `openai/gpt-5.4-mini`, `github-copilot/gemini-3-flash-preview`            | Handles documentation lookup, external research, and information retrieval tasks                                |
+| **oh-my-openagent** | `sisyphus-junior`   | Lightweight Orchestrator  | `openai/gpt-5.6-luna`         | `medium` | `nvidia/minimaxai/minimax-m3`, `nvidia/minimaxai/minimax-m2.7`, `opencode/big-pickle`                      | Category-optimized task delegation                                                                              |
 
 **Current API Rate Limits and Suggested Setup**
 
@@ -241,12 +242,12 @@ appropriate models based on their category:
 | Category             | Model                                   | Variant  | Fallback Models                                                                                                                      | Description                                                         |
 |:---------------------|:----------------------------------------|:---------|:-------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------|
 | `visual-engineering` | `github-copilot/gemini-3.1-pro-preview` | `high`   | `zai-coding-plan/glm-5.2` (max), `zai-coding-plan/glm-5.1`                                                                           | Frontend, UI/UX, design, styling, and animation tasks               |
-| `artistry`           | `github-copilot/gemini-3.1-pro-preview` | `high`   | `openai/gpt-5.5`                                                                                                                     | Complex problem-solving with unconventional, creative approaches    |
-| `ultrabrain`         | `openai/gpt-5.5`                        | `xhigh`  | `github-copilot/gemini-3.1-pro-preview` (high), `zai-coding-plan/glm-5.2` (max), `zai-coding-plan/glm-5.1`                           | Hard logic-heavy tasks requiring deep reasoning                     |
-| `deep`               | `openai/gpt-5.5`                        | `medium` | `github-copilot/gemini-3.1-pro-preview` (high)                                                                                       | Goal-oriented autonomous problem-solving with thorough research     |
+| `artistry`           | `github-copilot/gemini-3.1-pro-preview` | `high`   | `openai/gpt-5.6-terra`                                                                                                               | Complex problem-solving with unconventional, creative approaches    |
+| `ultrabrain`         | `openai/gpt-5.6-sol`                    | `xhigh`  | `github-copilot/gemini-3.1-pro-preview` (high), `zai-coding-plan/glm-5.2` (max), `zai-coding-plan/glm-5.1`                           | Hard logic-heavy tasks requiring deep reasoning                     |
+| `deep`               | `openai/gpt-5.6-terra`                  | `medium` | `github-copilot/gemini-3.1-pro-preview` (high)                                                                                       | Goal-oriented autonomous problem-solving with thorough research     |
 | `quick`              | `openai/gpt-5.4-mini`                   | —        | `github-copilot/gemini-3-flash-preview`, `nvidia/minimaxai/minimax-m3`, `nvidia/minimaxai/minimax-m2.7`, `github-copilot/gpt-5-mini` | Trivial tasks, single file changes, typo fixes                      |
-| `unspecified-low`    | `openai/gpt-5.4`                        | `medium` | `nvidia/minimaxai/minimax-m3`, `nvidia/minimaxai/minimax-m2.7`                                                                       | Low-effort tasks that don't fit other categories                    |
-| `unspecified-high`   | `openai/gpt-5.5`                        | `high`   | `zai-coding-plan/glm-5.2` (max), `zai-coding-plan/glm-5.1`                                                                           | High-effort tasks that don't fit other categories                   |
+| `unspecified-low`    | `openai/gpt-5.6-luna`                   | `medium` | `nvidia/minimaxai/minimax-m3`, `nvidia/minimaxai/minimax-m2.7`                                                                       | Low-effort tasks that don't fit other categories                    |
+| `unspecified-high`   | `openai/gpt-5.6-sol`                    | `high`   | `zai-coding-plan/glm-5.2` (max), `zai-coding-plan/glm-5.1`                                                                           | High-effort tasks that don't fit other categories                   |
 | `writing`            | `openai/gpt-5.4-mini`                   | —        | `zai-coding-plan/glm-5.1`, `nvidia/minimaxai/minimax-m3`, `nvidia/minimaxai/minimax-m2.7`                                            | Documentation, prose, and technical writing tasks                   |
 | `git`                | `zai-coding-plan/glm-4.7`               | —        | `zai-coding-plan/glm-4.5-air`, `opencode/big-pickle`                                                                                 | All git operations with focus on atomic commits and safe operations |
 
@@ -269,9 +270,12 @@ The `oh-my-openagent.json` file includes sophisticated background task managemen
 | `zai-coding-plan`                       | 10    | Maximum concurrent tasks for Z.ai provider                |
 | `github-copilot`                        | 10    | Maximum concurrent tasks for GitHub Copilot provider      |
 | **Model Concurrency**                   |       | Per-model fine-grained concurrency limits                 |
+| `openai/gpt-5.6-sol`                    | 1     | Concurrency limit for OpenAI GPT-5.6 Sol                  |
+| `openai/gpt-5.6-terra`                  | 2     | Concurrency limit for OpenAI GPT-5.6 Terra                |
+| `openai/gpt-5.6-luna`                   | 4     | Concurrency limit for OpenAI GPT-5.6 Luna                 |
 | `openai/gpt-5.5`                        | 2     | Concurrency limit for OpenAI GPT-5.5                      |
-| `openai/gpt-5.4`                        | 5     | Concurrency limit for OpenAI GPT-5.4                      |
-| `openai/gpt-5.4-mini`                   | 10    | Concurrency limit for OpenAI GPT-5.4-mini                 |
+| `openai/gpt-5.4`                        | 4     | Concurrency limit for OpenAI GPT-5.4                      |
+| `openai/gpt-5.4-mini`                   | 6     | Concurrency limit for OpenAI GPT-5.4-mini                 |
 | `github-copilot/gemini-2.5-pro`         | 2     | Concurrency limit for GitHub Copilot Gemini 2.5 Pro       |
 | `github-copilot/gemini-3-flash-preview` | 5     | Concurrency limit for GitHub Copilot Gemini 3 Flash       |
 | `github-copilot/gemini-3.1-pro-preview` | 2     | Concurrency limit for GitHub Copilot Gemini 3.1 Pro       |
@@ -286,14 +290,14 @@ The `oh-my-openagent.json` file includes sophisticated background task managemen
 
 Automatic fallback system for handling API errors and maintaining workflow continuity:
 
-| Setting                 | Value              | Description                                                |
-|:------------------------|:-------------------|:-----------------------------------------------------------|
-| `enabled`               | true               | Enable automatic fallback on errors                        |
-| `max_fallback_attempts` | 3                  | Maximum number of fallback attempts per request            |
-| `cooldown_seconds`      | 60                 | Cooldown period between fallback attempts                  |
-| `timeout_seconds`       | 30                 | Request timeout threshold                                  |
-| `notify_on_fallback`    | true               | Notify user when fallback occurs                           |
-| **Retry on Errors**     |                    | HTTP status codes that trigger fallback                    |
+| Setting                 | Value                   | Description                                                              |
+|:------------------------|:------------------------|:-------------------------------------------------------------------------|
+| `enabled`               | true                    | Enable automatic fallback on errors                                      |
+| `max_fallback_attempts` | 3                       | Maximum number of fallback attempts per request                          |
+| `cooldown_seconds`      | 60                      | Cooldown period between fallback attempts                                |
+| `timeout_seconds`       | 30                      | Request timeout threshold                                                |
+| `notify_on_fallback`    | true                    | Notify user when fallback occurs                                         |
+| **Retry on Errors**     |                         | HTTP status codes that trigger fallback                                  |
 |                         | 400, 401, 429, 503, 529 | Bad Request, Unauthorized, Rate Limited, Service Unavailable, Overloaded |
 
 This configuration ensures robust operation by automatically switching to fallback models when primary models encounter
