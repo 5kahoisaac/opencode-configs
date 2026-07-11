@@ -21,41 +21,41 @@
   },
   "agents": {
     "sisyphus": {
-      "model": "zai-coding-plan/glm-5.2",
+      "model": "omni/glm/glm-5.2",
       "variant": "max",
       "ultrawork": {
-        "model": "openai/gpt-5.5",
+        "model": "omni/codex/gpt-5.5",
         "variant": "medium"
       },
       "fallback_models": [
-        "zai-coding-plan/glm-5.1",
-        "opencode/big-pickle"
+        "omni/glm/glm-5.1",
+        "omni/opencode-zen/big-pickle"
       ],
       "prompt_append": "Delegate heavily to hephaestus for implementation. Parallelize exploration."
     },
     "metis": {
-      "model": "zai-coding-plan/glm-5.2",
+      "model": "omni/glm/glm-5.2",
       "variant": "max",
       "fallback_models": [
         {
-          "model": "openai/gpt-5.5",
+          "model": "omni/codex/gpt-5.5",
           "variant": "high"
         }
       ]
     },
     "prometheus": {
-      "model": "openai/gpt-5.5",
+      "model": "omni/codex/gpt-5.5",
       "variant": "high",
       "fallback_models": [
         {
-          "model": "zai-coding-plan/glm-5.2",
+          "model": "omni/glm/glm-5.2",
           "variant": "max"
         }
       ],
       "prompt_append": "Keep plans concise. Focus on file structure and key decisions."
     },
     "atlas": {
-      "model": "openai/gpt-5.5",
+      "model": "omni/codex/gpt-5.5",
       "variant": "medium",
       "fallback_models": [
         "omni/nvidia/minimaxai/minimax-m3",
@@ -63,36 +63,36 @@
       ]
     },
     "hephaestus": {
-      "model": "openai/gpt-5.6-sol",
+      "model": "omni/codex/gpt-5.6-sol",
       "variant": "medium",
       "fallback_models": [
         {
-          "model": "openai/gpt-5.5",
+          "model": "omni/codex/gpt-5.5",
           "variant": "medium"
         }
       ],
       "prompt_append": "You are the primary implementation agent. Own the codebase. Explore, decide, execute. Use LSP and AST-grep aggressively."
     },
     "oracle": {
-      "model": "openai/gpt-5.5",
+      "model": "omni/codex/gpt-5.5",
       "variant": "high",
       "fallback_models": [
         {
-          "model": "zai-coding-plan/glm-5.2",
+          "model": "omni/glm/glm-5.2",
           "variant": "max"
         }
       ]
     },
     "momus": {
-      "model": "openai/gpt-5.6-sol",
+      "model": "omni/codex/gpt-5.6-sol",
       "variant": "xhigh",
       "fallback_models": [
         {
-          "model": "openai/gpt-5.5",
+          "model": "omni/codex/gpt-5.5",
           "variant": "xhigh"
         },
         {
-          "model": "zai-coding-plan/glm-5.2",
+          "model": "omni/glm/glm-5.2",
           "variant": "max"
         }
       ]
@@ -102,7 +102,7 @@
       "fallback_models": [
         "omni/nvidia/minimaxai/minimax-m2.7",
         "omni/gemini/gemini-3-flash-preview",
-        "openai/gpt-5.4-mini"
+        "omni/codex/gpt-5.4-mini"
       ]
     },
     "librarian": {
@@ -110,75 +110,75 @@
       "fallback_models": [
         "omni/nvidia/minimaxai/minimax-m2.7",
         "omni/gemini/gemini-3-flash-preview",
-        "openai/gpt-5.4-mini"
+        "omni/codex/gpt-5.4-mini"
       ]
     },
     "multimodal-looker": {
-      "model": "openai/gpt-5.5",
+      "model": "omni/codex/gpt-5.5",
       "variant": "medium",
       "fallback_models": [
-        "zai-coding-plan/glm-5v-turbo",
-        "openai/gpt-5.4-mini"
+        "omni/glm/glm-5-turbo",
+        "omni/codex/gpt-5.4-mini"
       ]
     },
     "sisyphus-junior": {
-      "model": "openai/gpt-5.5",
+      "model": "omni/codex/gpt-5.5",
       "variant": "medium",
       "fallback_models": [
         "omni/nvidia/minimaxai/minimax-m3",
         "omni/nvidia/minimaxai/minimax-m2.7",
-        "opencode/big-pickle"
+        "omni/opencode-zen/big-pickle"
       ]
     }
   },
   "categories": {
     "visual-engineering": {
-      "model": "zai-coding-plan/glm-5.2",
+      "model": "omni/glm/glm-5.2",
       "variant": "max",
       "fallback_models": [
-        "zai-coding-plan/glm-5.1"
+        "omni/glm/glm-5.1"
       ]
     },
     "artistry": {
-      "model": "openai/gpt-5.5",
+      "model": "omni/codex/gpt-5.5",
       "variant": "high",
       "fallback_models": [
         {
-          "model": "zai-coding-plan/glm-5.2",
+          "model": "omni/glm/glm-5.2",
           "variant": "max"
         }
       ]
     },
     "ultrabrain": {
-      "model": "openai/gpt-5.6-sol",
+      "model": "omni/codex/gpt-5.6-sol",
       "variant": "xhigh",
       "fallback_models": [
         {
-          "model": "openai/gpt-5.5",
+          "model": "omni/codex/gpt-5.5",
           "variant": "xhigh"
         },
         {
-          "model": "zai-coding-plan/glm-5.2",
+          "model": "omni/glm/glm-5.2",
           "variant": "max"
         }
       ]
     },
     "deep": {
-      "model": "openai/gpt-5.6-terra",
+      "model": "omni/codex/gpt-5.6-terra",
       "variant": "xhigh",
       "fallback_models": [
         {
-          "model": "openai/gpt-5.6-sol",
+          "model": "omni/codex/gpt-5.6-sol",
           "variant": "high"
         },
         {
-          "model": "zai-coding-plan/glm-5.2",
+          "model": "omni/glm/glm-5.2",
           "variant": "max"
         }
       ]
     },
     "quick": {
-      "model": "openai/gpt-5.4-mini",
+      "model": "omni/codex/gpt-5.4-mini",
       "fallback_models": [
         "omni/gemini/gemini-3-flash-preview",
         "omni/nvidia/minimaxai/minimax-m3",
@@ -186,22 +186,22 @@
       ]
     },
     "unspecified-high": {
-      "model": "openai/gpt-5.5",
+      "model": "omni/codex/gpt-5.5",
       "variant": "high",
       "fallback_models": [
-        "zai-coding-plan/glm-5.1",
+        "omni/glm/glm-5.1",
         {
-          "model": "zai-coding-plan/glm-5.2",
+          "model": "omni/glm/glm-5.2",
           "variant": "max"
         }
       ]
     },
     "unspecified-low": {
-      "model": "openai/gpt-5.6-luna",
+      "model": "omni/codex/gpt-5.6-luna",
       "variant": "xhigh",
       "fallback_models": [
         {
-          "model": "openai/gpt-5.5",
+          "model": "omni/codex/gpt-5.5",
           "variant": "medium"
         },
         "omni/gemini/gemini-3-flash-preview",
@@ -220,9 +220,9 @@
     "git": {
       "model": "omni/auto/best-free",
       "fallback_models": [
-        "zai-coding-plan/glm-4.7",
-        "zai-coding-plan/glm-4.5-air",
-        "opencode/big-pickle"
+        "omni/glm/glm-4.7",
+        "omni/glm/glm-4.5-air",
+        "omni/opencode-zen/big-pickle"
       ],
       "description": "All git operations",
       "prompt_append": "Focus on atomic commits, clear messages, and safe operations."
@@ -248,24 +248,23 @@
     "staleTimeoutMs": 60000,
     "providerConcurrency": {
       "omlx": 1,
-      "omni": 10,
-      "openai": 5,
-      "opencode": 10,
-      "zai-coding-plan": 10
+      "omni": 20
     },
     "modelConcurrency": {
-      "openai/gpt-5.6-sol": 1,
-      "openai/gpt-5.6-terra": 2,
-      "openai/gpt-5.6-luna": 4,
-      "openai/gpt-5.5": 2,
-      "openai/gpt-5.4": 4,
-      "openai/gpt-5.4-mini": 6,
-      "zai-coding-plan/glm-4.5-air": 5,
-      "zai-coding-plan/glm-4.7": 2,
-      "zai-coding-plan/glm-5-turbo": 1,
-      "zai-coding-plan/glm-5v-turbo": 1,
-      "zai-coding-plan/glm-5.1": 10,
-      "zai-coding-plan/glm-5.2": 10
+      "omni/codex/gpt-5.6-sol": 1,
+      "omni/codex/gpt-5.6-terra": 2,
+      "omni/codex/gpt-5.6-luna": 4,
+      "omni/codex/gpt-5.5": 2,
+      "omni/codex/gpt-5.4": 4,
+      "omni/codex/gpt-5.4-mini": 6,
+      "omni/glm/glm-4.5": 10,
+      "omni/glm/glm-4.5-air": 5,
+      "omni/glm/glm-4.6": 3,
+      "omni/glm/glm-4.7": 2,
+      "omni/glm/glm-5": 2,
+      "omni/glm/glm-5-turbo": 1,
+      "omni/glm/glm-5.1": 10,
+      "omni/glm/glm-5.2": 10
     }
   },
   "runtime_fallback": {
