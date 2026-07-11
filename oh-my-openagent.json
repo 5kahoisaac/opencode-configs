@@ -24,14 +24,10 @@
       "model": "zai-coding-plan/glm-5.2",
       "variant": "max",
       "ultrawork": {
-        "model": "openai/gpt-5.6-sol",
+        "model": "openai/gpt-5.5",
         "variant": "medium"
       },
       "fallback_models": [
-        {
-          "model": "openai/gpt-5.6-terra",
-          "variant": "medium"
-        },
         "zai-coding-plan/glm-5.1",
         "opencode/big-pickle"
       ],
@@ -42,129 +38,115 @@
       "variant": "max",
       "fallback_models": [
         {
-          "model": "openai/gpt-5.6-terra",
+          "model": "openai/gpt-5.5",
           "variant": "high"
         }
       ]
     },
     "prometheus": {
-      "model": "openai/gpt-5.6-sol",
+      "model": "openai/gpt-5.5",
       "variant": "high",
       "fallback_models": [
         {
           "model": "zai-coding-plan/glm-5.2",
           "variant": "max"
-        },
-        {
-          "model": "github-copilot/gemini-3.1-pro-preview",
-          "variant": "high"
         }
       ],
       "prompt_append": "Keep plans concise. Focus on file structure and key decisions."
     },
     "atlas": {
-      "model": "zai-coding-plan/glm-5.1",
-      "variant": "high",
+      "model": "openai/gpt-5.5",
+      "variant": "medium",
       "fallback_models": [
-        {
-          "model": "openai/gpt-5.6-terra",
-          "variant": "medium"
-        },
-        "nvidia/minimaxai/minimax-m3",
-        "nvidia/minimaxai/minimax-m2.7"
+        "omni/nvidia/minimaxai/minimax-m3",
+        "omni/nvidia/minimaxai/minimax-m2.7"
       ]
     },
     "hephaestus": {
-      "model": "openai/gpt-5.6-terra",
+      "model": "openai/gpt-5.6-sol",
       "variant": "medium",
-      "ultrawork": {
-        "model": "openai/gpt-5.6-sol",
-        "variant": "medium"
-      },
-      "fallback_models": [],
+      "fallback_models": [
+        {
+          "model": "openai/gpt-5.5",
+          "variant": "medium"
+        }
+      ],
       "prompt_append": "You are the primary implementation agent. Own the codebase. Explore, decide, execute. Use LSP and AST-grep aggressively."
     },
     "oracle": {
-      "model": "openai/gpt-5.6-terra",
+      "model": "openai/gpt-5.5",
       "variant": "high",
       "fallback_models": [
         {
-          "model": "github-copilot/gemini-3.1-pro-preview",
-          "variant": "high"
-        },
-        {
           "model": "zai-coding-plan/glm-5.2",
           "variant": "max"
-        },
-        "zai-coding-plan/glm-5.1"
+        }
       ]
     },
     "momus": {
-      "model": "openai/gpt-5.6-terra",
+      "model": "openai/gpt-5.6-sol",
       "variant": "xhigh",
       "fallback_models": [
         {
-          "model": "github-copilot/gemini-3.1-pro-preview",
-          "variant": "high"
+          "model": "openai/gpt-5.5",
+          "variant": "xhigh"
         },
         {
           "model": "zai-coding-plan/glm-5.2",
           "variant": "max"
-        },
-        "zai-coding-plan/glm-5.1"
+        }
       ]
     },
     "explore": {
-      "model": "nvidia/minimaxai/minimax-m3",
+      "model": "omni/nvidia/minimaxai/minimax-m3",
       "fallback_models": [
-        "nvidia/minimaxai/minimax-m2.7",
-        "openai/gpt-5.4-mini",
-        "github-copilot/gemini-3-flash-preview"
+        "omni/nvidia/minimaxai/minimax-m2.7",
+        "omni/gemini/gemini-3-flash-preview",
+        "openai/gpt-5.4-mini"
       ]
     },
     "librarian": {
-      "model": "nvidia/minimaxai/minimax-m3",
+      "model": "omni/nvidia/minimaxai/minimax-m3",
       "fallback_models": [
-        "nvidia/minimaxai/minimax-m2.7",
-        "openai/gpt-5.4-mini",
-        "github-copilot/gemini-3-flash-preview"
+        "omni/nvidia/minimaxai/minimax-m2.7",
+        "omni/gemini/gemini-3-flash-preview",
+        "openai/gpt-5.4-mini"
       ]
     },
     "multimodal-looker": {
-      "model": "openai/gpt-5.6-terra",
+      "model": "openai/gpt-5.5",
       "variant": "medium",
       "fallback_models": [
         "zai-coding-plan/glm-5v-turbo",
-        "github-copilot/gpt-5-mini"
+        "openai/gpt-5.4-mini"
       ]
     },
     "sisyphus-junior": {
-      "model": "openai/gpt-5.6-luna",
+      "model": "openai/gpt-5.5",
       "variant": "medium",
       "fallback_models": [
-        "nvidia/minimaxai/minimax-m3",
-        "nvidia/minimaxai/minimax-m2.7",
+        "omni/nvidia/minimaxai/minimax-m3",
+        "omni/nvidia/minimaxai/minimax-m2.7",
         "opencode/big-pickle"
       ]
     }
   },
   "categories": {
     "visual-engineering": {
-      "model": "github-copilot/gemini-3.1-pro-preview",
+      "model": "zai-coding-plan/glm-5.2",
+      "variant": "max",
+      "fallback_models": [
+        "zai-coding-plan/glm-5.1"
+      ]
+    },
+    "artistry": {
+      "model": "openai/gpt-5.5",
       "variant": "high",
       "fallback_models": [
         {
           "model": "zai-coding-plan/glm-5.2",
           "variant": "max"
-        },
-        "zai-coding-plan/glm-5.1"
-      ]
-    },
-    "artistry": {
-      "model": "github-copilot/gemini-3.1-pro-preview",
-      "variant": "high",
-      "fallback_models": [
-        "openai/gpt-5.6-terra"
+        }
       ]
     },
     "ultrabrain": {
@@ -172,65 +154,73 @@
       "variant": "xhigh",
       "fallback_models": [
         {
-          "model": "github-copilot/gemini-3.1-pro-preview",
+          "model": "openai/gpt-5.5",
+          "variant": "xhigh"
+        },
+        {
+          "model": "zai-coding-plan/glm-5.2",
+          "variant": "max"
+        }
+      ]
+    },
+    "deep": {
+      "model": "openai/gpt-5.6-terra",
+      "variant": "xhigh",
+      "fallback_models": [
+        {
+          "model": "openai/gpt-5.6-sol",
           "variant": "high"
         },
         {
           "model": "zai-coding-plan/glm-5.2",
           "variant": "max"
-        },
-        "zai-coding-plan/glm-5.1"
-      ]
-    },
-    "deep": {
-      "model": "openai/gpt-5.6-terra",
-      "variant": "medium",
-      "fallback_models": [
-        {
-          "model": "github-copilot/gemini-3.1-pro-preview",
-          "variant": "high"
         }
       ]
     },
     "quick": {
       "model": "openai/gpt-5.4-mini",
       "fallback_models": [
-        "github-copilot/gemini-3-flash-preview",
-        "nvidia/minimaxai/minimax-m3",
-        "nvidia/minimaxai/minimax-m2.7",
-        "github-copilot/gpt-5-mini"
+        "omni/gemini/gemini-3-flash-preview",
+        "omni/nvidia/minimaxai/minimax-m3",
+        "omni/nvidia/minimaxai/minimax-m2.7"
       ]
     },
     "unspecified-high": {
-      "model": "openai/gpt-5.6-sol",
+      "model": "openai/gpt-5.5",
       "variant": "high",
       "fallback_models": [
+        "zai-coding-plan/glm-5.1",
         {
           "model": "zai-coding-plan/glm-5.2",
           "variant": "max"
-        },
-        "zai-coding-plan/glm-5.1"
+        }
       ]
     },
     "unspecified-low": {
       "model": "openai/gpt-5.6-luna",
-      "variant": "medium",
+      "variant": "xhigh",
       "fallback_models": [
-        "nvidia/minimaxai/minimax-m3",
-        "nvidia/minimaxai/minimax-m2.7"
+        {
+          "model": "openai/gpt-5.5",
+          "variant": "medium"
+        },
+        "omni/gemini/gemini-3-flash-preview",
+        "omni/nvidia/minimaxai/minimax-m3",
+        "omni/nvidia/minimaxai/minimax-m2.7"
       ]
     },
     "writing": {
-      "model": "openai/gpt-5.4-mini",
+      "model": "omni/gemini/gemini-3-flash-preview",
       "fallback_models": [
-        "zai-coding-plan/glm-5.1",
-        "nvidia/minimaxai/minimax-m3",
-        "nvidia/minimaxai/minimax-m2.7"
+        "omni/nvidia/minimaxai/minimax-m3",
+        "omni/nvidia/minimaxai/minimax-m2.7",
+        "omni/auto/best-free"
       ]
     },
     "git": {
-      "model": "zai-coding-plan/glm-4.7",
+      "model": "omni/auto/best-free",
       "fallback_models": [
+        "zai-coding-plan/glm-4.7",
         "zai-coding-plan/glm-4.5-air",
         "opencode/big-pickle"
       ],
@@ -258,10 +248,9 @@
     "staleTimeoutMs": 60000,
     "providerConcurrency": {
       "omlx": 1,
-      "nvidia": 3,
+      "omni": 10,
       "openai": 5,
       "opencode": 10,
-      "github-copilot": 10,
       "zai-coding-plan": 10
     },
     "modelConcurrency": {
@@ -271,9 +260,6 @@
       "openai/gpt-5.5": 2,
       "openai/gpt-5.4": 4,
       "openai/gpt-5.4-mini": 6,
-      "github-copilot/gemini-2.5-pro": 2,
-      "github-copilot/gemini-3-flash-preview": 5,
-      "github-copilot/gemini-3.1-pro-preview": 2,
       "zai-coding-plan/glm-4.5-air": 5,
       "zai-coding-plan/glm-4.7": 2,
       "zai-coding-plan/glm-5-turbo": 1,

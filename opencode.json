@@ -33,11 +33,10 @@
   ],
   "enabled_providers": [
     "omlx",
-    "nvidia",
+    "omni",
     "openai",
     "opencode",
-    "zai-coding-plan",
-    "github-copilot"
+    "zai-coding-plan"
   ],
   "provider": {
     "omlx": {
@@ -74,15 +73,206 @@
         }
       }
     },
-    "github-copilot": {
-      "whitelist": [
-        "gpt-4.1",
-        "gpt-5-mini",
-        "gemini-2.5-pro",
-        "gemini-3-flash-preview",
-        "gemini-3.1-pro-preview",
-        "gpt-5.3-codex"
-      ]
+    "omni": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "OmniRoute",
+      "options": {
+        "baseURL": "https://omniroute.isaac.ng/v1",
+        "apiKey": "{env:OMNI_OPENCODE_API_KEY}"
+      },
+      "models": {
+        "auto/best-free": {
+          "name": "Best Free Combo",
+          "reasoning": true,
+          "limit": {
+            "context": 262144,
+            "input": 262144,
+            "output": 131072
+          }
+        },
+        "nvidia/minimaxai/minimax-m2.7": {
+          "name": "MiniMax M2.7",
+          "reasoning": true,
+          "limit": {
+            "context": 204800,
+            "input": 204800,
+            "output": 131072
+          }
+        },
+        "nvidia/minimaxai/minimax-m3": {
+          "name": "MiniMax M3",
+          "reasoning": true,
+          "attachment": true,
+          "limit": {
+            "context": 1000000,
+            "input": 1000000,
+            "output": 16384
+          }
+        },
+        "nvidia/openai/gpt-oss-120b": {
+          "name": "GPT OSS 120B",
+          "reasoning": true,
+          "limit": {
+            "context": 128000,
+            "input": 128000,
+            "output": 8192
+          }
+        },
+        "github/gpt-4o-mini": {
+          "name": "GPT 4o Mini",
+          "reasoning": false,
+          "attachment": true,
+          "limit": {
+            "context": 128000,
+            "input": 128000,
+            "output": 4096
+          }
+        },
+        "github/gemini-3.5-flash": {
+          "name": "Gemini 3.5 Flash",
+          "reasoning": true,
+          "attachment": true,
+          "limit": {
+            "context": 200000,
+            "input": 128000,
+            "output": 64000
+          },
+          "variants": {
+            "low": {
+              "reasoningEffort": "low"
+            },
+            "medium": {
+              "reasoningEffort": "medium"
+            },
+            "high": {
+              "reasoningEffort": "high"
+            },
+            "xhigh": {
+              "reasoningEffort": "xhigh"
+            }
+          }
+        },
+        "gemini/gemini-2.5-flash": {
+          "name": "Gemini 2.5 Flash",
+          "reasoning": true,
+          "attachment": true,
+          "limit": {
+            "context": 1048576,
+            "input": 1048576,
+            "output": 65536
+          },
+          "variants": {
+            "low": {
+              "reasoningEffort": "low"
+            },
+            "medium": {
+              "reasoningEffort": "medium"
+            },
+            "high": {
+              "reasoningEffort": "high"
+            },
+            "xhigh": {
+              "reasoningEffort": "xhigh"
+            }
+          }
+        },
+        "gemini/gemini-2.5-flash-lite": {
+          "name": "Gemini 2.5 Flash Lite",
+          "reasoning": true,
+          "attachment": true,
+          "limit": {
+            "context": 1048576,
+            "input": 1048576,
+            "output": 65536
+          },
+          "variants": {
+            "low": {
+              "reasoningEffort": "low"
+            },
+            "medium": {
+              "reasoningEffort": "medium"
+            },
+            "high": {
+              "reasoningEffort": "high"
+            },
+            "xhigh": {
+              "reasoningEffort": "xhigh"
+            }
+          }
+        },
+        "gemini/gemini-3-flash-preview": {
+          "name": "Gemini 3 Flash Preview",
+          "reasoning": true,
+          "attachment": true,
+          "limit": {
+            "context": 1048576,
+            "input": 1048576,
+            "output": 65536
+          },
+          "variants": {
+            "low": {
+              "reasoningEffort": "low"
+            },
+            "medium": {
+              "reasoningEffort": "medium"
+            },
+            "high": {
+              "reasoningEffort": "high"
+            },
+            "xhigh": {
+              "reasoningEffort": "xhigh"
+            }
+          }
+        },
+        "gemini/gemini-3.1-flash-lite": {
+          "name": "Gemini 3.1 Flash Lite",
+          "reasoning": true,
+          "attachment": true,
+          "limit": {
+            "context": 1048576,
+            "input": 1048576,
+            "output": 65536
+          },
+          "variants": {
+            "low": {
+              "reasoningEffort": "low"
+            },
+            "medium": {
+              "reasoningEffort": "medium"
+            },
+            "high": {
+              "reasoningEffort": "high"
+            },
+            "xhigh": {
+              "reasoningEffort": "xhigh"
+            }
+          }
+        },
+        "gemini/gemini-3.5-flash": {
+          "name": "Gemini 3.5 Flash",
+          "reasoning": true,
+          "attachment": true,
+          "limit": {
+            "context": 1048576,
+            "input": 1048576,
+            "output": 65536
+          },
+          "variants": {
+            "low": {
+              "reasoningEffort": "low"
+            },
+            "medium": {
+              "reasoningEffort": "medium"
+            },
+            "high": {
+              "reasoningEffort": "high"
+            },
+            "xhigh": {
+              "reasoningEffort": "xhigh"
+            }
+          }
+        }
+      }
     },
     "opencode": {
       "blacklist": [
