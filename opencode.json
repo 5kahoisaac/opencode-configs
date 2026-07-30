@@ -74,7 +74,7 @@
       "npm": "@ai-sdk/openai-compatible",
       "name": "OmniRoute",
       "options": {
-        "baseURL": "http://rk3528:20128/v1",
+        "baseURL": "http://127.0.0.1:20128/v1",
         "apiKey": "{env:OMNI_OPENCODE_API_KEY}"
       },
       "models": {

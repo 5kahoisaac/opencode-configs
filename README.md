@@ -100,8 +100,8 @@ The current cycle is removing legacy surfaces and consolidating code intelligenc
 
 **Moved OmniRoute to localhost loopback.** OmniRoute Base URL is now `http://localhost:20128/v1`, running on the same
 host as OpenCode. Loopback traffic stays off the network entirely, with no TLS termination hop and the lowest possible
-latency. The public `omniroute.isaac.ng` domain (via Cloudflare Tunnel) is retained for remote and non-local hosts
-(CI runners, external services) where the loopback interface is unreachable.
+latency. The public `omniroute.isaac.ng` domain (via Cloudflare Tunnel) is retained for remote and non-local hosts (CI
+runners, external services) where the loopback interface is unreachable.
 See [Network Architecture](#network-architecture).
 
 ---
@@ -176,17 +176,15 @@ free-model routes behind one endpoint.
 |:---------|:------------------------------|
 | Package  | `@ai-sdk/openai-compatible`   |
 | Name     | `OmniRoute`                   |
-| Base URL | `http://rk3528:20128/v1`      |
+| Base URL | `http://127.0.0.1:20128/v1`   |
 | API key  | `{env:OMNI_OPENCODE_API_KEY}` |
 
 ##### Network Architecture
 
 OmniRoute is reachable over **Tailscale MagicDNS**, not the public internet:
 
-- `rk3528` is the Tailscale MagicDNS hostname of the OmniRoute host (port `20128`).
-- `omniroute.isaac.ng` is the public domain; a Cloudflare Tunnel terminates internet traffic to the host.
-- OpenCode hits `rk3528:20128` directly over the Tailscale tailnet, bypassing Cloudflare Tunnel. Private tailnet traffic
-  stays off the public internet, with no TLS termination hop and lower latency.
+- OpenCode hits `127.0.0.1:20128` directly over the Tailscale tailnet, bypassing Cloudflare Tunnel. Private tailnet
+  traffic stays off the public internet, with no TLS termination hop and lower latency.
 - The Cloudflare Tunnel front door exists only when the tailnet is unreachable (e.g. CI runners on non-Tailscale hosts).
   This is the preferred path over direct internet exposure (port forwarding) because Cloudflare Tunnel never opens
   inbound ports on the host.
