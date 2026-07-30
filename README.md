@@ -26,8 +26,8 @@ This project contains a comprehensive OpenCode configuration setup designed to e
 workflows. OpenCode is an open-source AI coding assistant that provides intelligent code completion, refactoring
 capabilities, and seamless integration with various development tools and platforms.
 
-The configuration includes carefully selected plugins, commands, and agents that extend OpenCode's functionality
-to support complex development tasks, improve code quality, and streamline development workflows. This setup is
+The configuration includes carefully selected plugins, commands, and agents that extend OpenCode's functionality to
+support complex development tasks, improve code quality, and streamline development workflows. This setup is
 particularly focused on providing enterprise-grade features while maintaining flexibility for personal and team use
 cases.
 
@@ -46,13 +46,12 @@ This repository is being simplified around three directions:
    [skillless](https://github.com/5kahoisaac/skillless), so this repository can stay focused on OpenCode configuration
    instead of becoming a mixed skill/config bundle.
 
-2. **Remove Anthropic-specific OpenCode paths.** The `anthropic` provider and `opencode-with-claude` plugin have
-   been removed from this setup as a personal workflow decision. Claude models currently run better in Claude Code
-   than in OpenCode with Oh-My-OpenAgent, and Claude Code gives smoother control for Claude-centric work.
+2. **Remove Anthropic-specific OpenCode paths.** The `anthropic` provider and `opencode-with-claude` plugin have been
+   removed from this setup as a personal workflow decision. Claude models currently run better in Claude Code than in
+   OpenCode with Oh-My-OpenAgent, and Claude Code gives smoother control for Claude-centric work.
 
 3. **Centralize MCPs through MCPProxy and prefer CLIs where possible.** Most direct MCP configuration is being removed
-   so
-   multiple coding agents do not each maintain their own MCP setup. Shared MCPs now live behind MCPProxy, using the
+   so multiple coding agents do not each maintain their own MCP setup. Shared MCPs now live behind MCPProxy, using the
    `retrieve_tools` routing mode to search tools on demand and lazy-load only the tools matching the current keyword or
    task instead of injecting every MCP tool into context. Over time, some MCPs are also being replaced with CLI-based
    presets from Skillless, such as the
@@ -95,15 +94,14 @@ The current cycle is removing legacy surfaces and consolidating code intelligenc
   [`codebase-memory-mcp`](https://github.com/DeusData/codebase-memory-mcp) was added as a new MCPProxy upstream for
   better performance on semantic code intelligence. It builds a persistent tree-sitter knowledge graph and answers
   structural queries in under a millisecond. It runs **alongside** `serena` and `ast_grep`, not as a replacement — the
-  three backends are complementary and routed by intent through MCPProxy's `retrieve_tools` mode, with per-tool
-  on/off toggling used to avoid duplicate tool surfaces during a session. See
+  three backends are complementary and routed by intent through MCPProxy's `retrieve_tools` mode, with per-tool on/off
+  toggling used to avoid duplicate tool surfaces during a session. See
   [Code Intelligence](#code-intelligence-mcpproxy-retrieve_tools-mode) for the routing rules.
 
-**Moved OmniRoute access to Tailscale MagicDNS.** OmniRoute Base URL changed from `https://omniroute.isaac.ng/v1` (
-public Cloudflare Tunnel) to `http://rk3528:20128/v1` (Tailscale MagicDNS hostname). The Tailscale tailnet keeps
-OpenCode-to-OmniRoute traffic private, skips the TLS hop, and has lower latency than round-tripping through Cloudflare.
-The public `omniroute.isaac.ng` domain is retained via Cloudflare Tunnel for non-Tailscale hosts (CI runners, external
-services) and is preferred over opening inbound ports to direct internet exposure.
+**Moved OmniRoute to localhost loopback.** OmniRoute Base URL is now `http://localhost:20128/v1`, running on the same
+host as OpenCode. Loopback traffic stays off the network entirely, with no TLS termination hop and the lowest possible
+latency. The public `omniroute.isaac.ng` domain (via Cloudflare Tunnel) is retained for remote and non-local hosts
+(CI runners, external services) where the loopback interface is unreachable.
 See [Network Architecture](#network-architecture).
 
 ---
@@ -251,8 +249,8 @@ and migrated under `omni/` as the namespaces above:
 - `opencode-zen` — separate Zen account removed; retained only as `omni/opencode-zen/big-pickle` fallback reference in
   `oh-my-openagent.json`
 
-`opencode.json` now declares only two enabled providers: `omlx` (local MLX host) and `omni` (OmniRoute). Every agent
-and category in `oh-my-openagent.json` references models using the `omni/<namespace>/<model>` form.
+`opencode.json` now declares only two enabled providers: `omlx` (local MLX host) and `omni` (OmniRoute). Every agent and
+category in `oh-my-openagent.json` references models using the `omni/<namespace>/<model>` form.
 
 **Why centralize behind OmniRoute:**
 
@@ -307,15 +305,15 @@ below include their provider prefix exactly as configured.
 
 **Runtime and Background Task Configuration**
 
-| Area                         | Current configuration                                                                                                                                                          |
-|:-----------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Team mode                    | Enabled with tmux visualization                                                                                                                                                |
-| Codegraph                    | Disabled (`enabled: false`, `auto_init: false`, `auto_provision: false`)                                                                                                       |
-| Disabled OMO MCPs            | `context7`, `websearch`, `ast_grep`, `grep_app`, `codegraph`                                                                                                                   |
-| Claude Code plugin overrides | `ecc@ecc`, `codex@openai-codex`, `andrej-karpathy-skills@karpathy-skills`, `claude-code-setup@claude-plugins-official`, and `understand-anything@understand-anything` disabled |
-| Git master                   | No commit footer, no co-authored-by, `GIT_MASTER=1` prefix                                                                                                                     |
-| Background task concurrency  | Default 5; provider concurrency `omlx: 1`, `omni: 20`                                                                                                                          |
-| Runtime fallback             | Enabled; retries `400`, `401`, `429`, `503`, `529`; max 3 fallback attempts; 60s cooldown; 30s timeout; notifications enabled                                                  |
+| Area                         | Current configuration                                                                                                         |
+|:-----------------------------|:------------------------------------------------------------------------------------------------------------------------------|
+| Team mode                    | Enabled with tmux visualization                                                                                               |
+| Codegraph                    | Disabled (`enabled: false`, `auto_init: false`, `auto_provision: false`)                                                      |
+| Disabled OMO MCPs            | `context7`, `websearch`, `grep_app`, `codegraph`                                                                              |
+| Claude Code plugin overrides | `ecc@ecc`, `andrej-karpathy-skills@karpathy-skills`, `claude-code-setup@claude-plugins-official` disabled; `mcp: false`       |
+| Git master                   | No commit footer, no co-authored-by, `GIT_MASTER=1` prefix                                                                    |
+| Background task concurrency  | Default 5; provider concurrency `omlx: 1`, `omni: 20`                                                                         |
+| Runtime fallback             | Enabled; retries `400`, `401`, `429`, `503`, `529`; max 3 fallback attempts; 60s cooldown; 30s timeout; notifications enabled |
 
 **Model Concurrency Caps**
 
@@ -358,7 +356,7 @@ Direct OpenCode MCP surface is intentionally minimal. Shared MCPs are centralize
 
 #### Disabled Oh-My-OpenAgent MCPs
 
-`oh-my-openagent.json` disables these plugin-provided MCPs: `context7`, `websearch`, `ast_grep`, `grep_app`, and
+`oh-my-openagent.json` disables these plugin-provided MCPs: `context7`, `websearch`, `grep_app`, and
 `codegraph`. This keeps context lighter and avoids duplicate MCP surfaces when MCPProxy or CLI equivalents are
 preferred.
 

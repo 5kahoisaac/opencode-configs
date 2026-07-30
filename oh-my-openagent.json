@@ -11,7 +11,6 @@
   "disabled_mcps": [
     "context7",
     "websearch",
-    "ast_grep",
     "grep_app",
     "codegraph"
   ],
@@ -232,10 +231,8 @@
     "mcp": false,
     "plugins_override": {
       "ecc@ecc": false,
-      "codex@openai-codex": false,
       "andrej-karpathy-skills@karpathy-skills": false,
-      "claude-code-setup@claude-plugins-official": false,
-      "understand-anything@understand-anything": false
+      "claude-code-setup@claude-plugins-official": false
     }
   },
   "git_master": {
