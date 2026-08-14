@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "omni/glm/glm-5.2",
+  "model": "omni/glm/glm-5.3",
   "small_model": "omni/codex/gpt-5.4-mini",
   "permission": {
     "skill": {
@@ -491,6 +491,26 @@
             "output": 131072
           },
           "variants": {
+            "high": {
+              "reasoningEffort": "high"
+            },
+            "max": {
+              "reasoningEffort": "max"
+            }
+          }
+        },
+        "glm/glm-5.3": {
+          "name": "GLM 5.3",
+          "reasoning": true,
+          "limit": {
+            "context": 1000000,
+            "input": 1000000,
+            "output": 131072
+          },
+          "variants": {
+            "low": {
+              "reasoningEffort": "low"
+            },
             "high": {
               "reasoningEffort": "high"
             },

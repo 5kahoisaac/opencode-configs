@@ -132,13 +132,13 @@ Configuration
 ### Providers
 
 Configuration uses two explicitly enabled provider routes in `opencode.json`: local `omlx` and remote `omni`. Default
-model is `omni/glm/glm-5.2`; small model is `omni/codex/gpt-5.4-mini`.
+model is `omni/glm/glm-5.3`; small model is `omni/codex/gpt-5.4-mini`.
 
 Core runtime settings:
 
 | Setting           | Current value                                                                                                                   |
 |:------------------|:--------------------------------------------------------------------------------------------------------------------------------|
-| Default model     | `omni/glm/glm-5.2`                                                                                                              |
+| Default model     | `omni/glm/glm-5.3`                                                                                                              |
 | Small model       | `omni/codex/gpt-5.4-mini`                                                                                                       |
 | Enabled providers | `omlx`, `omni`                                                                                                                  |
 | Skill permissions | `*` allowed                                                                                                                     |
@@ -217,7 +217,8 @@ OmniRoute is reachable over **Tailscale MagicDNS**, not the public internet:
 | `glm/glm-5`                     | GLM 5                  |    yes    |     no      |  204800 |  204800 | 131072 | —                             |
 | `glm/glm-5-turbo`               | GLM 5 Turbo            |    yes    |     no      |  200000 |  200000 | 131072 | —                             |
 | `glm/glm-5.1`                   | GLM5.1                 |    yes    |     no      |  200000 |  200000 | 131072 | —                             |
-| `glm/glm-5.2`                   | GLM5.2                 |    yes    |     no      | 1000000 | 1000000 | 131072 | high, max                     |
+| `glm/glm-5.2`                   | GLM5.2                 |    yes    |     no      |  1000000 |  1000000 | 131072 | high, max                     |
+| `glm/glm-5.3`                   | GLM5.3                 |    yes    |     no      |  1000000 |  1000000 | 131072 | low, high, max                |
 
 ##### Provider Services
 
@@ -275,13 +276,13 @@ below include their provider prefix exactly as configured.
 
 | Agent               | Role                | Primary model                      | Variant  | Fallback models                                                                                          | Notes                                                                                                            |
 |:--------------------|:--------------------|:-----------------------------------|:---------|:---------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------|
-| `sisyphus`          | Orchestrator        | `omni/glm/glm-5.2`                 | `max`    | `omni/glm/glm-5.1`, `omni/opencode-zen/big-pickle`                                                       | Ultrawork: `omni/codex/gpt-5.5` (`medium`). Prompt: delegate heavily to hephaestus and parallelize exploration.  |
-| `metis`             | Scope analysis      | `omni/glm/glm-5.2`                 | `max`    | `omni/codex/gpt-5.5` (`high`)                                                                            | Pre-planning consultation.                                                                                       |
-| `prometheus`        | Planning            | `omni/codex/gpt-5.5`               | `high`   | `omni/glm/glm-5.2` (`max`)                                                                               | Prompt: keep plans concise and focus file structure / key decisions.                                             |
+| `sisyphus`          | Orchestrator        | `omni/glm/glm-5.3`                 | `max`    | `omni/glm/glm-5.2` (`max`), `omni/glm/glm-5.1`, `omni/opencode-zen/big-pickle`                           | Ultrawork: `omni/codex/gpt-5.5` (`medium`). Prompt: delegate heavily to hephaestus and parallelize exploration.  |
+| `metis`             | Scope analysis      | `omni/glm/glm-5.3`                 | `max`    | `omni/codex/gpt-5.5` (`high`)                                                                            | Pre-planning consultation.                                                                                       |
+| `prometheus`        | Planning            | `omni/codex/gpt-5.5`               | `high`   | `omni/glm/glm-5.3` (`max`)                                                                               | Prompt: keep plans concise and focus file structure / key decisions.                                             |
 | `atlas`             | Codebase mapping    | `omni/codex/gpt-5.5`               | `medium` | `omni/nvidia/minimaxai/minimax-m3`, `omni/nvidia/minimaxai/minimax-m2.7`                                 | Broad codebase analysis and mapping.                                                                             |
 | `hephaestus`        | Implementation      | `omni/codex/gpt-5.6-sol`           | `medium` | `omni/codex/gpt-5.5` (`medium`)                                                                          | Primary implementation agent. Prompt: own codebase, explore, decide, execute; use LSP and ast-grep aggressively. |
-| `oracle`            | Strategic reasoning | `omni/codex/gpt-5.5`               | `high`   | `omni/glm/glm-5.2` (`max`)                                                                               | High-stakes architecture and reasoning.                                                                          |
-| `momus`             | Review              | `omni/codex/gpt-5.6-sol`           | `xhigh`  | `omni/codex/gpt-5.5` (`xhigh`), `omni/glm/glm-5.2` (`max`)                                               | Plan and implementation critique.                                                                                |
+| `oracle`            | Strategic reasoning | `omni/codex/gpt-5.5`               | `high`   | `omni/glm/glm-5.3` (`max`)                                                                               | High-stakes architecture and reasoning.                                                                          |
+| `momus`             | Review              | `omni/codex/gpt-5.6-sol`           | `xhigh`  | `omni/codex/gpt-5.5` (`xhigh`), `omni/glm/glm-5.3` (`max`)                                               | Plan and implementation critique.                                                                                |
 | `explore`           | Codebase analysis   | `omni/nvidia/minimaxai/minimax-m3` | —        | `omni/nvidia/minimaxai/minimax-m2.7`, `omni/gemini/gemini-3-flash-preview`, `omni/codex/gpt-5.4-mini`    | Fast contextual search and code navigation.                                                                      |
 | `librarian`         | Research            | `omni/nvidia/minimaxai/minimax-m3` | —        | `omni/nvidia/minimaxai/minimax-m2.7`, `omni/gemini/gemini-3-flash-preview`, `omni/codex/gpt-5.4-mini`    | Documentation and external code research.                                                                        |
 | `multimodal-looker` | Visual analysis     | `omni/codex/gpt-5.5`               | `medium` | `omni/glm/glm-5-turbo`, `omni/codex/gpt-5.4-mini`                                                        | Image and multimodal interpretation.                                                                             |
@@ -291,12 +292,12 @@ below include their provider prefix exactly as configured.
 
 | Category             | Primary model                        | Variant | Fallback models                                                                                                                                 | Notes                                                                              |
 |:---------------------|:-------------------------------------|:--------|:------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------|
-| `visual-engineering` | `omni/glm/glm-5.2`                   | `max`   | `omni/glm/glm-5.1`                                                                                                                              | Frontend, UI/UX, styling, animation.                                               |
-| `artistry`           | `omni/codex/gpt-5.5`                 | `high`  | `omni/glm/glm-5.2` (`max`)                                                                                                                      | Creative problem-solving.                                                          |
-| `ultrabrain`         | `omni/codex/gpt-5.6-sol`             | `xhigh` | `omni/codex/gpt-5.5` (`xhigh`), `omni/glm/glm-5.2` (`max`)                                                                                      | Hard logic-heavy tasks.                                                            |
-| `deep`               | `omni/codex/gpt-5.6-terra`           | `xhigh` | `omni/codex/gpt-5.6-sol` (`high`), `omni/glm/glm-5.2` (`max`)                                                                                   | Deep autonomous problem-solving.                                                   |
+| `visual-engineering` | `omni/glm/glm-5.3`                   | `max`   | `omni/glm/glm-5.2` (`max`), `omni/glm/glm-5.1`                                                                                                 | Frontend, UI/UX, styling, animation.                                               |
+| `artistry`           | `omni/codex/gpt-5.5`                 | `high`  | `omni/glm/glm-5.3` (`max`)                                                                                                                      | Creative problem-solving.                                                          |
+| `ultrabrain`         | `omni/codex/gpt-5.6-sol`             | `xhigh` | `omni/codex/gpt-5.5` (`xhigh`), `omni/glm/glm-5.3` (`max`)                                                                                      | Hard logic-heavy tasks.                                                            |
+| `deep`               | `omni/codex/gpt-5.6-terra`           | `xhigh` | `omni/codex/gpt-5.6-sol` (`high`), `omni/glm/glm-5.3` (`max`)                                                                                   | Deep autonomous problem-solving.                                                   |
 | `quick`              | `omni/codex/gpt-5.4-mini`            | —       | `omni/gemini/gemini-3-flash-preview`, `omni/nvidia/minimaxai/minimax-m3`, `omni/nvidia/minimaxai/minimax-m2.7`                                  | Simple edits and fast tasks.                                                       |
-| `unspecified-high`   | `omni/codex/gpt-5.5`                 | `high`  | `omni/glm/glm-5.1`, `omni/glm/glm-5.2` (`max`)                                                                                                  | Higher-effort uncategorized tasks.                                                 |
+| `unspecified-high`   | `omni/codex/gpt-5.5`                 | `high`  | `omni/glm/glm-5.2` (`max`), `omni/glm/glm-5.3` (`max`)                                                                                          | Higher-effort uncategorized tasks.                                                 |
 | `unspecified-low`    | `omni/codex/gpt-5.6-luna`            | `xhigh` | `omni/codex/gpt-5.5` (`medium`), `omni/gemini/gemini-3-flash-preview`, `omni/nvidia/minimaxai/minimax-m3`, `omni/nvidia/minimaxai/minimax-m2.7` | Lower-effort uncategorized tasks.                                                  |
 | `writing`            | `omni/gemini/gemini-3-flash-preview` | —       | `omni/nvidia/minimaxai/minimax-m3`, `omni/nvidia/minimaxai/minimax-m2.7`, `omni/auto/best-free`                                                 | Documentation and prose.                                                           |
 | `git`                | `omni/auto/best-free`                | —       | `omni/glm/glm-4.7`, `omni/glm/glm-4.5-air`, `omni/opencode-zen/big-pickle`                                                                      | All git operations. Prompt: focus atomic commits, clear messages, safe operations. |
@@ -331,6 +332,7 @@ below include their provider prefix exactly as configured.
 | `omni/glm/glm-5-turbo`     |           1 |
 | `omni/glm/glm-5.1`         |          10 |
 | `omni/glm/glm-5.2`         |          10 |
+| `omni/glm/glm-5.3`         |          10 |
 
 ### Plugins
 
