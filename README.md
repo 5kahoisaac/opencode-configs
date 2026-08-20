@@ -161,11 +161,10 @@ Core runtime settings:
 
 Configured models:
 
-| Model ID                        | Display name                  | Context |  Input | Output |
-|:--------------------------------|:------------------------------|--------:|-------:|-------:|
-| `gemma-4-26b-a4b-it-mlx-8bit`   | Gemma 4 26B A4B MLX 8-bit     |  262144 | 160000 |  16384 |
-| `qwen3.6-35b-a3b-ud-mlx-4bit`   | Qwen3.6 35B A3B MLX 4-bit     |  262144 | 160000 |  16384 |
-| `qwythos-9b-claude-mythos-5-1m` | Qwythos 9B Claude Mythos 5 1M | 1000000 | 160000 |  16384 |
+| Model ID                        | Display name         |  Context |  Input | Output |
+|:--------------------------------|:---------------------|---------:|-------:|-------:|
+| `gemma-4-26B-A4B-it-MLX-8bit`   | Gemma 4 26B A4B 8bit |   262144 | 160000 |  16384 |
+| `Qwen3.8-27B-MLX-8bit`          | Qwen 3.82 7B 8bit    |  1000000 | 160000 |  16384 |
 
 **OmniRoute**
 
@@ -200,9 +199,9 @@ OmniRoute is reachable over **Tailscale MagicDNS**, not the public internet:
 | `codex/gpt-5.4`                 | GPT5.4                 |    yes    |     yes     |  200000 |  200000 | 128000 | low, medium, high, xhigh      |
 | `codex/gpt-5.4-mini`            | GPT5.4Mini             |    yes    |     yes     |  409600 |  409600 | 131072 | low, medium, high, xhigh      |
 | `codex/gpt-5.5`                 | GPT5.5                 |    yes    |     yes     |  400000 |  272000 | 128000 | low, medium, high, xhigh      |
-| `codex/gpt-5.6-luna`            | GPT5.6Luna             |    yes    |     no      |  400000 |  400000 | 128000 | low, medium, high, xhigh, max |
-| `codex/gpt-5.6-sol`             | GPT5.6Sol              |    yes    |     no      |  400000 |  400000 | 128000 | low, medium, high, xhigh, max |
-| `codex/gpt-5.6-terra`           | GPT5.6Terra            |    yes    |     no      |  400000 |  400000 | 128000 | low, medium, high, xhigh, max |
+| `codex/gpt-5.6-luna`            | GPT5.6Luna             |    yes    |     no      | 1000000 | 1000000 | 128000 | low, medium, high, xhigh, max |
+| `codex/gpt-5.6-sol`             | GPT5.6Sol              |    yes    |     no      | 1000000 | 1000000 | 128000 | low, medium, high, xhigh, max |
+| `codex/gpt-5.6-terra`           | GPT5.6Terra            |    yes    |     no      | 1000000 | 1000000 | 128000 | low, medium, high, xhigh, max |
 | `github/gpt-4o-mini`            | GPT 4o Mini            |    no     |     yes     |  128000 |  128000 |   4096 | —                             |
 | `github/gemini-3.5-flash`       | Gemini3.5Flash         |    yes    |     yes     |  200000 |  128000 |  64000 | low, medium, high, xhigh      |
 | `gemini/gemini-2.5-flash`       | Gemini2.5Flash         |    yes    |     yes     | 1048576 | 1048576 |  65536 | low, medium, high, xhigh      |
