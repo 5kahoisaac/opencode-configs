@@ -95,10 +95,9 @@ The current cycle is removing legacy surfaces and consolidating code intelligenc
   better performance on semantic code intelligence. It builds a persistent tree-sitter knowledge graph and answers
   structural queries in under a millisecond. It runs **alongside** `serena` and `ast_grep`, not as a replacement — the
   three backends are complementary and routed by intent through MCPProxy's `retrieve_tools` mode, with per-tool on/off
-  toggling used to avoid duplicate tool surfaces during a session. See
-  [Code Intelligence](#code-intelligence-mcpproxy-retrieve_tools-mode) for the routing rules.
+  toggling used to avoid duplicate tool surfaces during a session.
 
-**Moved OmniRoute to localhost loopback.** OmniRoute Base URL is now `http://localhost:20128/v1`, running on the same
+**Moved OmniRoute to localhost loopback.** OmniRoute Base URL is now `http://127.0.0.1:20128/v1`, running on the same
 host as OpenCode. Loopback traffic stays off the network entirely, with no TLS termination hop and the lowest possible
 latency. The public `omniroute.isaac.ng` domain (via Cloudflare Tunnel) is retained for remote and non-local hosts (CI
 runners, external services) where the loopback interface is unreachable.
@@ -127,7 +126,7 @@ directories are present.
 
 ---
 
-Configuration
+## Configuration
 
 ### Providers
 
@@ -275,30 +274,28 @@ below include their provider prefix exactly as configured.
 
 | Agent               | Role                | Primary model                      | Variant  | Fallback models                                                                                          | Notes                                                                                                            |
 |:--------------------|:--------------------|:-----------------------------------|:---------|:---------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------|
-| `sisyphus`          | Orchestrator        | `omni/glm/glm-5.3`                 | `max`    | `omni/glm/glm-5.2` (`max`), `omni/glm/glm-5.1`, `omni/opencode-zen/big-pickle`                           | Ultrawork: `omni/codex/gpt-5.5` (`medium`). Prompt: delegate heavily to hephaestus and parallelize exploration.  |
+| `sisyphus`          | Orchestrator        | `omni/glm/glm-5.3`                 | `max`    | `omni/glm/glm-5.2`, `omni/opencode-zen/big-pickle`                                                        | Ultrawork: `omni/codex/gpt-5.6` (`medium`). Prompt: delegate heavily to hephaestus and parallelize exploration.  |
 | `metis`             | Scope analysis      | `omni/glm/glm-5.3`                 | `max`    | `omni/codex/gpt-5.5` (`high`)                                                                            | Pre-planning consultation.                                                                                       |
-| `prometheus`        | Planning            | `omni/codex/gpt-5.5`               | `high`   | `omni/glm/glm-5.3` (`max`)                                                                               | Prompt: keep plans concise and focus file structure / key decisions.                                             |
-| `atlas`             | Codebase mapping    | `omni/codex/gpt-5.5`               | `medium` | `omni/nvidia/minimaxai/minimax-m3`, `omni/nvidia/minimaxai/minimax-m2.7`                                 | Broad codebase analysis and mapping.                                                                             |
+| `prometheus`        | Planning            | `omni/glm/glm-5.3`                 | `max`    | —                                                                                                          | Prompt: keep plans concise and focus file structure / key decisions.                                             |
 | `hephaestus`        | Implementation      | `omni/codex/gpt-5.6-sol`           | `medium` | `omni/codex/gpt-5.5` (`medium`)                                                                          | Primary implementation agent. Prompt: own codebase, explore, decide, execute; use LSP and ast-grep aggressively. |
-| `oracle`            | Strategic reasoning | `omni/codex/gpt-5.5`               | `high`   | `omni/glm/glm-5.3` (`max`)                                                                               | High-stakes architecture and reasoning.                                                                          |
-| `momus`             | Review              | `omni/codex/gpt-5.6-sol`           | `xhigh`  | `omni/codex/gpt-5.5` (`xhigh`), `omni/glm/glm-5.3` (`max`)                                               | Plan and implementation critique.                                                                                |
-| `explore`           | Codebase analysis   | `omni/nvidia/minimaxai/minimax-m3` | —        | `omni/nvidia/minimaxai/minimax-m2.7`, `omni/gemini/gemini-3-flash-preview`, `omni/codex/gpt-5.4-mini`    | Fast contextual search and code navigation.                                                                      |
-| `librarian`         | Research            | `omni/nvidia/minimaxai/minimax-m3` | —        | `omni/nvidia/minimaxai/minimax-m2.7`, `omni/gemini/gemini-3-flash-preview`, `omni/codex/gpt-5.4-mini`    | Documentation and external code research.                                                                        |
-| `multimodal-looker` | Visual analysis     | `omni/codex/gpt-5.5`               | `medium` | `omni/glm/glm-5-turbo`, `omni/codex/gpt-5.4-mini`                                                        | Image and multimodal interpretation.                                                                             |
-| `sisyphus-junior`   | Category executor   | `omni/codex/gpt-5.5`               | `medium` | `omni/nvidia/minimaxai/minimax-m3`, `omni/nvidia/minimaxai/minimax-m2.7`, `omni/opencode-zen/big-pickle` | Backs `task()` category delegation.                                                                              |
+| `oracle`            | Strategic reasoning | `omni/codex/gpt-5.6-sol`           | `xhigh`  | `omni/codex/gpt-5.6-sol` (`high`), `omni/glm/glm-5.2`                                                      | High-stakes architecture and reasoning.                                                                          |
+| `momus`             | Review              | `omni/codex/gpt-6-astra`           | `xhigh`  | `omni/codex/gpt-6-astra` (`high`), `omni/glm/glm-5.2`                                                      | Plan and implementation critique.                                                                                |
+| `explore`           | Codebase analysis   | `omni/nvidia/minimaxai/minimax-m3` | —        | `omni/nvidia/minimaxai/minimax-m2.7`, `omni/gemini/gemini-3-flash-preview`, `omni/codex/gpt-5.6-luna` (`low`) | Fast contextual search and code navigation.                                                                      |
+| `librarian`         | Research            | `omni/nvidia/minimaxai/minimax-m3` | —        | `omni/nvidia/minimaxai/minimax-m2.7`, `omni/gemini/gemini-3-flash-preview`, `omni/codex/gpt-5.6-luna` (`low`) | Documentation and external code research.                                                                        |
+| `multimodal-looker` | Visual analysis     | `omni/codex/gpt-5.6-sol`           | `low`    | `omni/glm/glm-4.6v`, `omni/github/gpt-5.4-nano`                                                             | Image and multimodal interpretation.                                                                             |
 
 **Task Category Model Assignments**
 
 | Category             | Primary model                        | Variant | Fallback models                                                                                                                                 | Notes                                                                              |
 |:---------------------|:-------------------------------------|:--------|:------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------|
 | `visual-engineering` | `omni/glm/glm-5.3`                   | `max`   | `omni/glm/glm-5.2` (`max`), `omni/glm/glm-5.1`                                                                                                 | Frontend, UI/UX, styling, animation.                                               |
-| `artistry`           | `omni/codex/gpt-5.5`                 | `high`  | `omni/glm/glm-5.3` (`max`)                                                                                                                      | Creative problem-solving.                                                          |
-| `ultrabrain`         | `omni/codex/gpt-5.6-sol`             | `xhigh` | `omni/codex/gpt-5.5` (`xhigh`), `omni/glm/glm-5.3` (`max`)                                                                                      | Hard logic-heavy tasks.                                                            |
-| `deep`               | `omni/codex/gpt-5.6-terra`           | `xhigh` | `omni/codex/gpt-5.6-sol` (`high`), `omni/glm/glm-5.3` (`max`)                                                                                   | Deep autonomous problem-solving.                                                   |
-| `quick`              | `omni/codex/gpt-5.4-mini`            | —       | `omni/gemini/gemini-3-flash-preview`, `omni/nvidia/minimaxai/minimax-m3`, `omni/nvidia/minimaxai/minimax-m2.7`                                  | Simple edits and fast tasks.                                                       |
-| `unspecified-high`   | `omni/codex/gpt-5.5`                 | `high`  | `omni/glm/glm-5.2` (`max`), `omni/glm/glm-5.3` (`max`)                                                                                          | Higher-effort uncategorized tasks.                                                 |
-| `unspecified-low`    | `omni/codex/gpt-5.6-luna`            | `xhigh` | `omni/codex/gpt-5.5` (`medium`), `omni/gemini/gemini-3-flash-preview`, `omni/nvidia/minimaxai/minimax-m3`, `omni/nvidia/minimaxai/minimax-m2.7` | Lower-effort uncategorized tasks.                                                  |
-| `writing`            | `omni/gemini/gemini-3-flash-preview` | —       | `omni/nvidia/minimaxai/minimax-m3`, `omni/nvidia/minimaxai/minimax-m2.7`, `omni/auto/best-free`                                                 | Documentation and prose.                                                           |
+| `artistry`           | `omni/glm/glm-5.3`                   | `max`   | `omni/glm/glm-5.2` (`max`)                                                                                                                      | Creative problem-solving.                                                          |
+| `ultrabrain`         | `omni/codex/gpt-6-astra`             | `max`   | `omni/codex/gpt-5.6-sol` (`max`), `omni/glm/glm-5.3` (`max`)                                                                                   | Hard logic-heavy tasks.                                                            |
+| `deep`               | `omni/codex/gpt-6-astra`             | `high`  | `omni/codex/gpt-5.6-sol` (`medium`)                                                                                                             | Deep autonomous problem-solving.                                                   |
+| `quick`              | `omni/codex/gpt-5.6-luna`            | `low`   | `omni/nvidia/minimaxai/minimax-m3`, `omni/nvidia/minimaxai/minimax-m2.7`                                                                        | Simple edits and fast tasks.                                                       |
+| `unspecified-high`   | `omni/codex/gpt-6-astra`             | `high`  | `omni/glm/glm-5.3` (`max`)                                                                                                                      | Higher-effort uncategorized tasks.                                                 |
+| `unspecified-low`    | `omni/codex/gpt-5.6-terra`           | `high`  | —                                                                                                                                               | Lower-effort uncategorized tasks.                                                  |
+| `writing`            | `omni/glm/glm-5.3`                   | `max`   | —                                                                                                                                               | Documentation and prose.                                                           |
 | `git`                | `omni/auto/best-free`                | —       | `omni/glm/glm-4.7`, `omni/glm/glm-4.5-air`, `omni/opencode-zen/big-pickle`                                                                      | All git operations. Prompt: focus atomic commits, clear messages, safe operations. |
 
 **Runtime and Background Task Configuration**
@@ -306,6 +303,7 @@ below include their provider prefix exactly as configured.
 | Area                         | Current configuration                                                                                                         |
 |:-----------------------------|:------------------------------------------------------------------------------------------------------------------------------|
 | Team mode                    | Enabled with tmux visualization                                                                                               |
+| Sisyphus agent               | Default builder enabled (`sisyphus_agent.default_builder_enabled: true`)                                                      |
 | Codegraph                    | Disabled (`enabled: false`, `auto_init: false`, `auto_provision: false`)                                                      |
 | Disabled OMO MCPs            | `context7`, `websearch`, `grep_app`, `codegraph`                                                                              |
 | Claude Code plugin overrides | `ecc@ecc`, `andrej-karpathy-skills@karpathy-skills`, `claude-code-setup@claude-plugins-official` disabled; `mcp: false`       |
@@ -317,7 +315,8 @@ below include their provider prefix exactly as configured.
 
 | Model prefix               | Concurrency |
 |:---------------------------|------------:|
-| `omni/codex/gpt-5.6-sol`   |           1 |
+| `omni/codex/gpt-6-astra`  |           2 |
+| `omni/codex/gpt-5.6-sol`   |           4 |
 | `omni/codex/gpt-5.6-terra` |           2 |
 | `omni/codex/gpt-5.6-luna`  |           4 |
 | `omni/codex/gpt-5.5`       |           2 |
@@ -359,7 +358,7 @@ Direct OpenCode MCP surface is intentionally minimal. Shared MCPs are centralize
 `codegraph`. This keeps context lighter and avoids duplicate MCP surfaces when MCPProxy or CLI equivalents are
 preferred.
 
-Commands
+### Commands
 
 Project-scoped commands currently live under `.opencode/commands/`.
 
@@ -370,7 +369,7 @@ Project-scoped commands currently live under `.opencode/commands/`.
 
 There is no root-level `commands/` directory currently. `make sync` still supports mirroring one if added later.
 
-### TUI Configuration
+#### TUI Configuration
 
 `tui.json` currently selects the standard OpenCode terminal theme:
 
@@ -380,7 +379,7 @@ There is no root-level `commands/` directory currently. `make sync` still suppor
 
 Additional TUI customization can be added to `tui.json` when needed.
 
-Agents
+### Agents
 
 OpenCode uses plugin-provided agents from Oh-My-OpenAgent. There are currently no repo-local `agents/` or
 `.opencode/agents/` files in this project.
@@ -405,7 +404,7 @@ Configured agents and roles:
 
 Model assignments for these agents are documented in [Models Configuration](#models-configuration).
 
-Team Mode
+## Team Mode
 
 Team mode is enabled by `oh-my-openagent.json`:
 
@@ -416,9 +415,9 @@ Team mode is enabled by `oh-my-openagent.json`:
 
 This enables parallel team orchestration with tmux visualization for agent workflows.
 
-Reference Links
+## Reference Links
 
-### Plugins
+### Plugin Links
 
 - [OpenCode configuration schema](https://opencode.ai/config.json)
 - [OpenCode docs](https://opencode.ai/docs/)
