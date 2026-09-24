@@ -131,14 +131,14 @@ directories are present.
 ### Providers
 
 Configuration uses two explicitly enabled provider routes in `opencode.json`: local `omlx` and remote `omni`. Default
-model is `omni/glm/glm-5.3`; small model is `omni/codex/gpt-5.4-mini`.
+model is `omni/glm/glm-5.3`; small model is `omni/codex/gpt-5.6-luna`.
 
 Core runtime settings:
 
 | Setting           | Current value                                                                                                                   |
 |:------------------|:--------------------------------------------------------------------------------------------------------------------------------|
 | Default model     | `omni/glm/glm-5.3`                                                                                                              |
-| Small model       | `omni/codex/gpt-5.4-mini`                                                                                                       |
+| Small model       | `omni/codex/gpt-5.6-luna`                                                                                                       |
 | Enabled providers | `omlx`, `omni`                                                                                                                  |
 | Skill permissions | `*` allowed                                                                                                                     |
 | Todo tools        | `todoread`, `todowrite` allowed                                                                                                 |
@@ -195,8 +195,6 @@ OmniRoute is reachable over **Tailscale MagicDNS**, not the public internet:
 | `nvidia/minimaxai/minimax-m2.7` | MiniMax M2.7           |    yes    |     no      |  204800 |  204800 | 131072 | —                             |
 | `nvidia/minimaxai/minimax-m3`   | MiniMax M3             |    yes    |     yes     | 1000000 | 1000000 |  16384 | —                             |
 | `nvidia/openai/gpt-oss-120b`    | GPT OSS 120B           |    yes    |     no      |  128000 |  128000 |   8192 | —                             |
-| `codex/gpt-5.4`                 | GPT5.4                 |    yes    |     yes     |  200000 |  200000 | 128000 | low, medium, high, xhigh      |
-| `codex/gpt-5.4-mini`            | GPT5.4Mini             |    yes    |     yes     |  409600 |  409600 | 131072 | low, medium, high, xhigh      |
 | `codex/gpt-5.5`                 | GPT5.5                 |    yes    |     yes     |  400000 |  272000 | 128000 | low, medium, high, xhigh      |
 | `codex/gpt-5.6-luna`            | GPT5.6Luna             |    yes    |     no      | 1000000 | 1000000 | 128000 | low, medium, high, xhigh, max |
 | `codex/gpt-5.6-sol`             | GPT5.6Sol              |    yes    |     no      | 1000000 | 1000000 | 128000 | low, medium, high, xhigh, max |
@@ -320,8 +318,6 @@ below include their provider prefix exactly as configured.
 | `omni/codex/gpt-5.6-terra` |           2 |
 | `omni/codex/gpt-5.6-luna`  |           4 |
 | `omni/codex/gpt-5.5`       |           2 |
-| `omni/codex/gpt-5.4`       |           4 |
-| `omni/codex/gpt-5.4-mini`  |           6 |
 | `omni/glm/glm-4.5`         |          10 |
 | `omni/glm/glm-4.5-air`     |           5 |
 | `omni/glm/glm-4.6`         |           3 |

@@ -1,7 +1,7 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "model": "omni/glm/glm-5.3",
-  "small_model": "omni/codex/gpt-5.4-mini",
+  "small_model": "omni/codex/gpt-5.6-luna",
   "permission": {
     "skill": {
       "*": "allow"
@@ -105,54 +105,6 @@
             "context": 128000,
             "input": 128000,
             "output": 8192
-          }
-        },
-        "codex/gpt-5.4": {
-          "name": "GPT 5.4",
-          "reasoning": true,
-          "attachment": true,
-          "limit": {
-            "context": 200000,
-            "input": 200000,
-            "output": 128000
-          },
-          "variants": {
-            "low": {
-              "reasoningEffort": "low"
-            },
-            "medium": {
-              "reasoningEffort": "medium"
-            },
-            "high": {
-              "reasoningEffort": "high"
-            },
-            "xhigh": {
-              "reasoningEffort": "xhigh"
-            }
-          }
-        },
-        "codex/gpt-5.4-mini": {
-          "name": "GPT 5.4 Mini",
-          "reasoning": true,
-          "attachment": true,
-          "limit": {
-            "context": 409600,
-            "input": 409600,
-            "output": 131072
-          },
-          "variants": {
-            "low": {
-              "reasoningEffort": "low"
-            },
-            "medium": {
-              "reasoningEffort": "medium"
-            },
-            "high": {
-              "reasoningEffort": "high"
-            },
-            "xhigh": {
-              "reasoningEffort": "xhigh"
-            }
           }
         },
         "codex/gpt-5.5": {
